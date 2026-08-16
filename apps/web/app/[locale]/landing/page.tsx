@@ -85,10 +85,6 @@ export default async function LandingPage() {
           <RiverWaveBackground />
           <div className="relative z-10 mx-auto max-w-6xl">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="mb-4 inline-flex items-center rounded-full border border-beaver-200 bg-beaver-50 px-3 py-1 text-sm text-beaver-700">
-                <span className="mr-2 text-coin-500">●</span>
-                {t("hero.badge")}
-              </p>
               <h1 className="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
                 {t("hero.title")}
               </h1>
@@ -144,7 +140,10 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        <section id="features" className="border-t border-stone-200 bg-stone-50 px-6 py-20">
+        <section
+          id="features"
+          className="border-t border-stone-200 bg-stone-50 px-6 py-20"
+        >
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
@@ -190,7 +189,10 @@ export default async function LandingPage() {
             </div>
             <ol className="mt-14 grid gap-8 md:grid-cols-3">
               {stepItems.map((item) => (
-                <li key={item.step} className="relative text-center md:text-left">
+                <li
+                  key={item.step}
+                  className="relative text-center md:text-left"
+                >
                   <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-beaver-100 text-lg font-bold text-beaver-700">
                     {item.step}
                   </span>

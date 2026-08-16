@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+/*
+ * Beaver Savings — Color Palette
+ *
+ * Beaver: warm fur browns, cream highlights, river blues (dam & habitat)
+ * Money: savings green (growth), coin gold (rewards), banknote tints
+ */
+
+:root {
+  /* Semantic tokens — light mode */
+  --background: var(--surface);
+  --foreground: var(--text-primary);
+
+  --surface: #faf6f1;
+  --surface-raised: #ffffff;
+  --surface-sunken: #f0e6d8;
+
+  --text-primary: #26180d;
+  --text-secondary: #57381e;
+  --text-muted: #78716c;
+  --text-inverse: #faf6f1;
+
+  --border: #e0ceb8;
+  --border-strong: #c9ad8c;
+
+  --primary: #8b5e34;
+  --primary-hover: #704a28;
+  --primary-subtle: #f0e6d8;
+
+  --secondary: #2d8659;
+  --secondary-hover: #236b47;
+  --secondary-subtle: #edf7f2;
+
+  --accent: #d4a017;
+  --accent-hover: #b8860b;
+  --accent-subtle: #fdf8eb;
+
+  --success: #2d8659;
+  --success-subtle: #d4ede0;
+  --warning: #e5b318;
+  --warning-subtle: #faefc8;
+  --danger: #b91c1c;
+  --danger-subtle: #fee2e2;
+
+  --ring: #8b5e34;
+  --shadow: rgb(38 24 13 / 8%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #1a1108;
+    --surface-raised: #26180d;
+    --surface-sunken: #120c06;
+
+    --text-primary: #f0e6d8;
+    --text-secondary: #e0ceb8;
+    --text-muted: #a8a29e;
+    --text-inverse: #26180d;
+
+    --border: #3d2715;
+    --border-strong: #57381e;
+
+    --primary: #c9ad8c;
+    --primary-hover: #e0ceb8;
+    --primary-subtle: #3d2715;
+
+    --secondary: #6bbf94;
+    --secondary-hover: #a8dbc1;
+    --secondary-subtle: #123624;
+
+    --accent: #eec956;
+    --accent-hover: #f5de91;
+    --accent-subtle: #423205;
+
+    --success: #6bbf94;
+    --success-subtle: #1a5035;
+    --warning: #eec956;
+    --warning-subtle: #6b5007;
+    --danger: #f87171;
+    --danger-subtle: #450a0a;
+
+    --ring: #c9ad8c;
+    --shadow: rgb(0 0 0 / 32%);
+  }
+}
+
+@theme inline {
+  /* ── Beaver (fur & wood) ── */
+  --color-beaver-50: #faf6f1;
+  --color-beaver-100: #f0e6d8;
+  --color-beaver-200: #e0ceb8;
+  --color-beaver-300: #c9ad8c;
+  --color-beaver-400: #a8855c;
+  --color-beaver-500: #8b5e34;
+  --color-beaver-600: #704a28;
+  --color-beaver-700: #57381e;
+  --color-beaver-800: #3d2715;
+  --color-beaver-900: #26180d;
+  --color-beaver-950: #1a1108;
+
+  /* ── Savings (money & growth) ── */
+  --color-savings-50: #edf7f2;
+  --color-savings-100: #d4ede0;
+  --color-savings-200: #a8dbc1;
+  --color-savings-300: #6bbf94;
+  --color-savings-400: #3da06e;
+  --color-savings-500: #2d8659;
+  --color-savings-600: #236b47;
+  --color-savings-700: #1a5035;
+  --color-savings-800: #123624;
+  --color-savings-900: #0a1f15;
+  --color-savings-950: #051009;
+
+  /* ── Coin (gold & rewards) ── */
+  --color-coin-50: #fdf8eb;
+  --color-coin-100: #faefc8;
+  --color-coin-200: #f5de91;
+  --color-coin-300: #eec956;
+  --color-coin-400: #e5b318;
+  --color-coin-500: #d4a017;
+  --color-coin-600: #b8860b;
+  --color-coin-700: #946e09;
+  --color-coin-800: #6b5007;
+  --color-coin-900: #423205;
+  --color-coin-950: #2a1f03;
+
+  /* ── River (water & trust) ── */
+  --color-river-50: #f8fafb;
+  --color-river-100: #e8eef2;
+  --color-river-200: #c5d5e0;
+  --color-river-300: #94b5c9;
+  --color-river-400: #5e8fa8;
+  --color-river-500: #457b9d;
+  --color-river-600: #366280;
+  --color-river-700: #284a61;
+  --color-river-800: #1b3342;
+  --color-river-900: #0f1e27;
+  --color-river-950: #081219;
+
+  /* ── Stone (warm neutrals) ── */
+  --color-stone-50: #fafaf9;
+  --color-stone-100: #f5f5f4;
+  --color-stone-200: #e7e5e4;
+  --color-stone-300: #d6d3d1;
+  --color-stone-400: #a8a29e;
+  --color-stone-500: #78716c;
+  --color-stone-600: #57534e;
+  --color-stone-700: #44403c;
+  --color-stone-800: #292524;
+  --color-stone-900: #1c1917;
+  --color-stone-950: #0c0a09;
+
+  /* ── Semantic aliases (Tailwind utilities) ── */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-subtle: var(--primary-subtle);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-secondary-subtle: var(--secondary-subtle);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-subtle: var(--accent-subtle);
+
+  --color-success: var(--success);
+  --color-success-subtle: var(--success-subtle);
+  --color-warning: var(--warning);
+  --color-warning-subtle: var(--warning-subtle);
+  --color-danger: var(--danger);
+  --color-danger-subtle: var(--danger-subtle);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ring: var(--ring);
+
+  --color-muted: var(--text-muted);
+  --color-muted-foreground: var(--text-secondary);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+@keyframes river-wave {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.river-wave-track {
+  animation: river-wave 14s linear infinite;
+}
+
+.river-wave-track-slow {
+  animation-duration: 22s;
+}
+
+.river-wave-track-reverse {
+  animation-direction: reverse;
+  animation-duration: 18s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .river-wave-track {
+    animation: none;
+  }
+}

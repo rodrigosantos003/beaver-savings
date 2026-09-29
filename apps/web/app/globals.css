@@ -195,6 +195,11 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 10mm;
+}
+
 @keyframes river-wave {
   from {
     transform: translateX(0);

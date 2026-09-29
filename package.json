@@ -3,14 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "license": "UNLICENSED",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev:web": "cd apps/web && yarn dev",
-    "build:web": "cd apps/web && yarn build",
-    "start:web": "cd apps/web && yarn start",
-    "lint:web": "cd apps/web && yarn lint",
-    "dev:api": "cd apps/api && yarn start:dev",
-    "build:api": "cd apps/api && yarn build",
-    "start:api": "cd apps/api && yarn start",
-    "lint:api": "cd apps/api && yarn lint"
+    "dev:web": "yarn workspace savings-core build && yarn workspace web dev",
+    "build:web": "yarn workspace savings-core build && yarn workspace web build",
+    "start:web": "yarn workspace web start",
+    "lint:web": "yarn workspace web lint",
+    "dev:api": "yarn workspace savings-core build && yarn workspace api start:dev",
+    "build:api": "yarn workspace savings-core build && yarn workspace api build",
+    "start:api": "yarn workspace api start",
+    "lint:api": "yarn workspace api lint",
+    "test:core": "yarn workspace savings-core test",
+    "test:api": "yarn workspace savings-core build && yarn workspace api test"
   }
 }

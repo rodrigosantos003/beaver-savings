@@ -72,14 +72,17 @@ beaver-savings/
 │   │   │   ├── [locale]/                 # Rotas com prefixo de locale (pt, en)
 │   │   │   │   ├── layout.tsx            # Layout raiz por locale
 │   │   │   │   ├── page.tsx              # Redireciona para /landing
-│   │   │   │   └── landing/
-│   │   │   │       └── page.tsx          # Landing page de marketing
+│   │   │   │   ├── landing/
+│   │   │   │   │   └── page.tsx          # Landing page de marketing
+│   │   │   │   └── calculator/
+│   │   │   │       └── page.tsx          # Calculadora de poupança
 │   │   │   ├── favicon.ico
 │   │   │   └── globals.css
 │   │   │
 │   │   ├── components/
 │   │   │   ├── BeaverLogo.tsx
-│   │   │   └── RiverWaveBackground.tsx
+│   │   │   ├── RiverWaveBackground.tsx
+│   │   │   └── calculator/               # Formulário, resultados e exportação
 │   │   │
 │   │   ├── i18n/
 │   │   │   ├── navigation.ts             # Link, redirect e router com locale
@@ -102,13 +105,13 @@ beaver-savings/
 │   │   ├── AGENTS.md
 │   │   └── package.json
 │   │
-│   └── api/                              # NestJS backend (scaffold)
+│   └── api/                              # NestJS backend
 │       ├── src/
 │       │   ├── main.ts
-│       │   ├── app.module.ts
-│       │   ├── app.controller.ts
-│       │   ├── app.service.ts
-│       │   └── app.controller.spec.ts
+│       │   ├── modules/app.module.ts
+│       │   ├── controllers/app.controller.ts
+│       │   ├── services/app.service.ts
+│       │   └── savings/                  # POST /savings/email (Resend)
 │       │
 │       ├── test/
 │       │   ├── app.e2e-spec.ts
@@ -122,9 +125,10 @@ beaver-savings/
 │       └── package.json
 │
 ├── packages/
+│   ├── savings-core/                     # Fórmula do mês e do plano anual
 │   └── shared-types/                     # Tipos partilhados (por implementar)
 │
-├── package.json                          # Scripts raiz (dev:web, dev:api, …)
+├── package.json                          # Workspaces Yarn e scripts raiz
 ├── LICENSE
 └── README.md
 ```
@@ -135,8 +139,9 @@ beaver-savings/
 
 | App / Package           | Estado                 |
 | ----------------------- | ---------------------- |
-| `apps/web`              | Inicializado (Next.js) |
-| `apps/api`              | Inicializado (NestJS)  |
+| `apps/web`              | Landing e calculadora  |
+| `apps/api`              | Saúde e envio de email |
+| `packages/savings-core` | Cálculo partilhado     |
 | `packages/shared-types` | Por implementar        |
 
 ---
@@ -155,6 +160,8 @@ NEXT_PUBLIC_API_URL=http://localhost:3001
 MONGODB_URI=
 JWT_SECRET=
 RESEND_API_KEY=
+RESEND_FROM=
+WEB_ORIGIN=http://localhost:3000
 GEMINI_API_KEY=
 ```
 

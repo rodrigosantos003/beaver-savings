@@ -71,7 +71,7 @@ export default async function LandingPage() {
               {t("nav.howItWorks")}
             </Link>
             <Link
-              href="#get-started"
+              href="/calculator"
               className={`${ctaClass} h-9 px-4 text-sm`}
             >
               {t("nav.getStarted")}
@@ -216,7 +216,7 @@ export default async function LandingPage() {
             </h2>
             <p className="max-w-lg text-beaver-100">{t("cta.description")}</p>
             <Link
-              href="#get-started"
+              href="/calculator"
               className={`${ctaClass} h-12 px-8 text-base`}
             >
               {t("cta.button")}

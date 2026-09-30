@@ -20,7 +20,10 @@ export function CalculatorForm({
 }: CalculatorFormProps) {
   const t = useTranslations("calculator");
 
-  function update<K extends keyof SavingsInput>(key: K, value: SavingsInput[K]) {
+  function update<K extends keyof SavingsInput>(
+    key: K,
+    value: SavingsInput[K],
+  ) {
     onChange({ ...input, [key]: value });
   }
 
@@ -110,7 +113,7 @@ export function CalculatorForm({
           onChange={(raw) => updateNumber("irsRatePercent", raw)}
         />
         <NumberField
-          label={t("ss")}
+          label={t("ssRate")}
           value={input.ssRatePercent}
           onChange={(raw) => updateNumber("ssRatePercent", raw)}
         />

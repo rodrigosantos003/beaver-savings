@@ -36,11 +36,6 @@
         "icon": "📅"
       },
       {
-        "title": "Payslip parser",
-        "description": "Upload a payslip and let AI extract salary details automatically — less typing, more planning.",
-        "icon": "📄"
-      },
-      {
         "title": "Export & share",
         "description": "Download a PDF summary or email your results so you can keep a record or share with someone you trust.",
         "icon": "✉️"
@@ -94,7 +89,7 @@
     "includeExtras": "Include extra income in the calculation",
     "taxes": "Rates and expenses",
     "irs": "IRS rate (%)",
-    "ss": "Social security rate (%)",
+    "ssRate": "Social security rate (%)",
     "expenses": "Estimated monthly expenses",
     "method": "Savings method",
     "percent": "Percentage of net",

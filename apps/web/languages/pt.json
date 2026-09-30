@@ -36,11 +36,6 @@
         "icon": "📅"
       },
       {
-        "title": "Leitor de recibos",
-        "description": "Carrega um recibo de vencimento e deixa a IA extrair os dados automaticamente — menos digitação, mais planeamento.",
-        "icon": "📄"
-      },
-      {
         "title": "Exportar e partilhar",
         "description": "Descarrega um resumo em PDF ou envia os resultados por email para guardar ou partilhar com quem confias.",
         "icon": "✉️"
@@ -94,7 +89,7 @@
     "includeExtras": "Incluir valores extra no cálculo",
     "taxes": "Taxas e despesas",
     "irs": "Taxa IRS (%)",
-    "ss": "Taxa Segurança Social (%)",
+    "ssRate": "Taxa Segurança Social (%)",
     "expenses": "Despesas mensais estimadas",
     "method": "Método de poupança",
     "percent": "Percentagem do líquido",

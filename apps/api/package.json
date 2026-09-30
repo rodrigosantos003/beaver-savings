@@ -20,16 +20,18 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "savings-core": "0.1.0",
-    "resend": "^6.1.2",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",
     "@nestjs/mongoose": "^11.0.4",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/throttler": "^6.7.1",
+    "helmet": "^8.3.0",
     "mongoose": "^9.9.2",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "resend": "^6.1.2",
+    "rxjs": "^7.8.1",
+    "savings-core": "0.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

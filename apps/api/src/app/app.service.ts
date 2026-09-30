@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
-import { Connection } from 'mongoose';
+import { Connection, ConnectionStates } from 'mongoose';
 
 export type HealthStatus = 'up' | 'down';
 
@@ -30,7 +30,10 @@ export class AppService {
 
   private async checkDatabase(): Promise<HealthStatus> {
     try {
-      if (this.connection.readyState !== 1 || !this.connection.db) {
+      if (
+        this.connection.readyState !== ConnectionStates.connected ||
+        !this.connection.db
+      ) {
         return 'down';
       }
 

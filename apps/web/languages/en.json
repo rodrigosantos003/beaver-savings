@@ -6,7 +6,10 @@
   "nav": {
     "features": "Features",
     "howItWorks": "How it works",
-    "getStarted": "Get started"
+    "getStarted": "Get started",
+    "login": "Log in",
+    "demo": "Demo",
+    "signOut": "Sign out"
   },
   "hero": {
     "badge": "Savings calculator for Portugal",
@@ -70,6 +73,31 @@
   },
   "footer": {
     "tagline": "Save bit by bit."
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "signupTitle": "Create an account",
+    "loginDescription": "Use your email and password to open the monthly demo.",
+    "signupDescription": "Create an account to try the monthly savings calculator.",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "submitLogin": "Log in",
+    "submitSignup": "Create account",
+    "submitting": "Please wait…",
+    "needAccount": "Need an account?",
+    "haveAccount": "Already have an account?",
+    "signupLink": "Sign up",
+    "loginLink": "Log in",
+    "loginFailed": "Could not log in. Check your email and password.",
+    "signupFailed": "Could not create the account."
+  },
+  "demo": {
+    "metaTitle": "Monthly demo — Beaver Savings",
+    "metaDescription": "Try the monthly savings calculator.",
+    "back": "Home",
+    "title": "Monthly calculator",
+    "description": "Estimate this month's net pay, expenses, and how much you can set aside."
   },
   "calculator": {
     "metaTitle": "Calculator — Beaver Savings",

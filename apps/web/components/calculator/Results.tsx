@@ -8,7 +8,7 @@ const planMoney = `${planCell} whitespace-nowrap`;
 
 type ResultsProps = {
   month: MonthBreakdown;
-  plan: AnnualPlan;
+  plan: AnnualPlan | null;
   monthNames: string[];
   subsidiesInTwelfths: boolean;
 };
@@ -22,7 +22,7 @@ export function Results({
   const t = useTranslations("calculator");
   const locale = useLocale();
   const money = (value: number) => formatMoney(locale, value);
-  const annualExceeds = plan.months.some((row) => row.savingsExceedsDisposable);
+  const annualExceeds = plan?.months.some((row) => row.savingsExceedsDisposable);
 
   return (
     <div className="grid gap-6">
@@ -57,6 +57,7 @@ export function Results({
         ) : null}
       </section>
 
+      {plan ? (
       <section className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm print:overflow-visible">
         <div className="p-6 pb-2 print:px-3 print:pt-3">
           <h2 className="text-lg font-semibold text-stone-900">
@@ -119,6 +120,7 @@ export function Results({
           </table>
         </div>
       </section>
+      ) : null}
     </div>
   );
 }

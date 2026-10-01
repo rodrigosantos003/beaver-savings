@@ -10,6 +10,7 @@ import {
 } from "savings-core";
 import { useLocale } from "next-intl";
 import { useMemo, useState } from "react";
+import { authClient } from "@/lib/auth-client";
 import { CalculatorForm } from "./CalculatorForm";
 import { ExportBar } from "./ExportBar";
 import { Results } from "./Results";
@@ -34,17 +35,23 @@ const initialInput: SavingsInput = {
 
 export function Calculator() {
   const locale = useLocale();
+  const { data: session, isPending } = authClient.useSession();
+  const loggedIn = !isPending && !!session;
+
   const [input, setInput] = useState<SavingsInput>(initialInput);
   const monthNames = useMemo(() => monthLabels(locale), [locale]);
   const month = useMemo(() => calculateTypicalMonth(input), [input]);
-  const plan = useMemo(() => calculateAnnualPlan(input), [input]);
+  const plan = useMemo(
+    () => (loggedIn ? calculateAnnualPlan(input) : null),
+    [input, loggedIn],
+  );
 
   return (
     <div className="grid gap-8">
       <CalculatorForm
         input={input}
         onChange={setInput}
-        monthNames={monthNames}
+        monthNames={loggedIn ? monthNames : undefined}
       />
       <Results
         month={month}
@@ -52,7 +59,7 @@ export function Calculator() {
         monthNames={monthNames}
         subsidiesInTwelfths={input.subsidiesInTwelfths}
       />
-      <ExportBar input={input} />
+      {loggedIn ? <ExportBar input={input} /> : null}
     </div>
   );
 }

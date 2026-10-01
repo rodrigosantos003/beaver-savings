@@ -6,7 +6,10 @@
   "nav": {
     "features": "Funcionalidades",
     "howItWorks": "Como funciona",
-    "getStarted": "Começar"
+    "getStarted": "Começar",
+    "login": "Entrar",
+    "demo": "Demo",
+    "signOut": "Sair"
   },
   "hero": {
     "badge": "Calculadora de poupança para Portugal",
@@ -70,6 +73,31 @@
   },
   "footer": {
     "tagline": "Poupa bocado a bocado."
+  },
+  "auth": {
+    "loginTitle": "Entrar",
+    "signupTitle": "Criar conta",
+    "loginDescription": "Usa o email e a palavra-passe para abrir a demo mensal.",
+    "signupDescription": "Cria uma conta para experimentar a calculadora mensal.",
+    "name": "Nome",
+    "email": "Email",
+    "password": "Palavra-passe",
+    "submitLogin": "Entrar",
+    "submitSignup": "Criar conta",
+    "submitting": "A aguardar…",
+    "needAccount": "Ainda não tens conta?",
+    "haveAccount": "Já tens conta?",
+    "signupLink": "Registar",
+    "loginLink": "Entrar",
+    "loginFailed": "Não foi possível entrar. Confirma o email e a palavra-passe.",
+    "signupFailed": "Não foi possível criar a conta."
+  },
+  "demo": {
+    "metaTitle": "Demo mensal — Beaver Savings",
+    "metaDescription": "Experimenta a calculadora de poupança mensal.",
+    "back": "Início",
+    "title": "Calculadora mensal",
+    "description": "Estima o líquido, as despesas e quanto podes pôr de lado este mês."
   },
   "calculator": {
     "metaTitle": "Calculadora — Beaver Savings",

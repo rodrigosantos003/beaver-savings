@@ -74,14 +74,21 @@ beaver-savings/
 │   │   │   │   ├── page.tsx              # Redireciona para /landing
 │   │   │   │   ├── landing/
 │   │   │   │   │   └── page.tsx          # Landing page de marketing
-│   │   │   │   └── calculator/
-│   │   │   │       └── page.tsx          # Calculadora de poupança
+│   │   │   │   ├── calculator/
+│   │   │   │   │   └── page.tsx          # Calculadora de poupança
+│   │   │   │   ├── demo/
+│   │   │   │   │   └── page.tsx          # Calculadora mensal (sem plano anual nem exportação)
+│   │   │   │   ├── login/
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── signup/
+│   │   │   │       └── page.tsx
 │   │   │   ├── favicon.ico
 │   │   │   └── globals.css
 │   │   │
 │   │   ├── components/
 │   │   │   ├── BeaverLogo.tsx
 │   │   │   ├── RiverWaveBackground.tsx
+│   │   │   ├── auth/                     # Login, registo e acesso rápido
 │   │   │   └── calculator/               # Formulário, resultados e exportação
 │   │   │
 │   │   ├── i18n/
@@ -94,6 +101,7 @@ beaver-savings/
 │   │   │   └── pt.json
 │   │   │
 │   │   ├── lib/
+│   │   │   ├── auth-client.ts            # Cliente Better Auth
 │   │   │   └── palette.ts                # Tokens de cor da marca
 │   │   │
 │   │   ├── public/                       # Assets estáticos (SVGs)
@@ -108,6 +116,7 @@ beaver-savings/
 │   └── api/                              # NestJS backend
 │       ├── src/
 │       │   ├── main.ts
+│       │   ├── auth.ts                   # Better Auth (MongoDB, email e password)
 │       │   ├── modules/app.module.ts
 │       │   ├── controllers/app.controller.ts
 │       │   ├── services/app.service.ts
@@ -139,7 +148,7 @@ beaver-savings/
 
 | App / Package           | Estado                 |
 | ----------------------- | ---------------------- |
-| `apps/web`              | Landing e calculadora  |
+| `apps/web`              | Landing, calculadora, login e demo mensal |
 | `apps/api`              | Saúde e envio de email |
 | `packages/savings-core` | Cálculo partilhado     |
 | `packages/shared-types` | Por implementar        |

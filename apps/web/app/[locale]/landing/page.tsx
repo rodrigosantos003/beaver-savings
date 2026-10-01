@@ -1,7 +1,9 @@
 import { getTranslations } from "next-intl/server";
 import { BeaverLogo } from "@/components/BeaverLogo";
+import { QuickLogin } from "@/components/auth/QuickLogin";
 import { RiverWaveBackground } from "@/components/RiverWaveBackground";
 import { Link } from "@/i18n/navigation";
+import { authClient } from "@/lib/auth-client";
 
 const ctaClass =
   "inline-flex items-center justify-center rounded-full bg-secondary font-semibold text-white transition-colors hover:bg-secondary-hover";
@@ -49,7 +51,7 @@ export default async function LandingPage() {
 
   return (
     <div className="flex min-h-full flex-col bg-white text-stone-900">
-      <header className="sticky top-0 z-10 border-b border-stone-200 bg-white/80 backdrop-blur-sm">
+      <header className="sticky top-0 z-30 border-b border-stone-200 bg-white/80 backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/landing" className="flex items-center gap-2.5">
             <BeaverLogo className="h-8 w-8 shrink-0" />
@@ -70,6 +72,7 @@ export default async function LandingPage() {
             >
               {t("nav.howItWorks")}
             </Link>
+            <QuickLogin />
             <Link
               href="/calculator"
               className={`${ctaClass} h-9 px-4 text-sm`}
@@ -117,11 +120,10 @@ export default async function LandingPage() {
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className={`rounded-2xl border p-6 text-center shadow-sm ${
-                    stat.accent
-                      ? "border-beaver-200 bg-beaver-50"
-                      : "border-stone-200 bg-white"
-                  }`}
+                  className={`rounded-2xl border p-6 text-center shadow-sm ${stat.accent
+                    ? "border-beaver-200 bg-beaver-50"
+                    : "border-stone-200 bg-white"
+                    }`}
                 >
                   <p className="text-sm font-medium text-stone-500">
                     {stat.label}
@@ -153,11 +155,11 @@ export default async function LandingPage() {
                 {t("features.description")}
               </p>
             </div>
-            <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <ul className="mt-14 flex flex-wrap justify-center gap-6">
               {featureItems.map((feature) => (
                 <li
                   key={feature.title}
-                  className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                  className="w-full rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)]"
                 >
                   <span
                     className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-beaver-50 text-xl"

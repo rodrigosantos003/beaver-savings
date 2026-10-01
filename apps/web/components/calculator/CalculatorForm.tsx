@@ -10,7 +10,7 @@ const inputClass =
 type CalculatorFormProps = {
   input: SavingsInput;
   onChange: (next: SavingsInput) => void;
-  monthNames: string[];
+  monthNames?: string[];
 };
 
 export function CalculatorForm({
@@ -72,7 +72,7 @@ export function CalculatorForm({
             onChange={(checked) => update("subsidiesInTwelfths", checked)}
           />
         </div>
-        {input.subsidiesInTwelfths ? null : (
+        {monthNames && !input.subsidiesInTwelfths ? (
           <>
             <MonthField
               label={t("holidayMonth")}
@@ -87,7 +87,7 @@ export function CalculatorForm({
               onChange={(month) => update("christmasMonth", month)}
             />
           </>
-        )}
+        ) : null}
       </fieldset>
 
       <div className="grid gap-3">

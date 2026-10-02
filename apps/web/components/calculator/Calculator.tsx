@@ -8,7 +8,7 @@ import {
   DEFAULT_SS_RATE_PERCENT,
   SavingsInput,
 } from "savings-core";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { CalculatorForm } from "./CalculatorForm";
@@ -35,6 +35,8 @@ const initialInput: SavingsInput = {
 
 export function Calculator() {
   const locale = useLocale();
+  const t = useTranslations("unlock")
+  const isEnglish = locale === "en";
   const { data: session, isPending } = authClient.useSession();
   const loggedIn = !isPending && !!session;
 
@@ -60,6 +62,24 @@ export function Calculator() {
         subsidiesInTwelfths={input.subsidiesInTwelfths}
       />
       {loggedIn ? <ExportBar input={input} /> : null}
+      {!loggedIn ? (
+        <section className="flex flex-col items-start gap-4 rounded-xl border border-beaver-200 bg-beaver-50 p-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="grid gap-1">
+            <h2 className="text-lg font-semibold text-stone-950">
+              {t("title")}
+            </h2>
+            <p className="text-sm text-stone-900">
+              {t("description")}
+            </p>
+          </div>
+          <a
+            href={`/${locale}/signup`}
+            className="shrink-0 rounded-lg bg-warning-subtle px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-beaver-700"
+          >
+            {t("createAccount")}
+          </a>
+        </section>
+      ) : null}
     </div>
   );
 }

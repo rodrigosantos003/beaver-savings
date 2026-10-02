@@ -149,5 +149,10 @@
     "sending": "Sending…",
     "sent": "Summary sent.",
     "emailFailed": "The email could not be sent."
+  },
+  "unlock": {
+    "title": "Unlock more features",
+    "description": "Create an account to discover the true power of savings!",
+    "createAccount": "Create account"
   }
 }

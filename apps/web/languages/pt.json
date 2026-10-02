@@ -149,5 +149,10 @@
     "sending": "A enviar…",
     "sent": "Resumo enviado.",
     "emailFailed": "Não foi possível enviar o email."
+  },
+  "unlock": {
+    "title": "Desbloquear mais funcionalidades",
+    "description": "Cria uma conta para descobrires o verdadeiro poder das poupanças!",
+    "createAccount": "Criar conta"
   }
 }

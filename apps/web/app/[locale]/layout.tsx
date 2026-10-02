@@ -95,6 +95,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         "max-snippet": -1,
       },
     },
+    verification: {
+      google: "DklI2pa9po4FGYTmMgU4V4uFQgremMx"
+    }
   };
 }
 
@@ -102,7 +105,6 @@ export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
 
-  setRequestLocale(locale); // enables static rendering
   const messages = await getMessages();
   const t = await getTranslations({ locale, namespace: "meta" });
 

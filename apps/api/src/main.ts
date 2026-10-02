@@ -4,7 +4,9 @@ import { AppModule } from './app/app.module';
 import helmet from 'helmet';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { bodyParser: false });
+  const app = await NestFactory.create(await AppModule.register(), {
+    bodyParser: false,
+  });
 
   app.enableShutdownHooks();
 

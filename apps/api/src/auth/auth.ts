@@ -28,5 +28,11 @@ export async function createAuth() {
     email: {
       from: process.env.RESEND_FROM ?? 'no-reply@example.com',
     },
+    advanced: {
+      defaultCookieAttributes: {
+        sameSite: 'None',
+        secure: true,
+      },
+    },
   });
 }

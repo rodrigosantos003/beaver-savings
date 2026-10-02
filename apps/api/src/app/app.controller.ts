@@ -1,13 +1,13 @@
 import { Controller, Get, ServiceUnavailableException } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Throttle } from '@nestjs/throttler';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('health')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get()
-  @Throttle({ default: { limit: 60, ttl: 60_000 } })
+  @SkipThrottle()
   async health() {
     const result = await this.appService.health();
 

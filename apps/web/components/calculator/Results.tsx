@@ -14,7 +14,7 @@ const planCell = "px-4 py-2 print:px-1.5 print:py-1";
 const planMoney = `${planCell} whitespace-nowrap`;
 
 type ResultsProps = {
-  userId: string;
+  userId?: string | null;
   month: MonthBreakdown;
   plan: AnnualPlan | null;
   monthNames: string[];
@@ -70,6 +70,7 @@ export function Results({
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
+    if (!userId) return;
     try {
       setSaved(await listResults(userId));
     } catch {
@@ -78,10 +79,21 @@ export function Results({
   }, [userId, t]);
 
   useEffect(() => {
+    if (!userId) {
+      setSaved([]);
+      setLoaded(null);
+      return;
+    }
+    refresh();
+  }, [userId, refresh]);
+
+
+  useEffect(() => {
     refresh();
   }, [refresh]);
 
   async function handleSave() {
+    if (!userId) return;
     setSaving(true);
     setError(null);
     try {
@@ -131,7 +143,7 @@ export function Results({
 
   return (
     <div className="grid gap-6">
-      <div className="flex flex-wrap items-center gap-3 print:hidden">
+      {userId && <div className="flex flex-wrap items-center gap-3 print:hidden">
         {loaded ? (
           <>
             <p className="text-sm text-stone-600">
@@ -156,7 +168,8 @@ export function Results({
           </button>
         )}
         {error ? <p className="text-sm text-red-600">{error}</p> : null}
-      </div>
+      </div>}
+
 
       <section className="rounded-2xl border border-beaver-200 bg-beaver-50 p-6">
         <h2 className="text-lg font-semibold text-stone-900">
@@ -243,7 +256,7 @@ export function Results({
         </section>
       ) : null}
 
-      <section className="rounded-2xl border border-stone-200 bg-white p-6 print:hidden">
+      {userId && <section className="rounded-2xl border border-stone-200 bg-white p-6 print:hidden">
         <h2 className="text-lg font-semibold text-stone-900">{t("savedTitle")}</h2>
         {saved.length === 0 ? (
           <p className="mt-2 text-sm text-stone-600">{t("noSaved")}</p>
@@ -280,6 +293,8 @@ export function Results({
           </ul>
         )}
       </section>
+      }
+
     </div>
   );
 }

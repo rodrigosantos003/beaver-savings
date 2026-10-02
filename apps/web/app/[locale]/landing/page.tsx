@@ -3,7 +3,6 @@ import { BeaverLogo } from "@/components/BeaverLogo";
 import { QuickLogin } from "@/components/auth/QuickLogin";
 import { RiverWaveBackground } from "@/components/RiverWaveBackground";
 import { Link } from "@/i18n/navigation";
-import { authClient } from "@/lib/auth-client";
 
 const ctaClass =
   "inline-flex items-center justify-center rounded-full bg-secondary font-semibold text-white transition-colors hover:bg-secondary-hover";
@@ -74,7 +73,7 @@ export default async function LandingPage() {
             </Link>
             <QuickLogin />
             <Link
-              href="/calculator"
+              href="/signup"
               className={`${ctaClass} h-9 px-4 text-sm`}
             >
               {t("nav.getStarted")}
@@ -102,7 +101,7 @@ export default async function LandingPage() {
                 className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row"
               >
                 <Link
-                  href="#features"
+                  href="/calculator"
                   className={`${ctaClass} h-12 w-full px-8 text-base sm:w-auto`}
                 >
                   {t("hero.exploreFeatures")}
@@ -210,7 +209,7 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        <section className="border-t border-beaver-800 bg-primary px-6 py-16">
+        <section className="border-beaver-800 bg-stone-400 px-6 py-16">
           <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center">
             <BeaverLogo className="h-12 w-12" />
             <h2 className="max-w-xl text-2xl font-bold tracking-tight text-beaver-50 sm:text-3xl">

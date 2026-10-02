@@ -59,7 +59,7 @@ export function Calculator() {
         plan={plan}
         monthNames={monthNames}
         subsidiesInTwelfths={input.subsidiesInTwelfths}
-        userId={session?.user.id || ""}
+        userId={session?.user.id}
       />
       {loggedIn ? <ExportBar input={input} /> : null}
       {!loggedIn ? (

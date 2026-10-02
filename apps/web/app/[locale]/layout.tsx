@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages, getTranslations } from "next-intl/server";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -17,22 +18,102 @@ const geistMono = Geist_Mono({
 
 type Props = LayoutProps<"/[locale]">;
 
+const SITE_URL = "https://beaver-savings.vercel.app";
+
+// Map your locales to OpenGraph format (language_TERRITORY)
+const OG_LOCALES: Record<string, string> = {
+  en: "en_GB",
+  pt: "pt_PT",
+};
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations();
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+};
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { locale } = await props.params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+
+  const title = t("title");
+  const description = t("description");
+
+  // hreflang map: { en: "/en", pt: "/pt", ... }
+  const languages = Object.fromEntries(
+    routing.locales.map((l) => [l, `/${l}`])
+  );
 
   return {
-    title: t("meta.title"),
-    description: t("meta.description"),
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: title,
+      template: `%s | ${t("siteName")}`, // child pages: "About | Site Name"
+    },
+    description,
+    applicationName: t("siteName"),
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        ...languages,
+        "x-default": `/${routing.defaultLocale}`,
+      },
+    },
+    openGraph: {
+      type: "website",
+      siteName: t("siteName"),
+      title,
+      description,
+      url: `/${locale}`,
+      locale: OG_LOCALES[locale] ?? locale,
+      alternateLocale: routing.locales
+        .filter((l) => l !== locale)
+        .map((l) => OG_LOCALES[l] ?? l),
+      // Or drop an opengraph-image.tsx / .png into app/[locale]/ and omit this
+      images: [{ url: "/og.png", width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/og.png"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
   };
 }
 
-export default async function LocaleLayout({ children }: Props) {
-  const locale = await getLocale();
+export default async function LocaleLayout({ children, params }: Props) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+
+  setRequestLocale(locale); // enables static rendering
   const messages = await getMessages();
+  const t = await getTranslations({ locale, namespace: "meta" });
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: t("siteName"),
+    url: `${SITE_URL}/${locale}`,
+    inLanguage: locale,
+    description: t("description"),
+  };
 
   return (
     <html
@@ -40,6 +121,12 @@ export default async function LocaleLayout({ children }: Props) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

@@ -3,14 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { authClient } from "@/lib/auth-client";
-import { Link } from "@/i18n/navigation";
 import { CredentialsForm } from "./CredentialsForm";
+import { useRouter } from "@/i18n/navigation";
 
 export function QuickLogin() {
   const t = useTranslations("nav");
   const { data: session, isPending } = authClient.useSession();
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (!open) {
@@ -38,6 +39,15 @@ export function QuickLogin() {
           }}
         >
           {t("signOut")}
+        </button>
+        <button
+          type="button"
+          className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
+          onClick={() => {
+            router.push("/calculator")
+          }}
+        >
+          {t("calculator")}
         </button>
       </div>
     );

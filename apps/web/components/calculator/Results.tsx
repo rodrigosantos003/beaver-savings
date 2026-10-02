@@ -143,32 +143,7 @@ export function Results({
 
   return (
     <div className="grid gap-6">
-      {userId && <div className="flex flex-wrap items-center gap-3 print:hidden">
-        {loaded ? (
-          <>
-            <p className="text-sm text-stone-600">
-              {t("viewingSaved", { date: dateFmt.format(new Date(loaded.createdAt)) })}
-            </p>
-            <button
-              type="button"
-              onClick={() => setLoaded(null)}
-              className="rounded-xl border border-stone-300 px-4 py-2 text-sm font-medium text-stone-800 hover:bg-stone-50"
-            >
-              {t("backToCurrent")}
-            </button>
-          </>
-        ) : (
-          <button
-            type="button"
-            onClick={handleSave}
-            disabled={saving}
-            className="rounded-xl bg-secondary px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
-          >
-            {saving ? t("saving") : t("save")}
-          </button>
-        )}
-        {error ? <p className="text-sm text-red-600">{error}</p> : null}
-      </div>}
+
 
 
       <section className="rounded-2xl border border-beaver-200 bg-beaver-50 p-6">
@@ -255,6 +230,33 @@ export function Results({
           </div>
         </section>
       ) : null}
+
+      {userId && <div className="flex flex-wrap items-center gap-3 print:hidden">
+        {loaded ? (
+          <>
+            <p className="text-sm text-stone-600">
+              {t("viewingSaved", { date: dateFmt.format(new Date(loaded.createdAt)) })}
+            </p>
+            <button
+              type="button"
+              onClick={() => setLoaded(null)}
+              className="rounded-xl border border-stone-300 px-4 py-2 text-sm font-medium text-stone-800 hover:bg-stone-50"
+            >
+              {t("backToCurrent")}
+            </button>
+          </>
+        ) : (
+          <button
+            type="button"
+            onClick={handleSave}
+            disabled={saving}
+            className="rounded-xl bg-secondary px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+          >
+            {saving ? t("saving") : t("save")}
+          </button>
+        )}
+        {error ? <p className="text-sm text-red-600">{error}</p> : null}
+      </div>}
 
       {userId && <section className="rounded-2xl border border-stone-200 bg-white p-6 print:hidden">
         <h2 className="text-lg font-semibold text-stone-900">{t("savedTitle")}</h2>

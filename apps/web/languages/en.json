@@ -148,7 +148,20 @@
     "send": "Send",
     "sending": "Sending…",
     "sent": "Summary sent.",
-    "emailFailed": "The email could not be sent."
+    "emailFailed": "The email could not be sent.",
+
+    "save": "Save result",
+    "saving": "Saving…",
+    "saveError": "Couldn't save this result.",
+    "loadError": "Couldn't load saved results.",
+    "deleteError": "Couldn't delete this result.",
+    "savedTitle": "Saved results",
+    "noSaved": "Nothing saved yet.",
+    "open": "Open",
+    "delete": "Delete",
+    "totalSavingsShort": "Total savings",
+    "backToCurrent": "Back to current calculation",
+    "viewingSaved": "Viewing result saved on {date}"
   },
   "unlock": {
     "title": "Unlock more features",

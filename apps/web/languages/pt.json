@@ -148,7 +148,19 @@
     "send": "Enviar",
     "sending": "A enviar…",
     "sent": "Resumo enviado.",
-    "emailFailed": "Não foi possível enviar o email."
+    "emailFailed": "Não foi possível enviar o email.",
+    "save": "Guardar resultado",
+    "saving": "A guardar...",
+    "saveError": "Não foi possível guardar o resultado.",
+    "loadError": "Não foi possível carregar o resultado.",
+    "deleteError": "Não foi possível remover o resultado.",
+    "savedTitle": "Resultados guardados",
+    "noSaved": "Sem resultados guarados.",
+    "open": "Abrir",
+    "delete": "Apagar",
+    "totalSavingsShort": "Total de poupça",
+    "backToCurrent": "Voltar ao cálculo atual",
+    "viewingSaved": "Visalizar resultado guardado em {date}"
   },
   "unlock": {
     "title": "Desbloquear mais funcionalidades",

@@ -36,7 +36,6 @@ const initialInput: SavingsInput = {
 export function Calculator() {
   const locale = useLocale();
   const t = useTranslations("unlock")
-  const isEnglish = locale === "en";
   const { data: session, isPending } = authClient.useSession();
   const loggedIn = !isPending && !!session;
 
@@ -60,6 +59,7 @@ export function Calculator() {
         plan={plan}
         monthNames={monthNames}
         subsidiesInTwelfths={input.subsidiesInTwelfths}
+        userId={session?.user.id || ""}
       />
       {loggedIn ? <ExportBar input={input} /> : null}
       {!loggedIn ? (

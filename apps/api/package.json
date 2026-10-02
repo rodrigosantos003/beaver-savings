@@ -28,6 +28,8 @@
     "@nestjs/throttler": "^6.7.1",
     "@thallesp/nestjs-better-auth": "^2.8.0",
     "better-auth": "^1.7.6",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
     "helmet": "^8.3.0",
     "mongodb": "^7.7.0",
     "reflect-metadata": "^0.2.2",

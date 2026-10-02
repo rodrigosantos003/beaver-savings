@@ -7,6 +7,8 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { NotFoundFilter } from './not-found.filter';
 import { DatabaseModule } from '../../lib/database';
+import { ResultsModule } from '../results/results.module';
+import { ResultsController } from '../results/results.controller';
 
 @Module({})
 export class AppModule {
@@ -27,6 +29,7 @@ export class AppModule {
           auth: await createAuth(),
         }),
         SavingsModule,
+        ResultsModule
       ],
       controllers: [AppController],
       providers: [

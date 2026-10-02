@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
-import { BeaverLogo } from "@/components/BeaverLogo";
 import { CredentialsForm } from "@/components/auth/CredentialsForm";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 
 type AuthScreenProps = {
   mode: "login" | "signup";
@@ -16,7 +16,7 @@ export async function AuthScreen({ mode }: AuthScreenProps) {
       <header className="border-b border-stone-200 bg-white">
         <div className="mx-auto flex h-16 max-w-6xl items-center px-6">
           <Link href="/landing" className="flex items-center gap-2.5">
-            <BeaverLogo className="h-8 w-8 shrink-0" />
+            <Image src="/beaver-savings.png" alt="Beaver Savings" width={42} height={42} />
             <span className="text-lg font-semibold tracking-tight text-beaver-900">
               Beaver Savings
             </span>

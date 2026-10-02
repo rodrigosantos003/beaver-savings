@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server";
-import { BeaverLogo } from "@/components/BeaverLogo";
 import { QuickLogin } from "@/components/auth/QuickLogin";
 import { RiverWaveBackground } from "@/components/RiverWaveBackground";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 
 const ctaClass =
   "inline-flex items-center justify-center rounded-full bg-secondary font-semibold text-white transition-colors hover:bg-secondary-hover";
@@ -53,7 +53,7 @@ export default async function LandingPage() {
       <header className="sticky top-0 z-30 border-b border-stone-200 bg-white/80 backdrop-blur-sm">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/landing" className="flex items-center gap-2.5">
-            <BeaverLogo className="h-8 w-8 shrink-0" />
+            <Image src="/beaver-savings.png" alt="Beaver Savings" width={42} height={42} />
             <span className="text-lg font-semibold tracking-tight text-beaver-900">
               Beaver Savings
             </span>
@@ -211,13 +211,13 @@ export default async function LandingPage() {
 
         <section className="border-beaver-800 bg-stone-400 px-6 py-16">
           <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center">
-            <BeaverLogo className="h-12 w-12" />
+            <Image src="/beaver-savings.png" alt="Beaver Savings" width={50} height={50} />
             <h2 className="max-w-xl text-2xl font-bold tracking-tight text-beaver-50 sm:text-3xl">
               {t("cta.title")}
             </h2>
             <p className="max-w-lg text-beaver-100">{t("cta.description")}</p>
             <Link
-              href="/calculator"
+              href="/signup"
               className={`${ctaClass} h-12 px-8 text-base`}
             >
               {t("cta.button")}
@@ -229,7 +229,7 @@ export default async function LandingPage() {
       <footer className="border-t border-stone-200 bg-white px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="flex items-center gap-2">
-            <BeaverLogo className="h-6 w-6" />
+            <Image src="/beaver-savings.png" alt="Beaver Savings" width={42} height={42} />
             <span className="text-sm font-medium text-beaver-900">
               Beaver Savings
             </span>

@@ -96,7 +96,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       },
     },
     verification: {
-      google: "DklI2pa9po4FGYTmMgU4V4uFQgremMx"
+      google: "DklI2pa9po4FGYTmMgU4V4uFQgremMx-r7yd0IXrFIY"
     }
   };
 }

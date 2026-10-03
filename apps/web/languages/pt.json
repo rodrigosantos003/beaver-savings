@@ -171,7 +171,10 @@
     "damMonthlyLabel": "Poupança mensal",
     "applyLabel": "Valor a aplicar (€)",
     "apply": "Aplicar",
-    "remove": "Remover"
+    "remove": "Remover",
+    "damLoadError": "Não foi possível carregar a barragem.",
+    "damAddError": "Não foi possível aplicar esse valor.",
+    "damRemoveError": "Não foi possível remover essa entrada."
   },
   "unlock": {
     "title": "Desbloquear mais funcionalidades",

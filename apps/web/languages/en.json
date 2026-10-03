@@ -171,7 +171,10 @@
     "damMonthlyLabel": "Monthly savings",
     "applyLabel": "Amount to apply (€)",
     "apply": "Apply",
-    "remove": "Remove"
+    "remove": "Remove",
+    "damLoadError": "Couldn't load your dam.",
+    "damAddError": "Couldn't apply that amount.",
+    "damRemoveError": "Couldn't remove that entry."
   },
   "unlock": {
     "title": "Unlock more features",

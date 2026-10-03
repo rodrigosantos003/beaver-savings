@@ -9,6 +9,7 @@ import { NotFoundFilter } from './not-found.filter';
 import { DatabaseModule } from '../../lib/database';
 import { ResultsModule } from '../results/results.module';
 import { ResultsController } from '../results/results.controller';
+import { DamModule } from '../dam/dam.module';
 
 @Module({})
 export class AppModule {
@@ -29,7 +30,8 @@ export class AppModule {
           auth: await createAuth(),
         }),
         SavingsModule,
-        ResultsModule
+        ResultsModule,
+        DamModule
       ],
       controllers: [AppController],
       providers: [

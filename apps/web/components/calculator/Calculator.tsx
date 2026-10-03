@@ -48,12 +48,14 @@ export function Calculator() {
   );
 
   return (
-    <div className="grid gap-8">
-      <CalculatorForm
-        input={input}
-        onChange={setInput}
-        monthNames={loggedIn ? monthNames : undefined}
-      />
+    <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2 md:grid-rows-[auto_auto_1fr_auto_auto]">
+      <div className="md:col-start-1 md:row-span-3 md:row-start-1">
+        <CalculatorForm
+          input={input}
+          onChange={setInput}
+          monthNames={loggedIn ? monthNames : undefined}
+        />
+      </div>
       <Results
         month={month}
         plan={plan}
@@ -61,16 +63,17 @@ export function Calculator() {
         subsidiesInTwelfths={input.subsidiesInTwelfths}
         userId={session?.user.id}
       />
-      {loggedIn ? <ExportBar input={input} /> : null}
-      {!loggedIn ? (
-        <section className="flex flex-col items-start gap-4 rounded-xl border border-beaver-200 bg-beaver-50 p-6 sm:flex-row sm:items-center sm:justify-between">
+      {loggedIn ? (
+        <div className="md:col-span-2 md:row-start-5">
+          <ExportBar input={input} />
+        </div>
+      ) : (
+        <section className="flex flex-col items-start gap-4 rounded-xl border border-beaver-200 bg-beaver-50 p-6 sm:flex-row sm:items-center sm:justify-between md:col-span-2 md:row-start-5">
           <div className="grid gap-1">
             <h2 className="text-lg font-semibold text-stone-950">
               {t("title")}
             </h2>
-            <p className="text-sm text-stone-900">
-              {t("description")}
-            </p>
+            <p className="text-sm text-stone-900">{t("description")}</p>
           </div>
           <a
             href={`/${locale}/signup`}
@@ -79,8 +82,9 @@ export function Calculator() {
             {t("createAccount")}
           </a>
         </section>
-      ) : null}
+      )}
     </div>
+
   );
 }
 

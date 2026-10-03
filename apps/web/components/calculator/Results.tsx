@@ -88,10 +88,6 @@ export function Results({
   }, [userId, refresh]);
 
 
-  useEffect(() => {
-    refresh();
-  }, [refresh]);
-
   async function handleSave() {
     if (!userId) return;
     setSaving(true);
@@ -142,18 +138,16 @@ export function Results({
   });
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6 md:contents">
+      <section className="rounded-2xl border border-beaver-200 bg-beaver-50 p-6 md:col-start-2 md:row-start-1">
 
-
-
-      <section className="rounded-2xl border border-beaver-200 bg-beaver-50 p-6">
         <h2 className="text-lg font-semibold text-stone-900">
           {t("monthTitle")}
         </h2>
         <p className="mt-1 text-sm text-stone-600">
           {t(subsidiesInTwelfths ? "monthHintTwelfths" : "monthHint")}
         </p>
-        <dl className="mt-4 grid gap-3 sm:grid-cols-2">
+        <dl className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
           <ResultItem label={t("gross")} value={money(view.month.gross)} />
           <ResultItem label={t("ss")} value={money(view.month.socialSecurity)} />
           <ResultItem label={t("irsResult")} value={money(view.month.irs)} />
@@ -171,7 +165,7 @@ export function Results({
       </section>
 
       {view.rows ? (
-        <section className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm print:overflow-visible">
+        <section className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm print:overflow-visible md:col-span-2 md:row-start-4">
           <div className="p-6 pb-2 print:px-3 print:pt-3">
             <h2 className="text-lg font-semibold text-stone-900">
               {t("annualTitle")}
@@ -217,11 +211,11 @@ export function Results({
               </tbody>
               <tfoot>
                 <tr className="bg-beaver-50 font-semibold text-stone-900">
-                  <th className="px-4 py-3 text-left print:px-1.5 print:py-2">
+                  <th className="px-3 py-3 text-left print:px-1.5 print:py-2">
                     {t("total")}
                   </th>
                   <td colSpan={5} />
-                  <td className="px-4 py-3 whitespace-nowrap print:px-1.5 print:py-2">
+                  <td className="px-3 py-3 whitespace-nowrap print:px-1.5 print:py-2">
                     {money(view.totalSavings)}
                   </td>
                 </tr>
@@ -231,7 +225,8 @@ export function Results({
         </section>
       ) : null}
 
-      {userId && <div className="flex flex-wrap items-center gap-3 print:hidden">
+      {userId && <div className="flex flex-wrap items-center gap-3 print:hidden md:col-start-2 md:row-start-2">
+
         {loaded ? (
           <>
             <p className="text-sm text-stone-600">
@@ -258,7 +253,8 @@ export function Results({
         {error ? <p className="text-sm text-red-600">{error}</p> : null}
       </div>}
 
-      {userId && <section className="rounded-2xl border border-stone-200 bg-white p-6 print:hidden">
+      {userId && <section className="rounded-2xl border border-stone-200 bg-white p-6 print:hidden md:col-start-2 md:row-start-3">
+
         <h2 className="text-lg font-semibold text-stone-900">{t("savedTitle")}</h2>
         {saved.length === 0 ? (
           <p className="mt-2 text-sm text-stone-600">{t("noSaved")}</p>
@@ -266,7 +262,7 @@ export function Results({
           <ul className="mt-3 divide-y divide-stone-100">
             {saved.map((r) => (
               <li key={r._id} className="flex items-center justify-between gap-3 py-2">
-                <div className="text-sm">
+                <div className="min-w-0 text-sm">
                   <p className="font-medium text-stone-800">
                     {dateFmt.format(new Date(r.createdAt))}
                   </p>

@@ -35,7 +35,7 @@ const initialInput: SavingsInput = {
 
 export function Calculator() {
   const locale = useLocale();
-  const t = useTranslations("unlock")
+  const t = useTranslations("unlock");
   const { data: session, isPending } = authClient.useSession();
   const loggedIn = !isPending && !!session;
 
@@ -48,27 +48,25 @@ export function Calculator() {
   );
 
   return (
-    <div className="grid grid-cols-1 items-start gap-x-8 gap-y-6 md:grid-cols-2 md:grid-rows-[auto_auto_1fr_auto_auto]">
-      <div className="md:col-start-1 md:row-span-3 md:row-start-1">
-        <CalculatorForm
-          input={input}
-          onChange={setInput}
-          monthNames={loggedIn ? monthNames : undefined}
-        />
-      </div>
+    <div className="grid gap-8">
       <Results
         month={month}
         plan={plan}
         monthNames={monthNames}
         subsidiesInTwelfths={input.subsidiesInTwelfths}
         userId={session?.user.id}
-      />
+      >
+        <CalculatorForm
+          input={input}
+          onChange={setInput}
+          monthNames={loggedIn ? monthNames : undefined}
+        />
+      </Results>
+
       {loggedIn ? (
-        <div className="md:col-span-2 md:row-start-5">
-          <ExportBar input={input} />
-        </div>
+        <ExportBar input={input} />
       ) : (
-        <section className="flex flex-col items-start gap-4 rounded-xl border border-beaver-200 bg-beaver-50 p-6 sm:flex-row sm:items-center sm:justify-between md:col-span-2 md:row-start-5">
+        <section className="flex flex-col items-start gap-4 rounded-xl border border-beaver-200 bg-beaver-50 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="grid gap-1">
             <h2 className="text-lg font-semibold text-stone-950">
               {t("title")}
@@ -84,7 +82,6 @@ export function Calculator() {
         </section>
       )}
     </div>
-
   );
 }
 

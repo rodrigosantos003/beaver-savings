@@ -150,7 +150,6 @@
     "sending": "Sending…",
     "sent": "Summary sent.",
     "emailFailed": "The email could not be sent.",
-
     "save": "Save result",
     "saving": "Saving…",
     "saveError": "Couldn't save this result.",
@@ -162,7 +161,17 @@
     "delete": "Delete",
     "totalSavingsShort": "Total savings",
     "backToCurrent": "Back to current calculation",
-    "viewingSaved": "Viewing result saved on {date}"
+    "viewingSaved": "Viewing result saved on {date}",
+    "damTitle": "Your beaver dam",
+    "damHint": "Apply your monthly savings to build your dam.",
+    "damAria": "A beaver dam representing {total} saved",
+    "damNext": "Next log at {amount}",
+    "damMax": "Your dam is complete!",
+    "damHistory": "History ({count})",
+    "damMonthlyLabel": "Monthly savings",
+    "applyLabel": "Amount to apply (€)",
+    "apply": "Apply",
+    "remove": "Remove"
   },
   "unlock": {
     "title": "Unlock more features",

@@ -142,9 +142,9 @@ export function Results({
   const applyValue =
     applyInput !== "" ? applyInput : view.month.savings.toFixed(2);
 
-  function handleApply() {
+  async function handleApply() {
     const amount = Number(applyValue.replace(",", "."));
-    if (dam.add(amount, t("damMonthlyLabel"))) setApplyInput("");
+    if (await dam.add(amount, t("damMonthlyLabel"))) setApplyInput("");
   }
 
   const dateFmt = new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "pt-PT", {
@@ -214,7 +214,7 @@ export function Results({
                 </label>
                 <button
                   type="button"
-                  onClick={handleApply}
+                  onClick={() => void handleApply()}
                   className="rounded-xl bg-secondary px-4 py-2 text-sm font-medium text-white"
                 >
                   {t("apply")}

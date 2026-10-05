@@ -6,12 +6,15 @@ import { authClient } from "@/lib/auth-client";
 import { CredentialsForm } from "./CredentialsForm";
 import { useRouter } from "@/i18n/navigation";
 
-export function QuickLogin() {
+export function QuickLogin({ initialLoggedIn }: { initialLoggedIn: boolean }) {
   const t = useTranslations("nav");
   const { data: session, isPending } = authClient.useSession();
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  // Server hint until the client hook resolves, then the real value
+  const loggedIn = isPending ? initialLoggedIn : !!session;
 
   useEffect(() => {
     if (!open) {
@@ -28,14 +31,15 @@ export function QuickLogin() {
     return () => document.removeEventListener("pointerdown", onPointerDown);
   }, [open]);
 
-  if (!isPending && session) {
+  if (loggedIn) {
     return (
       <div className="flex items-center gap-3">
         <button
           type="button"
           className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
-          onClick={() => {
-            void authClient.signOut();
+          onClick={async () => {
+            await authClient.signOut();
+            router.refresh();
           }}
         >
           {t("signOut")}
@@ -43,9 +47,7 @@ export function QuickLogin() {
         <button
           type="button"
           className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
-          onClick={() => {
-            router.push("/calculator")
-          }}
+          onClick={() => router.push("/calculator")}
         >
           {t("calculator")}
         </button>

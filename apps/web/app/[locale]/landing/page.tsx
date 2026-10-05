@@ -3,6 +3,7 @@ import { QuickLogin } from "@/components/auth/QuickLogin";
 import { RiverWaveBackground } from "@/components/RiverWaveBackground";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+import { Header } from "@/components/header";
 
 const ctaClass =
   "inline-flex items-center justify-center rounded-full bg-secondary font-semibold text-white transition-colors hover:bg-secondary-hover";
@@ -58,27 +59,7 @@ export default async function LandingPage() {
               Beaver Savings
             </span>
           </Link>
-          <nav className="flex items-center gap-3">
-            <Link
-              href="#features"
-              className="hidden text-sm font-medium text-stone-500 transition-colors hover:text-stone-900 sm:inline"
-            >
-              {t("nav.features")}
-            </Link>
-            <Link
-              href="#how-it-works"
-              className="hidden text-sm font-medium text-stone-500 transition-colors hover:text-stone-900 sm:inline"
-            >
-              {t("nav.howItWorks")}
-            </Link>
-            <QuickLogin />
-            <Link
-              href="/signup"
-              className={`${ctaClass} h-9 px-4 text-sm`}
-            >
-              {t("nav.getStarted")}
-            </Link>
-          </nav>
+          <Header />
         </div>
       </header>
 

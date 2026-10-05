@@ -234,9 +234,17 @@ export default async function LandingPage() {
               Beaver Savings
             </span>
           </div>
-          <p className="text-sm text-stone-500">
-            © {new Date().getFullYear()} Beaver Savings. {t("footer.tagline")}
-          </p>
+          <div className="flex flex-col items-center gap-2 sm:items-end">
+            <Link
+              href="/privacy-policy"
+              className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
+            >
+              Privacy Policy
+            </Link>
+            <p className="text-sm text-stone-500">
+              © {new Date().getFullYear()} Beaver Savings. {t("footer.tagline")}
+            </p>
+          </div>
         </div>
       </footer>
     </div>

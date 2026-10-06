@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Calculator } from "@/components/calculator/Calculator";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+import { Header } from "@/components/header";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("calculator");
@@ -26,13 +27,9 @@ export default async function CalculatorPage() {
               Beaver Savings
             </span>
           </Link>
-          <Link
-            href="/landing"
-            className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
-          >
-            {t("back")}
-          </Link>
+          <Header />
         </div>
+
       </header>
       <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10 print:max-w-none print:px-0 print:py-4">
         <h1 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">

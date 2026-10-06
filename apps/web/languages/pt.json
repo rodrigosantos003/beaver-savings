@@ -91,7 +91,15 @@
     "signupLink": "Registar",
     "loginLink": "Entrar",
     "loginFailed": "Não foi possível entrar. Confirma o email e a palavra-passe.",
-    "signupFailed": "Não foi possível criar a conta."
+    "signupFailed": "Não foi possível criar a conta.",
+    "verifyTitle": "Confirm your account",
+    "verifyDescription": "Estamos a verificar o seu email.",
+    "verifyLoading": "A verificat o seu email email…",
+    "verifySuccess": "Email verificado com sucesso.",
+    "verifyContinue": "Continuar",
+    "verifyError": "Este link de confirmação é inválido ou expirou.",
+    "verifyErrorHint": "Faça login com as suas credenciais e enviaremos link de confirmação.",
+    "backToLogin": "Voltar ao login"
   },
   "demo": {
     "metaTitle": "Demo mensal — Beaver Savings",

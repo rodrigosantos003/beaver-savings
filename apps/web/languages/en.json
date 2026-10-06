@@ -91,7 +91,15 @@
     "signupLink": "Sign up",
     "loginLink": "Log in",
     "loginFailed": "Could not log in. Check your email and password.",
-    "signupFailed": "Could not create the account."
+    "signupFailed": "Could not create the account.",
+    "verifyTitle": "Confirm your account",
+    "verifyDescription": "We're verifying your email address.",
+    "verifyLoading": "Verifying your email…",
+    "verifySuccess": "Your email has been verified.",
+    "verifyContinue": "Continue",
+    "verifyError": "This confirmation link is invalid or has expired.",
+    "verifyErrorHint": "Log in with your credentials and we'll send you a new confirmation email.",
+    "backToLogin": "Back to log in"
   },
   "demo": {
     "metaTitle": "Monthly demo — Beaver Savings",

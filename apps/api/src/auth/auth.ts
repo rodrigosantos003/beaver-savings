@@ -1,4 +1,6 @@
+import { waitUntil } from '@vercel/functions';
 import { mongoClient, mongoDb } from '../../lib/database';
+import { sendEmail } from '../../lib/email';
 
 export async function createAuth() {
   // better-auth is ESM-only. Nest emits CommonJS, and a static import
@@ -25,14 +27,23 @@ export async function createAuth() {
     secret: process.env.BETTER_AUTH_SECRET ?? 'secret',
     trustedOrigins: [process.env.WEB_ORIGIN ?? 'http://localhost:3000'],
     emailAndPassword: { enabled: true },
-    email: {
-      from: process.env.RESEND_FROM ?? 'no-reply@example.com',
+    emailVerification: {
+      sendVerificationEmail: async ({ user, token }) => {
+        const url = `${process.env.WEB_ORIGIN}/confirm-account?token=${token}`;
+
+        waitUntil(sendEmail({
+          to: user.email,
+          subject: "Confirm Beaver Savings account",
+          text: `Welcome to Beaver Savings! To confirm your account, please use the following link: ${url}`
+        }));
+      },
+      autoSignInAfterVerification: true
     },
     advanced: {
       defaultCookieAttributes: {
         sameSite: 'None',
         secure: true,
       },
-    },
+    }
   });
 }

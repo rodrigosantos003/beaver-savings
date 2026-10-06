@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, SyntheticEvent, useState } from "react";
 import { useTranslations } from "next-intl";
 import { authClient } from "@/lib/auth-client";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -23,7 +23,7 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
   const [pending, setPending] = useState(false);
   const isSignup = mode === "signup";
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
     setPending(true);
@@ -38,6 +38,8 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
       setError(result.error.message ?? t(isSignup ? "signupFailed" : "loginFailed"));
       return;
     }
+
+    if (isSignup) await authClient.sendVerificationEmail({ email, callbackURL: "/" })
 
     router.push("/calculator");
   }

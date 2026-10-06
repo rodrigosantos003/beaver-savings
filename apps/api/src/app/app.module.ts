@@ -8,7 +8,6 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { NotFoundFilter } from './not-found.filter';
 import { DatabaseModule } from '../../lib/database';
 import { ResultsModule } from '../results/results.module';
-import { ResultsController } from '../results/results.controller';
 import { DamModule } from '../dam/dam.module';
 
 @Module({})

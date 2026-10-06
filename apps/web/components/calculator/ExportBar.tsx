@@ -2,7 +2,8 @@
 
 import { SavingsInput } from "savings-core";
 import { useLocale, useTranslations } from "next-intl";
-import { FormEvent, useState } from "react";
+import { FormEvent, SyntheticEvent, useState } from "react";
+import { authClient } from "@/lib/auth-client";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
@@ -19,16 +20,25 @@ export function ExportBar({ input }: ExportBarProps) {
   );
   const [error, setError] = useState("");
 
-  async function sendEmail(event: FormEvent<HTMLFormElement>) {
+  async function sendEmail(event: SyntheticEvent) {
     event.preventDefault();
     setStatus("sending");
     setError("");
 
     try {
+      const { data: session } = await authClient.getSession();
+
+      if (!session) {
+        setStatus("error");
+        setError(t("signInRequired"));
+        return;
+      }
+
       const response = await fetch(`${apiUrl}/savings/email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...input, to: email, locale }),
+        credentials: 'include'
       });
       const data = await readJson(response);
 

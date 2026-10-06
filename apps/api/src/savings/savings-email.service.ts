@@ -1,5 +1,4 @@
 import {
-  BadGatewayException,
   Injectable,
   ServiceUnavailableException,
 } from '@nestjs/common';
@@ -9,45 +8,23 @@ import {
   calculateTypicalMonth,
   MonthBreakdown,
 } from 'savings-core';
-import { Resend } from 'resend';
 import { SavingsEmailRequest } from './parse-email-request';
+import { sendEmail } from '../../lib/email';
 
 @Injectable()
 export class SavingsEmailService {
   async send(request: SavingsEmailRequest): Promise<{ sent: true }> {
-    const apiKey = process.env.RESEND_API_KEY;
-    const from = process.env.RESEND_FROM;
-
-    if (!apiKey || !from) {
-      throw new ServiceUnavailableException(
-        missingConfigMessage(request.locale),
-      );
-    }
-
     const month = calculateTypicalMonth(request.input);
     const plan = calculateAnnualPlan(request.input);
-    const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      from,
+
+    await sendEmail({
       to: request.to,
       subject: subject(request.locale),
       text: formatSummary(request.locale, month, plan),
     });
 
-    if (error) {
-      throw new BadGatewayException(error.message);
-    }
-
     return { sent: true };
   }
-}
-
-function missingConfigMessage(locale: SavingsEmailRequest['locale']): string {
-  if (locale === 'en') {
-    return 'Email is not configured. Set RESEND_API_KEY and RESEND_FROM.';
-  }
-
-  return 'O email não está configurado. Define RESEND_API_KEY e RESEND_FROM.';
 }
 
 function subject(locale: SavingsEmailRequest['locale']): string {

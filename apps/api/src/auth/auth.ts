@@ -22,6 +22,15 @@ export async function createAuth() {
           input: false,
         },
       },
+      deleteUser: {
+        enabled: true,
+        afterDelete: async (user) => {
+          const query = { userId: user.id };
+
+          await mongoDb.collection('results').deleteMany(query);
+          await mongoDb.collection('dam_entries').deleteMany(query);
+        },
+      }
     },
     baseURL: process.env.BETTER_AUTH_URL ?? 'http://localhost:4331',
     secret: process.env.BETTER_AUTH_SECRET ?? 'secret',

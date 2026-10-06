@@ -4,6 +4,8 @@ import { Calculator } from "@/components/calculator/Calculator";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { Header } from "@/components/header";
+import { authClient } from "@/lib/auth-client";
+import { DeleteAccountLink } from "@/components/account/DeleteAccountLink";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("calculator");
@@ -29,7 +31,6 @@ export default async function CalculatorPage() {
           </Link>
           <Header />
         </div>
-
       </header>
       <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10 print:max-w-none print:px-0 print:py-4">
         <h1 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
@@ -40,6 +41,20 @@ export default async function CalculatorPage() {
           <Calculator />
         </div>
       </main>
+      <footer className="border-t border-stone-200 bg-white print:hidden">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-6 text-sm text-stone-500 sm:flex-row">
+          <p>© {new Date().getFullYear()} Beaver Savings</p>
+          <nav aria-label={t("footerNav")} className="flex items-center gap-6">
+            <Link
+              href="/privacy"
+              className="transition-colors hover:text-stone-900"
+            >
+              {t("privacyPolicy")}
+            </Link>
+            <DeleteAccountLink />
+          </nav>
+        </div>
+      </footer>
     </div>
   );
 }

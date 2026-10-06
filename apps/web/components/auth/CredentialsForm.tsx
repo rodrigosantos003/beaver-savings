@@ -35,7 +35,7 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
     setPending(false);
 
     if (result.error) {
-      setError(result.error.message ?? t(isSignup ? "signupFailed" : "loginFailed"));
+      setError(t(isSignup ? "signupFailed" : "loginFailed"));
       return;
     }
 
@@ -85,7 +85,7 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
         />
       </label>
       {error ? (
-        <p className="rounded-xl bg-danger-subtle px-3 py-2 text-sm text-stone-800">
+        <p className="rounded-xl bg-danger px-3 py-2 text-sm text-white">
           {error}
         </p>
       ) : null}

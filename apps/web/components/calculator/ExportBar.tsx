@@ -49,7 +49,7 @@ export function ExportBar({ input }: ExportBarProps) {
       setStatus("sent");
     } catch (sendError) {
       setStatus("error");
-      setError(sendError instanceof Error ? sendError.message : t("emailFailed"));
+      setError(t("emailFailed"));
     }
   }
 

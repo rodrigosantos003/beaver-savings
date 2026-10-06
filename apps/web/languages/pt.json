@@ -182,11 +182,36 @@
     "remove": "Remover",
     "damLoadError": "Não foi possível carregar a barragem.",
     "damAddError": "Não foi possível aplicar esse valor.",
-    "damRemoveError": "Não foi possível remover essa entrada."
+    "damRemoveError": "Não foi possível remover a entrada.",
+    "footerNav": "Rodapé",
+    "privacyPolicy": "Política de privacidade",
+    "deleteAccount": "Eliminar conta"
   },
   "unlock": {
     "title": "Desbloquear mais funcionalidades",
     "description": "Cria uma conta para descobrires o verdadeiro poder das poupanças!",
     "createAccount": "Criar conta"
+  },
+  "deleteAccount": {
+    "metaTitle": "Eliminar conta",
+    "title": "Eliminar a tua conta",
+    "warning": "Esta ação é permanente e não pode ser anulada.",
+    "whatHappens": "O que vai ser eliminado",
+    "item1": "O teu perfil e dados de acesso",
+    "item2": "Os teus resultados e planos guardados",
+    "item3": "Todas as sessões ativas em todos os dispositivos",
+    "signedInAs": "Sessão iniciada como {email}",
+    "passwordLabel": "Confirma a tua palavra-passe",
+    "confirmLabel": "Escreve {word} para confirmar",
+    "confirmWord": "eliminar",
+    "cancel": "Cancelar",
+    "confirmButton": "Eliminar conta definitivamente",
+    "deleting": "A eliminar…",
+    "failed": "Não foi possível eliminar a conta. Tenta novamente.",
+    "signInRequired": "Tens de ter sessão iniciada para eliminar a conta.",
+    "signIn": "Iniciar sessão",
+    "deletedTitle": "Conta eliminada",
+    "deletedBody": "A tua conta e os teus dados foram removidos. Obrigado por experimentares o Beaver Savings.",
+    "backHome": "Voltar ao início"
   }
 }

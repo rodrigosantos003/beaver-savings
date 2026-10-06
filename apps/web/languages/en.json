@@ -182,11 +182,36 @@
     "remove": "Remove",
     "damLoadError": "Couldn't load your dam.",
     "damAddError": "Couldn't apply that amount.",
-    "damRemoveError": "Couldn't remove that entry."
+    "damRemoveError": "Couldn't remove that entry.",
+    "footerNav": "Footer",
+    "privacyPolicy": "Privacy policy",
+    "deleteAccount": "Delete account"
   },
   "unlock": {
     "title": "Unlock more features",
     "description": "Create an account to discover the true power of savings!",
     "createAccount": "Create account"
+  },
+  "deleteAccount": {
+    "metaTitle": "Delete account",
+    "title": "Delete your account",
+    "warning": "This action is permanent and cannot be undone.",
+    "whatHappens": "What will be deleted",
+    "item1": "Your profile and sign-in details",
+    "item2": "Your saved results and plans",
+    "item3": "All active sessions on every device",
+    "signedInAs": "Signed in as {email}",
+    "passwordLabel": "Confirm your password",
+    "confirmLabel": "Type {word} to confirm",
+    "confirmWord": "delete",
+    "cancel": "Cancel",
+    "confirmButton": "Permanently delete account",
+    "deleting": "Deleting…",
+    "failed": "Could not delete your account. Please try again.",
+    "signInRequired": "You need to be signed in to delete your account.",
+    "signIn": "Sign in",
+    "deletedTitle": "Account deleted",
+    "deletedBody": "Your account and data have been removed. Thanks for trying Beaver Savings.",
+    "backHome": "Back to home"
   }
 }

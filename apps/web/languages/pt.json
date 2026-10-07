@@ -213,5 +213,12 @@
     "deletedTitle": "Conta eliminada",
     "deletedBody": "A tua conta e os teus dados foram removidos. Obrigado por experimentares o Beaver Savings.",
     "backHome": "Voltar ao início"
+  },
+  "languageSwitcher": {
+    "label": "Change language",
+    "locales": {
+      "en": "English",
+      "pt": "Português"
+    }
   }
 }

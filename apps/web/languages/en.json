@@ -213,5 +213,12 @@
     "deletedTitle": "Account deleted",
     "deletedBody": "Your account and data have been removed. Thanks for trying Beaver Savings.",
     "backHome": "Back to home"
+  },
+  "languageSwitcher": {
+    "label": "Change language",
+    "locales": {
+      "en": "English",
+      "pt": "Português"
+    }
   }
 }

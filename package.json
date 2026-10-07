@@ -17,6 +17,11 @@
     "start:api": "yarn workspace api start",
     "lint:api": "yarn workspace api lint",
     "test:core": "yarn workspace savings-core test",
-    "test:api": "yarn workspace savings-core build && yarn workspace api test"
+    "test:api": "yarn workspace savings-core build && yarn workspace api test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.9.9"
   }
 }

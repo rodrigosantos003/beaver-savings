@@ -7,7 +7,7 @@ import type { UserSession } from '@thallesp/nestjs-better-auth';
 
 @Controller('savings')
 export class SavingsController {
-  constructor(private readonly emailService: SavingsEmailService) { }
+  constructor(private readonly emailService: SavingsEmailService) {}
 
   @Post('email')
   @Throttle({ default: { limit: 5, ttl: 60_000 } })

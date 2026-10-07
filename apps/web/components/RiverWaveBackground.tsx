@@ -1,7 +1,6 @@
-import { river } from "@/lib/palette";
+import { river } from '@/lib/palette';
 
-const wavePath =
-  "M0 40 C360 90 720 0 1080 40 C1260 60 1380 50 1440 40 V120 H0 Z";
+const wavePath = 'M0 40 C360 90 720 0 1080 40 C1260 60 1380 50 1440 40 V120 H0 Z';
 
 export function RiverWaveBackground() {
   return (
@@ -66,9 +65,7 @@ export function RiverWaveBackground() {
         </div>
       </div>
 
-      <div
-        className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent sm:h-20"
-      />
+      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent sm:h-20" />
     </div>
   );
 }

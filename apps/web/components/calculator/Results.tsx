@@ -1,18 +1,13 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useState, type ReactNode } from "react";
-import { AnnualPlan, MonthBreakdown } from "savings-core";
-import { useLocale, useTranslations } from "next-intl";
-import {
-  SavedResult,
-  deleteResult,
-  listResults,
-  saveResult,
-} from "../../lib/api/results";
-import { useDam } from "../../lib/hooks/useDam";
-import { SavingsDam } from "./SavingsDam";
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import { AnnualPlan, MonthBreakdown } from 'savings-core';
+import { useLocale, useTranslations } from 'next-intl';
+import { SavedResult, deleteResult, listResults, saveResult } from '../../lib/api/results';
+import { useDam } from '../../lib/hooks/useDam';
+import { SavingsDam } from './SavingsDam';
 
-const planCell = "px-4 py-2 print:px-1.5 print:py-1";
+const planCell = 'px-4 py-2 print:px-1.5 print:py-1';
 const planMoney = `${planCell} whitespace-nowrap`;
 
 type ResultsProps = {
@@ -24,7 +19,7 @@ type ResultsProps = {
   children?: ReactNode; // the form, rendered in the left column
 };
 
-type MonthView = Omit<MonthBreakdown, "savingsExceedsDisposable"> & {
+type MonthView = Omit<MonthBreakdown, 'savingsExceedsDisposable'> & {
   savingsExceedsDisposable?: boolean;
 };
 
@@ -48,9 +43,7 @@ type View = {
 function fromSaved(saved: SavedResult): View {
   return {
     month: saved.month,
-    rows: saved.year.length
-      ? saved.year.map((r) => ({ ...r, month: Number(r.month) }))
-      : null,
+    rows: saved.year.length ? saved.year.map((r) => ({ ...r, month: Number(r.month) })) : null,
     totalSavings: saved.totalSavings,
     annualExceeds: false, // not persisted
   };
@@ -64,7 +57,7 @@ export function Results({
   subsidiesInTwelfths,
   children,
 }: ResultsProps) {
-  const t = useTranslations("calculator");
+  const t = useTranslations('calculator');
   const locale = useLocale();
   const money = (value: number) => formatMoney(locale, value);
 
@@ -74,14 +67,14 @@ export function Results({
   const [error, setError] = useState<string | null>(null);
 
   const dam = useDam(userId);
-  const [applyInput, setApplyInput] = useState("");
+  const [applyInput, setApplyInput] = useState('');
 
   const refresh = useCallback(async () => {
     if (!userId) return;
     try {
       setSaved(await listResults(userId));
     } catch {
-      setError(t("loadError"));
+      setError(t('loadError'));
     }
   }, [userId, t]);
 
@@ -102,7 +95,7 @@ export function Results({
       const created = await saveResult(userId, month, plan);
       setSaved((prev) => [created, ...prev]);
     } catch {
-      setError(t("saveError"));
+      setError(t('saveError'));
     } finally {
       setSaving(false);
     }
@@ -115,41 +108,39 @@ export function Results({
       setSaved((prev) => prev.filter((r) => r._id !== id));
       if (loaded?._id === id) setLoaded(null);
     } catch {
-      setError(t("deleteError"));
+      setError(t('deleteError'));
     }
   }
 
   const view: View = loaded
     ? fromSaved(loaded)
     : {
-      month,
-      rows:
-        plan?.months.map((r) => ({
-          month: r.month,
-          gross: r.gross,
-          net: r.net,
-          expenses: r.expenses,
-          savings: r.savings,
-          remaining: r.remaining,
-          cumulative: r.cumulativeSavings,
-        })) ?? null,
-      totalSavings: plan?.totalSavings ?? 0,
-      annualExceeds:
-        plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
-    };
+        month,
+        rows:
+          plan?.months.map((r) => ({
+            month: r.month,
+            gross: r.gross,
+            net: r.net,
+            expenses: r.expenses,
+            savings: r.savings,
+            remaining: r.remaining,
+            cumulative: r.cumulativeSavings,
+          })) ?? null,
+        totalSavings: plan?.totalSavings ?? 0,
+        annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
+      };
 
   // Empty input = show the current month's savings; once the user types, their value wins
-  const applyValue =
-    applyInput !== "" ? applyInput : view.month.savings.toFixed(2);
+  const applyValue = applyInput !== '' ? applyInput : view.month.savings.toFixed(2);
 
   async function handleApply() {
-    const amount = Number(applyValue.replace(",", "."));
-    if (await dam.add(amount, t("damMonthlyLabel"))) setApplyInput("");
+    const amount = Number(applyValue.replace(',', '.'));
+    if (await dam.add(amount, t('damMonthlyLabel'))) setApplyInput('');
   }
 
-  const dateFmt = new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "pt-PT", {
-    dateStyle: "medium",
-    timeStyle: "short",
+  const dateFmt = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'pt-PT', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
   });
 
   return (
@@ -162,48 +153,30 @@ export function Results({
         <div className="flex min-w-0 flex-col gap-6">
           {/* 1. Monthly results */}
           <section className="rounded-2xl border border-beaver-200 bg-beaver-50 p-6">
-            <h2 className="text-lg font-semibold text-stone-900">
-              {t("monthTitle")}
-            </h2>
+            <h2 className="text-lg font-semibold text-stone-900">{t('monthTitle')}</h2>
             <p className="mt-1 text-sm text-stone-600">
-              {t(subsidiesInTwelfths ? "monthHintTwelfths" : "monthHint")}
+              {t(subsidiesInTwelfths ? 'monthHintTwelfths' : 'monthHint')}
             </p>
             <dl className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
-              <ResultItem label={t("gross")} value={money(view.month.gross)} />
-              <ResultItem
-                label={t("ss")}
-                value={money(view.month.socialSecurity)}
-              />
-              <ResultItem label={t("irsResult")} value={money(view.month.irs)} />
-              <ResultItem label={t("net")} value={money(view.month.net)} />
-              <ResultItem
-                label={t("expensesLabel")}
-                value={money(view.month.expenses)}
-              />
-              <ResultItem
-                label={t("disposable")}
-                value={money(view.month.disposable)}
-              />
-              <ResultItem
-                label={t("savings")}
-                value={money(view.month.savings)}
-                accent
-              />
-              <ResultItem
-                label={t("remaining")}
-                value={money(view.month.remaining)}
-              />
+              <ResultItem label={t('gross')} value={money(view.month.gross)} />
+              <ResultItem label={t('ss')} value={money(view.month.socialSecurity)} />
+              <ResultItem label={t('irsResult')} value={money(view.month.irs)} />
+              <ResultItem label={t('net')} value={money(view.month.net)} />
+              <ResultItem label={t('expensesLabel')} value={money(view.month.expenses)} />
+              <ResultItem label={t('disposable')} value={money(view.month.disposable)} />
+              <ResultItem label={t('savings')} value={money(view.month.savings)} accent />
+              <ResultItem label={t('remaining')} value={money(view.month.remaining)} />
             </dl>
             {view.month.savingsExceedsDisposable ? (
               <p className="mt-4 rounded-xl bg-warning-subtle px-3 py-2 text-sm text-stone-200">
-                {t("warning")}
+                {t('warning')}
               </p>
             ) : null}
 
             {userId ? (
               <div className="mt-4 flex flex-wrap items-end gap-3 print:hidden">
                 <label className="grid gap-1 text-sm text-stone-600">
-                  {t("applyLabel")}
+                  {t('applyLabel')}
                   <input
                     type="text"
                     inputMode="decimal"
@@ -217,13 +190,11 @@ export function Results({
                   onClick={() => void handleApply()}
                   className="rounded-xl bg-secondary px-4 py-2 text-sm font-medium text-white"
                 >
-                  {t("apply")}
+                  {t('apply')}
                 </button>
               </div>
             ) : null}
           </section>
-
-
 
           {/* 3. Save / back-to-current bar */}
           {userId && (
@@ -231,7 +202,7 @@ export function Results({
               {loaded ? (
                 <>
                   <p className="text-sm text-stone-600">
-                    {t("viewingSaved", {
+                    {t('viewingSaved', {
                       date: dateFmt.format(new Date(loaded.createdAt)),
                     })}
                   </p>
@@ -240,7 +211,7 @@ export function Results({
                     onClick={() => setLoaded(null)}
                     className="rounded-xl border border-stone-300 px-4 py-2 text-sm font-medium text-stone-800 hover:bg-stone-50"
                   >
-                    {t("backToCurrent")}
+                    {t('backToCurrent')}
                   </button>
                 </>
               ) : (
@@ -250,7 +221,7 @@ export function Results({
                   disabled={saving}
                   className="rounded-xl bg-secondary px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
                 >
-                  {saving ? t("saving") : t("save")}
+                  {saving ? t('saving') : t('save')}
                 </button>
               )}
               {error ? <p className="text-sm text-red-600">{error}</p> : null}
@@ -260,24 +231,19 @@ export function Results({
           {/* 4. Saved results */}
           {userId && (
             <section className="rounded-2xl border border-stone-200 bg-white p-6 print:hidden">
-              <h2 className="text-lg font-semibold text-stone-900">
-                {t("savedTitle")}
-              </h2>
+              <h2 className="text-lg font-semibold text-stone-900">{t('savedTitle')}</h2>
               {saved.length === 0 ? (
-                <p className="mt-2 text-sm text-stone-600">{t("noSaved")}</p>
+                <p className="mt-2 text-sm text-stone-600">{t('noSaved')}</p>
               ) : (
                 <ul className="mt-3 divide-y divide-stone-100">
                   {saved.map((r) => (
-                    <li
-                      key={r._id}
-                      className="flex items-center justify-between gap-3 py-2"
-                    >
+                    <li key={r._id} className="flex items-center justify-between gap-3 py-2">
                       <div className="min-w-0 text-sm">
                         <p className="font-medium text-stone-800">
                           {dateFmt.format(new Date(r.createdAt))}
                         </p>
                         <p className="text-stone-500">
-                          {t("totalSavingsShort")}: {money(r.totalSavings)}
+                          {t('totalSavingsShort')}: {money(r.totalSavings)}
                         </p>
                       </div>
                       <div className="flex gap-2">
@@ -286,14 +252,14 @@ export function Results({
                           onClick={() => setLoaded(r)}
                           className="rounded-lg border border-stone-300 px-3 py-1 text-sm hover:bg-stone-50"
                         >
-                          {t("open")}
+                          {t('open')}
                         </button>
                         <button
                           type="button"
                           onClick={() => handleDelete(r._id)}
                           className="rounded-lg border border-stone-300 px-3 py-1 text-sm text-red-600 hover:bg-stone-50"
                         >
-                          {t("delete")}
+                          {t('delete')}
                         </button>
                       </div>
                     </li>
@@ -309,15 +275,13 @@ export function Results({
       {view.rows ? (
         <section className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm print:overflow-visible">
           <div className="p-6 pb-2 print:px-3 print:pt-3">
-            <h2 className="text-lg font-semibold text-stone-900">
-              {t("annualTitle")}
-            </h2>
+            <h2 className="text-lg font-semibold text-stone-900">{t('annualTitle')}</h2>
             <p className="mt-1 text-sm text-stone-600">
-              {t(subsidiesInTwelfths ? "annualHintTwelfths" : "annualHint")}
+              {t(subsidiesInTwelfths ? 'annualHintTwelfths' : 'annualHint')}
             </p>
             {view.annualExceeds ? (
               <p className="mt-3 rounded-xl bg-warning-subtle px-3 py-2 text-sm text-stone-200">
-                {t("warning")}
+                {t('warning')}
               </p>
             ) : null}
           </div>
@@ -325,24 +289,16 @@ export function Results({
             <table className="w-full min-w-[40rem] text-left text-sm print:min-w-0 print:table-fixed print:text-xs">
               <thead className="border-y border-stone-200 bg-stone-50 text-stone-500">
                 <tr>
-                  <th className={`${planCell} font-medium print:w-[16%]`}>
-                    {t("month")}
-                  </th>
-                  <th className={`${planCell} font-medium`}>{t("gross")}</th>
-                  <th className={`${planCell} font-medium`}>{t("net")}</th>
-                  <th className={`${planCell} font-medium`}>
-                    {t("expensesLabel")}
-                  </th>
-                  <th className={`${planCell} font-medium`}>{t("savings")}</th>
-                  <th className={`${planCell} font-medium`}>
-                    {t("remaining")}
-                  </th>
-                  <th className={`${planCell} font-medium`}>
-                    {t("cumulative")}
-                  </th>
+                  <th className={`${planCell} font-medium print:w-[16%]`}>{t('month')}</th>
+                  <th className={`${planCell} font-medium`}>{t('gross')}</th>
+                  <th className={`${planCell} font-medium`}>{t('net')}</th>
+                  <th className={`${planCell} font-medium`}>{t('expensesLabel')}</th>
+                  <th className={`${planCell} font-medium`}>{t('savings')}</th>
+                  <th className={`${planCell} font-medium`}>{t('remaining')}</th>
+                  <th className={`${planCell} font-medium`}>{t('cumulative')}</th>
                   {userId ? (
                     <th className={`${planCell} print:hidden`}>
-                      <span className="sr-only">{t("apply")}</span>
+                      <span className="sr-only">{t('apply')}</span>
                     </th>
                   ) : null}
                 </tr>
@@ -365,12 +321,10 @@ export function Results({
                       <td className={`${planCell} print:hidden`}>
                         <button
                           type="button"
-                          onClick={() =>
-                            dam.add(row.savings, monthNames[row.month - 1])
-                          }
+                          onClick={() => dam.add(row.savings, monthNames[row.month - 1])}
                           className="rounded-lg border border-stone-300 px-2 py-1 text-xs hover:bg-stone-50"
                         >
-                          {t("apply")}
+                          {t('apply')}
                         </button>
                       </td>
                     ) : null}
@@ -380,7 +334,7 @@ export function Results({
               <tfoot>
                 <tr className="bg-beaver-50 font-semibold text-stone-900">
                   <th className="px-4 py-3 text-left whitespace-nowrap print:px-1.5 print:py-2">
-                    {t("total")}
+                    {t('total')}
                   </th>
                   <td colSpan={5} />
                   <td className="px-4 py-3 whitespace-nowrap print:px-1.5 print:py-2">
@@ -420,9 +374,7 @@ function ResultItem({
   return (
     <div className="rounded-xl bg-white px-4 py-3">
       <dt className="text-sm text-stone-500">{label}</dt>
-      <dd
-        className={`mt-1 text-xl font-semibold ${accent ? "text-secondary" : "text-stone-900"}`}
-      >
+      <dd className={`mt-1 text-xl font-semibold ${accent ? 'text-secondary' : 'text-stone-900'}`}>
         {value}
       </dd>
     </div>
@@ -430,8 +382,8 @@ function ResultItem({
 }
 
 function formatMoney(locale: string, value: number): string {
-  return new Intl.NumberFormat(locale === "en" ? "en-GB" : "pt-PT", {
-    style: "currency",
-    currency: "EUR",
+  return new Intl.NumberFormat(locale === 'en' ? 'en-GB' : 'pt-PT', {
+    style: 'currency',
+    currency: 'EUR',
   }).format(value);
 }

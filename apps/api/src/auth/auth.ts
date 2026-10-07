@@ -30,7 +30,7 @@ export async function createAuth() {
           await mongoDb.collection('results').deleteMany(query);
           await mongoDb.collection('dam_entries').deleteMany(query);
         },
-      }
+      },
     },
     baseURL: process.env.BETTER_AUTH_URL ?? 'http://localhost:4331',
     secret: process.env.BETTER_AUTH_SECRET ?? 'secret',
@@ -40,19 +40,21 @@ export async function createAuth() {
       sendVerificationEmail: async ({ user, token }) => {
         const url = `${process.env.WEB_ORIGIN}/confirm-account?token=${token}`;
 
-        waitUntil(sendEmail({
-          to: user.email,
-          subject: "Confirm Beaver Savings account",
-          text: `Welcome to Beaver Savings! To confirm your account, please use the following link: ${url}`
-        }));
+        waitUntil(
+          sendEmail({
+            to: user.email,
+            subject: 'Confirm Beaver Savings account',
+            text: `Welcome to Beaver Savings! To confirm your account, please use the following link: ${url}`,
+          }),
+        );
       },
-      autoSignInAfterVerification: true
+      autoSignInAfterVerification: true,
     },
     advanced: {
       defaultCookieAttributes: {
         sameSite: 'None',
         secure: true,
       },
-    }
+    },
   });
 }

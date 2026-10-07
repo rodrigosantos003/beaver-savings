@@ -30,7 +30,7 @@ export class AppModule {
         }),
         SavingsModule,
         ResultsModule,
-        DamModule
+        DamModule,
       ],
       controllers: [AppController],
       providers: [

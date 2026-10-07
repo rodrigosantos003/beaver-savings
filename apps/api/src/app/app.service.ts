@@ -16,7 +16,7 @@ const DB_PING_TIMEOUT_MS = 2000;
 
 @Injectable()
 export class AppService {
-  constructor(@Inject(MONGO_DB) private readonly db: Db) { }
+  constructor(@Inject(MONGO_DB) private readonly db: Db) {}
 
   async health(): Promise<HealthCheckResult> {
     const database = await this.checkDatabase();

@@ -188,10 +188,7 @@ export function calculateAnnualPlan(input: SavingsInput): AnnualPlan {
   let cumulativeSavings = 0;
 
   for (let month = 1; month <= 12; month += 1) {
-    const row = breakdown(
-      monthlyGross(normalized, subsidyInMonth(normalized, month)),
-      normalized,
-    );
+    const row = breakdown(monthlyGross(normalized, subsidyInMonth(normalized, month)), normalized);
     cumulativeSavings = roundMoney(cumulativeSavings + row.savings);
     months.push({
       ...row,

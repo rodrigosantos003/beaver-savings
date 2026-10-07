@@ -1,12 +1,12 @@
-import { getTranslations } from "next-intl/server";
-import { QuickLogin } from "@/components/auth/QuickLogin";
-import { RiverWaveBackground } from "@/components/RiverWaveBackground";
-import { Link } from "@/i18n/navigation";
-import Image from "next/image";
-import { Header } from "@/components/header";
+import { getTranslations } from 'next-intl/server';
+import { QuickLogin } from '@/components/auth/QuickLogin';
+import { RiverWaveBackground } from '@/components/RiverWaveBackground';
+import { Link } from '@/i18n/navigation';
+import Image from 'next/image';
+import { Header } from '@/components/Header';
 
 const ctaClass =
-  "inline-flex items-center justify-center rounded-full bg-secondary font-semibold text-white transition-colors hover:bg-secondary-hover";
+  'inline-flex items-center justify-center rounded-full bg-secondary font-semibold text-white transition-colors hover:bg-secondary-hover';
 
 type FeatureItem = {
   title: string;
@@ -30,24 +30,24 @@ export default async function LandingPage() {
 
   const stats = [
     {
-      ...(t.raw("stats.netIncome") as StatItem),
-      value: "€2,340",
+      ...(t.raw('stats.netIncome') as StatItem),
+      value: '€2,340',
       accent: false,
     },
     {
-      ...(t.raw("stats.monthlySavings") as StatItem),
-      value: "€350",
+      ...(t.raw('stats.monthlySavings') as StatItem),
+      value: '€350',
       accent: true,
     },
     {
-      ...(t.raw("stats.yearEndTotal") as StatItem),
-      value: "€4,200",
+      ...(t.raw('stats.yearEndTotal') as StatItem),
+      value: '€4,200',
       accent: false,
     },
   ];
 
-  const featureItems = t.raw("features.items") as FeatureItem[];
-  const stepItems = t.raw("steps.items") as StepItem[];
+  const featureItems = t.raw('features.items') as FeatureItem[];
+  const stepItems = t.raw('steps.items') as StepItem[];
 
   return (
     <div className="flex min-h-full flex-col bg-white text-stone-900">
@@ -69,13 +69,13 @@ export default async function LandingPage() {
           <div className="relative z-10 mx-auto max-w-6xl">
             <div className="mx-auto max-w-3xl text-center">
               <h1 className="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
-                {t("hero.title")}
+                {t('hero.title')}
               </h1>
               <p className="mt-2 text-xl font-medium text-secondary sm:text-2xl">
-                {t("hero.subtitle")}
+                {t('hero.subtitle')}
               </p>
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-600">
-                {t("hero.description")}
+                {t('hero.description')}
               </p>
               <div
                 id="get-started"
@@ -85,13 +85,13 @@ export default async function LandingPage() {
                   href="/calculator"
                   className={`${ctaClass} h-12 w-full px-8 text-base sm:w-auto`}
                 >
-                  {t("hero.exploreFeatures")}
+                  {t('hero.exploreFeatures')}
                 </Link>
                 <Link
                   href="#how-it-works"
                   className="inline-flex h-12 w-full items-center justify-center rounded-full border border-stone-200 bg-white px-8 text-base font-semibold text-stone-700 transition-colors hover:bg-stone-50 sm:w-auto"
                 >
-                  {t("hero.seeHowItWorks")}
+                  {t('hero.seeHowItWorks')}
                 </Link>
               </div>
             </div>
@@ -100,19 +100,16 @@ export default async function LandingPage() {
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className={`rounded-2xl border p-6 text-center shadow-sm ${stat.accent
-                    ? "border-beaver-200 bg-beaver-50"
-                    : "border-stone-200 bg-white"
-                    }`}
+                  className={`rounded-2xl border p-6 text-center shadow-sm ${
+                    stat.accent ? 'border-beaver-200 bg-beaver-50' : 'border-stone-200 bg-white'
+                  }`}
                 >
-                  <p className="text-sm font-medium text-stone-500">
-                    {stat.label}
-                  </p>
+                  <p className="text-sm font-medium text-stone-500">{stat.label}</p>
                   <p className="mt-1 text-3xl font-bold tracking-tight text-stone-900">
                     {stat.value}
                   </p>
                   <p
-                    className={`mt-1 text-sm ${stat.accent ? "text-secondary" : "text-stone-500"}`}
+                    className={`mt-1 text-sm ${stat.accent ? 'text-secondary' : 'text-stone-500'}`}
                   >
                     {stat.sub}
                   </p>
@@ -122,18 +119,13 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        <section
-          id="features"
-          className="border-t border-stone-200 bg-stone-50 px-6 py-20"
-        >
+        <section id="features" className="border-t border-stone-200 bg-stone-50 px-6 py-20">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
-                {t("features.title")}
+                {t('features.title')}
               </h2>
-              <p className="mt-4 text-lg text-stone-600">
-                {t("features.description")}
-              </p>
+              <p className="mt-4 text-lg text-stone-600">{t('features.description')}</p>
             </div>
             <ul className="mt-14 flex flex-wrap justify-center gap-6">
               {featureItems.map((feature) => (
@@ -147,9 +139,7 @@ export default async function LandingPage() {
                   >
                     {feature.icon}
                   </span>
-                  <h3 className="mt-4 text-lg font-semibold text-stone-900">
-                    {feature.title}
-                  </h3>
+                  <h3 className="mt-4 text-lg font-semibold text-stone-900">{feature.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-stone-600">
                     {feature.description}
                   </p>
@@ -163,27 +153,18 @@ export default async function LandingPage() {
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
-                {t("steps.title")}
+                {t('steps.title')}
               </h2>
-              <p className="mt-4 text-lg text-stone-600">
-                {t("steps.description")}
-              </p>
+              <p className="mt-4 text-lg text-stone-600">{t('steps.description')}</p>
             </div>
             <ol className="mt-14 grid gap-8 md:grid-cols-3">
               {stepItems.map((item) => (
-                <li
-                  key={item.step}
-                  className="relative text-center md:text-left"
-                >
+                <li key={item.step} className="relative text-center md:text-left">
                   <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-beaver-100 text-lg font-bold text-beaver-700">
                     {item.step}
                   </span>
-                  <h3 className="mt-4 text-lg font-semibold text-stone-900">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-stone-600">
-                    {item.description}
-                  </p>
+                  <h3 className="mt-4 text-lg font-semibold text-stone-900">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-stone-600">{item.description}</p>
                 </li>
               ))}
             </ol>
@@ -194,14 +175,11 @@ export default async function LandingPage() {
           <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center">
             <Image src="/beaver-savings.png" alt="Beaver Savings" width={50} height={50} />
             <h2 className="max-w-xl text-2xl font-bold tracking-tight text-beaver-50 sm:text-3xl">
-              {t("cta.title")}
+              {t('cta.title')}
             </h2>
-            <p className="max-w-lg text-beaver-100">{t("cta.description")}</p>
-            <Link
-              href="/signup"
-              className={`${ctaClass} h-12 px-8 text-base`}
-            >
-              {t("cta.button")}
+            <p className="max-w-lg text-beaver-100">{t('cta.description')}</p>
+            <Link href="/signup" className={`${ctaClass} h-12 px-8 text-base`}>
+              {t('cta.button')}
             </Link>
           </div>
         </section>
@@ -211,9 +189,7 @@ export default async function LandingPage() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="flex items-center gap-2">
             <Image src="/beaver-savings.png" alt="Beaver Savings" width={42} height={42} />
-            <span className="text-sm font-medium text-beaver-900">
-              Beaver Savings
-            </span>
+            <span className="text-sm font-medium text-beaver-900">Beaver Savings</span>
           </div>
           <div className="flex flex-col items-center gap-2 sm:items-end">
             <Link
@@ -223,7 +199,7 @@ export default async function LandingPage() {
               Privacy Policy
             </Link>
             <p className="text-sm text-stone-500">
-              © {new Date().getFullYear()} Beaver Savings. {t("footer.tagline")}
+              © {new Date().getFullYear()} Beaver Savings. {t('footer.tagline')}
             </p>
           </div>
         </div>

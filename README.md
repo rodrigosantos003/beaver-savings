@@ -2,13 +2,18 @@
 
 **Save the Way a Beaver Bites Wood — Bit by Bit.**
 
-Calculadora de poupança com base no salário. Permite estimar quanto podes poupar por mês com base no teu rendimento, descontos fiscais e despesas, e acompanhar o progresso ao longo do tempo.
+Calculadora de poupança com base no salário. Permite estimar quanto podes poupar
+por mês com base no teu rendimento, descontos fiscais e despesas, e acompanhar o
+progresso ao longo do tempo.
 
 ---
 
 ## Visão geral
 
-Beaver Savings ajuda utilizadores a planear poupança de forma incremental — mês a mês — com inputs realistas do mercado de trabalho português (salário base, subsídios, IRS, Segurança Social) e ferramentas para exportar resultados e gerar planos anuais.
+Beaver Savings ajuda utilizadores a planear poupança de forma incremental — mês
+a mês — com inputs realistas do mercado de trabalho português (salário base,
+subsídios, IRS, Segurança Social) e ferramentas para exportar resultados e gerar
+planos anuais.
 
 ---
 
@@ -31,7 +36,8 @@ Beaver Savings ajuda utilizadores a planear poupança de forma incremental — m
 
 ### Calculadora do mês
 
-Calcula rendimento líquido, despesas, valor de poupança e saldo disponível com base nos inputs acima.
+Calcula rendimento líquido, despesas, valor de poupança e saldo disponível com
+base nos inputs acima.
 
 ### Exportar resultados
 
@@ -40,11 +46,13 @@ Calcula rendimento líquido, despesas, valor de poupança e saldo disponível co
 
 ### Gerador de plano anual
 
-Projeta poupança acumulada ao longo de 12 meses com base nos parâmetros definidos.
+Projeta poupança acumulada ao longo de 12 meses com base nos parâmetros
+definidos.
 
 ### Parser de recibos de vencimento
 
-Upload de recibos de vencimento com extração automática de dados via **Gemini API**.
+Upload de recibos de vencimento com extração automática de dados via **Gemini
+API**.
 
 ---
 

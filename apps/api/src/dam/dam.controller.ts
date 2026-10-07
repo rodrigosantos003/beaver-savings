@@ -1,12 +1,12 @@
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    HttpCode,
-    Param,
-    Post,
-    Query,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  Query,
 } from '@nestjs/common';
 import { DamService } from './dam.service';
 import { CreateDamEntryDto } from './dam.dto';
@@ -19,21 +19,21 @@ import { CreateDamEntryDto } from './dam.dto';
  */
 @Controller('dam')
 export class DamController {
-    constructor(private readonly dam: DamService) { }
+  constructor(private readonly dam: DamService) {}
 
-    @Get()
-    list(@Query('userId') userId: string) {
-        return this.dam.list(userId);
-    }
+  @Get()
+  list(@Query('userId') userId: string) {
+    return this.dam.list(userId);
+  }
 
-    @Post()
-    create(@Query('userId') userId: string, @Body() dto: CreateDamEntryDto) {
-        return this.dam.create(userId, dto);
-    }
+  @Post()
+  create(@Query('userId') userId: string, @Body() dto: CreateDamEntryDto) {
+    return this.dam.create(userId, dto);
+  }
 
-    @Delete(':id')
-    @HttpCode(204)
-    remove(@Query('userId') userId: string, @Param('id') id: string) {
-        return this.dam.remove(userId, id);
-    }
+  @Delete(':id')
+  @HttpCode(204)
+  remove(@Query('userId') userId: string, @Param('id') id: string) {
+    return this.dam.remove(userId, id);
+  }
 }

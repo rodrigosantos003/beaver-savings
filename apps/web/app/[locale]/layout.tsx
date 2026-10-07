@@ -1,29 +1,29 @@
-import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
-import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
-import "../globals.css";
+import type { Metadata, Viewport } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import { NextIntlClientProvider, hasLocale } from 'next-intl';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
+import '../globals.css';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
-type Props = LayoutProps<"/[locale]">;
+type Props = LayoutProps<'/[locale]'>;
 
-const SITE_URL = "https://beaver-savings.vercel.app";
+const SITE_URL = 'https://beaver-savings.vercel.app';
 
 // Map your locales to OpenGraph format (language_TERRITORY)
 const OG_LOCALES: Record<string, string> = {
-  en: "en_GB",
-  pt: "pt_PT",
+  en: 'en_GB',
+  pt: 'pt_PT',
 };
 
 export function generateStaticParams() {
@@ -31,59 +31,55 @@ export function generateStaticParams() {
 }
 
 export const viewport: Viewport = {
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
   ],
 };
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params;
-  const t = await getTranslations({ locale, namespace: "meta" });
+  const t = await getTranslations({ locale, namespace: 'meta' });
 
-  const title = t("title");
-  const description = t("description");
+  const title = t('title');
+  const description = t('description');
 
   // hreflang map: { en: "/en", pt: "/pt", ... }
-  const languages = Object.fromEntries(
-    routing.locales.map((l) => [l, `/${l}`])
-  );
+  const languages = Object.fromEntries(routing.locales.map((l) => [l, `/${l}`]));
 
   return {
     metadataBase: new URL(SITE_URL),
     title: {
       default: title,
-      template: `%s | ${t("siteName")}`, // child pages: "About | Site Name"
+      template: `%s | ${t('siteName')}`, // child pages: "About | Site Name"
     },
     description,
-    applicationName: t("siteName"),
+    applicationName: t('siteName'),
     alternates: {
       canonical: `/${locale}`,
       languages: {
         ...languages,
-        "x-default": `/${routing.defaultLocale}`,
+        'x-default': `/${routing.defaultLocale}`,
       },
     },
     openGraph: {
-      type: "website",
-      siteName: t("siteName"),
+      type: 'website',
+      siteName: t('siteName'),
       title,
       description,
       url: `/${locale}`,
       locale: OG_LOCALES[locale] ?? locale,
-      alternateLocale: routing.locales
-        .filter((l) => l !== locale)
-        .map((l) => OG_LOCALES[l] ?? l),
+      alternateLocale: routing.locales.filter((l) => l !== locale).map((l) => OG_LOCALES[l] ?? l),
       // Or drop an opengraph-image.tsx / .png into app/[locale]/ and omit this
-      images: [{ url: "/og.png", width: 1200, height: 630, alt: title }],
+      images: [{ url: '/og.png', width: 1200, height: 630, alt: title }],
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title,
       description,
-      images: ["/og.png"],
+      images: ['/og.png'],
     },
     robots: {
       index: true,
@@ -91,13 +87,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       googleBot: {
         index: true,
         follow: true,
-        "max-image-preview": "large",
-        "max-snippet": -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
       },
     },
     verification: {
-      google: "DklI2pa9po4FGYTmMgU4V4uFQgremMx-r7yd0IXrFIY"
-    }
+      google: 'DklI2pa9po4FGYTmMgU4V4uFQgremMx-r7yd0IXrFIY',
+    },
   };
 }
 
@@ -106,15 +102,15 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!hasLocale(routing.locales, locale)) notFound();
 
   const messages = await getMessages();
-  const t = await getTranslations({ locale, namespace: "meta" });
+  const t = await getTranslations({ locale, namespace: 'meta' });
 
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: t("siteName"),
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: t('siteName'),
     url: `${SITE_URL}/${locale}`,
     inLanguage: locale,
-    description: t("description"),
+    description: t('description'),
   };
 
   return (
@@ -126,12 +122,10 @@ export default async function LocaleLayout({ children, params }: Props) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
           }}
         />
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>
   );

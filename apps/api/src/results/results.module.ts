@@ -5,8 +5,8 @@ import { ResultsController } from './results.controller';
 import { ResultsService } from './results.service';
 
 @Module({
-    controllers: [ResultsController],
-    providers: [ResultsRepository, ResultsService],
-    exports: [ResultsService],
+  controllers: [ResultsController],
+  providers: [ResultsRepository, ResultsService],
+  exports: [ResultsService],
 })
-export class ResultsModule { }
+export class ResultsModule {}

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { SavingsInput } from "savings-core";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { SavingsInput } from 'savings-core';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 const inputClass =
-  "mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100";
+  'mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100';
 
 type CalculatorFormProps = {
   input: SavingsInput;
@@ -13,17 +13,10 @@ type CalculatorFormProps = {
   monthNames?: string[];
 };
 
-export function CalculatorForm({
-  input,
-  onChange,
-  monthNames,
-}: CalculatorFormProps) {
-  const t = useTranslations("calculator");
+export function CalculatorForm({ input, onChange, monthNames }: CalculatorFormProps) {
+  const t = useTranslations('calculator');
 
-  function update<K extends keyof SavingsInput>(
-    key: K,
-    value: SavingsInput[K],
-  ) {
+  function update<K extends keyof SavingsInput>(key: K, value: SavingsInput[K]) {
     onChange({ ...input, [key]: value });
   }
 
@@ -42,49 +35,47 @@ export function CalculatorForm({
       onSubmit={(event) => event.preventDefault()}
     >
       <fieldset className="grid gap-4 sm:grid-cols-2">
-        <legend className="mb-1 text-lg font-semibold text-stone-900">
-          {t("income")}
-        </legend>
+        <legend className="mb-1 text-lg font-semibold text-stone-900">{t('income')}</legend>
         <NumberField
-          label={t("baseSalary")}
+          label={t('baseSalary')}
           value={input.baseSalary}
-          onChange={(raw) => updateNumber("baseSalary", raw)}
+          onChange={(raw) => updateNumber('baseSalary', raw)}
         />
         <NumberField
-          label={t("extras")}
+          label={t('extras')}
           value={input.extras}
-          onChange={(raw) => updateNumber("extras", raw)}
+          onChange={(raw) => updateNumber('extras', raw)}
         />
         <NumberField
-          label={t("holidaySubsidy")}
+          label={t('holidaySubsidy')}
           value={input.holidaySubsidy}
-          onChange={(raw) => updateNumber("holidaySubsidy", raw)}
+          onChange={(raw) => updateNumber('holidaySubsidy', raw)}
         />
         <NumberField
-          label={t("christmasSubsidy")}
+          label={t('christmasSubsidy')}
           value={input.christmasSubsidy}
-          onChange={(raw) => updateNumber("christmasSubsidy", raw)}
+          onChange={(raw) => updateNumber('christmasSubsidy', raw)}
         />
         <div className="sm:col-span-2">
           <Toggle
-            label={t("subsidiesInTwelfths")}
+            label={t('subsidiesInTwelfths')}
             checked={input.subsidiesInTwelfths}
-            onChange={(checked) => update("subsidiesInTwelfths", checked)}
+            onChange={(checked) => update('subsidiesInTwelfths', checked)}
           />
         </div>
         {monthNames && !input.subsidiesInTwelfths ? (
           <>
             <MonthField
-              label={t("holidayMonth")}
+              label={t('holidayMonth')}
               value={input.holidayMonth}
               monthNames={monthNames}
-              onChange={(month) => update("holidayMonth", month)}
+              onChange={(month) => update('holidayMonth', month)}
             />
             <MonthField
-              label={t("christmasMonth")}
+              label={t('christmasMonth')}
               value={input.christmasMonth}
               monthNames={monthNames}
-              onChange={(month) => update("christmasMonth", month)}
+              onChange={(month) => update('christmasMonth', month)}
             />
           </>
         ) : null}
@@ -92,75 +83,71 @@ export function CalculatorForm({
 
       <div className="grid gap-3">
         <Toggle
-          label={t("includeSubsidies")}
+          label={t('includeSubsidies')}
           checked={input.includeSubsidies}
-          onChange={(checked) => update("includeSubsidies", checked)}
+          onChange={(checked) => update('includeSubsidies', checked)}
         />
         <Toggle
-          label={t("includeExtras")}
+          label={t('includeExtras')}
           checked={input.includeExtras}
-          onChange={(checked) => update("includeExtras", checked)}
+          onChange={(checked) => update('includeExtras', checked)}
         />
       </div>
 
       <fieldset className="grid gap-4 sm:grid-cols-2">
-        <legend className="mb-1 text-lg font-semibold text-stone-900">
-          {t("taxes")}
-        </legend>
+        <legend className="mb-1 text-lg font-semibold text-stone-900">{t('taxes')}</legend>
         <NumberField
-          label={t("irs")}
+          label={t('irs')}
           value={input.irsRatePercent}
-          onChange={(raw) => updateNumber("irsRatePercent", raw)}
+          onChange={(raw) => updateNumber('irsRatePercent', raw)}
         />
         <NumberField
-          label={t("ssRate")}
+          label={t('ssRate')}
           value={input.ssRatePercent}
-          onChange={(raw) => updateNumber("ssRatePercent", raw)}
+          onChange={(raw) => updateNumber('ssRatePercent', raw)}
         />
         <NumberField
-          label={t("expenses")}
+          label={t('expenses')}
           value={input.monthlyExpenses}
-          onChange={(raw) => updateNumber("monthlyExpenses", raw)}
+          onChange={(raw) => updateNumber('monthlyExpenses', raw)}
         />
       </fieldset>
 
       <fieldset className="grid gap-4">
-        <legend className="text-lg font-semibold text-stone-900">
-          {t("method")}
-        </legend>
+        <legend className="text-lg font-semibold text-stone-900">{t('method')}</legend>
         <div className="flex flex-wrap gap-4 text-sm font-medium text-stone-700">
           <label className="flex items-center gap-2">
             <input
               type="radio"
               name="savingsMethod"
-              checked={input.savingsMethod === "percent"}
-              onChange={() => update("savingsMethod", "percent")}
+              checked={input.savingsMethod === 'percent'}
+              onChange={() => update('savingsMethod', 'percent')}
             />
-            {t("percent")}
+            {t('percent')}
           </label>
           <label className="flex items-center gap-2">
             <input
               type="radio"
               name="savingsMethod"
-              checked={input.savingsMethod === "fixed"}
-              onChange={() => update("savingsMethod", "fixed")}
+              checked={input.savingsMethod === 'fixed'}
+              onChange={() => update('savingsMethod', 'fixed')}
             />
-            {t("fixed")}
+            {t('fixed')}
           </label>
         </div>
-        {input.savingsMethod === "percent" ? (
+        {input.savingsMethod === 'percent' ? (
           <NumberField
             key="savingsPercent"
-            label={t("savingsPercent")}
+            label={t('savingsPercent')}
             value={input.savingsPercent}
-            onChange={(raw) => updateNumber("savingsPercent", raw)}
+            onChange={(raw) => updateNumber('savingsPercent', raw)}
           />
         ) : (
           <NumberField
             key="savingsAmount"
-            label={t("savingsAmount")}
+            label={t('savingsAmount')}
             value={input.savingsAmount}
-            onChange={(raw) => updateNumber("savingsAmount", raw)}
+            onChange={(raw) => updateNumber('savingsAmount', raw)}
           />
         )}
       </fieldset>
@@ -203,7 +190,7 @@ function NumberField({
 }
 
 function decimalDraft(raw: string): string | null {
-  const text = raw.replaceAll(".", ",");
+  const text = raw.replaceAll('.', ',');
   if (!/^\d*,?\d*$/.test(text)) {
     return null;
   }
@@ -213,11 +200,11 @@ function decimalDraft(raw: string): string | null {
 
 function parseDecimal(raw: string): number | null {
   const text = raw.trim();
-  if (text === "" || text === ",") {
+  if (text === '' || text === ',') {
     return 0;
   }
 
-  const value = Number(text.replace(",", "."));
+  const value = Number(text.replace(',', '.'));
   if (!Number.isFinite(value)) {
     return null;
   }
@@ -226,7 +213,7 @@ function parseDecimal(raw: string): number | null {
 }
 
 function formatDecimal(value: number): string {
-  return String(value).replace(".", ",");
+  return String(value).replace('.', ',');
 }
 
 function MonthField({

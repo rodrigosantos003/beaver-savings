@@ -1,8 +1,4 @@
-import {
-  calculateAnnualPlan,
-  calculateTypicalMonth,
-  SavingsInput,
-} from './index';
+import { calculateAnnualPlan, calculateTypicalMonth, SavingsInput } from './index';
 
 const baseInput: SavingsInput = {
   baseSalary: 2000,

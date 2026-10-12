@@ -100,7 +100,9 @@
     "verifyContinue": "Continuar",
     "verifyError": "Este link de confirmação é inválido ou expirou.",
     "verifyErrorHint": "Faça login com as suas credenciais e enviaremos link de confirmação.",
-    "backToLogin": "Voltar ao login"
+    "backToLogin": "Voltar ao login",
+    "acceptTerms": "Ao usar a aplicação, aceita os",
+    "termsAndConditions": "termos e condições."
   },
   "demo": {
     "metaTitle": "Demo mensal — Beaver Savings",

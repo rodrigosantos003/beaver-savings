@@ -101,6 +101,9 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
           {isSignup ? t('loginLink') : t('signupLink')}
         </Link>
       </p>
+      <p className="text-sm text-stone-500">
+        {t("acceptTerms")} <Link href="/terms-and-conditions" className="font-medium text-beaver-700 hover:text-beaver-900">{t("termsAndConditions")}</Link>
+      </p>
     </form>
   );
 }

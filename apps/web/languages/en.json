@@ -100,7 +100,9 @@
     "verifyContinue": "Continue",
     "verifyError": "This confirmation link is invalid or has expired.",
     "verifyErrorHint": "Log in with your credentials and we'll send you a new confirmation email.",
-    "backToLogin": "Back to log in"
+    "backToLogin": "Back to log in",
+    "acceptTerms": "By using the app, you accept the",
+    "termsAndConditions": "terms and conditions."
   },
   "demo": {
     "metaTitle": "Monthly demo — Beaver Savings",

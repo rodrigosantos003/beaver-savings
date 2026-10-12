@@ -197,6 +197,12 @@ export default async function LandingPage() {
             >
               {t("PrivacyPolicy.title")}
             </Link>
+            <Link
+              href="/terms-and-conditions"
+              className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
+            >
+              {t("Terms.title")}
+            </Link>
             <p className="text-sm text-stone-500">
               © {new Date().getFullYear()} Beaver Savings. {t('footer.tagline')}
             </p>

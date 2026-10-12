@@ -185,7 +185,8 @@
     "damAddError": "Não foi possível aplicar esse valor.",
     "damRemoveError": "Não foi possível remover a entrada.",
     "footerNav": "Rodapé",
-    "privacyPolicy": "Política de privacidade",
+    "privacyPolicy": "Política de Privacidade",
+    "terms": "Termos e Condições",
     "deleteAccount": "Eliminar conta"
   },
   "unlock": {
@@ -228,7 +229,7 @@
       "description": "Como a Beaver Savings recolhe, utiliza, armazena e protege as suas informações pessoais."
     },
     "title": "Política de Privacidade",
-    "lastUpdated": "Última atualização: 5 de outubro de 2026",
+    "lastUpdated": "Última atualização: 12 de outubro de 2026",
     "intro": {
       "p1": "A Beaver Savings («Beaver Savings», «nós» ou «nosso») é uma aplicação web de finanças pessoais desenvolvida e operada por <strong>Rodrigo Santos</strong>.",
       "p2": "Esta Política de Privacidade explica como recolhemos, utilizamos, armazenamos e protegemos as informações pessoais quando utiliza a Beaver Savings."
@@ -439,6 +440,211 @@
       "contact": {
         "title": "Contacto",
         "p1": "Se tiver questões, preocupações ou pedidos relativos a esta Política de Privacidade ou aos seus dados pessoais, contacte:"
+      }
+    }
+  },
+  "Terms": {
+    "meta": {
+      "title": "Termos e Condições | Beaver Savings",
+      "description": "Os termos aplicáveis à utilização da Beaver Savings, uma ferramenta gratuita de finanças pessoais e planeamento de poupanças."
+    },
+    "title": "Termos e Condições",
+    "lastUpdated": "Última atualização: 12 de outubro de 2026",
+    "intro": {
+      "welcome": "Bem-vindo à Beaver Savings!",
+      "p1": "Estes Termos e Condições explicam como pode utilizar a Beaver Savings, uma aplicação web de finanças pessoais e planeamento de poupanças operada por <strong>Rodrigo Santos</strong>.",
+      "p2": "Ao aceder ou utilizar a Beaver Savings, concorda com estes Termos e Condições. Se não concordar com os mesmos, não utilize o serviço."
+    },
+    "toc": "Índice",
+    "footer": {
+      "tagline": "Aplicação de gestão de finanças pessoais e poupanças. Operada por Rodrigo Santos."
+    },
+    "common": {
+      "emailLabel": "Email: <email></email>",
+      "websiteLabel": "Website: <siteUrl></siteUrl>"
+    },
+    "sections": {
+      "about": {
+        "title": "Sobre a Beaver Savings",
+        "p1": "A Beaver Savings é uma ferramenta online gratuita concebida para o ajudar a compreender o seu rendimento, planear as suas despesas, definir objetivos de poupança e estimar como as suas poupanças podem crescer ao longo do tempo.",
+        "p2": "O serviço pode incluir funcionalidades como:",
+        "list": {
+          "i1": "Cálculo do rendimento líquido estimado com base no salário, impostos e contribuições para a segurança social.",
+          "i2": "Estimativa das despesas mensais e da poupança potencial.",
+          "i3": "Criação de projeções anuais de poupança.",
+          "i4": "Definição de objetivos de poupança com base num montante fixo ou numa percentagem do rendimento.",
+          "i5": "Exportação dos resultados de poupança em PDF ou partilha por email.",
+          "i6": "Carregamento de um recibo de vencimento para apoiar o seu planeamento financeiro, quando esta funcionalidade estiver disponível."
+        },
+        "p3": "Podemos atualizar, melhorar, adicionar ou remover funcionalidades à medida que o serviço evolui."
+      },
+      "eligibility": {
+        "title": "Elegibilidade",
+        "p1": "A Beaver Savings destina-se a adultos.",
+        "p2": "Ao utilizar o serviço, confirma que tem pelo menos 18 anos e que tem capacidade para celebrar um acordo juridicamente vinculativo nos termos da lei aplicável.",
+        "p3": "Se não cumprir estes requisitos, não deve criar uma conta nem utilizar o serviço."
+      },
+      "account": {
+        "title": "A Sua Conta",
+        "p1": "Algumas funcionalidades da Beaver Savings exigem a criação de uma conta.",
+        "p2": "Ao criar e utilizar a sua conta, compromete-se a:",
+        "list": {
+          "i1": "Fornecer informações exatas quando solicitado.",
+          "i2": "Manter as suas credenciais de acesso seguras.",
+          "i3": "Utilizar uma palavra-passe forte que não reutilize noutros serviços.",
+          "i4": "Notificar-nos se considerar que alguém acedeu à sua conta sem autorização.",
+          "i5": "Manter as informações da sua conta razoavelmente atualizadas."
+        },
+        "p3": "É responsável pelas atividades realizadas através da sua conta, exceto quando a lei aplicável disponha de outra forma ou quando a atividade resulte de circunstâncias pelas quais não seja responsável.",
+        "p4": "Não pode fazer-se passar por outra pessoa, criar contas para fins fraudulentos nem tentar obter acesso não autorizado à conta de outro utilizador.",
+        "p5": "Pode eliminar a sua conta através da aplicação, de acordo com o processo de eliminação de conta descrito na nossa Política de Privacidade."
+      },
+      "freeService": {
+        "title": "Serviço Gratuito",
+        "p1": "A Beaver Savings é atualmente disponibilizada gratuitamente.",
+        "p2": "Atualmente, não cobramos qualquer subscrição nem exigimos pagamento para aceder às funcionalidades disponíveis do serviço.",
+        "p3": "Reservamo-nos o direito de introduzir novas funcionalidades, alterar as existentes ou considerar modelos de serviço diferentes no futuro. Se uma alteração introduzir funcionalidades pagas ou obrigações de pagamento, forneceremos as informações e obteremos o consentimento exigido pela lei aplicável antes de lhe cobrar qualquer valor.",
+        "p4": "A utilização da Beaver Savings não exige a aquisição de qualquer produto ou serviço financeiro."
+      },
+      "financialInfo": {
+        "title": "As Suas Informações Financeiras",
+        "p1": "Pode introduzir informações como o seu salário, rendimento, despesas, pressupostos fiscais, contribuições para a segurança social e objetivos de poupança.",
+        "p2": "É responsável por garantir que as informações que introduz são tão exatas e completas quanto razoavelmente possível.",
+        "p3": "Os seus resultados dependem das informações e dos pressupostos que fornece. Informações incorretas, incompletas ou desatualizadas podem produzir estimativas inexatas.",
+        "p4": "Deve evitar incluir informações pessoais ou confidenciais desnecessárias nos documentos que carrega."
+      },
+      "disclaimer": {
+        "title": "Aviso Financeiro e Fiscal",
+        "p1": "A Beaver Savings é uma ferramenta de orçamentação pessoal e planeamento de poupanças. Não é um banco, instituição financeira, consultor de investimento, serviço de contabilidade nem consultoria fiscal.",
+        "p2": "A aplicação não presta aconselhamento profissional personalizado em matéria financeira, de investimento, contabilística ou fiscal.",
+        "p3": "Todos os cálculos, estimativas e projeções são fornecidos apenas para fins informativos e de planeamento gerais.",
+        "p4": "Em particular:",
+        "list": {
+          "i1": "As estimativas de rendimento líquido podem diferir do seu vencimento líquido real.",
+          "i2": "Os cálculos de impostos e de segurança social podem não refletir todas as circunstâncias individuais, deduções, isenções ou alterações legislativas.",
+          "i3": "As projeções de poupança são ilustrativas e dependem dos pressupostos e montantes que introduz.",
+          "i4": "As despesas, os rendimentos e as poupanças reais podem diferir das suas projeções.",
+          "i5": "Um saldo de poupança projetado não é uma garantia de poupanças ou resultados financeiros futuros."
+        },
+        "p5": "Deve verificar os cálculos importantes junto de fontes oficiais ou consultar um profissional qualificado ao tomar decisões financeiras ou fiscais significativas.",
+        "p6": "A Beaver Savings não detém o seu dinheiro, não transfere fundos, não se liga à sua conta bancária nem executa transações financeiras em seu nome."
+      },
+      "acceptableUse": {
+        "title": "Utilização Aceitável",
+        "p1": "Compromete-se a utilizar a Beaver Savings de forma lícita e responsável.",
+        "p2": "Não pode:",
+        "list": {
+          "i1": "Utilizar o serviço para fins ilícitos, fraudulentos ou enganosos.",
+          "i2": "Tentar aceder a sistemas, contas ou dados a que não está autorizado a aceder.",
+          "i3": "Interferir com o funcionamento, a segurança ou a disponibilidade do serviço.",
+          "i4": "Introduzir software malicioso, código nocivo ou outras ameaças de segurança.",
+          "i5": "Efetuar engenharia inversa, copiar ou explorar a aplicação, exceto quando permitido pela lei aplicável.",
+          "i6": "Utilizar métodos automatizados para sobrecarregar, perturbar ou aceder indevidamente ao serviço.",
+          "i7": "Apresentar de forma enganosa os cálculos ou resultados da aplicação como aconselhamento profissional financeiro ou fiscal verificado."
+        },
+        "p3": "Podemos investigar suspeitas de utilização abusiva e tomar medidas razoáveis para proteger o serviço e os seus utilizadores, sem prejuízo da lei aplicável."
+      },
+      "payslips": {
+        "title": "Recibos de Vencimento e Outros Documentos Carregados",
+        "p1": "Se utilizar uma funcionalidade que permita carregar um recibo de vencimento ou outro documento, confirma que está autorizado a fornecer esse documento para a finalidade pretendida.",
+        "p2": "Deve carregar apenas os documentos necessários para a sua utilização da Beaver Savings.",
+        "p3": "Não pode carregar documentos pertencentes a outra pessoa sem a devida autorização.",
+        "p4": "Os documentos carregados podem conter informações pessoais e financeiras sensíveis. Deve revê-los cuidadosamente antes de os carregar.",
+        "p5": "O tratamento, o armazenamento, a utilização e a eliminação de informações pessoais são explicados na nossa Política de Privacidade."
+      },
+      "exporting": {
+        "title": "Exportação e Partilha de Resultados",
+        "p1": "A Beaver Savings pode permitir-lhe descarregar um PDF com os resultados das suas poupanças ou enviar esses resultados para um endereço de email.",
+        "p2": "É responsável por verificar as informações antes de as partilhar e por garantir que está autorizado a enviá-las ao destinatário pretendido.",
+        "p3": "Os relatórios de poupança podem conter informações financeiras pessoais. Qualquer pessoa que receba um relatório poderá ver as informações nele contidas.",
+        "p4": "Certifique-se de que utiliza o endereço de destinatário correto e de que partilha os relatórios apenas com pessoas em quem confia.",
+        "p5": "Não somos responsáveis por divulgações causadas pela sua decisão de partilhar um relatório com um destinatário não pretendido, exceto quando a lei aplicável disponha de outra forma ou quando a divulgação resulte de circunstâncias pelas quais sejamos responsáveis."
+      },
+      "ip": {
+        "title": "Propriedade Intelectual",
+        "p1": "A Beaver Savings, incluindo o seu nome, identidade visual, interface, design, software e conteúdo original, é propriedade dos respetivos titulares de direitos ou é utilizada com a sua autorização.",
+        "p2": "Estes Termos não transferem para si a propriedade da aplicação nem da sua propriedade intelectual.",
+        "p3": "Pode utilizar a Beaver Savings para o seu planeamento financeiro pessoal e lícito.",
+        "p4": "Salvo se permitido pela lei aplicável ou autorizado pelo titular de direitos relevante, não pode reproduzir, redistribuir, explorar comercialmente nem criar obras derivadas não autorizadas a partir do conteúdo protegido ou do software da aplicação.",
+        "p5": "As suas informações financeiras pessoais continuam a ser suas. Nada nesta secção transfere para a Beaver Savings a propriedade dos seus dados pessoais."
+      },
+      "availability": {
+        "title": "Disponibilidade e Alterações ao Serviço",
+        "p1": "Procuramos manter a Beaver Savings disponível e a funcionar de forma fiável. No entanto, não podemos garantir um acesso ininterrupto ou isento de erros em todos os momentos.",
+        "p2": "O serviço pode ocasionalmente ficar indisponível devido a manutenção, problemas técnicos, medidas de segurança, falhas de infraestrutura ou circunstâncias fora do nosso controlo razoável.",
+        "p3": "Podemos modificar, suspender ou descontinuar funcionalidades sempre que razoavelmente necessário, incluindo por motivos de manutenção, segurança, técnicos ou comerciais.",
+        "p4": "Sempre que adequado e razoavelmente exequível, procuraremos minimizar as perturbações e notificar alterações significativas.",
+        "p5": "Nada nesta secção exclui obrigações ou meios de reparação que não possam ser legalmente excluídos nos termos da lei aplicável."
+      },
+      "thirdParty": {
+        "title": "Serviços de Terceiros",
+        "p1": "A Beaver Savings recorre a prestadores de serviços terceiros para operar determinadas partes do serviço, incluindo alojamento, armazenamento de dados, autenticação e envio de emails.",
+        "p2": "Estes prestadores podem sofrer interrupções, problemas técnicos ou alterações nos seus serviços que afetem a Beaver Savings.",
+        "p3": "Quando interage com serviços de terceiros, os respetivos termos e políticas também podem ser aplicáveis.",
+        "p4": "Tomaremos medidas razoáveis para gerir a nossa utilização de serviços de terceiros, mas não podemos garantir a disponibilidade ou o desempenho independentes de sistemas que não controlamos.",
+        "p5": "A nossa Política de Privacidade explica como os prestadores de serviços relevantes podem tratar informações pessoais."
+      },
+      "privacy": {
+        "title": "Privacidade e Dados Pessoais",
+        "p1": "A sua privacidade é importante para nós.",
+        "p2": "A nossa Política de Privacidade explica que informações pessoais a Beaver Savings trata, porque são tratadas, como são protegidas e que direitos pode ter ao abrigo da legislação de proteção de dados aplicável.",
+        "p3": "Ao utilizar a Beaver Savings, reconhece que teve a oportunidade de ler a nossa Política de Privacidade.",
+        "p4": "A nossa Política de Privacidade está disponível em:",
+        "p5": "<privacyUrl></privacyUrl>",
+        "p6": "Estes Termos e Condições não substituem a Política de Privacidade nem qualquer consentimento ou outro fundamento jurídico exigido para o tratamento de dados pessoais."
+      },
+      "warranties": {
+        "title": "Exclusão de Garantias",
+        "p1": "A Beaver Savings é disponibilizada como uma ferramenta de planeamento gratuita e procuramos que seja útil e fiável.",
+        "p2": "No entanto, na medida permitida pela lei aplicável, não garantimos que:",
+        "list": {
+          "i1": "Todos os cálculos sejam exatos para as circunstâncias de todos os utilizadores.",
+          "i2": "O serviço esteja sempre disponível ou isento de erros técnicos.",
+          "i3": "A aplicação satisfaça as necessidades individuais de todos os utilizadores.",
+          "i4": "As projeções de poupança correspondam aos resultados financeiros futuros reais."
+        },
+        "p3": "Tomaremos medidas razoáveis para manter o serviço e resolver os problemas de que tenhamos conhecimento.",
+        "p4": "Nada nestes Termos limita quaisquer direitos imperativos que possa ter ao abrigo da lei portuguesa ou da União Europeia, incluindo os direitos aplicáveis relativos a serviços digitais."
+      },
+      "liability": {
+        "title": "Limitação de Responsabilidade",
+        "p1": "Na medida permitida pela lei aplicável, a Beaver Savings não é responsável por perdas resultantes exclusivamente da sua confiança em estimativas ou projeções sem verificar de forma independente informações importantes para as suas circunstâncias.",
+        "p2": "Continua a ser responsável pelas suas decisões financeiras e por verificar se as informações que introduz estão corretas.",
+        "p3": "Nada nestes Termos exclui ou limita a responsabilidade quando essa exclusão ou limitação seja proibida por lei, incluindo a responsabilidade que não pode ser legalmente excluída por dolo, negligência grosseira ou outras circunstâncias legalmente protegidas.",
+        "p4": "Nada nesta secção retira quaisquer direitos ou meios de reparação imperativos do consumidor que lhe sejam aplicáveis."
+      },
+      "termination": {
+        "title": "Suspensão e Cessação da Conta",
+        "p1": "Pode deixar de utilizar a Beaver Savings a qualquer momento e pode eliminar a sua conta através da aplicação.",
+        "p2": "Podemos restringir ou suspender o acesso quando razoavelmente necessário para fazer face a suspeitas de fraude, atividade ilícita, ameaças de segurança, violações graves destes Termos ou riscos para outros utilizadores ou para o serviço.",
+        "p3": "Sempre que adequado, notificá-lo-emos e dar-lhe-emos oportunidade de resolver a situação antes de tomar medidas. Podemos atuar sem aviso prévio quando a ação urgente seja razoavelmente necessária ou legalmente exigida.",
+        "p4": "Qualquer suspensão ou cessação será tratada de acordo com a lei aplicável.",
+        "p5": "A eliminação da sua conta pode remover permanentemente as suas informações de poupança guardadas. Deve exportar as informações que pretenda manter antes de eliminar a sua conta."
+      },
+      "changes": {
+        "title": "Alterações a Estes Termos",
+        "p1": "Podemos atualizar estes Termos para refletir alterações à Beaver Savings, às suas funcionalidades, às nossas práticas comerciais ou aos requisitos legais aplicáveis.",
+        "p2": "Quando fizermos alterações, atualizaremos a data no topo deste documento.",
+        "p3": "Se uma alteração afetar materialmente os seus direitos ou obrigações, notificá-lo-emos sempre que exigido por lei e, quando adequado, pedir-lhe-emos que aceite os Termos revistos.",
+        "p4": "A sua utilização continuada da Beaver Savings após uma atualização não prejudica quaisquer requisitos de consentimento ou notificação impostos pela lei aplicável."
+      },
+      "governingLaw": {
+        "title": "Lei Aplicável e Litígios",
+        "p1": "Estes Termos são regidos pela lei portuguesa, sem prejuízo de quaisquer regras imperativas de proteção do consumidor que lhe sejam aplicáveis.",
+        "p2": "Se tiver uma questão ou preocupação, incentivamo-lo a contactar-nos primeiro para que possamos tentar resolver a situação de forma informal.",
+        "p3": "Nada nestes Termos o impede de exercer os seus direitos legais, de intentar uma ação perante um tribunal competente ou de recorrer a um mecanismo de resolução alternativa de litígios aplicável.",
+        "p4": "Quando a lei imperativa lhe confira o direito de intentar ações numa determinada jurisdição, estes Termos não lhe retiram esse direito."
+      },
+      "severability": {
+        "title": "Divisibilidade",
+        "p1": "Se alguma disposição destes Termos for considerada inválida ou inexequível, as restantes disposições continuarão a aplicar-se na medida permitida por lei.",
+        "p2": "Qualquer disposição inválida ou inexequível será interpretada ou ajustada apenas na medida necessária para a tornar conforme com a lei aplicável."
+      },
+      "contact": {
+        "title": "Contacte-nos",
+        "p1": "Se tiver questões sobre estes Termos ou precisar de ajuda com a Beaver Savings, contacte:",
+        "p2": "Faremos o nosso melhor para responder ao seu pedido num prazo razoável.",
+        "p3": "Obrigado por utilizar a Beaver Savings. Esperamos que o ajude a criar melhores hábitos de poupança, um pequeno passo de cada vez."
       }
     }
   }

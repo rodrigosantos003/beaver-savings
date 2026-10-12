@@ -48,6 +48,12 @@ export default async function CalculatorPage() {
             <Link href="/privacy" className="transition-colors hover:text-stone-900">
               {t('privacyPolicy')}
             </Link>
+            <Link
+              href="/terms-and-conditions"
+              className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
+            >
+              {t("terms")}
+            </Link>
             <DeleteAccountLink />
           </nav>
         </div>

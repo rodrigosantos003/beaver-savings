@@ -185,7 +185,8 @@
     "damAddError": "Couldn't apply that amount.",
     "damRemoveError": "Couldn't remove that entry.",
     "footerNav": "Footer",
-    "privacyPolicy": "Privacy policy",
+    "privacyPolicy": "Privacy Policy",
+    "terms": "Terms and Conditions",
     "deleteAccount": "Delete account"
   },
   "unlock": {
@@ -228,7 +229,7 @@
       "description": "How Beaver Savings collects, uses, stores, and protects your personal information."
     },
     "title": "Privacy Policy",
-    "lastUpdated": "Last updated: October 5, 2026",
+    "lastUpdated": "Last updated: October 12, 2026",
     "intro": {
       "p1": "Beaver Savings (“Beaver Savings”, “we”, “us”, or “our”) is a personal finance web application developed and operated by <strong>Rodrigo Santos</strong>.",
       "p2": "This Privacy Policy explains how we collect, use, store, and protect personal information when you use Beaver Savings."
@@ -439,6 +440,211 @@
       "contact": {
         "title": "Contact",
         "p1": "If you have questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact:"
+      }
+    }
+  },
+  "Terms": {
+    "meta": {
+      "title": "Terms and Conditions | Beaver Savings",
+      "description": "The terms that apply when you use Beaver Savings, a free personal finance and savings planning tool."
+    },
+    "title": "Terms and Conditions",
+    "lastUpdated": "Last updated: 12 October 2026",
+    "intro": {
+      "welcome": "Welcome to Beaver Savings!",
+      "p1": "These Terms and Conditions explain how you can use Beaver Savings, a personal finance and savings planning web application operated by <strong>Rodrigo Santos</strong>.",
+      "p2": "By accessing or using Beaver Savings, you agree to these Terms and Conditions. If you do not agree with them, please do not use the service."
+    },
+    "toc": "Table of contents",
+    "footer": {
+      "tagline": "Personal finance and savings management application. Operated by Rodrigo Santos."
+    },
+    "common": {
+      "emailLabel": "Email: <email></email>",
+      "websiteLabel": "Website: <siteUrl></siteUrl>"
+    },
+    "sections": {
+      "about": {
+        "title": "About Beaver Savings",
+        "p1": "Beaver Savings is a free online tool designed to help you understand your income, plan your expenses, set savings goals, and estimate how your savings could grow over time.",
+        "p2": "The service may include features such as:",
+        "list": {
+          "i1": "Calculating estimated net income based on salary, taxes, and social security contributions.",
+          "i2": "Estimating monthly expenses and potential savings.",
+          "i3": "Creating annual savings projections.",
+          "i4": "Setting savings goals based on a fixed amount or a percentage of income.",
+          "i5": "Exporting savings results as a PDF or sharing them by email.",
+          "i6": "Uploading a payslip to support your financial planning, where this feature is available."
+        },
+        "p3": "We may update, improve, add, or remove features as the service develops."
+      },
+      "eligibility": {
+        "title": "Eligibility",
+        "p1": "Beaver Savings is intended for adults.",
+        "p2": "By using the service, you confirm that you are at least 18 years old and capable of entering into a legally binding agreement under applicable law.",
+        "p3": "If you do not meet these requirements, you must not create an account or use the service."
+      },
+      "account": {
+        "title": "Your Account",
+        "p1": "Some features of Beaver Savings require you to create an account.",
+        "p2": "When creating and using your account, you agree to:",
+        "list": {
+          "i1": "Provide accurate information when requested.",
+          "i2": "Keep your login credentials secure.",
+          "i3": "Use a strong password that you do not reuse on other services.",
+          "i4": "Notify us if you believe someone has accessed your account without permission.",
+          "i5": "Keep your account information reasonably up to date."
+        },
+        "p3": "You are responsible for activities carried out through your account, except where applicable law provides otherwise or the activity results from circumstances for which you are not responsible.",
+        "p4": "You must not impersonate another person, create accounts for fraudulent purposes, or attempt to gain unauthorized access to another user's account.",
+        "p5": "You may delete your account through the application, subject to the account deletion process described in our Privacy Policy."
+      },
+      "freeService": {
+        "title": "Free Service",
+        "p1": "Beaver Savings is currently provided free of charge.",
+        "p2": "We do not currently charge a subscription fee or require payment to access the service's available features.",
+        "p3": "We reserve the right to introduce new features, change existing features, or consider different service models in the future. If a change introduces paid features or payment obligations, we will provide the information and obtain any consent required by applicable law before charging you.",
+        "p4": "Using Beaver Savings does not require you to purchase any financial product or service."
+      },
+      "financialInfo": {
+        "title": "Your Financial Information",
+        "p1": "You may enter information such as your salary, income, expenses, tax assumptions, social security contributions, and savings goals.",
+        "p2": "You are responsible for ensuring that the information you enter is as accurate and complete as reasonably possible.",
+        "p3": "Your results depend on the information and assumptions you provide. Incorrect, incomplete, or outdated information may produce inaccurate estimates.",
+        "p4": "You should avoid including unnecessary personal or confidential information in any uploaded documents."
+      },
+      "disclaimer": {
+        "title": "Financial and Tax Disclaimer",
+        "p1": "Beaver Savings is a personal budgeting and savings planning tool. It is not a bank, financial institution, investment adviser, accounting service, or tax consultancy.",
+        "p2": "The application does not provide personalised professional financial, investment, accounting, or tax advice.",
+        "p3": "All calculations, estimates, and projections are provided for general informational and planning purposes only.",
+        "p4": "In particular:",
+        "list": {
+          "i1": "Net income estimates may differ from your actual take-home pay.",
+          "i2": "Tax and social security calculations may not reflect every individual circumstance, deduction, exemption, or change in legislation.",
+          "i3": "Savings projections are illustrative and depend on the assumptions and amounts you enter.",
+          "i4": "Actual expenses, income, and savings may differ from your projections.",
+          "i5": "A projected savings balance is not a guarantee of future savings or financial results."
+        },
+        "p5": "You should verify important calculations against official sources or consult a qualified professional when making significant financial or tax decisions.",
+        "p6": "Beaver Savings does not hold your money, transfer funds, connect to your bank account, or execute financial transactions on your behalf."
+      },
+      "acceptableUse": {
+        "title": "Acceptable Use",
+        "p1": "You agree to use Beaver Savings lawfully and responsibly.",
+        "p2": "You must not:",
+        "list": {
+          "i1": "Use the service for unlawful, fraudulent, or deceptive purposes.",
+          "i2": "Attempt to access systems, accounts, or data that you are not authorised to access.",
+          "i3": "Interfere with the operation, security, or availability of the service.",
+          "i4": "Introduce malicious software, harmful code, or other security threats.",
+          "i5": "Reverse engineer, copy, or exploit the application except where permitted by applicable law.",
+          "i6": "Use automated methods to overload, disrupt, or improperly access the service.",
+          "i7": "Misrepresent the application's calculations or outputs as verified professional financial or tax advice."
+        },
+        "p3": "We may investigate suspected misuse and take reasonable action to protect the service and its users, subject to applicable law."
+      },
+      "payslips": {
+        "title": "Payslips and Other Uploaded Documents",
+        "p1": "If you use a feature that allows you to upload a payslip or another document, you confirm that you are authorised to provide that document for the intended purpose.",
+        "p2": "You should only upload documents that are necessary for your use of Beaver Savings.",
+        "p3": "You must not upload documents belonging to another person without appropriate authorisation.",
+        "p4": "Uploaded documents may contain sensitive personal and financial information. You should review them carefully before uploading.",
+        "p5": "The handling, storage, use, and deletion of personal information are explained in our Privacy Policy."
+      },
+      "exporting": {
+        "title": "Exporting and Sharing Results",
+        "p1": "Beaver Savings may allow you to download a PDF containing your savings results or send those results to an email address.",
+        "p2": "You are responsible for checking the information before sharing it and ensuring that you are authorised to send it to the intended recipient.",
+        "p3": "Savings reports may contain personal financial information. Anyone who receives a report may be able to view the information it contains.",
+        "p4": "Please make sure you use the correct recipient address and only share reports with people you trust.",
+        "p5": "We are not responsible for disclosures caused by your decision to share a report with an unintended recipient, except where applicable law provides otherwise or the disclosure results from circumstances for which we are responsible."
+      },
+      "ip": {
+        "title": "Intellectual Property",
+        "p1": "Beaver Savings, including its name, branding, interface, design, software, and original content, is owned by or used under the authority of its respective rights holders.",
+        "p2": "These Terms do not transfer ownership of the application or its intellectual property to you.",
+        "p3": "You may use Beaver Savings for your personal, lawful financial planning.",
+        "p4": "Unless permitted by applicable law or authorised by the relevant rights holder, you must not reproduce, redistribute, commercially exploit, or create unauthorised derivative works from the application's protected content or software.",
+        "p5": "Your personal financial information remains your information. Nothing in this section transfers ownership of your personal data to Beaver Savings."
+      },
+      "availability": {
+        "title": "Availability and Changes to the Service",
+        "p1": "We aim to keep Beaver Savings available and working reliably. However, we cannot guarantee uninterrupted or error-free access at all times.",
+        "p2": "The service may occasionally be unavailable because of maintenance, technical problems, security measures, infrastructure failures, or circumstances beyond our reasonable control.",
+        "p3": "We may modify, suspend, or discontinue features where reasonably necessary, including for maintenance, security, technical, or business reasons.",
+        "p4": "Where appropriate and reasonably practicable, we will try to minimise disruption and provide notice of significant changes.",
+        "p5": "Nothing in this section excludes any obligations or remedies that cannot lawfully be excluded under applicable law."
+      },
+      "thirdParty": {
+        "title": "Third-Party Services",
+        "p1": "Beaver Savings relies on third-party providers to operate certain parts of the service, including hosting, data storage, authentication, and email delivery.",
+        "p2": "These providers may experience outages, technical issues, or changes to their services that affect Beaver Savings.",
+        "p3": "Where you interact with third-party services, their own terms and policies may also apply.",
+        "p4": "We will take reasonable steps to manage our use of third-party services, but we cannot guarantee the independent availability or performance of systems that we do not control.",
+        "p5": "Our Privacy Policy explains how relevant service providers may process personal information."
+      },
+      "privacy": {
+        "title": "Privacy and Personal Data",
+        "p1": "Your privacy matters to us.",
+        "p2": "Our Privacy Policy explains what personal information Beaver Savings processes, why it is processed, how it is protected, and what rights you may have under applicable data protection law.",
+        "p3": "By using Beaver Savings, you acknowledge that you have been given the opportunity to read our Privacy Policy.",
+        "p4": "Our Privacy Policy is available at:",
+        "p5": "<privacyUrl></privacyUrl>",
+        "p6": "These Terms and Conditions do not replace the Privacy Policy or any consent or other legal basis required for processing personal data."
+      },
+      "warranties": {
+        "title": "Disclaimer of Warranties",
+        "p1": "Beaver Savings is provided as a free planning tool, and we aim to make it useful and reliable.",
+        "p2": "However, to the extent permitted by applicable law, we do not guarantee that:",
+        "list": {
+          "i1": "Every calculation will be accurate for every user's circumstances.",
+          "i2": "The service will always be available or free from technical errors.",
+          "i3": "The application will meet every user's individual needs.",
+          "i4": "Savings projections will match actual future financial outcomes."
+        },
+        "p3": "We will take reasonable steps to maintain the service and address problems that come to our attention.",
+        "p4": "Nothing in these Terms limits any mandatory rights you may have under Portuguese or European Union law, including applicable rights relating to digital services."
+      },
+      "liability": {
+        "title": "Limitation of Liability",
+        "p1": "To the extent permitted by applicable law, Beaver Savings is not responsible for losses resulting solely from your reliance on estimates or projections without independently verifying information that is important to your circumstances.",
+        "p2": "You remain responsible for your financial decisions and for checking that information you enter is correct.",
+        "p3": "Nothing in these Terms excludes or limits liability where such exclusion or limitation is prohibited by law, including liability that cannot lawfully be excluded for intentional misconduct, gross negligence, or other legally protected circumstances.",
+        "p4": "Nothing in this section removes any mandatory consumer rights or remedies that apply to you."
+      },
+      "termination": {
+        "title": "Suspension and Account Termination",
+        "p1": "You may stop using Beaver Savings at any time and may delete your account through the application.",
+        "p2": "We may restrict or suspend access where reasonably necessary to address suspected fraud, unlawful activity, security threats, serious breaches of these Terms, or risks to other users or the service.",
+        "p3": "Where appropriate, we will provide notice and an opportunity to address the issue before taking action. We may act without prior notice where urgent action is reasonably necessary or legally required.",
+        "p4": "Any suspension or termination will be handled in accordance with applicable law.",
+        "p5": "Deleting your account may permanently remove your saved savings information. You should export any information you wish to keep before deleting your account."
+      },
+      "changes": {
+        "title": "Changes to These Terms",
+        "p1": "We may update these Terms to reflect changes to Beaver Savings, its features, our business practices, or applicable legal requirements.",
+        "p2": "When we make changes, we will update the date at the top of this document.",
+        "p3": "If a change materially affects your rights or obligations, we will provide notice where required by law and, where appropriate, ask you to accept the revised Terms.",
+        "p4": "Your continued use of Beaver Savings after an update does not override any consent or notice requirements imposed by applicable law."
+      },
+      "governingLaw": {
+        "title": "Governing Law and Disputes",
+        "p1": "These Terms are governed by the laws of Portugal, subject to any mandatory consumer protection rules that apply to you.",
+        "p2": "If you have a question or concern, we encourage you to contact us first so that we can try to resolve the issue informally.",
+        "p3": "Nothing in these Terms prevents you from exercising your legal rights, bringing a claim before a competent court, or using an applicable alternative dispute resolution mechanism.",
+        "p4": "Where mandatory law gives you the right to bring proceedings in a particular jurisdiction, these Terms do not take that right away."
+      },
+      "severability": {
+        "title": "Severability",
+        "p1": "If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions will continue to apply to the extent permitted by law.",
+        "p2": "Any invalid or unenforceable provision will be interpreted or adjusted only to the extent necessary to make it consistent with applicable law."
+      },
+      "contact": {
+        "title": "Contact Us",
+        "p1": "If you have questions about these Terms or need help with Beaver Savings, please contact:",
+        "p2": "We will do our best to respond to your enquiry within a reasonable period.",
+        "p3": "Thank you for using Beaver Savings. We hope it helps you build better savings habits, one small step at a time."
       }
     }
   }

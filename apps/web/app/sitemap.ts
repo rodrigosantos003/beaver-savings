@@ -1,22 +1,50 @@
-import type { MetadataRoute } from 'next';
-import { routing } from '@/i18n/routing';
-
-const SITE_URL = 'https://beaver-savings.vercel.app';
-
-// Public, indexable routes (no locale prefix)
-const paths = ['', '/landing', '/calculator'];
-
-const { defaultLocale, locales } = routing;
-const otherLocales = locales.filter((l) => l !== defaultLocale);
-
-const buildUrl = (locale: string, path: string) => `${SITE_URL}/${locale}${path}`;
+import type { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return paths.map((path) => ({
-    url: buildUrl(defaultLocale, path),
-    lastModified: new Date(),
-    alternates: {
-      languages: Object.fromEntries(otherLocales.map((locale) => [locale, buildUrl(locale, path)])),
+  const baseUrl = "https://beaver-savings.vercel.app";
+  const ptAlernate = `${baseUrl}/pt`;
+  const enAlternate = `${baseUrl}/en`
+
+  return [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      alternates: {
+        languages: {
+          pt: ptAlernate,
+          en: enAlternate,
+        },
+      },
     },
-  }));
+    {
+      url: `${baseUrl}/landing`,
+      lastModified: new Date(),
+      alternates: {
+        languages: {
+          pt: `${ptAlernate}/landing`,
+          en: `${enAlternate}/landing`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/calculator`,
+      lastModified: new Date(),
+      alternates: {
+        languages: {
+          pt: `${ptAlernate}/calculator`,
+          en: `${enAlternate}/calculator`,
+        },
+      },
+    },
+    {
+      url: `${baseUrl}/privacy-policy`,
+      lastModified: new Date(),
+      alternates: {
+        languages: {
+          pt: `${ptAlernate}/privacy-policy`,
+          en: `${enAlternate}/privacy-policy`,
+        },
+      },
+    },
+  ]
 }

@@ -100,9 +100,8 @@ export default async function LandingPage() {
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className={`rounded-2xl border p-6 text-center shadow-sm ${
-                    stat.accent ? 'border-beaver-200 bg-beaver-50' : 'border-stone-200 bg-white'
-                  }`}
+                  className={`rounded-2xl border p-6 text-center shadow-sm ${stat.accent ? 'border-beaver-200 bg-beaver-50' : 'border-stone-200 bg-white'
+                    }`}
                 >
                   <p className="text-sm font-medium text-stone-500">{stat.label}</p>
                   <p className="mt-1 text-3xl font-bold tracking-tight text-stone-900">
@@ -196,7 +195,7 @@ export default async function LandingPage() {
               href="/privacy-policy"
               className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
             >
-              Privacy Policy
+              {t("PrivacyPolicy.title")}
             </Link>
             <p className="text-sm text-stone-500">
               © {new Date().getFullYear()} Beaver Savings. {t('footer.tagline')}

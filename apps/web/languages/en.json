@@ -10,7 +10,8 @@
     "getStarted": "Get started",
     "login": "Log in",
     "calculator": "Calculator",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "backToHome": "Back to home"
   },
   "hero": {
     "badge": "Savings calculator for Portugal",
@@ -219,6 +220,226 @@
     "locales": {
       "en": "English",
       "pt": "Português"
+    }
+  },
+  "PrivacyPolicy": {
+    "meta": {
+      "title": "Privacy Policy | Beaver Savings",
+      "description": "How Beaver Savings collects, uses, stores, and protects your personal information."
+    },
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: October 5, 2026",
+    "intro": {
+      "p1": "Beaver Savings (“Beaver Savings”, “we”, “us”, or “our”) is a personal finance web application developed and operated by <strong>Rodrigo Santos</strong>.",
+      "p2": "This Privacy Policy explains how we collect, use, store, and protect personal information when you use Beaver Savings."
+    },
+    "toc": "Table of contents",
+    "footer": {
+      "tagline": "Personal finance and savings management application. Operated by Rodrigo Santos."
+    },
+    "common": {
+      "emailLabel": "Email: <email></email>",
+      "emailLabelBold": "<strong>Email:</strong> <email></email>"
+    },
+    "sections": {
+      "controller": {
+        "title": "Who is responsible for your data?",
+        "p1": "The data controller responsible for personal data processed through Beaver Savings is:",
+        "p2": "If you have any questions about this Privacy Policy or how your personal data is handled, you can contact us at the email address above."
+      },
+      "informationWeCollect": {
+        "title": "Information we collect",
+        "p1": "When you create and use a Beaver Savings account, we collect or process the following categories of information.",
+        "accountHeading": "Account information",
+        "accountP1": "When you register for an account, we collect:",
+        "accountList": {
+          "i1": "Your name",
+          "i2": "Your email address",
+          "i3": "A cryptographic hash of your password"
+        },
+        "accountP2": "Your password is not stored in plain text.",
+        "savingsHeading": "Savings information",
+        "savingsP1": "When you use Beaver Savings, you may provide financial information such as:",
+        "savingsList": {
+          "i1": "Monthly income",
+          "i2": "Monthly expenses",
+          "i3": "Total savings amount"
+        },
+        "savingsP2": "This information is associated with your account so that Beaver Savings can provide its savings-related functionality.",
+        "savingsP3": "Beaver Savings does not request or intentionally collect bank account numbers, payment card numbers, bank login credentials, or other banking credentials.",
+        "sessionHeading": "Session and security information",
+        "sessionP1": "When you authenticate with Beaver Savings, our authentication system creates session information that may include:",
+        "sessionList": {
+          "i1": "Your IP address",
+          "i2": "Your browser or device user-agent information",
+          "i3": "A session token",
+          "i4": "The session token's expiration date"
+        },
+        "sessionP2": "This information is used to maintain authenticated sessions, keep your account secure, and allow you to access Beaver Savings without repeatedly signing in.",
+        "sessionP3": "Session tokens are security credentials. You should not share them with other people."
+      },
+      "howWeUse": {
+        "title": "How we use your information",
+        "p1": "We use your personal information only as necessary to operate and provide Beaver Savings.",
+        "p2": "This includes using your information to:",
+        "list": {
+          "i1": "Create and manage your account",
+          "i2": "Authenticate you and maintain your signed-in session",
+          "i3": "Secure the application and prevent unauthorized access",
+          "i4": "Store and display your savings information",
+          "i5": "Provide the application's savings-related functionality",
+          "i6": "Allow you to export your savings results",
+          "i7": "Respond to requests or questions you send to us",
+          "i8": "Maintain and secure the service",
+          "i9": "Detect, prevent, and address technical or security problems"
+        },
+        "p3": "We do not use your personal financial information for advertising or behavioral profiling.",
+        "p4": "We do not sell your personal information."
+      },
+      "legalBases": {
+        "title": "Legal bases for processing",
+        "p1": "Where the General Data Protection Regulation (GDPR) applies, we process your personal data on the following legal bases, as applicable:",
+        "contractHeading": "Performance of a contract",
+        "contractP1": "We process information necessary to provide Beaver Savings to you, including your account information, authentication information, and savings data.",
+        "contractP2": "For example, we need your email address and authentication information to maintain your account and authenticated sessions, and we need your savings information to provide the application's core functionality.",
+        "interestsHeading": "Legitimate interests",
+        "interestsP1": "We may process limited information where this is necessary for legitimate interests such as maintaining, securing, debugging, and improving the reliability of Beaver Savings, provided that those interests do not override your rights and freedoms.",
+        "interestsP2": "This may include processing technical and security information such as IP addresses and user-agent information for authentication and security purposes.",
+        "obligationsHeading": "Legal obligations",
+        "obligationsP1": "We may process personal information where this is necessary to comply with applicable legal obligations."
+      },
+      "passwords": {
+        "title": "Passwords and authentication",
+        "p1": "Authentication for Beaver Savings is handled using <strong>Better Auth</strong>.",
+        "p2": "Your password is stored as a cryptographic hash rather than as the original password. Beaver Savings does not have access to your password in its original form.",
+        "p3": "Better Auth also maintains session information required to authenticate you. This may include your IP address, user-agent information, session token, and session expiration date.",
+        "p4": "Session information is used for authentication and security purposes and is associated with your account while your session is active.",
+        "p5": "You should choose a strong, unique password and avoid reusing your Beaver Savings password on other services."
+      },
+      "exporting": {
+        "title": "Exporting your savings results",
+        "p1": "Beaver Savings provides an export feature that allows you to send your savings results to an email address.",
+        "p2": "When you use this feature:",
+        "steps": {
+          "i1": "You provide an email address for the export.",
+          "i2": "Beaver Savings sends the requested results to that address.",
+          "i3": "Beaver Savings does not store the recipient email address as part of your Beaver Savings account data."
+        },
+        "p3": "Email delivery for this feature is handled by <strong>Resend</strong>.",
+        "p4": "The email address you provide for an export is transmitted to Resend as necessary to deliver the email. Resend may process that information according to its own privacy practices and applicable contractual terms.",
+        "p5": "You should only provide an email address that you are authorized to use for this purpose."
+      },
+      "providers": {
+        "title": "Service providers",
+        "p1": "Beaver Savings uses third-party infrastructure and service providers to operate the application.",
+        "vercelP1": "Beaver Savings is hosted and deployed using <strong>Vercel</strong>.",
+        "vercelP2": "Vercel may process information associated with operating and delivering the application, including technical information necessary for hosting, networking, security, and service operation.",
+        "mongoP1": "Beaver Savings uses <strong>MongoDB Atlas</strong> to store application data.",
+        "mongoP2": "Our MongoDB Atlas database deployment is located in <strong>Frankfurt, Germany</strong>.",
+        "mongoP3": "The database may contain account information, authentication/session information, and savings information described in this Privacy Policy.",
+        "mongoP4": "We do not currently configure separate MongoDB Atlas backups for Beaver Savings.",
+        "betterAuthP1": "Beaver Savings uses <strong>Better Auth</strong> as its authentication framework.",
+        "betterAuthP2": "Better Auth handles authentication and session management within the Beaver Savings application. The resulting authentication and session information is stored in our application database.",
+        "resendP1": "Beaver Savings uses <strong>Resend</strong> to deliver emails associated with the export feature.",
+        "resendP2": "When you request an export, the email address you provide is transmitted to Resend as necessary to send the email. Beaver Savings does not store that export recipient address in your account data.",
+        "closing": "These providers process information as necessary to provide their respective services. Their own privacy policies and contractual terms may also apply."
+      },
+      "transfers": {
+        "title": "International data transfers",
+        "p1": "Beaver Savings is available worldwide.",
+        "p2": "Although our primary application database is deployed in Frankfurt, Germany, some of our service providers may process information in other countries, including countries outside the European Economic Area (EEA).",
+        "p3": "Where applicable data protection law requires safeguards for international transfers, we rely on appropriate mechanisms provided by our service providers and applicable law.",
+        "p4": "For users protected by the GDPR, we take reasonable steps to ensure that international transfers of personal data are conducted in accordance with applicable data protection requirements."
+      },
+      "retention": {
+        "title": "Data retention",
+        "p1": "We retain your personal information for as long as your Beaver Savings account remains active and as necessary to provide the service.",
+        "p2": "Session information is retained according to the expiration period configured for the applicable session.",
+        "p3": "We do not currently define a separate fixed retention period for active accounts.",
+        "p4": "You can delete your Beaver Savings account directly through the application.",
+        "p5": "When you delete your account, the account information, authentication information, session information, and savings data associated with your account are permanently deleted from Beaver Savings.",
+        "p6": "We do not maintain separate application backups of your data on MongoDB Atlas or Vercel.",
+        "p7": "Certain information may nevertheless be retained by our third-party service providers in their own operational logs or systems according to their respective retention policies. Such information is subject to those providers' applicable privacy policies and contractual terms."
+      },
+      "deletion": {
+        "title": "Account deletion",
+        "p1": "You can delete your Beaver Savings account directly through the application.",
+        "p2": "Deleting your account permanently deletes the personal information and savings data associated with your account from Beaver Savings, including the account and authentication information stored in our database.",
+        "p3": "If you are unable to delete your account through the application, you may contact us at: <email></email>",
+        "p4": "We may need to verify your identity before processing a deletion request."
+      },
+      "rights": {
+        "title": "Your data protection rights",
+        "p1": "Depending on your location and applicable law, you may have rights regarding your personal data.",
+        "p2": "If the GDPR applies to you, these rights may include:",
+        "list": {
+          "i1": "<strong>Right of access:</strong> You can request a copy of the personal data we hold about you.",
+          "i2": "<strong>Right to rectification:</strong> You can request correction of inaccurate or incomplete personal data.",
+          "i3": "<strong>Right to erasure:</strong> You can request deletion of your personal data in circumstances provided by law.",
+          "i4": "<strong>Right to restriction:</strong> You can request that we restrict the processing of your personal data in certain circumstances.",
+          "i5": "<strong>Right to data portability:</strong> You may have the right to receive certain personal data in a structured, commonly used, and machine-readable format.",
+          "i6": "<strong>Right to object:</strong> You may have the right to object to certain processing based on legitimate interests.",
+          "i7": "<strong>Right to withdraw consent:</strong> Where processing is based on your consent, you may withdraw that consent at any time."
+        },
+        "p3": "Some of these rights are subject to legal exceptions and conditions.",
+        "p4": "To exercise a privacy right, contact: <email></email>",
+        "p5": "We will respond to requests within the timeframe required by applicable law."
+      },
+      "complaints": {
+        "title": "Right to lodge a complaint",
+        "p1": "If you are located in the European Union or European Economic Area and believe that your personal data has been processed in violation of applicable data protection law, you may have the right to lodge a complaint with the data protection authority in your country.",
+        "p2": "For users in Portugal, the relevant supervisory authority is the <strong>Comissão Nacional de Proteção de Dados (CNPD)</strong>.",
+        "p3": "You may contact the supervisory authority without first contacting us, although we encourage you to contact us so that we have an opportunity to address your concern."
+      },
+      "cookies": {
+        "title": "Cookies and analytics",
+        "p1": "Beaver Savings does not use advertising cookies or third-party analytics services to track users across the web.",
+        "p2": "We do not use services such as Google Analytics or similar analytics platforms for behavioral tracking.",
+        "p3": "The application may use technically necessary cookies or similar mechanisms required for authentication, session management, security, or the basic operation of the service.",
+        "p4": "These technologies are used to provide the service rather than for advertising or cross-site behavioral tracking."
+      },
+      "children": {
+        "title": "Children's privacy",
+        "p1": "Beaver Savings is intended for adults and is not specifically directed toward children.",
+        "p2": "We do not knowingly design or operate Beaver Savings to collect personal information from children.",
+        "p3": "If you believe that a child has provided personal information to Beaver Savings, please contact us at <email></email> so that we can investigate and take appropriate action."
+      },
+      "financial": {
+        "title": "Financial information",
+        "p1": "Beaver Savings is a personal finance management and savings calculation tool.",
+        "p2": "The financial information you enter into Beaver Savings, such as income, expenses, and savings amounts, is stored to provide the application's functionality.",
+        "p3": "Beaver Savings does not provide banking, investment, lending, tax, or other professional financial services.",
+        "p4": "You are responsible for the accuracy of the information you enter into the application."
+      },
+      "security": {
+        "title": "Data security",
+        "p1": "We take reasonable technical and organizational measures designed to protect personal information against unauthorized access, alteration, disclosure, or destruction.",
+        "p2": "These measures include, among other things:",
+        "list": {
+          "i1": "HTTPS encryption for connections to Beaver Savings",
+          "i2": "Password hashing through the Better Auth authentication system",
+          "i3": "Session-based authentication and security controls",
+          "i4": "Use of managed infrastructure provided by Vercel",
+          "i5": "Use of MongoDB Atlas for database hosting",
+          "i6": "Access controls intended to limit access to application data"
+        },
+        "p3": "However, no internet-based service can guarantee absolute security. You should use a strong and unique password and notify us if you believe your account has been compromised."
+      },
+      "breaches": {
+        "title": "Data breaches",
+        "p1": "If we become aware of a personal data breach affecting your personal information, we will take appropriate steps to investigate, contain, and remediate the incident.",
+        "p2": "Where required by applicable law, we will notify affected users and/or the relevant supervisory authorities within the applicable legal timeframe."
+      },
+      "changes": {
+        "title": "Changes to this Privacy Policy",
+        "p1": "We may update this Privacy Policy from time to time to reflect changes to Beaver Savings, our data-processing practices, legal requirements, or the services we use.",
+        "p2": "When we make changes, we will update the “Last updated” date at the top of this Privacy Policy.",
+        "p3": "We encourage you to review this Privacy Policy periodically."
+      },
+      "contact": {
+        "title": "Contact",
+        "p1": "If you have questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact:"
+      }
     }
   }
 }

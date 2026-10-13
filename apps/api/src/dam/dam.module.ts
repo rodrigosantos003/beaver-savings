@@ -1,17 +1,26 @@
+// dam/dam.module.ts
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { Connection } from 'mongoose';
 import { DamController } from './dam.controller';
-import { DamEntry, DamEntrySchema, DamRepository } from './dam.repository';
+import {
+  DAM_ENTRY_MODEL,
+  DamEntrySchema,
+  DamRepository,
+} from './dam.repository';
 import { DamService } from './dam.service';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: DamEntry.name, schema: DamEntrySchema },
-    ]),
-  ],
   controllers: [DamController],
-  providers: [DamRepository, DamService],
+  providers: [
+    {
+      provide: DAM_ENTRY_MODEL,
+      inject: [Connection],
+      useFactory: (connection: Connection) =>
+        connection.model('DamEntry', DamEntrySchema),
+    },
+    DamRepository,
+    DamService,
+  ],
   exports: [DamService],
 })
-export class DamModule {}
+export class DamModule { }

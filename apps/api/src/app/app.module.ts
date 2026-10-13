@@ -10,6 +10,7 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { NotFoundFilter } from './not-found.filter';
 import { ResultsModule } from '../results/results.module';
 import { DamModule } from '../dam/dam.module';
+import { DatabaseModule } from '../../lib/database';
 
 @Module({})
 export class AppModule {
@@ -28,35 +29,7 @@ export class AppModule {
           isGlobal: true,
           envFilePath: '.env',
         }),
-        MongooseModule.forRootAsync({
-          inject: [ConfigService],
-          useFactory: (config: ConfigService) => ({
-            uri: config.get('MONGODB_URI') ?? 'mongodb://localhost:27017',
-            dbName: 'app',
-            serverSelectionTimeoutMS: 5000,
-            onConnectionCreate: (connection: Connection) => {
-              connection.on('connected', () =>
-                dbLogger.log(
-                  `Connected ~ Host: ${connection.host}:${connection.port} ~ Database: "${connection.name}"`,
-                ),
-              );
-              connection.on('disconnected', () =>
-                dbLogger.warn('Disconnected'),
-              );
-              connection.on('error', (err) =>
-                dbLogger.error(`Error: ${err.message}`),
-              );
-
-              connection
-                .getClient()
-                .on('serverHeartbeatFailed', (e) =>
-                  dbLogger.warn(`Heartbeat failed for ${e.connectionId}`),
-                );
-
-              return connection;
-            },
-          }),
-        }),
+        DatabaseModule,
         ThrottlerModule.forRoot([{ name: 'default', ttl: 60_000, limit: 60 }]),
         AuthModule.forRootAsync({
           inject: [getConnectionToken()],

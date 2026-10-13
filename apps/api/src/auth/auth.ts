@@ -1,17 +1,21 @@
 import { waitUntil } from '@vercel/functions';
-import { mongoClient, mongoDb } from '../../lib/database';
+import type { Connection } from 'mongoose';
 import { sendEmail } from '../../lib/email';
 
-export async function createAuth() {
+export async function createAuth(connection: Connection) {
   // better-auth is ESM-only. Nest emits CommonJS, and a static import
   // becomes require(), which crashes the Vercel function before it can
   // answer the browser's CORS preflight.
   const { betterAuth } = await import('better-auth');
   const { mongodbAdapter } = await import('better-auth/adapters/mongodb');
 
+  const db = connection.db;
+  const client = connection.getClient();
+  if (!db || !client) throw new Error('Mongoose connection is not ready');
+
   return betterAuth({
-    database: mongodbAdapter(mongoDb, {
-      client: mongoClient,
+    database: mongodbAdapter(db, {
+      client: client,
       usePlural: true,
     }),
     user: {
@@ -27,8 +31,8 @@ export async function createAuth() {
         afterDelete: async (user) => {
           const query = { userId: user.id };
 
-          await mongoDb.collection('results').deleteMany(query);
-          await mongoDb.collection('dam_entries').deleteMany(query);
+          await db.collection('results').deleteMany(query);
+          await db.collection('dam_entries').deleteMany(query);
         },
       },
     },

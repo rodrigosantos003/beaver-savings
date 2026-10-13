@@ -52,7 +52,7 @@ export default async function CalculatorPage() {
               href="/terms-and-conditions"
               className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
             >
-              {t("terms")}
+              {t('terms')}
             </Link>
             <DeleteAccountLink />
           </nav>

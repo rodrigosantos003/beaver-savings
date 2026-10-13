@@ -32,7 +32,7 @@ export function DeleteAccountCard() {
         return;
       }
     } catch (error) {
-      setError(t("failedToFetch"));
+      setError(t('failedToFetch'));
       return;
     }
 

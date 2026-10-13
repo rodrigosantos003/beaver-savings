@@ -1,9 +1,9 @@
-import type { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://beaver-savings.vercel.app";
+  const baseUrl = 'https://beaver-savings.vercel.app';
   const ptAlernate = `${baseUrl}/pt`;
-  const enAlternate = `${baseUrl}/en`
+  const enAlternate = `${baseUrl}/en`;
 
   return [
     {
@@ -46,5 +46,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
-  ]
+  ];
 }

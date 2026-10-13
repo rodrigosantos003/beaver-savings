@@ -115,20 +115,20 @@ export function Results({
   const view: View = loaded
     ? fromSaved(loaded)
     : {
-      month,
-      rows:
-        plan?.months.map((r) => ({
-          month: r.month,
-          gross: r.gross,
-          net: r.net,
-          expenses: r.expenses,
-          savings: r.savings,
-          remaining: r.remaining,
-          cumulative: r.cumulativeSavings,
-        })) ?? null,
-      totalSavings: plan?.totalSavings ?? 0,
-      annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
-    };
+        month,
+        rows:
+          plan?.months.map((r) => ({
+            month: r.month,
+            gross: r.gross,
+            net: r.net,
+            expenses: r.expenses,
+            savings: r.savings,
+            remaining: r.remaining,
+            cumulative: r.cumulativeSavings,
+          })) ?? null,
+        totalSavings: plan?.totalSavings ?? 0,
+        annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
+      };
 
   // Empty input = show the current month's savings; once the user types, their value wins
   const applyValue = applyInput ?? view.month.savings.toFixed(2);

@@ -28,20 +28,25 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
     setError(null);
     setPending(true);
 
-    const result = isSignup
-      ? await authClient.signUp.email({ name, email, password })
-      : await authClient.signIn.email({ email, password });
+    try {
+      const result = isSignup
+        ? await authClient.signUp.email({ name, email, password })
+        : await authClient.signIn.email({ email, password });
 
-    setPending(false);
+      if (result.error) {
+        setError(t(isSignup ? 'signupFailed' : 'loginFailed'));
+        return;
+      }
 
-    if (result.error) {
-      setError(t(isSignup ? 'signupFailed' : 'loginFailed'));
+      if (isSignup) await authClient.sendVerificationEmail({ email, callbackURL: '/' });
+
+      router.push('/calculator');
+    } catch (error) {
+      setError(t('failedToFetch'));
       return;
+    } finally {
+      setPending(false);
     }
-
-    if (isSignup) await authClient.sendVerificationEmail({ email, callbackURL: '/' });
-
-    router.push('/calculator');
   }
 
   return (

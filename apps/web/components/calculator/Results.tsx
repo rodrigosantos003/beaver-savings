@@ -67,7 +67,7 @@ export function Results({
   const [error, setError] = useState<string | null>(null);
 
   const dam = useDam(userId);
-  const [applyInput, setApplyInput] = useState('');
+  const [applyInput, setApplyInput] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
     if (!userId) return;
@@ -115,27 +115,29 @@ export function Results({
   const view: View = loaded
     ? fromSaved(loaded)
     : {
-        month,
-        rows:
-          plan?.months.map((r) => ({
-            month: r.month,
-            gross: r.gross,
-            net: r.net,
-            expenses: r.expenses,
-            savings: r.savings,
-            remaining: r.remaining,
-            cumulative: r.cumulativeSavings,
-          })) ?? null,
-        totalSavings: plan?.totalSavings ?? 0,
-        annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
-      };
+      month,
+      rows:
+        plan?.months.map((r) => ({
+          month: r.month,
+          gross: r.gross,
+          net: r.net,
+          expenses: r.expenses,
+          savings: r.savings,
+          remaining: r.remaining,
+          cumulative: r.cumulativeSavings,
+        })) ?? null,
+      totalSavings: plan?.totalSavings ?? 0,
+      annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
+    };
 
   // Empty input = show the current month's savings; once the user types, their value wins
-  const applyValue = applyInput !== '' ? applyInput : view.month.savings.toFixed(2);
+  const applyValue = applyInput ?? view.month.savings.toFixed(2);
 
   async function handleApply() {
+    if (applyValue.trim() === '') return;
     const amount = Number(applyValue.replace(',', '.'));
-    if (await dam.add(amount, t('damMonthlyLabel'))) setApplyInput('');
+    if (Number.isNaN(amount)) return;
+    if (await dam.add(amount, t('damMonthlyLabel'))) setApplyInput(null);
   }
 
   const dateFmt = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'pt-PT', {

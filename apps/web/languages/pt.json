@@ -102,7 +102,8 @@
     "verifyErrorHint": "Faça login com as suas credenciais e enviaremos link de confirmação.",
     "backToLogin": "Voltar ao login",
     "acceptTerms": "Ao usar a aplicação, aceita os",
-    "termsAndConditions": "termos e condições."
+    "termsAndConditions": "termos e condições.",
+    "failedToFetch": "Não foi possível efetuar o pedido. Por favor, tente novamente mais tarde."
   },
   "demo": {
     "metaTitle": "Demo mensal — Beaver Savings",
@@ -216,7 +217,8 @@
     "signIn": "Iniciar sessão",
     "deletedTitle": "Conta eliminada",
     "deletedBody": "A tua conta e os teus dados foram removidos. Obrigado por experimentares o Beaver Savings.",
-    "backHome": "Voltar ao início"
+    "backHome": "Voltar ao início",
+    "failedToFetch": "Não foi possível efetuar o pedido. Por favor, tente novamente mais tarde."
   },
   "languageSwitcher": {
     "label": "Change language",

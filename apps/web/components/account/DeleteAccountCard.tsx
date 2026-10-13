@@ -23,11 +23,16 @@ export function DeleteAccountCard() {
     setStatus('deleting');
     setError('');
 
-    const { error } = await authClient.deleteUser({ password });
+    try {
+      const { error } = await authClient.deleteUser({ password });
 
-    if (error) {
-      setStatus('idle');
-      setError(t('failed'));
+      if (error) {
+        setStatus('idle');
+        setError(t('failed'));
+        return;
+      }
+    } catch (error) {
+      setError(t("failedToFetch"));
       return;
     }
 

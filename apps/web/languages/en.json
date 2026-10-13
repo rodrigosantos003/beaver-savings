@@ -102,7 +102,8 @@
     "verifyErrorHint": "Log in with your credentials and we'll send you a new confirmation email.",
     "backToLogin": "Back to log in",
     "acceptTerms": "By using the app, you accept the",
-    "termsAndConditions": "terms and conditions."
+    "termsAndConditions": "terms and conditions.",
+    "failedToFetch": "Unable to do the request. Please try again later."
   },
   "demo": {
     "metaTitle": "Monthly demo — Beaver Savings",
@@ -216,7 +217,8 @@
     "signIn": "Sign in",
     "deletedTitle": "Account deleted",
     "deletedBody": "Your account and data have been removed. Thanks for trying Beaver Savings.",
-    "backHome": "Back to home"
+    "backHome": "Back to home",
+    "failedToFetch": "Unable to do the request. Please try again later."
   },
   "languageSwitcher": {
     "label": "Change language",

@@ -1,6 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
-import type { Connection } from 'mongoose';
+import { Inject, Injectable } from '@nestjs/common';
+import { Connection } from 'mongoose';
 
 export type HealthStatus = 'up' | 'down';
 
@@ -16,7 +15,9 @@ const DB_PING_TIMEOUT_MS = 2000;
 
 @Injectable()
 export class AppService {
-  constructor(@InjectConnection() private readonly connection: Connection) {}
+  // For the default connection, @nestjs/mongoose registers the mongoose
+  // `Connection` class itself as the provider token, so we can inject it directly.
+  constructor(@Inject(Connection) private readonly connection: Connection) { }
 
   async health(): Promise<HealthCheckResult> {
     const database = await this.checkDatabase();

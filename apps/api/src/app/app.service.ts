@@ -15,8 +15,7 @@ const DB_PING_TIMEOUT_MS = 2000;
 
 @Injectable()
 export class AppService {
-  // For the default connection, @nestjs/mongoose registers the mongoose
-  // `Connection` class itself as the provider token, so we can inject it directly.
+  // Provided by DatabaseModule under the mongoose `Connection` class token.
   constructor(@Inject(Connection) private readonly connection: Connection) { }
 
   async health(): Promise<HealthCheckResult> {

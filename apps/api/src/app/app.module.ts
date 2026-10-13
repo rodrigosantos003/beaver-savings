@@ -1,6 +1,5 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Logger } from '@nestjs/common';
 import { Connection } from 'mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -18,8 +17,6 @@ export class AppModule {
     // ESM-only packages: keep these as dynamic imports
     const { AuthModule } = await import('@thallesp/nestjs-better-auth');
     const { createAuth } = await import('../auth/auth.js');
-
-    const dbLogger = new Logger('MongoDB');
 
     return {
       module: AppModule,

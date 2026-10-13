@@ -6,7 +6,7 @@ import { Connection, createConnection } from 'mongoose';
     providers: [
         {
             provide: Connection, // same token AppService already injects
-            useFactory: () => createConnection(process.env.MONGODB_URI!).asPromise(),
+            useFactory: () => createConnection(process.env.MONGODB_URI!, { dbName: 'app' }).asPromise(),
         },
     ],
     exports: [Connection],

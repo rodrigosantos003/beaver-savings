@@ -19,13 +19,6 @@ export async function createAuth(connection: Connection) {
       usePlural: true,
     }),
     user: {
-      additionalFields: {
-        isSystemUser: {
-          type: 'boolean',
-          defaultValue: false,
-          input: false,
-        },
-      },
       deleteUser: {
         enabled: true,
         afterDelete: async (user) => {

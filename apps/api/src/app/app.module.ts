@@ -1,7 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
-import type { Connection } from 'mongoose';
+import { Connection } from 'mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SavingsModule } from '../savings/savings.module';
@@ -18,7 +18,6 @@ export class AppModule {
     // ESM-only packages: keep these as dynamic imports
     const { AuthModule } = await import('@thallesp/nestjs-better-auth');
     const { createAuth } = await import('../auth/auth.js');
-    const { getConnectionToken, MongooseModule } = await import('@nestjs/mongoose');
 
     const dbLogger = new Logger('MongoDB');
 
@@ -32,7 +31,7 @@ export class AppModule {
         DatabaseModule,
         ThrottlerModule.forRoot([{ name: 'default', ttl: 60_000, limit: 60 }]),
         AuthModule.forRootAsync({
-          inject: [getConnectionToken()],
+          inject: [Connection],
           useFactory: async (connection: Connection) => ({
             auth: await createAuth(connection),
           }),

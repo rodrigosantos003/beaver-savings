@@ -1,6 +1,6 @@
 'use client';
 
-import { SavingsInput } from 'savings-core';
+import { SavingsInput, suggestSavings } from 'savings-core';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
@@ -28,6 +28,8 @@ export function CalculatorForm({ input, onChange, monthNames }: CalculatorFormPr
 
     update(key, value);
   }
+
+  const suggestions = suggestSavings(input);
 
   return (
     <form
@@ -140,6 +142,8 @@ export function CalculatorForm({ input, onChange, monthNames }: CalculatorFormPr
             key="savingsPercent"
             label={t('savingsPercent')}
             value={input.savingsPercent}
+            suggestedValue={suggestions.savingsPercent}
+            unit="%"
             onChange={(raw) => updateNumber('savingsPercent', raw)}
           />
         ) : (
@@ -147,6 +151,8 @@ export function CalculatorForm({ input, onChange, monthNames }: CalculatorFormPr
             key="savingsAmount"
             label={t('savingsAmount')}
             value={input.savingsAmount}
+            suggestedValue={suggestions.savingsAmount}
+            unit="€"
             onChange={(raw) => updateNumber('savingsAmount', raw)}
           />
         )}
@@ -159,32 +165,68 @@ function NumberField({
   label,
   value,
   onChange,
+  suggestedValue,
+  unit,
 }: {
   label: string;
   value: number;
   onChange: (raw: string) => void;
+  suggestedValue?: number;
+  unit?: string;
 }) {
+  const t = useTranslations('calculator');
   const [text, setText] = useState(() => formatDecimal(value));
+
+  function applySuggestion() {
+    if (suggestedValue === undefined) return;
+
+    const next = formatDecimal(suggestedValue);
+    setText(next);
+    onChange(next);
+  }
 
   return (
     <label className="block text-sm font-medium text-stone-700">
-      {label}
-      <input
-        className={inputClass}
-        type="text"
-        inputMode="decimal"
-        autoComplete="off"
-        value={text}
-        onChange={(event) => {
-          const next = decimalDraft(event.target.value);
-          if (next === null) {
-            return;
-          }
+      <span className="flex items-center justify-between gap-2">
+        <span>{label}</span>
 
-          setText(next);
-          onChange(next);
-        }}
-      />
+        {suggestedValue !== undefined && (
+          <button
+            type="button"
+            className="text-xs font-semibold text-beaver-600 hover:underline"
+            onClick={applySuggestion}
+          >
+            {t('suggested')}: {formatDecimal(suggestedValue)}
+            {unit ? ` ${unit}` : ''}
+          </button>
+        )}
+      </span>
+
+      <span className="relative mt-1 block">
+        <input
+          className={`${inputClass} !mt-0 ${unit ? 'pr-9' : ''}`}
+          type="text"
+          inputMode="decimal"
+          autoComplete="off"
+          value={text}
+          onChange={(event) => {
+            const next = decimalDraft(event.target.value);
+
+            if (next === null) return;
+
+            setText(next);
+            onChange(next);
+          }}
+        />
+        {unit ? (
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-stone-500"
+          >
+            {unit}
+          </span>
+        ) : null}
+      </span>
     </label>
   );
 }

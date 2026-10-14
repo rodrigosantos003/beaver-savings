@@ -202,3 +202,5 @@ export function calculateAnnualPlan(input: SavingsInput): AnnualPlan {
     totalSavings: cumulativeSavings,
   };
 }
+
+export { suggestSavings } from './suggestions';

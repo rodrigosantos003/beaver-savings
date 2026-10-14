@@ -190,7 +190,8 @@
     "footerNav": "Rodapé",
     "privacyPolicy": "Política de Privacidade",
     "terms": "Termos e Condições",
-    "deleteAccount": "Eliminar conta"
+    "deleteAccount": "Eliminar conta",
+    "suggested": "Sugerido"
   },
   "unlock": {
     "title": "Desbloquear mais funcionalidades",

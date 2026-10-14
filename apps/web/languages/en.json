@@ -190,7 +190,8 @@
     "footerNav": "Footer",
     "privacyPolicy": "Privacy Policy",
     "terms": "Terms and Conditions",
-    "deleteAccount": "Delete account"
+    "deleteAccount": "Delete account",
+    "suggested": "Suggested"
   },
   "unlock": {
     "title": "Unlock more features",

@@ -45,7 +45,7 @@ export default async function CalculatorPage() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-6 text-sm text-stone-500 sm:flex-row">
           <p>© {new Date().getFullYear()} Beaver Savings</p>
           <nav aria-label={t('footerNav')} className="flex items-center gap-6">
-            <Link href="/privacy" className="transition-colors hover:text-stone-900">
+            <Link href="/privacy-policy" className="transition-colors hover:text-stone-900">
               {t('privacyPolicy')}
             </Link>
             <Link

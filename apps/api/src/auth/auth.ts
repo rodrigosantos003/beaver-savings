@@ -1,6 +1,52 @@
 import { waitUntil } from '@vercel/functions';
 import type { Connection } from 'mongoose';
 import { sendEmail } from '../../lib/email';
+import { buildVerificationEmail } from './verify.email';
+
+const locales = ['en', 'pt'] as const; // adjust to your locales
+type Locale = (typeof locales)[number];
+const defaultLocale: Locale = 'en';
+
+const VERIFICATION_EXPIRES_IN = 60 * 60 * 24; // seconds (24 hours)
+
+function parseLanguages(header?: string | null): string[] {
+  if (!header) return [];
+
+  return header
+    .split(',')
+    .map((part, index) => {
+      const [tag, ...params] = part.trim().split(';');
+      const qParam = params.find((p) => p.trim().startsWith('q='));
+      const q = qParam ? Number.parseFloat(qParam.trim().slice(2)) : 1;
+      return {
+        lang: tag.trim().split(/[-_]/)[0].toLowerCase(),
+        q: Number.isNaN(q) ? 0 : q,
+        index, // keeps the original order for equal weights
+      };
+    })
+    .filter(({ lang, q }) => lang && lang !== '*' && q > 0)
+    .sort((a, b) => b.q - a.q || a.index - b.index)
+    .map(({ lang }) => lang);
+}
+
+// Returns the first language in the header that is in `supported`.
+function primaryLanguage<T extends string>(
+  header: string | null | undefined,
+  supported: readonly T[],
+): T | undefined {
+  return parseLanguages(header).find((lang): lang is T =>
+    (supported as readonly string[]).includes(lang),
+  );
+}
+
+// Priority: Content-Language from the web app, then Accept-Language, then default.
+export function resolveLocale(request?: Request): Locale {
+  return (
+    primaryLanguage(request?.headers.get('content-language'), locales) ??
+    primaryLanguage(request?.headers.get('accept-language'), locales) ??
+    defaultLocale
+  );
+}
 
 export async function createAuth(connection: Connection) {
   // better-auth is ESM-only. Nest emits CommonJS, and a static import
@@ -34,18 +80,28 @@ export async function createAuth(connection: Connection) {
     trustedOrigins: [process.env.WEB_ORIGIN ?? 'http://localhost:3000'],
     emailAndPassword: { enabled: true },
     emailVerification: {
-      sendVerificationEmail: async ({ user, token }) => {
+      sendVerificationEmail: async ({ user, token }, request) => {
+        const locale = resolveLocale(request);
+
         const url = `${process.env.WEB_ORIGIN}/confirm-account?token=${token}`;
+
+        const { subject, text, html } = buildVerificationEmail(locale, {
+          url,
+          email: user.email,
+          name: user.name,
+        });
 
         waitUntil(
           sendEmail({
             to: user.email,
-            subject: 'Confirm Beaver Savings account',
-            text: `Welcome to Beaver Savings! To confirm your account, please use the following link: ${url}`,
+            subject,
+            text,
+            html
           }),
         );
       },
       autoSignInAfterVerification: true,
+      expiresIn: VERIFICATION_EXPIRES_IN
     },
     advanced: {
       defaultCookieAttributes: {

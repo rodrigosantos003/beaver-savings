@@ -1,7 +1,7 @@
 'use client';
 
 import { FormEvent, SyntheticEvent, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { authClient } from '@/lib/auth-client';
 import { Link, useRouter } from '@/i18n/navigation';
 
@@ -15,6 +15,7 @@ type CredentialsFormProps = {
 
 export function CredentialsForm({ mode, compact = false }: CredentialsFormProps) {
   const t = useTranslations('auth');
+  const locale = useLocale();
   const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -38,7 +39,13 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
         return;
       }
 
-      if (isSignup) await authClient.sendVerificationEmail({ email, callbackURL: '/' });
+      if (isSignup) await authClient.sendVerificationEmail({
+        email, callbackURL: '/', fetchOptions: {
+          headers: {
+            'Content-Language': locale
+          }
+        }
+      });
 
       router.push('/calculator');
     } catch (error) {

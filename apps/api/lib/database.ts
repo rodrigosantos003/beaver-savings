@@ -1,5 +1,6 @@
 import { Global, Inject, Logger, Module, OnApplicationShutdown } from '@nestjs/common';
 import { Connection, createConnection } from 'mongoose';
+import { attachDatabasePool } from '@vercel/functions';
 
 const logger = new Logger('MongoDB');
 
@@ -17,7 +18,14 @@ const logger = new Logger('MongoDB');
                     serverSelectionTimeoutMS: 5_000,
                     connectTimeoutMS: 10_000,
                     socketTimeoutMS: 30_000,
+                    waitQueueTimeoutMS: 5_000
                 });
+
+                const client = conn.getClient();
+
+                attachDatabasePool(client);
+
+                await conn.asPromise();
 
                 // Connection lifecycle
                 conn.on('connected', () => logger.log('DB connected'));
@@ -26,16 +34,12 @@ const logger = new Logger('MongoDB');
                 conn.on('error', (err) => logger.error(`DB error: ${err.message}`));
                 conn.on('close', () => logger.warn('DB connection closed'));
 
-                await conn.asPromise();
-
-                const client = conn.getClient();
-
                 // Pool events
                 client.on('connectionCreated', (e) =>
-                    logger.debug(`Pool: socket created (id ${e.connectionId})`),
+                    logger.log(`Pool: socket created (id ${e.connectionId})`),
                 );
                 client.on('connectionClosed', (e) =>
-                    logger.debug(`Pool: socket closed (${e.reason})`),
+                    logger.log(`Pool: socket closed (${e.reason})`),
                 );
 
                 return conn;

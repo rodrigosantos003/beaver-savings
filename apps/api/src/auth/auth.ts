@@ -2,6 +2,7 @@ import { waitUntil } from '@vercel/functions';
 import type { Connection } from 'mongoose';
 import { sendEmail } from '../../lib/email';
 import { buildVerificationEmail } from './verify.email';
+import { buildResetPasswordEmail } from './recover.email';
 
 const locales = ['en', 'pt'] as const;
 type Locale = (typeof locales)[number];
@@ -73,7 +74,30 @@ export async function createAuth(connection: Connection) {
     baseURL: process.env.BETTER_AUTH_URL ?? 'http://localhost:4331',
     secret: process.env.BETTER_AUTH_SECRET ?? 'secret',
     trustedOrigins: [process.env.WEB_ORIGIN ?? 'http://localhost:3000'],
-    emailAndPassword: { enabled: true },
+    emailAndPassword: {
+      enabled: true,
+      revokeSessionsOnPasswordReset: true,
+      sendResetPassword: async ({ user, token }, request) => {
+        const locale = resolveLocale(request);
+
+        const url = `${process.env.WEB_ORIGIN}/reset-password?token=${token}`;
+
+        const { subject, text, html } = buildResetPasswordEmail(locale, {
+          url,
+          email: user.email,
+          name: user.name,
+        });
+
+        waitUntil(
+          sendEmail({
+            to: user.email,
+            subject,
+            text,
+            html
+          }),
+        );
+      },
+    },
     emailVerification: {
       sendVerificationEmail: async ({ user, token }, request) => {
         const locale = resolveLocale(request);
@@ -107,5 +131,17 @@ export async function createAuth(connection: Connection) {
         ipAddressHeaders: ['x-vercel-forwarded-for', 'x-forwarded-for'],
       }
     },
+    rateLimit: {
+      enabled: true,
+      window: 60,
+      max: 100,
+      storage: "database",
+      modelName: "rateLimit"
+    },
+    session: {
+      expiresIn: 60 * 60 * 24 * 7, // 7 days
+      updateAge: 60 * 60 * 24,     // 1 day
+      freshAge: 60 * 60 * 24       // 1 day
+    }
   });
 }

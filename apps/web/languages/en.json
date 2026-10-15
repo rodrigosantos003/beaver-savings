@@ -103,7 +103,21 @@
     "backToLogin": "Back to log in",
     "acceptTerms": "By using the app, you accept the",
     "termsAndConditions": "terms and conditions.",
-    "failedToFetch": "Unable to do the request. Please try again later."
+    "failedToFetch": "Unable to do the request. Please try again later.",
+    "forgotPassword": "Forgout your password?",
+    "forgotPasswordTitle": "Reset your password",
+    "forgotPasswordIntro": "Enter your email and we'll send you a link to reset your password.",
+    "sendResetLink": "Send reset link",
+    "resetEmailSent": "If an account exists for that email, a reset link is on its way.",
+    "resetRequestFailed": "We couldn't send the reset email. Please try again.",
+    "resetPasswordTitle": "Choose a new password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "passwordsDontMatch": "Passwords don't match.",
+    "resetPassword": "Reset password",
+    "resetFailed": "We couldn't reset your password. The link may have expired.",
+    "invalidResetLink": "This reset link is invalid or has expired.",
+    "requestNewLink": "Request a new link"
   },
   "demo": {
     "metaTitle": "Monthly demo — Beaver Savings",

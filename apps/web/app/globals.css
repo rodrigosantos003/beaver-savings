@@ -47,43 +47,7 @@
   --shadow: rgb(38 24 13 / 8%);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --surface: #1a1108;
-    --surface-raised: #26180d;
-    --surface-sunken: #120c06;
 
-    --text-primary: #f0e6d8;
-    --text-secondary: #e0ceb8;
-    --text-muted: #a8a29e;
-    --text-inverse: #26180d;
-
-    --border: #3d2715;
-    --border-strong: #57381e;
-
-    --primary: #c9ad8c;
-    --primary-hover: #e0ceb8;
-    --primary-subtle: #3d2715;
-
-    --secondary: #6bbf94;
-    --secondary-hover: #a8dbc1;
-    --secondary-subtle: #123624;
-
-    --accent: #eec956;
-    --accent-hover: #f5de91;
-    --accent-subtle: #423205;
-
-    --success: #6bbf94;
-    --success-subtle: #1a5035;
-    --warning: #eec956;
-    --warning-subtle: #6b5007;
-    --danger: #f87171;
-    --danger-subtle: #450a0a;
-
-    --ring: #c9ad8c;
-    --shadow: rgb(0 0 0 / 32%);
-  }
-}
 
 @theme inline {
   /* ── Beaver (fur & wood) ── */
@@ -204,6 +168,7 @@ body {
   from {
     transform: translateX(0);
   }
+
   to {
     transform: translateX(-50%);
   }

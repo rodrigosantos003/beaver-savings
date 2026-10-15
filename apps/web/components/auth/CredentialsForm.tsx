@@ -83,19 +83,31 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
           onChange={(event) => setEmail(event.target.value)}
         />
       </label>
-      <label className="block text-sm font-medium text-stone-700">
-        {t('password')}
-        <input
-          className={fieldClass}
-          type="password"
-          name="password"
-          autoComplete={isSignup ? 'new-password' : 'current-password'}
-          required
-          minLength={8}
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-      </label>
+      <div>
+        <label className="block text-sm font-medium text-stone-700">
+          {t('password')}
+          <input
+            className={fieldClass}
+            type="password"
+            name="password"
+            autoComplete={isSignup ? 'new-password' : 'current-password'}
+            required
+            minLength={8}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </label>
+        {!isSignup ? (
+          <div className="mt-1 text-right">
+            <Link
+              href="/forgot-password"
+              className="text-sm font-medium text-beaver-700 hover:text-beaver-900"
+            >
+              {t('forgotPassword')}
+            </Link>
+          </div>
+        ) : null}
+      </div>
       {error ? <p className="rounded-xl bg-danger px-3 py-2 text-sm text-white">{error}</p> : null}
       <button
         type="submit"

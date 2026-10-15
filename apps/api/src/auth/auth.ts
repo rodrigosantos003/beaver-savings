@@ -108,6 +108,9 @@ export async function createAuth(connection: Connection) {
         sameSite: 'None',
         secure: true,
       },
+      ipAddress: {
+        ipAddressHeaders: ['x-vercel-forwarded-for', 'x-forwarded-for'],
+      }
     },
   });
 }

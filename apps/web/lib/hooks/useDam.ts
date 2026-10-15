@@ -12,7 +12,6 @@ export function useDam(userId?: string | null) {
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState<DamError>(null);
 
-  // Load whenever the user changes; ignore stale responses
   useEffect(() => {
     if (!userId) {
       setEntries([]);
@@ -37,14 +36,13 @@ export function useDam(userId?: string | null) {
     };
   }, [userId]);
 
-  // Resolves to true when the entry was saved, so callers can clear inputs
   const add = useCallback(
-    async (amount: number, label?: string): Promise<boolean> => {
+    async (amount: number): Promise<boolean> => {
       if (!userId || !Number.isFinite(amount) || amount <= 0) return false;
       setAdding(true);
       setError(null);
       try {
-        const created = await addDamEntry(userId, Math.round(amount * 100) / 100, label);
+        const created = await addDamEntry(userId, Math.round(amount * 100) / 100);
         setEntries((prev) => [created, ...prev]);
         return true;
       } catch {
@@ -57,7 +55,6 @@ export function useDam(userId?: string | null) {
     [userId],
   );
 
-  // Optimistic: remove right away, resync from the server if it fails
   const remove = useCallback(
     async (id: string) => {
       if (!userId) return;

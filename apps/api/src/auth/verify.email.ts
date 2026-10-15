@@ -1,3 +1,5 @@
+import { SITE_URL } from "../../lib/constants";
+
 type Messages = {
   subject: string;
   preheader: string;
@@ -14,7 +16,7 @@ type Messages = {
   website: string;
 };
 
-const locales = ['en', 'pt'] as const; // adjust to your locales
+const locales = ['en', 'pt'] as const;
 type Locale = (typeof locales)[number];
 
 const VERIFICATION_EXPIRES_IN = 60 * 60 * 24; // seconds (24 hours)
@@ -61,8 +63,6 @@ const messages: Record<Locale, Messages> = {
     website: 'Visite o nosso site',
   },
 };
-
-const SITE_URL = 'https://beaver-savings.vercel.app';
 
 function escapeHtml(value: string): string {
   return value

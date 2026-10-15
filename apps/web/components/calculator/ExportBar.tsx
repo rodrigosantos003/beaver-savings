@@ -2,10 +2,9 @@
 
 import { SavingsInput } from 'savings-core';
 import { useLocale, useTranslations } from 'next-intl';
-import { FormEvent, SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { authClient } from '@/lib/auth-client';
-
-const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+import { API_URL } from '@/lib/constants';
 
 type ExportBarProps = {
   input: SavingsInput;
@@ -32,7 +31,7 @@ export function ExportBar({ input }: ExportBarProps) {
         return;
       }
 
-      const response = await fetch(`${apiUrl}/savings/email`, {
+      const response = await fetch(`${API_URL}/savings/email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...input, to: email, locale }),

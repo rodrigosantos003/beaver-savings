@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
@@ -16,7 +16,7 @@ export function DeleteAccountCard() {
   const confirmed = confirmation.trim().toLowerCase() === t('confirmWord').toLowerCase();
   const canSubmit = confirmed && password.length > 0 && status !== 'deleting';
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: SyntheticEvent) {
     event.preventDefault();
     if (!canSubmit) return;
 

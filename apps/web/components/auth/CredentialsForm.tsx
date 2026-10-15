@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { authClient } from '@/lib/auth-client';
 import { Link, useRouter } from '@/i18n/navigation';

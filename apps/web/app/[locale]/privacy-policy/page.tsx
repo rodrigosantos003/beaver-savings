@@ -55,24 +55,19 @@ function OL({ children }: { children: ReactNode }) {
 export default async function PrivacyPolicyPage() {
   const t = await getTranslations('PrivacyPolicy');
 
-  // Keys are dynamic, so we use a loosely typed view of `t` for these helpers.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const loose = t as any;
 
-  // Rich text: supports <strong>…</strong> and <email></email> inside message strings.
   const r = (key: string): ReactNode =>
     loose.rich(key, {
       strong: (chunks: ReactNode) => <strong>{chunks}</strong>,
       email: () => <Email />,
     });
 
-  // Renders every entry of an object-of-strings message (e.g. "…list") as <li>s, in order.
   const items = (key: string): ReactNode =>
     Object.keys(loose.raw(key) as Record<string, string>).map((k) => (
       <li key={k}>{r(`${key}.${k}`)}</li>
     ));
 
-  // Plain-string lookup for dynamic section titles.
   const title = (key: string): string => loose(key);
 
   const s = (id: string, k: string) => `sections.${id}.${k}`;
@@ -399,9 +394,8 @@ export default async function PrivacyPolicyPage() {
                 <section
                   key={sec.id}
                   id={sec.id}
-                  className={`scroll-mt-24 ${
-                    i === 0 ? '' : 'mt-12 border-t border-stone-200 pt-10'
-                  }`}
+                  className={`scroll-mt-24 ${i === 0 ? '' : 'mt-12 border-t border-stone-200 pt-10'
+                    }`}
                 >
                   <h2 className="text-2xl font-bold tracking-tight text-stone-900">
                     {i + 1}. {title(sec.titleKey)}

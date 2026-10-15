@@ -14,9 +14,4 @@ export class CreateDamEntryDto {
   @Min(0.01)
   @Max(1_000_000)
   amount: number;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(60)
-  label?: string;
 }

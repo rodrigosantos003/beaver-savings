@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { authClient } from '@/lib/auth-client'; // adjust to your client path
+import { authClient } from '@/lib/auth-client';
 
 type Status = 'loading' | 'success' | 'error';
 
@@ -15,7 +15,7 @@ type VerifyEmailStatusProps = {
 export function VerifyEmailStatus({ token, initialError }: VerifyEmailStatusProps) {
   const t = useTranslations('auth');
   const [status, setStatus] = useState<Status>(token && !initialError ? 'loading' : 'error');
-  // Tokens are single-use, and React strict mode runs effects twice in dev.
+
   const started = useRef(false);
 
   useEffect(() => {

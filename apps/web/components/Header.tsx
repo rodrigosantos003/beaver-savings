@@ -1,4 +1,3 @@
-// components/Header.tsx
 import { headers } from 'next/headers';
 import { getSessionCookie } from 'better-auth/cookies';
 import { QuickLogin } from '@/components/auth/QuickLogin';

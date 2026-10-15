@@ -14,7 +14,6 @@ import { DatabaseModule } from '../../lib/database';
 @Module({})
 export class AppModule {
   static async register(): Promise<DynamicModule> {
-    // ESM-only packages: keep these as dynamic imports
     const { AuthModule } = await import('@thallesp/nestjs-better-auth');
     const { createAuth } = await import('../auth/auth.js');
 

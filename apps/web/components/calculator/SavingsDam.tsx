@@ -6,7 +6,7 @@ import type { DamEntry } from '../../lib/hooks/useDam';
 const MAX_ROWS = 10;
 const ROW_H = 14;
 const GROUND_Y = 170;
-const BASE = 50; // € needed for the first log
+const BASE = 50;
 
 function damProgress(total: number) {
   const rows = Math.min(MAX_ROWS, Math.log2(1 + total / BASE));
@@ -100,7 +100,6 @@ export function SavingsDam({ total, entries, onRemove, money, dateFmt }: Props) 
                 <div className="min-w-0">
                   <p className="font-medium text-stone-800">
                     {money(e.amount)}
-                    {e.label ? <span className="text-stone-500"> · {e.label}</span> : null}
                   </p>
                   <p className="text-stone-500">{dateFmt.format(new Date(e.createdAt))}</p>
                 </div>

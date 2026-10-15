@@ -3,7 +3,7 @@ import type { Connection } from 'mongoose';
 import { sendEmail } from '../../lib/email';
 import { buildVerificationEmail } from './verify.email';
 
-const locales = ['en', 'pt'] as const; // adjust to your locales
+const locales = ['en', 'pt'] as const;
 type Locale = (typeof locales)[number];
 const defaultLocale: Locale = 'en';
 
@@ -21,7 +21,7 @@ function parseLanguages(header?: string | null): string[] {
       return {
         lang: tag.trim().split(/[-_]/)[0].toLowerCase(),
         q: Number.isNaN(q) ? 0 : q,
-        index, // keeps the original order for equal weights
+        index,
       };
     })
     .filter(({ lang, q }) => lang && lang !== '*' && q > 0)
@@ -29,7 +29,6 @@ function parseLanguages(header?: string | null): string[] {
     .map(({ lang }) => lang);
 }
 
-// Returns the first language in the header that is in `supported`.
 function primaryLanguage<T extends string>(
   header: string | null | undefined,
   supported: readonly T[],
@@ -39,7 +38,6 @@ function primaryLanguage<T extends string>(
   );
 }
 
-// Priority: Content-Language from the web app, then Accept-Language, then default.
 export function resolveLocale(request?: Request): Locale {
   return (
     primaryLanguage(request?.headers.get('content-language'), locales) ??
@@ -49,9 +47,6 @@ export function resolveLocale(request?: Request): Locale {
 }
 
 export async function createAuth(connection: Connection) {
-  // better-auth is ESM-only. Nest emits CommonJS, and a static import
-  // becomes require(), which crashes the Vercel function before it can
-  // answer the browser's CORS preflight.
   const { betterAuth } = await import('better-auth');
   const { mongodbAdapter } = await import('better-auth/adapters/mongodb');
 

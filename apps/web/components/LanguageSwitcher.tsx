@@ -10,7 +10,6 @@ import { routing } from '@/i18n/routing';
 
 type Locale = (typeof routing.locales)[number];
 
-// Map each locale to a flag. Add new locales here as you add them to routing.
 const FLAGS: Record<string, FlagComponent> = {
   en: GB,
   pt: PT,
@@ -31,7 +30,6 @@ export function LanguageSwitcher() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // Close on outside click or Escape
   useEffect(() => {
     function onPointerDown(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
@@ -94,9 +92,8 @@ export function LanguageSwitcher() {
               <button
                 type="button"
                 onClick={() => select(l)}
-                className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-stone-50 ${
-                  l === locale ? 'font-semibold text-stone-900' : 'text-stone-600'
-                }`}
+                className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-stone-50 ${l === locale ? 'font-semibold text-stone-900' : 'text-stone-600'
+                  }`}
               >
                 <Flag locale={l} className="h-3.5 w-5 rounded-[2px]" />
                 {t(`locales.${l}`)}

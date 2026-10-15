@@ -16,7 +16,7 @@ type ResultsProps = {
   plan: AnnualPlan | null;
   monthNames: string[];
   subsidiesInTwelfths: boolean;
-  children?: ReactNode; // the form, rendered in the left column
+  children?: ReactNode;
 };
 
 type MonthView = Omit<MonthBreakdown, 'savingsExceedsDisposable'> & {
@@ -45,7 +45,7 @@ function fromSaved(saved: SavedResult): View {
     month: saved.month,
     rows: saved.year.length ? saved.year.map((r) => ({ ...r, month: Number(r.month) })) : null,
     totalSavings: saved.totalSavings,
-    annualExceeds: false, // not persisted
+    annualExceeds: false,
   };
 }
 
@@ -115,29 +115,28 @@ export function Results({
   const view: View = loaded
     ? fromSaved(loaded)
     : {
-        month,
-        rows:
-          plan?.months.map((r) => ({
-            month: r.month,
-            gross: r.gross,
-            net: r.net,
-            expenses: r.expenses,
-            savings: r.savings,
-            remaining: r.remaining,
-            cumulative: r.cumulativeSavings,
-          })) ?? null,
-        totalSavings: plan?.totalSavings ?? 0,
-        annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
-      };
+      month,
+      rows:
+        plan?.months.map((r) => ({
+          month: r.month,
+          gross: r.gross,
+          net: r.net,
+          expenses: r.expenses,
+          savings: r.savings,
+          remaining: r.remaining,
+          cumulative: r.cumulativeSavings,
+        })) ?? null,
+      totalSavings: plan?.totalSavings ?? 0,
+      annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
+    };
 
-  // Empty input = show the current month's savings; once the user types, their value wins
   const applyValue = applyInput ?? view.month.savings.toFixed(2);
 
   async function handleApply() {
     if (applyValue.trim() === '') return;
     const amount = Number(applyValue.replace(',', '.'));
     if (Number.isNaN(amount)) return;
-    if (await dam.add(amount, t('damMonthlyLabel'))) setApplyInput(null);
+    if (await dam.add(amount)) setApplyInput(null);
   }
 
   const dateFmt = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'pt-PT', {
@@ -323,7 +322,7 @@ export function Results({
                       <td className={`${planCell} print:hidden`}>
                         <button
                           type="button"
-                          onClick={() => dam.add(row.savings, monthNames[row.month - 1])}
+                          onClick={() => dam.add(row.savings)}
                           className="rounded-lg border border-stone-300 px-2 py-1 text-xs hover:bg-stone-50"
                         >
                           {t('apply')}

@@ -1,9 +1,7 @@
-// results/results.repository.ts
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { Schema, Types } from 'mongoose';
 import type { Model } from 'mongoose';
 
-/** DI token for the Result model (provided in ResultsModule). */
 export const RESULT_MODEL = 'RESULT_MODEL';
 
 export interface MonthSummary {
@@ -32,7 +30,6 @@ export interface Result {
   month: MonthSummary;
   year: YearMonth[];
   totalSavings: number;
-  // Managed by `timestamps`; declared for typing only
   createdAt: Date;
 }
 
@@ -78,7 +75,6 @@ export const ResultSchema = new Schema<Result>(
 
 ResultSchema.index({ userId: 1 }, { name: 'by_userId' });
 
-/** Plain-object shape, same as the old interface. */
 export type ResultDocument = Result & { _id: Types.ObjectId };
 
 @Injectable()

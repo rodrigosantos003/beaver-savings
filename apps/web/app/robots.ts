@@ -1,6 +1,5 @@
+import { SITE_URL } from '@/lib/constants';
 import type { MetadataRoute } from 'next';
-
-const SITE_URL = 'https://beaver-savings.vercel.app';
 
 export default function robots(): MetadataRoute.Robots {
   return {

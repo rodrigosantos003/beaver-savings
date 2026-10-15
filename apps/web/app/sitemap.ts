@@ -1,13 +1,13 @@
+import { SITE_URL } from '@/lib/constants';
 import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://beaver-savings.vercel.app';
-  const ptAlernate = `${baseUrl}/pt`;
-  const enAlternate = `${baseUrl}/en`;
+  const ptAlernate = `${SITE_URL}/pt`;
+  const enAlternate = `${SITE_URL}/en`;
 
   return [
     {
-      url: baseUrl,
+      url: SITE_URL,
       lastModified: new Date(),
       alternates: {
         languages: {
@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
-      url: `${baseUrl}/landing`,
+      url: `${SITE_URL}/landing`,
       lastModified: new Date(),
       alternates: {
         languages: {
@@ -27,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
-      url: `${baseUrl}/calculator`,
+      url: `${SITE_URL}/calculator`,
       lastModified: new Date(),
       alternates: {
         languages: {
@@ -37,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
-      url: `${baseUrl}/privacy-policy`,
+      url: `${SITE_URL}/privacy-policy`,
       lastModified: new Date(),
       alternates: {
         languages: {

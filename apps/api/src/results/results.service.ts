@@ -1,12 +1,11 @@
-// results/results.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ObjectId } from 'mongodb';
+import { Types } from 'mongoose';
 import { CreateResultDto } from './results.dto';
 import { ResultsRepository } from './results.repository';
 
 @Injectable()
 export class ResultsService {
-  constructor(private readonly repo: ResultsRepository) {}
+  constructor(private readonly repo: ResultsRepository) { }
 
   async findById(id: string) {
     const result = await this.repo.findById(id);
@@ -19,7 +18,7 @@ export class ResultsService {
   }
 
   create({ userId, ...rest }: CreateResultDto) {
-    return this.repo.create({ ...rest, userId: new ObjectId(userId) });
+    return this.repo.create({ ...rest, userId: new Types.ObjectId(userId) });
   }
 
   async delete(id: string) {

@@ -13,7 +13,6 @@ export function QuickLogin({ initialLoggedIn }: { initialLoggedIn: boolean }) {
   const panelRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  // Server hint until the client hook resolves, then the real value
   const loggedIn = isPending ? initialLoggedIn : !!session;
 
   useEffect(() => {

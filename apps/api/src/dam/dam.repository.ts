@@ -1,4 +1,3 @@
-// dam/dam.repository.ts
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { Schema, Types } from 'mongoose';
 import type { Model } from 'mongoose';
@@ -8,11 +7,7 @@ export const DAM_ENTRY_MODEL = 'DAM_ENTRY_MODEL';
 
 export interface DamEntry {
   userId: Types.ObjectId;
-  /** Amount applied to the dam, in euros (2 decimals). */
   amount: number;
-  /** Optional note, e.g. the month name or "Monthly savings". */
-  label?: string;
-  // Managed by `timestamps`; declared for typing only
   createdAt: Date;
 }
 
@@ -20,7 +15,6 @@ export const DamEntrySchema = new Schema<DamEntry>(
   {
     userId: { type: Schema.Types.ObjectId, required: true },
     amount: { type: Number, required: true },
-    label: { type: String },
   },
   {
     collection: 'dam_entries',

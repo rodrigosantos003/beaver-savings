@@ -1,5 +1,6 @@
 import { BadGatewayException } from '@nestjs/common';
 import { Resend } from 'resend';
+import { SITE_URL } from './constants';
 
 const API_KEY = process.env.RESEND_API_KEY || '';
 const FROM = process.env.RESEND_FROM || '';
@@ -31,8 +32,6 @@ export async function sendEmail({
     throw new BadGatewayException(error.message);
   }
 }
-
-export const SITE_URL = 'https://beaver-savings.vercel.app';
 
 export function escapeHtml(value: string): string {
   return value

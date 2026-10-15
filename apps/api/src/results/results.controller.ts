@@ -1,4 +1,3 @@
-// results/results.controller.ts
 import {
   Body,
   Controller,
@@ -16,14 +15,13 @@ import { ResultsService } from './results.service';
 
 @Controller('results')
 export class ResultsController {
-  constructor(private readonly results: ResultsService) {}
+  constructor(private readonly results: ResultsService) { }
 
   @Post()
   create(@Body() dto: CreateResultDto) {
     return this.results.create(dto);
   }
 
-  // GET /results?userId=<id>
   @Get()
   findByUser(@Query('userId', ParseObjectIdPipe) userId: string) {
     return this.results.findByUserId(userId);

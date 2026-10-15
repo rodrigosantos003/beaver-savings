@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { Header } from '@/components/Header';
 import { Link } from '@/i18n/navigation';
+import { SITE_URL } from '@/lib/constants';
 
 const EMAIL = 'rodrigo.s.santos003@gmail.com';
-const SITE_URL = 'https://beaver-savings.vercel.app';
 const PRIVACY_URL = `${SITE_URL}/privacy-policy`;
 
 export async function generateMetadata({
@@ -52,11 +52,8 @@ function UL({ children }: { children: ReactNode }) {
 export default async function TermsPage() {
   const t = await getTranslations('Terms');
 
-  // Keys are dynamic, so we use a loosely typed view of `t` for these helpers.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const loose = t as any;
 
-  // Rich text: <strong>…</strong>, <email></email>, <siteUrl></siteUrl>, <privacyUrl></privacyUrl>
   const r = (key: string): ReactNode =>
     loose.rich(key, {
       strong: (chunks: ReactNode) => <strong>{chunks}</strong>,
@@ -65,7 +62,6 @@ export default async function TermsPage() {
       privacyUrl: () => <ExternalUrl href={PRIVACY_URL} />,
     });
 
-  // Renders every entry of an object-of-strings message as <li>s, in order.
   const items = (key: string): ReactNode =>
     Object.keys(loose.raw(key) as Record<string, string>).map((k) => (
       <li key={k}>{r(`${key}.${k}`)}</li>

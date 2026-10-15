@@ -3,14 +3,13 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ObjectId } from 'mongodb';
+import { Types } from 'mongoose';
 import { DamEntryDocument, DamRepository } from './dam.repository';
 import { CreateDamEntryDto } from './dam.dto';
 
 export type DamEntryResponse = {
   id: string;
   amount: number;
-  label?: string;
   createdAt: string;
 };
 
@@ -21,26 +20,24 @@ export type DamResponse = {
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
-// ObjectId.isValid accepts any 12-char string, so check the hex form strictly
-function toObjectId(value: string, field: string): ObjectId {
+function toObjectId(value: string, field: string): Types.ObjectId {
   if (!/^[a-f\d]{24}$/i.test(value ?? '')) {
     throw new BadRequestException(`Invalid ${field}`);
   }
-  return new ObjectId(value);
+  return new Types.ObjectId(value);
 }
 
 function toResponse(doc: DamEntryDocument): DamEntryResponse {
   return {
     id: doc._id.toString(),
     amount: doc.amount,
-    label: doc.label,
     createdAt: doc.createdAt.toISOString(),
   };
 }
 
 @Injectable()
 export class DamService {
-  constructor(private readonly repo: DamRepository) {}
+  constructor(private readonly repo: DamRepository) { }
 
   async list(userId: string): Promise<DamResponse> {
     const docs = await this.repo.findByUserId(toObjectId(userId, 'userId'));
@@ -57,7 +54,6 @@ export class DamService {
     const doc = await this.repo.create({
       userId: toObjectId(userId, 'userId'),
       amount: round2(dto.amount),
-      ...(dto.label ? { label: dto.label.trim() } : {}),
     });
     return toResponse(doc);
   }

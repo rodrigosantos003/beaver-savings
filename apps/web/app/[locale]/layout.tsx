@@ -5,6 +5,7 @@ import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import '../globals.css';
+import { SITE_URL } from '@/lib/constants';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -18,9 +19,6 @@ const geistMono = Geist_Mono({
 
 type Props = LayoutProps<'/[locale]'>;
 
-const SITE_URL = 'https://beaver-savings.vercel.app';
-
-// Map your locales to OpenGraph format (language_TERRITORY)
 const OG_LOCALES: Record<string, string> = {
   en: 'en_GB',
   pt: 'pt_PT',
@@ -46,14 +44,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const title = t('title');
   const description = t('description');
 
-  // hreflang map: { en: "/en", pt: "/pt", ... }
   const languages = Object.fromEntries(routing.locales.map((l) => [l, `/${l}`]));
 
   return {
     metadataBase: new URL(SITE_URL),
     title: {
       default: title,
-      template: `%s | ${t('siteName')}`, // child pages: "About | Site Name"
+      template: `%s | ${t('siteName')}`,
     },
     description,
     applicationName: t('siteName'),
@@ -72,7 +69,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       url: `/${locale}`,
       locale: OG_LOCALES[locale] ?? locale,
       alternateLocale: routing.locales.filter((l) => l !== locale).map((l) => OG_LOCALES[l] ?? l),
-      // Or drop an opengraph-image.tsx / .png into app/[locale]/ and omit this
       images: [{ url: '/og.png', width: 1200, height: 630, alt: title }],
     },
     twitter: {

@@ -37,7 +37,7 @@ function toResponse(doc: DamEntryDocument): DamEntryResponse {
 
 @Injectable()
 export class DamService {
-  constructor(private readonly repo: DamRepository) { }
+  constructor(private readonly repo: DamRepository) {}
 
   async list(userId: string): Promise<DamResponse> {
     const docs = await this.repo.findByUserId(toObjectId(userId, 'userId'));

@@ -1,11 +1,8 @@
 import type { Metadata } from 'next';
+
 import { getTranslations } from 'next-intl/server';
+
 import { Calculator } from '@/components/calculator/Calculator';
-import { Link } from '@/i18n/navigation';
-import Image from 'next/image';
-import { Header } from '@/components/Header';
-import { authClient } from '@/lib/auth-client';
-import { DeleteAccountLink } from '@/components/account/DeleteAccountLink';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('calculator');

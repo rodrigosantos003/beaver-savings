@@ -1,12 +1,5 @@
 import { Type } from 'class-transformer';
-import {
-  IsNumber,
-  IsOptional,
-  IsString,
-  Max,
-  MaxLength,
-  Min,
-} from 'class-validator';
+import { IsNumber, Max, Min } from 'class-validator';
 
 export class CreateDamEntryDto {
   @Type(() => Number)

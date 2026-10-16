@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server';
+
 import { CredentialsForm } from '@/components/auth/CredentialsForm';
-import { Link } from '@/i18n/navigation';
-import Image from 'next/image';
 
 type AuthScreenProps = {
   mode: 'login' | 'signup';

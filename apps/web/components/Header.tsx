@@ -1,9 +1,12 @@
 import { headers } from 'next/headers';
 import Image from 'next/image';
+
 import { getSessionCookie } from 'better-auth/cookies';
 import { getTranslations } from 'next-intl/server';
+
 import { QuickLogin } from '@/components/auth/QuickLogin';
 import { Link } from '@/i18n/navigation';
+
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { NavLinks } from './NavLinks';
 

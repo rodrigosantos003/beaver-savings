@@ -2,8 +2,6 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { parseEmailRequest } from './parse-email-request';
 import { SavingsEmailService } from './savings-email.service';
 import { Throttle } from '@nestjs/throttler';
-import { Session } from '@thallesp/nestjs-better-auth';
-import type { UserSession } from '@thallesp/nestjs-better-auth';
 
 @Controller('savings')
 export class SavingsController {

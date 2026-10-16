@@ -8,10 +8,7 @@ const FROM = process.env.RESEND_FROM || '';
 type SendEmailParams = {
   to: string;
   subject: string;
-} & (
-    | { html: string; text?: string }
-    | { text: string; html?: string }
-  );
+} & ({ html: string; text?: string } | { text: string; html?: string });
 
 export async function sendEmail({
   to,

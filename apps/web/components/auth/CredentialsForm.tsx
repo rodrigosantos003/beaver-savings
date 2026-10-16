@@ -1,9 +1,11 @@
 'use client';
 
 import { SyntheticEvent, useState } from 'react';
+
 import { useLocale, useTranslations } from 'next-intl';
-import { authClient } from '@/lib/auth-client';
+
 import { Link, useRouter } from '@/i18n/navigation';
+import { authClient } from '@/lib/auth-client';
 
 const fieldClass =
   'mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100';
@@ -39,13 +41,16 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
         return;
       }
 
-      if (isSignup) await authClient.sendVerificationEmail({
-        email, callbackURL: '/', fetchOptions: {
-          headers: {
-            'Content-Language': locale
-          }
-        }
-      });
+      if (isSignup)
+        await authClient.sendVerificationEmail({
+          email,
+          callbackURL: '/',
+          fetchOptions: {
+            headers: {
+              'Content-Language': locale,
+            },
+          },
+        });
 
       router.push('/calculator');
     } catch (error) {

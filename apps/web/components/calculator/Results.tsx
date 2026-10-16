@@ -1,8 +1,10 @@
 'use client';
 
-import { useCallback, useEffect, useState, type ReactNode } from 'react';
-import { AnnualPlan, MonthBreakdown } from 'savings-core';
+import { type ReactNode, useCallback, useEffect, useState } from 'react';
+
 import { useLocale, useTranslations } from 'next-intl';
+import { AnnualPlan, MonthBreakdown } from 'savings-core';
+
 import { SavedResult, deleteResult, listResults, saveResult } from '../../lib/api/results';
 import { useDam } from '../../lib/hooks/useDam';
 import { SavingsDam } from './SavingsDam';
@@ -115,20 +117,20 @@ export function Results({
   const view: View = loaded
     ? fromSaved(loaded)
     : {
-      month,
-      rows:
-        plan?.months.map((r) => ({
-          month: r.month,
-          gross: r.gross,
-          net: r.net,
-          expenses: r.expenses,
-          savings: r.savings,
-          remaining: r.remaining,
-          cumulative: r.cumulativeSavings,
-        })) ?? null,
-      totalSavings: plan?.totalSavings ?? 0,
-      annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
-    };
+        month,
+        rows:
+          plan?.months.map((r) => ({
+            month: r.month,
+            gross: r.gross,
+            net: r.net,
+            expenses: r.expenses,
+            savings: r.savings,
+            remaining: r.remaining,
+            cumulative: r.cumulativeSavings,
+          })) ?? null,
+        totalSavings: plan?.totalSavings ?? 0,
+        annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
+      };
 
   const applyValue = applyInput ?? view.month.savings.toFixed(2);
 

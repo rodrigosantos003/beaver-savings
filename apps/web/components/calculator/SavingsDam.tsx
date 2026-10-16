@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+
 import type { DamEntry } from '../../lib/hooks/useDam';
 
 const MAX_ROWS = 10;
@@ -98,9 +99,7 @@ export function SavingsDam({ total, entries, onRemove, money, dateFmt }: Props) 
             {entries.map((e) => (
               <li key={e.id} className="flex items-center justify-between gap-3 py-2 text-sm">
                 <div className="min-w-0">
-                  <p className="font-medium text-stone-800">
-                    {money(e.amount)}
-                  </p>
+                  <p className="font-medium text-stone-800">{money(e.amount)}</p>
                   <p className="text-stone-500">{dateFmt.format(new Date(e.createdAt))}</p>
                 </div>
                 <button

@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server';
+
 import { VerifyEmailStatus } from '@/components/auth/VerifyEmailStatus';
-import { Link } from '@/i18n/navigation';
-import Image from 'next/image';
 
 type VerifyEmailScreenProps = {
   token?: string;

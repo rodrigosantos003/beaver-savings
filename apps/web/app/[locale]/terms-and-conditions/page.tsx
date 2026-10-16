@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import Image from 'next/image';
+
 import { getTranslations } from 'next-intl/server';
-import { Header } from '@/components/Header';
-import { Link } from '@/i18n/navigation';
+
 import { SITE_URL } from '@/lib/constants';
 
 const EMAIL = 'rodrigo.s.santos003@gmail.com';

@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
+
 import { getTranslations } from 'next-intl/server';
-import Image from 'next/image';
-import { Link } from '@/i18n/navigation';
-import { Header } from '@/components/Header';
+
 import { DeleteAccountCard } from '@/components/account/DeleteAccountCard';
 
 export async function generateMetadata(): Promise<Metadata> {

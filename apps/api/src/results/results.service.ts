@@ -5,7 +5,7 @@ import { ResultsRepository } from './results.repository';
 
 @Injectable()
 export class ResultsService {
-  constructor(private readonly repo: ResultsRepository) { }
+  constructor(private readonly repo: ResultsRepository) {}
 
   async findById(id: string) {
     const result = await this.repo.findById(id);

@@ -15,7 +15,7 @@ import { ResultsService } from './results.service';
 
 @Controller('results')
 export class ResultsController {
-  constructor(private readonly results: ResultsService) { }
+  constructor(private readonly results: ResultsService) {}
 
   @Post()
   create(@Body() dto: CreateResultDto) {

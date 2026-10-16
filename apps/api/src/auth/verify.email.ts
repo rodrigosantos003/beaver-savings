@@ -1,4 +1,4 @@
-import { SITE_URL } from "../../lib/constants";
+import { SITE_URL } from '../../lib/constants';
 
 type Messages = {
   subject: string;
@@ -23,8 +23,14 @@ const VERIFICATION_EXPIRES_IN = 60 * 60 * 24; // seconds (24 hours)
 
 function formatDuration(seconds: number, locale: Locale): string {
   const [value, unit] =
-    seconds >= 3600 ? [Math.round(seconds / 3600), 'hour'] : [Math.round(seconds / 60), 'minute'];
-  return new Intl.NumberFormat(locale, { style: 'unit', unit, unitDisplay: 'long' }).format(value);
+    seconds >= 3600
+      ? [Math.round(seconds / 3600), 'hour']
+      : [Math.round(seconds / 60), 'minute'];
+  return new Intl.NumberFormat(locale, {
+    style: 'unit',
+    unit,
+    unitDisplay: 'long',
+  }).format(value);
 }
 
 const messages: Record<Locale, Messages> = {
@@ -39,15 +45,18 @@ const messages: Record<Locale, Messages> = {
     cta: 'Confirm my account',
     expiry: (d) =>
       `This link will expire in ${d}. If it expires, you can request a new one from the confirmation page.`,
-    fallback: "If the button doesn't work, copy and paste this link into your browser:",
-    ignore: "If you didn't create a Beaver Savings account, you can safely ignore this email.",
+    fallback:
+      "If the button doesn't work, copy and paste this link into your browser:",
+    ignore:
+      "If you didn't create a Beaver Savings account, you can safely ignore this email.",
     signoff: 'The Beaver Savings Team',
     sentTo: (email) => `This email was sent to ${email}.`,
     website: 'Visit our website',
   },
   pt: {
     subject: 'Confirme a sua conta Beaver Savings',
-    preheader: 'Confirme o seu email para começar a construir o seu plano de poupança.',
+    preheader:
+      'Confirme o seu email para começar a construir o seu plano de poupança.',
     tagline: 'Poupe passo a passo.',
     greeting: (name) => (name ? `Olá ${name},` : 'Olá,'),
     title: 'Confirme a sua conta',
@@ -56,7 +65,8 @@ const messages: Record<Locale, Messages> = {
     cta: 'Confirmar a minha conta',
     expiry: (d) =>
       `Este link expira em ${d}. Se expirar, pode pedir um novo na página de confirmação.`,
-    fallback: 'Se o botão não funcionar, copie e cole este link no seu navegador:',
+    fallback:
+      'Se o botão não funcionar, copie e cole este link no seu navegador:',
     ignore: 'Se não criou uma conta Beaver Savings, pode ignorar este email.',
     signoff: 'A Equipa Beaver Savings',
     sentTo: (email) => `Este email foi enviado para ${email}.`,
@@ -79,12 +89,14 @@ type VerificationEmailInput = {
   name?: string;
 };
 
-export function buildVerificationEmail(locale: Locale, { url, email, name }: VerificationEmailInput) {
+export function buildVerificationEmail(
+  locale: Locale,
+  { url, email, name }: VerificationEmailInput,
+) {
   const m = messages[locale];
   const duration = formatDuration(VERIFICATION_EXPIRES_IN, locale);
 
   const safeUrl = escapeHtml(url);
-  const safeEmail = escapeHtml(email);
   const safeName = name ? escapeHtml(name) : undefined;
 
   const text = [

@@ -1,16 +1,19 @@
 'use client';
 
+import { useMemo, useState } from 'react';
+
+import { useLocale, useTranslations } from 'next-intl';
 import {
-  calculateAnnualPlan,
-  calculateTypicalMonth,
   DEFAULT_CHRISTMAS_MONTH,
   DEFAULT_HOLIDAY_MONTH,
   DEFAULT_SS_RATE_PERCENT,
   SavingsInput,
+  calculateAnnualPlan,
+  calculateTypicalMonth,
 } from 'savings-core';
-import { useLocale, useTranslations } from 'next-intl';
-import { useMemo, useState } from 'react';
+
 import { authClient } from '@/lib/auth-client';
+
 import { CalculatorForm } from './CalculatorForm';
 import { ExportBar } from './ExportBar';
 import { Results } from './Results';

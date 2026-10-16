@@ -79,7 +79,7 @@ export type ResultDocument = Result & { _id: Types.ObjectId };
 
 @Injectable()
 export class ResultsRepository implements OnModuleInit {
-  constructor(@Inject(RESULT_MODEL) private readonly model: Model<Result>) { }
+  constructor(@Inject(RESULT_MODEL) private readonly model: Model<Result>) {}
 
   async onModuleInit() {
     await this.model.createIndexes();

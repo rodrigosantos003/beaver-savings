@@ -34,7 +34,7 @@ export type DamEntryDocument = DamEntry & { _id: Types.ObjectId };
 export class DamRepository implements OnModuleInit {
   constructor(
     @Inject(DAM_ENTRY_MODEL) private readonly model: Model<DamEntry>,
-  ) { }
+  ) {}
 
   async onModuleInit() {
     await this.model.createIndexes();

@@ -249,7 +249,7 @@
       "description": "How Beaver Savings collects, uses, stores, and protects your personal information."
     },
     "title": "Privacy Policy",
-    "lastUpdated": "Last updated: October 12, 2026",
+    "lastUpdated": "Last updated: October 16, 2026",
     "intro": {
       "p1": "Beaver Savings (“Beaver Savings”, “we”, “us”, or “our”) is a personal finance web application developed and operated by <strong>Rodrigo Santos</strong>.",
       "p2": "This Privacy Policy explains how we collect, use, store, and protect personal information when you use Beaver Savings."
@@ -363,7 +363,8 @@
         "betterAuthP2": "Better Auth handles authentication and session management within the Beaver Savings application. The resulting authentication and session information is stored in our application database.",
         "resendP1": "Beaver Savings uses <strong>Resend</strong> to deliver emails associated with the export feature.",
         "resendP2": "When you request an export, the email address you provide is transmitted to Resend as necessary to send the email. Beaver Savings does not store that export recipient address in your account data.",
-        "closing": "These providers process information as necessary to provide their respective services. Their own privacy policies and contractual terms may also apply."
+        "closing": "These providers process information as necessary to provide their respective services. Their own privacy policies and contractual terms may also apply.",
+        "policyLink": "Read the {provider} Privacy Policy"
       },
       "transfers": {
         "title": "International data transfers",
@@ -469,7 +470,7 @@
       "description": "The terms that apply when you use Beaver Savings, a free personal finance and savings planning tool."
     },
     "title": "Terms and Conditions",
-    "lastUpdated": "Last updated: 12 October 2026",
+    "lastUpdated": "Last updated: 16 October 2026",
     "intro": {
       "welcome": "Welcome to Beaver Savings!",
       "p1": "These Terms and Conditions explain how you can use Beaver Savings, a personal finance and savings planning web application operated by <strong>Rodrigo Santos</strong>.",

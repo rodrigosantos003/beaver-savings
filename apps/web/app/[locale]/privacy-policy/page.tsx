@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import Image from 'next/image';
+
 import { getTranslations } from 'next-intl/server';
-import { Header } from '@/components/Header';
-import { Link } from '@/i18n/navigation';
 
 const EMAIL = 'rodrigo.s.santos003@gmail.com';
 
@@ -52,6 +50,28 @@ function OL({ children }: { children: ReactNode }) {
   );
 }
 
+const PROVIDER_POLICY_URLS = {
+  vercel: 'https://vercel.com/legal/privacy-policy',
+  mongodb: 'https://www.mongodb.com/legal/privacy/privacy-policy',
+  resend: 'https://resend.com/legal/privacy-policy',
+} as const;
+
+function PolicyLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <p className="mt-4">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-semibold text-secondary underline-offset-2 hover:underline"
+      >
+        {children}
+        <span aria-hidden="true"> ↗</span>
+      </a>
+    </p>
+  );
+}
+
 export default async function PrivacyPolicyPage() {
   const t = await getTranslations('PrivacyPolicy');
 
@@ -71,6 +91,9 @@ export default async function PrivacyPolicyPage() {
   const title = (key: string): string => loose(key);
 
   const s = (id: string, k: string) => `sections.${id}.${k}`;
+
+  const policyLabel = (provider: string): string =>
+    loose(s('providers', 'policyLink'), { provider });
 
   const sections: { id: string; titleKey: string; body: ReactNode }[] = [
     {
@@ -184,12 +207,14 @@ export default async function PrivacyPolicyPage() {
           <H3>Vercel</H3>
           <P>{r(s('providers', 'vercelP1'))}</P>
           <P>{r(s('providers', 'vercelP2'))}</P>
+          <PolicyLink href={PROVIDER_POLICY_URLS.vercel}>{policyLabel('Vercel')}</PolicyLink>
 
           <H3>MongoDB Atlas</H3>
           <P>{r(s('providers', 'mongoP1'))}</P>
           <P>{r(s('providers', 'mongoP2'))}</P>
           <P>{r(s('providers', 'mongoP3'))}</P>
           <P>{r(s('providers', 'mongoP4'))}</P>
+          <PolicyLink href={PROVIDER_POLICY_URLS.mongodb}>{policyLabel('MongoDB')}</PolicyLink>
 
           <H3>Better Auth</H3>
           <P>{r(s('providers', 'betterAuthP1'))}</P>
@@ -198,6 +223,7 @@ export default async function PrivacyPolicyPage() {
           <H3>Resend</H3>
           <P>{r(s('providers', 'resendP1'))}</P>
           <P>{r(s('providers', 'resendP2'))}</P>
+          <PolicyLink href={PROVIDER_POLICY_URLS.resend}>{policyLabel('Resend')}</PolicyLink>
 
           <P>{r(s('providers', 'closing'))}</P>
         </>
@@ -382,8 +408,9 @@ export default async function PrivacyPolicyPage() {
                 <section
                   key={sec.id}
                   id={sec.id}
-                  className={`scroll-mt-24 ${i === 0 ? '' : 'mt-12 border-t border-stone-200 pt-10'
-                    }`}
+                  className={`scroll-mt-24 ${
+                    i === 0 ? '' : 'mt-12 border-t border-stone-200 pt-10'
+                  }`}
                 >
                   <h2 className="text-2xl font-bold tracking-tight text-stone-900">
                     {i + 1}. {title(sec.titleKey)}

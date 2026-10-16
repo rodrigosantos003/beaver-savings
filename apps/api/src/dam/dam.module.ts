@@ -22,4 +22,4 @@ import { DamService } from './dam.service';
   ],
   exports: [DamService],
 })
-export class DamModule { }
+export class DamModule {}

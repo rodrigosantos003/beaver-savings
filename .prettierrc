@@ -9,7 +9,37 @@
   "bracketSameLine": false,
   "arrowParens": "always",
   "endOfLine": "lf",
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": ["<THIRD_PARTY_MODULES>", "^@/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderParserPlugins": ["typescript", "decorators-legacy"],
   "overrides": [
+    {
+      "files": "apps/web/**/*.{ts,tsx,js,jsx}",
+      "options": {
+        "importOrder": [
+          "^(react|react-dom|next)(/.*)?$",
+          "<THIRD_PARTY_MODULES>",
+          "^@/(.*)$",
+          "^[./]"
+        ],
+        "importOrderParserPlugins": ["typescript", "jsx"]
+      }
+    },
+    {
+      "files": "apps/api/**/*.ts",
+      "options": {
+        "importOrder": [
+          "^reflect-metadata$",
+          "^node:(.*)$",
+          "^@nestjs/(.*)$",
+          "<THIRD_PARTY_MODULES>",
+          "^[./]"
+        ],
+        "importOrderParserPlugins": ["typescript", "decorators-legacy"]
+      }
+    },
     {
       "files": "*.md",
       "options": {

@@ -249,7 +249,7 @@
       "description": "Como a Beaver Savings recolhe, utiliza, armazena e protege as suas informações pessoais."
     },
     "title": "Política de Privacidade",
-    "lastUpdated": "Última atualização: 12 de outubro de 2026",
+    "lastUpdated": "Última atualização: 16 de outubro de 2026",
     "intro": {
       "p1": "A Beaver Savings («Beaver Savings», «nós» ou «nosso») é uma aplicação web de finanças pessoais desenvolvida e operada por <strong>Rodrigo Santos</strong>.",
       "p2": "Esta Política de Privacidade explica como recolhemos, utilizamos, armazenamos e protegemos as informações pessoais quando utiliza a Beaver Savings."
@@ -363,7 +363,8 @@
         "betterAuthP2": "O Better Auth trata da autenticação e da gestão de sessões dentro da aplicação Beaver Savings. As informações de autenticação e de sessão resultantes são armazenadas na base de dados da nossa aplicação.",
         "resendP1": "A Beaver Savings utiliza o <strong>Resend</strong> para enviar os emails associados à funcionalidade de exportação.",
         "resendP2": "Quando pede uma exportação, o endereço de email que indica é transmitido ao Resend na medida do necessário para enviar o email. A Beaver Savings não armazena esse endereço de destinatário nos dados da sua conta.",
-        "closing": "Estes prestadores tratam informações na medida do necessário para prestar os respetivos serviços. As suas próprias políticas de privacidade e termos contratuais também podem ser aplicáveis."
+        "closing": "Estes prestadores tratam informações na medida do necessário para prestar os respetivos serviços. As suas próprias políticas de privacidade e termos contratuais também podem ser aplicáveis.",
+        "policyLink": "Ler a Política de Privacidade da {provider}"
       },
       "transfers": {
         "title": "Transferências internacionais de dados",
@@ -469,7 +470,7 @@
       "description": "Os termos aplicáveis à utilização da Beaver Savings, uma ferramenta gratuita de finanças pessoais e planeamento de poupanças."
     },
     "title": "Termos e Condições",
-    "lastUpdated": "Última atualização: 12 de outubro de 2026",
+    "lastUpdated": "Última atualização: 16 de outubro de 2026",
     "intro": {
       "welcome": "Bem-vindo à Beaver Savings!",
       "p1": "Estes Termos e Condições explicam como pode utilizar a Beaver Savings, uma aplicação web de finanças pessoais e planeamento de poupanças operada por <strong>Rodrigo Santos</strong>.",

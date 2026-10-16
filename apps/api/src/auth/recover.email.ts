@@ -1,19 +1,19 @@
-import { SITE_URL } from "../../lib/constants";
+import { SITE_URL } from '../../lib/constants';
 
 type Messages = {
-    subject: string;
-    preheader: string;
-    tagline: string;
-    greeting: (name?: string) => string;
-    title: string;
-    intro: string;
-    cta: string;
-    expiry: (duration: string) => string;
-    fallback: string;
-    ignore: string;
-    signoff: string;
-    sentTo: (email: string) => string;
-    website: string;
+  subject: string;
+  preheader: string;
+  tagline: string;
+  greeting: (name?: string) => string;
+  title: string;
+  intro: string;
+  cta: string;
+  expiry: (duration: string) => string;
+  fallback: string;
+  ignore: string;
+  signoff: string;
+  sentTo: (email: string) => string;
+  website: string;
 };
 
 const locales = ['en', 'pt'] as const;
@@ -23,86 +23,98 @@ type Locale = (typeof locales)[number];
 const RESET_EXPIRES_IN = 60 * 60; // seconds (1 hour)
 
 function formatDuration(seconds: number, locale: Locale): string {
-    const [value, unit] =
-        seconds >= 3600 ? [Math.round(seconds / 3600), 'hour'] : [Math.round(seconds / 60), 'minute'];
-    return new Intl.NumberFormat(locale, { style: 'unit', unit, unitDisplay: 'long' }).format(value);
+  const [value, unit] =
+    seconds >= 3600
+      ? [Math.round(seconds / 3600), 'hour']
+      : [Math.round(seconds / 60), 'minute'];
+  return new Intl.NumberFormat(locale, {
+    style: 'unit',
+    unit,
+    unitDisplay: 'long',
+  }).format(value);
 }
 
 const messages: Record<Locale, Messages> = {
-    en: {
-        subject: 'Reset your Beaver Savings password',
-        preheader: 'Use this link to choose a new password for your account.',
-        tagline: 'Save bit by bit.',
-        greeting: (name) => (name ? `Hi ${name},` : 'Hi,'),
-        title: 'Reset your password',
-        intro:
-            'We received a request to reset the password for your Beaver Savings account. Click the button below to choose a new password.',
-        cta: 'Reset my password',
-        expiry: (d) =>
-            `This link will expire in ${d}. If it expires, you can request a new one from the forgot password page.`,
-        fallback: "If the button doesn't work, copy and paste this link into your browser:",
-        ignore:
-            "If you didn't request a password reset, you can safely ignore this email. Your password won't be changed.",
-        signoff: 'The Beaver Savings Team',
-        sentTo: (email) => `This email was sent to ${email}.`,
-        website: 'Visit our website',
-    },
-    pt: {
-        subject: 'Redefina a sua palavra-passe Beaver Savings',
-        preheader: 'Utilize este link para escolher uma nova palavra-passe para a sua conta.',
-        tagline: 'Poupe passo a passo.',
-        greeting: (name) => (name ? `Olá ${name},` : 'Olá,'),
-        title: 'Redefina a sua palavra-passe',
-        intro:
-            'Recebemos um pedido para redefinir a palavra-passe da sua conta Beaver Savings. Clique no botão abaixo para escolher uma nova palavra-passe.',
-        cta: 'Redefinir a minha palavra-passe',
-        expiry: (d) =>
-            `Este link expira em ${d}. Se expirar, pode pedir um novo na página de recuperação de palavra-passe.`,
-        fallback: 'Se o botão não funcionar, copie e cole este link no seu navegador:',
-        ignore:
-            'Se não pediu a redefinição da palavra-passe, pode ignorar este email. A sua palavra-passe não será alterada.',
-        signoff: 'A Equipa Beaver Savings',
-        sentTo: (email) => `Este email foi enviado para ${email}.`,
-        website: 'Visite o nosso site',
-    },
+  en: {
+    subject: 'Reset your Beaver Savings password',
+    preheader: 'Use this link to choose a new password for your account.',
+    tagline: 'Save bit by bit.',
+    greeting: (name) => (name ? `Hi ${name},` : 'Hi,'),
+    title: 'Reset your password',
+    intro:
+      'We received a request to reset the password for your Beaver Savings account. Click the button below to choose a new password.',
+    cta: 'Reset my password',
+    expiry: (d) =>
+      `This link will expire in ${d}. If it expires, you can request a new one from the forgot password page.`,
+    fallback:
+      "If the button doesn't work, copy and paste this link into your browser:",
+    ignore:
+      "If you didn't request a password reset, you can safely ignore this email. Your password won't be changed.",
+    signoff: 'The Beaver Savings Team',
+    sentTo: (email) => `This email was sent to ${email}.`,
+    website: 'Visit our website',
+  },
+  pt: {
+    subject: 'Redefina a sua palavra-passe Beaver Savings',
+    preheader:
+      'Utilize este link para escolher uma nova palavra-passe para a sua conta.',
+    tagline: 'Poupe passo a passo.',
+    greeting: (name) => (name ? `Olá ${name},` : 'Olá,'),
+    title: 'Redefina a sua palavra-passe',
+    intro:
+      'Recebemos um pedido para redefinir a palavra-passe da sua conta Beaver Savings. Clique no botão abaixo para escolher uma nova palavra-passe.',
+    cta: 'Redefinir a minha palavra-passe',
+    expiry: (d) =>
+      `Este link expira em ${d}. Se expirar, pode pedir um novo na página de recuperação de palavra-passe.`,
+    fallback:
+      'Se o botão não funcionar, copie e cole este link no seu navegador:',
+    ignore:
+      'Se não pediu a redefinição da palavra-passe, pode ignorar este email. A sua palavra-passe não será alterada.',
+    signoff: 'A Equipa Beaver Savings',
+    sentTo: (email) => `Este email foi enviado para ${email}.`,
+    website: 'Visite o nosso site',
+  },
 };
 
 function escapeHtml(value: string): string {
-    return value
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 type ResetPasswordEmailInput = {
-    url: string;
-    email: string;
-    name?: string;
+  url: string;
+  email: string;
+  name?: string;
 };
 
-export function buildResetPasswordEmail(locale: Locale, { url, email, name }: ResetPasswordEmailInput) {
-    const m = messages[locale];
-    const duration = formatDuration(RESET_EXPIRES_IN, locale);
+export function buildResetPasswordEmail(
+  locale: Locale,
+  { url, email, name }: ResetPasswordEmailInput,
+) {
+  const m = messages[locale];
+  const duration = formatDuration(RESET_EXPIRES_IN, locale);
 
-    const safeUrl = escapeHtml(url);
-    const safeName = name ? escapeHtml(name) : undefined;
+  const safeUrl = escapeHtml(url);
+  const safeName = name ? escapeHtml(name) : undefined;
 
-    const text = [
-        m.greeting(name),
-        '',
-        m.intro,
-        '',
-        url,
-        '',
-        m.expiry(duration),
-        m.ignore,
-        '',
-        m.signoff,
-    ].join('\n');
+  const text = [
+    m.greeting(name),
+    '',
+    m.intro,
+    '',
+    url,
+    '',
+    m.expiry(duration),
+    m.ignore,
+    '',
+    m.signoff,
+  ].join('\n');
 
-    const html = `<!DOCTYPE html>
+  const html = `<!DOCTYPE html>
 <html lang="${locale}">
 <head>
   <meta charset="UTF-8" />
@@ -238,5 +250,5 @@ export function buildResetPasswordEmail(locale: Locale, { url, email, name }: Re
 </body>
 </html>`;
 
-    return { subject: m.subject, text, html };
+  return { subject: m.subject, text, html };
 }

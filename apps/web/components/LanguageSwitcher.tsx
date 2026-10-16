@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState, useTransition } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
+
 import type { FlagComponent } from 'country-flag-icons/react/3x2';
 import GB from 'country-flag-icons/react/3x2/GB';
 import PT from 'country-flag-icons/react/3x2/PT';
+import { useLocale, useTranslations } from 'next-intl';
+
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
 
@@ -92,8 +94,9 @@ export function LanguageSwitcher() {
               <button
                 type="button"
                 onClick={() => select(l)}
-                className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-stone-50 ${l === locale ? 'font-semibold text-stone-900' : 'text-stone-600'
-                  }`}
+                className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-stone-50 ${
+                  l === locale ? 'font-semibold text-stone-900' : 'text-stone-600'
+                }`}
               >
                 <Flag locale={l} className="h-3.5 w-5 rounded-[2px]" />
                 {t(`locales.${l}`)}

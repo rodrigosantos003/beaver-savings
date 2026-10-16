@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+
 import { useTranslations } from 'next-intl';
+
 import { Link } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
 

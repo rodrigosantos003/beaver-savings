@@ -22,4 +22,4 @@ import { ResultsService } from './results.service';
   ],
   exports: [ResultsService],
 })
-export class ResultsModule { }
+export class ResultsModule {}

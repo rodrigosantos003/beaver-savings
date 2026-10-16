@@ -1,4 +1,4 @@
-import { Injectable, ServiceUnavailableException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   AnnualPlan,
   calculateAnnualPlan,
@@ -85,7 +85,10 @@ function formatHtml(
 ): string {
   const labels = locale === 'en' ? englishLabels : portugueseLabels;
   const tag = locale === 'en' ? 'en-GB' : 'pt-PT';
-  const money = new Intl.NumberFormat(tag, { style: 'currency', currency: 'EUR' });
+  const money = new Intl.NumberFormat(tag, {
+    style: 'currency',
+    currency: 'EUR',
+  });
   const monthName = new Intl.DateTimeFormat(tag, { month: 'long' });
 
   const card = (inner: string) => `
@@ -94,9 +97,14 @@ function formatHtml(
       <tr><td style="padding:8px 16px;">${inner}</td></tr>
     </table>`;
 
-  const cell = (content: string, opts: { align?: string; bold?: boolean; last?: boolean } = {}) =>
-    `<td align="${opts.align ?? 'left'}" style="padding:9px 0;font-size:14px;color:${opts.bold ? '#173d2a' : '#526357'
-    };font-weight:${opts.bold ? 'bold' : 'normal'};${opts.last ? '' : 'border-bottom:1px solid #dfe7d3;'
+  const cell = (
+    content: string,
+    opts: { align?: string; bold?: boolean; last?: boolean } = {},
+  ) =>
+    `<td align="${opts.align ?? 'left'}" style="padding:9px 0;font-size:14px;color:${
+      opts.bold ? '#173d2a' : '#526357'
+    };font-weight:${opts.bold ? 'bold' : 'normal'};${
+      opts.last ? '' : 'border-bottom:1px solid #dfe7d3;'
     }">${content}</td>`;
 
   const summaryRows: [string, number, boolean?][] = [
@@ -113,15 +121,18 @@ function formatHtml(
   const summary = card(`
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
       ${summaryRows
-      .map(([label, value, bold], i) => {
-        const last = i === summaryRows.length - 1;
-        return `<tr>${cell(label, { bold, last })}${cell(money.format(value), {
-          align: 'right',
-          bold,
-          last,
-        })}</tr>`;
-      })
-      .join('')}
+        .map(([label, value, bold], i) => {
+          const last = i === summaryRows.length - 1;
+          return `<tr>${cell(label, { bold, last })}${cell(
+            money.format(value),
+            {
+              align: 'right',
+              bold,
+              last,
+            },
+          )}</tr>`;
+        })
+        .join('')}
     </table>`);
 
   const warning = month.savingsExceedsDisposable

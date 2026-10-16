@@ -15,7 +15,7 @@ const DB_PING_TIMEOUT_MS = 2000;
 
 @Injectable()
 export class AppService {
-  constructor(@Inject(Connection) private readonly connection: Connection) { }
+  constructor(@Inject(Connection) private readonly connection: Connection) {}
 
   async health(): Promise<HealthCheckResult> {
     const database = await this.checkDatabase();

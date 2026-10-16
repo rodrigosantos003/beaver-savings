@@ -1,10 +1,13 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+
 import { useTranslations } from 'next-intl';
-import { authClient } from '@/lib/auth-client';
-import { CredentialsForm } from './CredentialsForm';
+
 import { useRouter } from '@/i18n/navigation';
+import { authClient } from '@/lib/auth-client';
+
+import { CredentialsForm } from './CredentialsForm';
 
 export function QuickLogin({ initialLoggedIn }: { initialLoggedIn: boolean }) {
   const t = useTranslations('nav');

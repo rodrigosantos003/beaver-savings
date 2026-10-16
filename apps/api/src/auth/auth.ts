@@ -93,7 +93,7 @@ export async function createAuth(connection: Connection) {
             to: user.email,
             subject,
             text,
-            html
+            html,
           }),
         );
       },
@@ -115,12 +115,12 @@ export async function createAuth(connection: Connection) {
             to: user.email,
             subject,
             text,
-            html
+            html,
           }),
         );
       },
       autoSignInAfterVerification: true,
-      expiresIn: VERIFICATION_EXPIRES_IN
+      expiresIn: VERIFICATION_EXPIRES_IN,
     },
     advanced: {
       defaultCookieAttributes: {
@@ -129,19 +129,19 @@ export async function createAuth(connection: Connection) {
       },
       ipAddress: {
         ipAddressHeaders: ['x-vercel-forwarded-for', 'x-forwarded-for'],
-      }
+      },
     },
     rateLimit: {
       enabled: true,
       window: 60,
       max: 100,
-      storage: "database",
-      modelName: "rateLimit"
+      storage: 'database',
+      modelName: 'rateLimit',
     },
     session: {
       expiresIn: 60 * 60 * 24 * 7, // 7 days
-      updateAge: 60 * 60 * 24,     // 1 day
-      freshAge: 60 * 60 * 24       // 1 day
-    }
+      updateAge: 60 * 60 * 24, // 1 day
+      freshAge: 60 * 60 * 24, // 1 day
+    },
   });
 }

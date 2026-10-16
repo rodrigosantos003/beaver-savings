@@ -74,7 +74,8 @@
     "button": "Get started free"
   },
   "footer": {
-    "tagline": "Save bit by bit."
+    "tagline": "Save bit by bit.",
+    "nav": "Navigation"
   },
   "auth": {
     "loginTitle": "Log in",
@@ -562,14 +563,6 @@
           "i7": "Misrepresent the application's calculations or outputs as verified professional financial or tax advice."
         },
         "p3": "We may investigate suspected misuse and take reasonable action to protect the service and its users, subject to applicable law."
-      },
-      "payslips": {
-        "title": "Payslips and Other Uploaded Documents",
-        "p1": "If you use a feature that allows you to upload a payslip or another document, you confirm that you are authorised to provide that document for the intended purpose.",
-        "p2": "You should only upload documents that are necessary for your use of Beaver Savings.",
-        "p3": "You must not upload documents belonging to another person without appropriate authorisation.",
-        "p4": "Uploaded documents may contain sensitive personal and financial information. You should review them carefully before uploading.",
-        "p5": "The handling, storage, use, and deletion of personal information are explained in our Privacy Policy."
       },
       "exporting": {
         "title": "Exporting and Sharing Results",

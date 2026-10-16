@@ -6,6 +6,8 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import '../globals.css';
 import { SITE_URL } from '@/lib/constants';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -121,7 +123,11 @@ export default async function LocaleLayout({ children, params }: Props) {
             __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
           }}
         />
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          <Header />
+          <main className="flex flex-1 flex-col">{children}</main>
+          <Footer />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

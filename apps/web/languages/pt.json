@@ -74,7 +74,8 @@
     "button": "Começar grátis"
   },
   "footer": {
-    "tagline": "Poupa bocado a bocado."
+    "tagline": "Poupa bocado a bocado.",
+    "nav": "Navegação"
   },
   "auth": {
     "loginTitle": "Entrar",
@@ -562,14 +563,6 @@
           "i7": "Apresentar de forma enganosa os cálculos ou resultados da aplicação como aconselhamento profissional financeiro ou fiscal verificado."
         },
         "p3": "Podemos investigar suspeitas de utilização abusiva e tomar medidas razoáveis para proteger o serviço e os seus utilizadores, sem prejuízo da lei aplicável."
-      },
-      "payslips": {
-        "title": "Recibos de Vencimento e Outros Documentos Carregados",
-        "p1": "Se utilizar uma funcionalidade que permita carregar um recibo de vencimento ou outro documento, confirma que está autorizado a fornecer esse documento para a finalidade pretendida.",
-        "p2": "Deve carregar apenas os documentos necessários para a sua utilização da Beaver Savings.",
-        "p3": "Não pode carregar documentos pertencentes a outra pessoa sem a devida autorização.",
-        "p4": "Os documentos carregados podem conter informações pessoais e financeiras sensíveis. Deve revê-los cuidadosamente antes de os carregar.",
-        "p5": "O tratamento, o armazenamento, a utilização e a eliminação de informações pessoais são explicados na nossa Política de Privacidade."
       },
       "exporting": {
         "title": "Exportação e Partilha de Resultados",

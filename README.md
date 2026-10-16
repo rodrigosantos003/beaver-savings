@@ -49,11 +49,6 @@ base nos inputs acima.
 Projeta poupança acumulada ao longo de 12 meses com base nos parâmetros
 definidos.
 
-### Parser de recibos de vencimento
-
-Upload de recibos de vencimento com extração automática de dados via **Gemini
-API**.
-
 ---
 
 ## Tech stack

@@ -1,51 +1,43 @@
 import { headers } from 'next/headers';
+import Image from 'next/image';
 import { getSessionCookie } from 'better-auth/cookies';
+import { getTranslations } from 'next-intl/server';
 import { QuickLogin } from '@/components/auth/QuickLogin';
 import { Link } from '@/i18n/navigation';
-import { getTranslations } from 'next-intl/server';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { NavLinks } from './NavLinks';
 
-export async function Header({ backToHome = false }: { backToHome?: boolean }) {
+export async function Header() {
   const hasSession = !!getSessionCookie(new Headers(await headers()));
   const t = await getTranslations();
 
   return (
-    <nav className="flex items-center gap-3">
-      {backToHome ? (
-        <Link
-          href="/landing"
-          className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
-        >
-          {t('nav.backToHome')}
+    <header className="sticky top-0 z-30 border-b border-stone-200 bg-white/80 backdrop-blur-sm">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <Link href="/landing" className="flex items-center gap-2.5">
+          <Image src="/beaver-savings.png" alt="Beaver Savings" width={42} height={42} />
+          <span className="text-lg font-semibold tracking-tight text-beaver-900">
+            Beaver Savings
+          </span>
         </Link>
-      ) : (
-        !hasSession && (
-          <>
+
+        <nav className="flex items-center gap-3">
+          <NavLinks hasSession={hasSession} />
+
+          <QuickLogin initialLoggedIn={hasSession} />
+
+          {!hasSession && (
             <Link
-              href="#features"
-              className="hidden text-sm font-medium text-stone-500 transition-colors hover:text-stone-900 sm:inline"
+              href="/signup"
+              className="inline-flex h-9 items-center justify-center rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-secondary-hover"
             >
-              {t('nav.features')}
+              {t('nav.getStarted')}
             </Link>
-            <Link
-              href="#how-it-works"
-              className="hidden text-sm font-medium text-stone-500 transition-colors hover:text-stone-900 sm:inline"
-            >
-              {t('nav.howItWorks')}
-            </Link>
-          </>
-        )
-      )}
-      <QuickLogin initialLoggedIn={hasSession} />
-      {!hasSession && (
-        <Link
-          href="/signup"
-          className={`inline-flex items-center justify-center rounded-full bg-secondary font-semibold text-white transition-colors hover:bg-secondary-hover h-9 px-4 py-2 text-sm`}
-        >
-          {t('nav.getStarted')}
-        </Link>
-      )}
-      <LanguageSwitcher />
-    </nav>
+          )}
+
+          <LanguageSwitcher />
+        </nav>
+      </div>
+    </header>
   );
 }

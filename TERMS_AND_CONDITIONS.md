@@ -139,24 +139,6 @@ You must not:
 We may investigate suspected misuse and take reasonable action to protect the
 service and its users, subject to applicable law.
 
-## 8. Payslips and Other Uploaded Documents
-
-If you use a feature that allows you to upload a payslip or another document,
-you confirm that you are authorised to provide that document for the intended
-purpose.
-
-You should only upload documents that are necessary for your use of Beaver
-Savings.
-
-You must not upload documents belonging to another person without appropriate
-authorisation.
-
-Uploaded documents may contain sensitive personal and financial information. You
-should review them carefully before uploading.
-
-The handling, storage, use, and deletion of personal information are explained
-in our Privacy Policy.
-
 ## 9. Exporting and Sharing Results
 
 Beaver Savings may allow you to download a PDF containing your savings results

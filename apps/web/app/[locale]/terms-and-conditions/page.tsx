@@ -163,19 +163,6 @@ export default async function TermsPage() {
       ),
     },
     {
-      id: 'uploaded-documents',
-      titleKey: s('payslips', 'title'),
-      body: (
-        <>
-          {p('payslips', 'p1')}
-          {p('payslips', 'p2')}
-          {p('payslips', 'p3')}
-          {p('payslips', 'p4')}
-          {p('payslips', 'p5')}
-        </>
-      ),
-    },
-    {
       id: 'exporting-and-sharing',
       titleKey: s('exporting', 'title'),
       body: (
@@ -334,18 +321,6 @@ export default async function TermsPage() {
 
   return (
     <div className="flex min-h-full flex-col bg-white text-stone-900">
-      <header className="sticky top-0 z-30 border-b border-stone-200 bg-white/80 backdrop-blur-sm">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <Link href="/landing" className="flex items-center gap-2.5">
-            <Image src="/beaver-savings.png" alt="Beaver Savings" width={42} height={42} />
-            <span className="text-lg font-semibold tracking-tight text-beaver-900">
-              Beaver Savings
-            </span>
-          </Link>
-          <Header backToHome />
-        </div>
-      </header>
-
       <main className="flex-1 px-6 py-14 sm:py-20">
         <div className="mx-auto max-w-6xl">
           <div className="max-w-3xl">
@@ -388,16 +363,6 @@ export default async function TermsPage() {
           </div>
         </div>
       </main>
-
-      <footer className="border-t border-stone-200 bg-white px-6 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="flex items-center gap-2">
-            <Image src="/beaver-savings.png" alt="Beaver Savings" width={42} height={42} />
-            <span className="text-sm font-medium text-beaver-900">Beaver Savings</span>
-          </div>
-          <p className="text-sm text-stone-500">{t('footer.tagline')}</p>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -51,18 +51,6 @@ export default async function LandingPage() {
 
   return (
     <div className="flex min-h-full flex-col bg-white text-stone-900">
-      <header className="sticky top-0 z-30 border-b border-stone-200 bg-white/80 backdrop-blur-sm">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <Link href="/landing" className="flex items-center gap-2.5">
-            <Image src="/beaver-savings.png" alt="Beaver Savings" width={42} height={42} />
-            <span className="text-lg font-semibold tracking-tight text-beaver-900">
-              Beaver Savings
-            </span>
-          </Link>
-          <Header />
-        </div>
-      </header>
-
       <main className="flex-1">
         <section className="relative overflow-hidden px-6 pb-20 pt-16 sm:pb-28 sm:pt-24">
           <RiverWaveBackground />
@@ -100,9 +88,8 @@ export default async function LandingPage() {
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className={`rounded-2xl border p-6 text-center shadow-sm ${
-                    stat.accent ? 'border-beaver-200 bg-beaver-50' : 'border-stone-200 bg-white'
-                  }`}
+                  className={`rounded-2xl border p-6 text-center shadow-sm ${stat.accent ? 'border-beaver-200 bg-beaver-50' : 'border-stone-200 bg-white'
+                    }`}
                 >
                   <p className="text-sm font-medium text-stone-500">{stat.label}</p>
                   <p className="mt-1 text-3xl font-bold tracking-tight text-stone-900">
@@ -185,31 +172,6 @@ export default async function LandingPage() {
         </section>
       </main>
 
-      <footer className="border-t border-stone-200 bg-white px-6 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="flex items-center gap-2">
-            <Image src="/beaver-savings.png" alt="Beaver Savings" width={42} height={42} />
-            <span className="text-sm font-medium text-beaver-900">Beaver Savings</span>
-          </div>
-          <div className="flex flex-col items-center gap-2 sm:items-end">
-            <Link
-              href="/privacy-policy"
-              className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
-            >
-              {t('PrivacyPolicy.title')}
-            </Link>
-            <Link
-              href="/terms-and-conditions"
-              className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
-            >
-              {t('Terms.title')}
-            </Link>
-            <p className="text-sm text-stone-500">
-              © {new Date().getFullYear()} Beaver Savings. {t('footer.tagline')}
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -1,8 +1,26 @@
 import { Suspense } from 'react';
 
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { ResetPasswordForm } from '@/components/auth/ResetPasswordForm';
+import { getAlternates, getOpenGraph } from '@/lib/seo';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('meta.resetPassword');
+  const locale = await getLocale();
+
+  const title = t('title');
+  const description = t('description');
+
+  return {
+    title,
+    description,
+    alternates: getAlternates(locale, '/reset-password'),
+    openGraph: getOpenGraph(locale, '/reset-password', { title, description }),
+    robots: { index: false }
+  };
+}
 
 export default async function ResetPasswordPage({
   params,

@@ -1,15 +1,22 @@
 import type { Metadata } from 'next';
 
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
+import { getAlternates, getOpenGraph } from '@/lib/seo';
 import { Calculator } from '@/components/calculator/Calculator';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('calculator');
+  const t = await getTranslations('meta.calculator');
+  const locale = await getLocale();
+
+  const title = t('title');
+  const description = t('description');
 
   return {
-    title: t('metaTitle'),
-    description: t('metaDescription'),
+    title,
+    description,
+    alternates: getAlternates(locale, '/calculator'),
+    openGraph: getOpenGraph(locale, '/calculator', { title, description }),
   };
 }
 

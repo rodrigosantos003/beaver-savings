@@ -1,12 +1,24 @@
 import type { Metadata } from 'next';
 
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { DeleteAccountCard } from '@/components/account/DeleteAccountCard';
+import { getAlternates, getOpenGraph } from '@/lib/seo';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('deleteAccount');
-  return { title: t('metaTitle'), robots: { index: false } };
+  const t = await getTranslations('meta.deleteAccount');
+  const locale = await getLocale();
+
+  const title = t('title');
+  const description = t('description');
+
+  return {
+    title,
+    description,
+    alternates: getAlternates(locale, '/delete-account'),
+    openGraph: getOpenGraph(locale, '/delete-account', { title, description }),
+    robots: { index: false }
+  };
 }
 
 export default function DeleteAccountPage() {

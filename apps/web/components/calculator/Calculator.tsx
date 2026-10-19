@@ -73,7 +73,7 @@ export function Calculator() {
           </div>
           <a
             href={`/${locale}/signup`}
-            className="shrink-0 rounded-lg bg-warning-subtle px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-beaver-700"
+            className="shrink-0 rounded-lg bg-warning px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-beaver-700"
           >
             {t('createAccount')}
           </a>

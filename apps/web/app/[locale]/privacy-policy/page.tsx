@@ -1,18 +1,24 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { getAlternates, getOpenGraph } from '@/lib/seo';
 
 const EMAIL = 'rodrigo.s.santos003@gmail.com';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'PrivacyPolicy.meta' });
-  return { title: t('title'), description: t('description') };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('meta.privacyPolicy');
+  const locale = await getLocale();
+
+  const title = t('title');
+  const description = t('description');
+
+  return {
+    title,
+    description,
+    alternates: getAlternates(locale, '/privacy-policy'),
+    openGraph: getOpenGraph(locale, '/privacy-policy', { title, description }),
+  };
 }
 
 function Email() {
@@ -408,9 +414,8 @@ export default async function PrivacyPolicyPage() {
                 <section
                   key={sec.id}
                   id={sec.id}
-                  className={`scroll-mt-24 ${
-                    i === 0 ? '' : 'mt-12 border-t border-stone-200 pt-10'
-                  }`}
+                  className={`scroll-mt-24 ${i === 0 ? '' : 'mt-12 border-t border-stone-200 pt-10'
+                    }`}
                 >
                   <h2 className="text-2xl font-bold tracking-tight text-stone-900">
                     {i + 1}. {title(sec.titleKey)}

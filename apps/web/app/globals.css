@@ -39,7 +39,6 @@
   --success: #2d8659;
   --success-subtle: #d4ede0;
   --warning: #e5b318;
-  --warning-subtle: #faefc8;
   --danger: #b91c1c;
   --danger-subtle: #fee2e2;
 
@@ -136,7 +135,6 @@
   --color-success: var(--success);
   --color-success-subtle: var(--success-subtle);
   --color-warning: var(--warning);
-  --color-warning-subtle: var(--warning-subtle);
   --color-danger: var(--danger);
   --color-danger-subtle: var(--danger-subtle);
 

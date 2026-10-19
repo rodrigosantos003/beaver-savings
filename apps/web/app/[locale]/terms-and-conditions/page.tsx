@@ -1,21 +1,27 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { SITE_URL } from '@/lib/constants';
+import { getAlternates, getOpenGraph } from '@/lib/seo';
 
 const EMAIL = 'rodrigo.s.santos003@gmail.com';
 const PRIVACY_URL = `${SITE_URL}/privacy-policy`;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'Terms.meta' });
-  return { title: t('title'), description: t('description') };
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('meta.termsAndConditions');
+  const locale = await getLocale();
+
+  const title = t('title');
+  const description = t('description');
+
+  return {
+    title,
+    description,
+    alternates: getAlternates(locale, '/terms-and-conditions'),
+    openGraph: getOpenGraph(locale, '/terms-and-conditions', { title, description })
+  };
 }
 
 const linkClass = 'font-semibold text-secondary underline-offset-2 hover:underline';

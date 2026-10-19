@@ -49,8 +49,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const title = t('title');
   const description = t('description');
 
-  const languages = Object.fromEntries(routing.locales.map((l) => [l, `/${l}`]));
-
   return {
     metadataBase: new URL(SITE_URL),
     title: {
@@ -59,19 +57,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     },
     description,
     applicationName: t('siteName'),
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        ...languages,
-        'x-default': `/${routing.defaultLocale}`,
-      },
-    },
     openGraph: {
       type: 'website',
       siteName: t('siteName'),
       title,
       description,
-      url: `/${locale}`,
       locale: OG_LOCALES[locale] ?? locale,
       alternateLocale: routing.locales.filter((l) => l !== locale).map((l) => OG_LOCALES[l] ?? l),
       images: [{ url: '/og.png', width: 1200, height: 630, alt: title }],
@@ -83,11 +73,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       images: ['/og.png'],
     },
     robots: {
-      index: true,
-      follow: true,
       googleBot: {
-        index: true,
-        follow: true,
         'max-image-preview': 'large',
         'max-snippet': -1,
       },
@@ -103,16 +89,6 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!hasLocale(routing.locales, locale)) notFound();
 
   const messages = await getMessages();
-  const t = await getTranslations({ locale, namespace: 'meta' });
-
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: t('siteName'),
-    url: `${SITE_URL}/${locale}`,
-    inLanguage: locale,
-    description: t('description'),
-  };
 
   return (
     <html
@@ -120,13 +96,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-          }}
-        />
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
           <main className="flex flex-1 flex-col">{children}</main>
           <Footer />

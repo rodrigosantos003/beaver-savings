@@ -117,20 +117,20 @@ export function Results({
   const view: View = loaded
     ? fromSaved(loaded)
     : {
-        month,
-        rows:
-          plan?.months.map((r) => ({
-            month: r.month,
-            gross: r.gross,
-            net: r.net,
-            expenses: r.expenses,
-            savings: r.savings,
-            remaining: r.remaining,
-            cumulative: r.cumulativeSavings,
-          })) ?? null,
-        totalSavings: plan?.totalSavings ?? 0,
-        annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
-      };
+      month,
+      rows:
+        plan?.months.map((r) => ({
+          month: r.month,
+          gross: r.gross,
+          net: r.net,
+          expenses: r.expenses,
+          savings: r.savings,
+          remaining: r.remaining,
+          cumulative: r.cumulativeSavings,
+        })) ?? null,
+      totalSavings: plan?.totalSavings ?? 0,
+      annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
+    };
 
   const applyValue = applyInput ?? view.month.savings.toFixed(2);
 
@@ -171,7 +171,7 @@ export function Results({
               <ResultItem label={t('remaining')} value={money(view.month.remaining)} />
             </dl>
             {view.month.savingsExceedsDisposable ? (
-              <p className="mt-4 rounded-xl bg-warning-subtle px-3 py-2 text-sm text-stone-200">
+              <p className="mt-4 rounded-xl bg-warning px-3 py-2 text-sm text-white">
                 {t('warning')}
               </p>
             ) : null}
@@ -283,13 +283,13 @@ export function Results({
               {t(subsidiesInTwelfths ? 'annualHintTwelfths' : 'annualHint')}
             </p>
             {view.annualExceeds ? (
-              <p className="mt-3 rounded-xl bg-warning-subtle px-3 py-2 text-sm text-stone-200">
+              <p className="mt-3 rounded-xl bg-warning px-3 py-2 text-sm text-white">
                 {t('warning')}
               </p>
             ) : null}
           </div>
           <div className="overflow-x-auto print:overflow-visible">
-            <table className="w-full min-w-[40rem] text-left text-sm print:min-w-0 print:table-fixed print:text-xs">
+            <table className="w-full min-w-160 text-left text-sm print:min-w-0 print:table-fixed print:text-xs">
               <thead className="border-y border-stone-200 bg-stone-50 text-stone-500">
                 <tr>
                   <th className={`${planCell} font-medium print:w-[16%]`}>{t('month')}</th>

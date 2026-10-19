@@ -7,18 +7,16 @@ import { getRequestConfig } from 'next-intl/server';
 import { routing } from './routing';
 
 export default getRequestConfig(async ({ locale: localeOverride }) => {
-  let locale = localeOverride;
+  const candidate = localeOverride ?? (await getRootLocale());
 
-  if (!locale) {
-    const paramValue = await getRootLocale();
+  let locale: (typeof routing.locales)[number];
 
-    if (hasLocale(routing.locales, paramValue)) {
-      locale = paramValue;
-    } else if (!paramValue) {
-      locale = routing.defaultLocale;
-    } else {
-      notFound();
-    }
+  if (hasLocale(routing.locales, candidate)) {
+    locale = candidate;
+  } else if (!candidate) {
+    locale = routing.defaultLocale;
+  } else {
+    notFound();
   }
 
   return {

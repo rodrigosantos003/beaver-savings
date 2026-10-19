@@ -1,9 +1,11 @@
 import Image from 'next/image';
 
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { RiverWaveBackground } from '@/components/RiverWaveBackground';
 import { Link } from '@/i18n/navigation';
+import { Metadata } from 'next';
+import { getAlternates, getOpenGraph } from '@/lib/seo';
 
 const ctaClass =
   'inline-flex items-center justify-center rounded-full bg-secondary font-semibold text-white transition-colors hover:bg-secondary-hover';
@@ -24,6 +26,21 @@ type StatItem = {
   label: string;
   sub: string;
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('meta');
+  const locale = await getLocale();
+
+  const title = t('title');
+  const description = t('description');
+
+  return {
+    title,
+    description,
+    alternates: getAlternates(locale, '/'),
+    openGraph: getOpenGraph(locale, '/', { title, description }),
+  };
+}
 
 export default async function LandingPage() {
   const t = await getTranslations();
@@ -88,9 +105,8 @@ export default async function LandingPage() {
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className={`rounded-2xl border p-6 text-center shadow-sm ${
-                    stat.accent ? 'border-beaver-200 bg-beaver-50' : 'border-stone-200 bg-white'
-                  }`}
+                  className={`rounded-2xl border p-6 text-center shadow-sm ${stat.accent ? 'border-beaver-200 bg-beaver-50' : 'border-stone-200 bg-white'
+                    }`}
                 >
                   <p className="text-sm font-medium text-stone-500">{stat.label}</p>
                   <p className="mt-1 text-3xl font-bold tracking-tight text-stone-900">

@@ -2,7 +2,44 @@
   "meta": {
     "siteName": "Beaver Savings",
     "title": "Beaver Savings — Save bit by bit",
-    "description": "Plan your monthly savings based on your salary, taxes, and expenses. A savings calculator built for Portugal."
+    "description": "Plan your monthly savings based on your salary, taxes, and expenses.",
+
+    "calculator": {
+      "title": "Calculator",
+      "description": "Work out this month's savings and a 12-month plan from your salary, taxes, and expenses."
+    },
+    "confirmAccount": {
+      "title": "Confirm your account",
+      "description": "Confirm your email address to finish setting up your Beaver Savings account."
+    },
+    "deleteAccount": {
+      "title": "Delete account",
+      "description": "Permanently delete your Beaver Savings account and all of its data."
+    },
+    "forgotPassword": {
+      "title": "Reset your password",
+      "description": "Request a link to reset your Beaver Savings password."
+    },
+    "login": {
+      "title": "Log in",
+      "description": "Log in to Beaver Savings to plan your monthly savings and track your progress."
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "description": "How Beaver Savings collects, uses, stores, and protects your personal information."
+    },
+    "resetPassword": {
+      "title": "Choose a new password",
+      "description": "Set a new password for your Beaver Savings account."
+    },
+    "signup": {
+      "title": "Create an account",
+      "description": "Create a free Beaver Savings account to save your results and build your annual savings plan."
+    },
+    "termsAndConditions": {
+      "title": "Terms and Conditions",
+      "description": "The terms that apply when you use Beaver Savings, a free personal finance and savings planning tool."
+    }
   },
   "nav": {
     "features": "Features",
@@ -80,8 +117,8 @@
   "auth": {
     "loginTitle": "Log in",
     "signupTitle": "Create an account",
-    "loginDescription": "Use your email and password to open the monthly demo.",
-    "signupDescription": "Create an account to try the monthly savings calculator.",
+    "loginDescription": "Use your email and password to open your beaver dam.",
+    "signupDescription": "Create an account to try the beaver dam.",
     "name": "Name",
     "email": "Email",
     "password": "Password",
@@ -105,7 +142,7 @@
     "acceptTerms": "By using the app, you accept the",
     "termsAndConditions": "terms and conditions.",
     "failedToFetch": "Unable to do the request. Please try again later.",
-    "forgotPassword": "Forgout your password?",
+    "forgotPassword": "Forgot your password?",
     "forgotPasswordTitle": "Reset your password",
     "forgotPasswordIntro": "Enter your email and we'll send you a link to reset your password.",
     "sendResetLink": "Send reset link",
@@ -120,16 +157,7 @@
     "invalidResetLink": "This reset link is invalid or has expired.",
     "requestNewLink": "Request a new link"
   },
-  "demo": {
-    "metaTitle": "Monthly demo — Beaver Savings",
-    "metaDescription": "Try the monthly savings calculator.",
-    "back": "Home",
-    "title": "Monthly calculator",
-    "description": "Estimate this month's net pay, expenses, and how much you can set aside."
-  },
   "calculator": {
-    "metaTitle": "Calculator — Beaver Savings",
-    "metaDescription": "Work out this month's savings and a 12-month plan from your salary, taxes, and expenses.",
     "back": "Home",
     "title": "Savings calculator",
     "description": "Estimate your net pay, expenses, and how much you can set aside — this month and across the year.",
@@ -214,7 +242,6 @@
     "createAccount": "Create account"
   },
   "deleteAccount": {
-    "metaTitle": "Delete account",
     "title": "Delete your account",
     "warning": "This action is permanent and cannot be undone.",
     "whatHappens": "What will be deleted",
@@ -244,10 +271,6 @@
     }
   },
   "PrivacyPolicy": {
-    "meta": {
-      "title": "Privacy Policy | Beaver Savings",
-      "description": "How Beaver Savings collects, uses, stores, and protects your personal information."
-    },
     "title": "Privacy Policy",
     "lastUpdated": "Last updated: October 16, 2026",
     "intro": {
@@ -465,10 +488,6 @@
     }
   },
   "Terms": {
-    "meta": {
-      "title": "Terms and Conditions | Beaver Savings",
-      "description": "The terms that apply when you use Beaver Savings, a free personal finance and savings planning tool."
-    },
     "title": "Terms and Conditions",
     "lastUpdated": "Last updated: 16 October 2026",
     "intro": {

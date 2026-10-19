@@ -1,8 +1,45 @@
 {
   "meta": {
     "siteName": "Beaver Savings",
-    "title": "Beaver Savings — Poupa bocado a bocado",
-    "description": "Planeia a tua poupança mensal com base no salário, impostos e despesas. Uma calculadora de poupança feita para Portugal."
+    "title": "Beaver Savings — Poupa um bocadinho de cada vez",
+    "description": "Planeia as tuas poupanças mensais com base no teu salário, nos impostos e nas despesas.",
+
+    "calculator": {
+      "title": "Calculadora",
+      "description": "Descobre quanto podes poupar este mês e planeia as tuas poupanças para os próximos 12 meses com base no teu salário, nos impostos e nas despesas."
+    },
+    "confirmAccount": {
+      "title": "Confirma a tua conta",
+      "description": "Confirma o teu endereço de e-mail para terminares a configuração da tua conta Beaver Savings."
+    },
+    "deleteAccount": {
+      "title": "Eliminar conta",
+      "description": "Elimina permanentemente a tua conta Beaver Savings e todos os dados associados."
+    },
+    "forgotPassword": {
+      "title": "Esqueceste-te da palavra-passe?",
+      "description": "Pede um link para redefinires a palavra-passe da tua conta Beaver Savings."
+    },
+    "login": {
+      "title": "Iniciar sessão",
+      "description": "Inicia sessão na Beaver Savings para planeares as tuas poupanças mensais e acompanhares o teu progresso."
+    },
+    "privacyPolicy": {
+      "title": "Política de Privacidade",
+      "description": "Fica a saber como a Beaver Savings recolhe, utiliza, guarda e protege os teus dados pessoais."
+    },
+    "resetPassword": {
+      "title": "Escolhe uma nova palavra-passe",
+      "description": "Define uma nova palavra-passe para a tua conta Beaver Savings."
+    },
+    "signup": {
+      "title": "Criar conta",
+      "description": "Cria uma conta gratuita na Beaver Savings para guardares os teus resultados e criares o teu plano de poupança anual."
+    },
+    "termsAndConditions": {
+      "title": "Termos e Condições",
+      "description": "Fica a conhecer as regras de utilização da Beaver Savings, uma ferramenta gratuita para te ajudar a gerir o teu dinheiro e a planear as tuas poupanças."
+    }
   },
   "nav": {
     "features": "Funcionalidades",
@@ -119,13 +156,6 @@
     "resetFailed": "Não conseguimos recuperar a tua palavra-passe. Tenta novamente mais tarde",
     "invalidResetLink": "Este link é inválido ou expirou.",
     "requestNewLink": "Pedir novo link"
-  },
-  "demo": {
-    "metaTitle": "Demo mensal — Beaver Savings",
-    "metaDescription": "Experimenta a calculadora de poupança mensal.",
-    "back": "Início",
-    "title": "Calculadora mensal",
-    "description": "Estima o líquido, as despesas e quanto podes pôr de lado este mês."
   },
   "calculator": {
     "metaTitle": "Calculadora — Beaver Savings",

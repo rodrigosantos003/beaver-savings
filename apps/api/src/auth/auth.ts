@@ -1,8 +1,9 @@
 import { waitUntil } from '@vercel/functions';
 import type { Connection } from 'mongoose';
+
 import { sendEmail } from '../../lib/email';
-import { buildVerificationEmail } from './verify.email';
 import { buildResetPasswordEmail } from './recover.email';
+import { buildVerificationEmail } from './verify.email';
 
 const locales = ['en', 'pt'] as const;
 type Locale = (typeof locales)[number];

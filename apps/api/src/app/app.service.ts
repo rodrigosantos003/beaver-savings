@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+
 import { Connection } from 'mongoose';
 
 export type HealthStatus = 'up' | 'down';

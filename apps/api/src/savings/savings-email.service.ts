@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
+
 import {
   AnnualPlan,
+  MonthBreakdown,
   calculateAnnualPlan,
   calculateTypicalMonth,
-  MonthBreakdown,
 } from 'savings-core';
+
+import { escapeHtml, renderEmailLayout, sendEmail } from '../../lib/email';
 import { SavingsEmailRequest } from './parse-email-request';
-import { sendEmail, escapeHtml, renderEmailLayout } from '../../lib/email';
 
 @Injectable()
 export class SavingsEmailService {
@@ -26,9 +28,7 @@ export class SavingsEmailService {
 }
 
 function subject(locale: SavingsEmailRequest['locale']): string {
-  return locale === 'en'
-    ? 'Your Beaver Savings plan'
-    : 'O teu plano Beaver Savings';
+  return locale === 'en' ? 'Your Beaver Savings plan' : 'O teu plano Beaver Savings';
 }
 
 function formatSummary(
@@ -41,12 +41,9 @@ function formatSummary(
     style: 'currency',
     currency: 'EUR',
   });
-  const monthName = new Intl.DateTimeFormat(
-    locale === 'en' ? 'en-GB' : 'pt-PT',
-    {
-      month: 'long',
-    },
-  );
+  const monthName = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'pt-PT', {
+    month: 'long',
+  });
   const lines = [
     labels.monthTitle,
     `${labels.gross}: ${money.format(month.gross)}`,
@@ -97,10 +94,7 @@ function formatHtml(
       <tr><td style="padding:8px 16px;">${inner}</td></tr>
     </table>`;
 
-  const cell = (
-    content: string,
-    opts: { align?: string; bold?: boolean; last?: boolean } = {},
-  ) =>
+  const cell = (content: string, opts: { align?: string; bold?: boolean; last?: boolean } = {}) =>
     `<td align="${opts.align ?? 'left'}" style="padding:9px 0;font-size:14px;color:${
       opts.bold ? '#173d2a' : '#526357'
     };font-weight:${opts.bold ? 'bold' : 'normal'};${
@@ -123,14 +117,11 @@ function formatHtml(
       ${summaryRows
         .map(([label, value, bold], i) => {
           const last = i === summaryRows.length - 1;
-          return `<tr>${cell(label, { bold, last })}${cell(
-            money.format(value),
-            {
-              align: 'right',
-              bold,
-              last,
-            },
-          )}</tr>`;
+          return `<tr>${cell(label, { bold, last })}${cell(money.format(value), {
+            align: 'right',
+            bold,
+            last,
+          })}</tr>`;
         })
         .join('')}
     </table>`);

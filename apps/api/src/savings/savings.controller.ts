@@ -1,7 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
+
 import { parseEmailRequest } from './parse-email-request';
 import { SavingsEmailService } from './savings-email.service';
-import { Throttle } from '@nestjs/throttler';
 
 @Controller('savings')
 export class SavingsController {

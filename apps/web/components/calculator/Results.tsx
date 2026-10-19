@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, useState, useEffect } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
 import { AnnualPlan, MonthBreakdown } from 'savings-core';
@@ -171,20 +171,21 @@ export function Results({
               </div>
             ) : null}
 
-
-            {userId && <FinancialBreakdown
-              net={view.month.net}
-              expenses={view.month.expenses}
-              savings={view.month.savings}
-              remaining={view.month.remaining}
-              money={money}
-              title={t('breakdownTitle')}
-              labels={{
-                expenses: t('expensesLabel'),
-                savings: t('savings'),
-                remaining: t('remaining'),
-              }}
-            />}
+            {userId && (
+              <FinancialBreakdown
+                net={view.month.net}
+                expenses={view.month.expenses}
+                savings={view.month.savings}
+                remaining={view.month.remaining}
+                money={money}
+                title={t('breakdownTitle')}
+                labels={{
+                  expenses: t('expensesLabel'),
+                  savings: t('savings'),
+                  remaining: t('remaining'),
+                }}
+              />
+            )}
           </section>
         </div>
       </div>
@@ -281,8 +282,9 @@ export function Results({
       <div aria-live="polite" role="status" className="print:hidden">
         {feedback ? (
           <div
-            className={`fixed right-4 bottom-4 z-50 max-w-sm rounded-xl px-4 py-3 text-sm text-white shadow-lg ${feedback.kind === 'success' ? 'bg-secondary' : 'bg-red-600'
-              }`}
+            className={`fixed right-4 bottom-4 z-50 max-w-sm rounded-xl px-4 py-3 text-sm text-white shadow-lg ${
+              feedback.kind === 'success' ? 'bg-secondary' : 'bg-red-600'
+            }`}
           >
             {feedback.message}
           </div>
@@ -318,7 +320,6 @@ function formatMoney(locale: string, value: number): string {
   }).format(value);
 }
 
-
 function FinancialBreakdown({
   net,
   expenses,
@@ -346,20 +347,13 @@ function FinancialBreakdown({
     { label: labels.remaining, value: remaining, color: 'bg-amber-300' },
   ];
 
-  const total = items.reduce(
-    (sum, item) => sum + Math.max(0, item.value),
-    0,
-  );
+  const total = items.reduce((sum, item) => sum + Math.max(0, item.value), 0);
 
   return (
     <div className="mt-6 border-t border-beaver-200 pt-5">
       <div className="flex items-baseline justify-between gap-3">
-        <h3 className="text-sm font-semibold text-stone-900">
-          {title}
-        </h3>
-        <span className="text-sm font-semibold text-stone-900">
-          {money(net)}
-        </span>
+        <h3 className="text-sm font-semibold text-stone-900">{title}</h3>
+        <span className="text-sm font-semibold text-stone-900">{money(net)}</span>
       </div>
 
       <div
@@ -368,8 +362,7 @@ function FinancialBreakdown({
         aria-label={title}
       >
         {items.map((item) => {
-          const percentage =
-            total > 0 ? (Math.max(0, item.value) / total) * 100 : 0;
+          const percentage = total > 0 ? (Math.max(0, item.value) / total) * 100 : 0;
 
           return (
             <div
@@ -383,24 +376,17 @@ function FinancialBreakdown({
 
       <div className="mt-4 grid gap-3">
         {items.map((item) => {
-          const percentage =
-            total > 0 ? (Math.max(0, item.value) / total) * 100 : 0;
+          const percentage = total > 0 ? (Math.max(0, item.value) / total) * 100 : 0;
 
           return (
-            <div
-              key={item.label}
-              className="flex items-center gap-2 text-sm"
-            >
-              <span
-                className={`h-2.5 w-2.5 shrink-0 rounded-sm ${item.color}`}
-              />
-              <span className="min-w-0 flex-1 text-stone-600">
-                {item.label}
-              </span>
+            <div key={item.label} className="flex items-center gap-2 text-sm">
+              <span className={`h-2.5 w-2.5 shrink-0 rounded-sm ${item.color}`} />
+              <span className="min-w-0 flex-1 text-stone-600">{item.label}</span>
               <span className="text-xs text-stone-500">
                 {percentage.toLocaleString(undefined, {
                   maximumFractionDigits: 1,
-                })}%
+                })}
+                %
               </span>
               <span className="whitespace-nowrap font-medium text-stone-900">
                 {money(item.value)}

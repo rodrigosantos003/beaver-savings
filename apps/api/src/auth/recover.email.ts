@@ -24,9 +24,7 @@ const RESET_EXPIRES_IN = 60 * 60; // seconds (1 hour)
 
 function formatDuration(seconds: number, locale: Locale): string {
   const [value, unit] =
-    seconds >= 3600
-      ? [Math.round(seconds / 3600), 'hour']
-      : [Math.round(seconds / 60), 'minute'];
+    seconds >= 3600 ? [Math.round(seconds / 3600), 'hour'] : [Math.round(seconds / 60), 'minute'];
   return new Intl.NumberFormat(locale, {
     style: 'unit',
     unit,
@@ -46,8 +44,7 @@ const messages: Record<Locale, Messages> = {
     cta: 'Reset my password',
     expiry: (d) =>
       `This link will expire in ${d}. If it expires, you can request a new one from the forgot password page.`,
-    fallback:
-      "If the button doesn't work, copy and paste this link into your browser:",
+    fallback: "If the button doesn't work, copy and paste this link into your browser:",
     ignore:
       "If you didn't request a password reset, you can safely ignore this email. Your password won't be changed.",
     signoff: 'The Beaver Savings Team',
@@ -56,8 +53,7 @@ const messages: Record<Locale, Messages> = {
   },
   pt: {
     subject: 'Redefina a sua palavra-passe Beaver Savings',
-    preheader:
-      'Utilize este link para escolher uma nova palavra-passe para a sua conta.',
+    preheader: 'Utilize este link para escolher uma nova palavra-passe para a sua conta.',
     tagline: 'Poupe passo a passo.',
     greeting: (name) => (name ? `Olá ${name},` : 'Olá,'),
     title: 'Redefina a sua palavra-passe',
@@ -66,8 +62,7 @@ const messages: Record<Locale, Messages> = {
     cta: 'Redefinir a minha palavra-passe',
     expiry: (d) =>
       `Este link expira em ${d}. Se expirar, pode pedir um novo na página de recuperação de palavra-passe.`,
-    fallback:
-      'Se o botão não funcionar, copie e cole este link no seu navegador:',
+    fallback: 'Se o botão não funcionar, copie e cole este link no seu navegador:',
     ignore:
       'Se não pediu a redefinição da palavra-passe, pode ignorar este email. A sua palavra-passe não será alterada.',
     signoff: 'A Equipa Beaver Savings',

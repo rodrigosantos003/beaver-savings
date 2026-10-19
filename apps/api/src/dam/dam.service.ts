@@ -1,11 +1,9 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+
 import { Types } from 'mongoose';
-import { DamEntryDocument, DamRepository } from './dam.repository';
+
 import { CreateDamEntryDto } from './dam.dto';
+import { DamEntryDocument, DamRepository } from './dam.repository';
 
 export type DamEntryResponse = {
   id: string;
@@ -47,10 +45,7 @@ export class DamService {
     };
   }
 
-  async create(
-    userId: string,
-    dto: CreateDamEntryDto,
-  ): Promise<DamEntryResponse> {
+  async create(userId: string, dto: CreateDamEntryDto): Promise<DamEntryResponse> {
     const doc = await this.repo.create({
       userId: toObjectId(userId, 'userId'),
       amount: round2(dto.amount),

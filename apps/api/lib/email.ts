@@ -1,5 +1,7 @@
 import { BadGatewayException } from '@nestjs/common';
+
 import { Resend } from 'resend';
+
 import { SITE_URL } from './constants';
 
 const API_KEY = process.env.RESEND_API_KEY || '';
@@ -10,12 +12,7 @@ type SendEmailParams = {
   subject: string;
 } & ({ html: string; text?: string } | { text: string; html?: string });
 
-export async function sendEmail({
-  to,
-  subject,
-  html,
-  text,
-}: SendEmailParams): Promise<void> {
+export async function sendEmail({ to, subject, html, text }: SendEmailParams): Promise<void> {
   const resend = new Resend(API_KEY);
   const { error } = await resend.emails.send({
     from: FROM,

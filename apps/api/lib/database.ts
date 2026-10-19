@@ -1,12 +1,7 @@
-import {
-  Global,
-  Inject,
-  Logger,
-  Module,
-  OnApplicationShutdown,
-} from '@nestjs/common';
-import { Connection, createConnection } from 'mongoose';
+import { Global, Inject, Logger, Module, OnApplicationShutdown } from '@nestjs/common';
+
 import { attachDatabasePool } from '@vercel/functions';
+import { Connection, createConnection } from 'mongoose';
 
 const logger = new Logger('MongoDB');
 
@@ -44,9 +39,7 @@ const logger = new Logger('MongoDB');
         client.on('connectionCreated', (e) =>
           logger.log(`Pool: socket created (id ${e.connectionId})`),
         );
-        client.on('connectionClosed', (e) =>
-          logger.log(`Pool: socket closed (${e.reason})`),
-        );
+        client.on('connectionClosed', (e) => logger.log(`Pool: socket closed (${e.reason})`));
 
         return conn;
       },

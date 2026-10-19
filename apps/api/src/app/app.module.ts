@@ -1,15 +1,16 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+
 import { Connection } from 'mongoose';
+
+import { DatabaseModule } from '../../lib/database';
+import { DamModule } from '../dam/dam.module';
+import { SavingsModule } from '../savings/savings.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SavingsModule } from '../savings/savings.module';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { NotFoundFilter } from './not-found.filter';
-import { ResultsModule } from '../results/results.module';
-import { DamModule } from '../dam/dam.module';
-import { DatabaseModule } from '../../lib/database';
 
 @Module({})
 export class AppModule {
@@ -33,7 +34,6 @@ export class AppModule {
           }),
         }),
         SavingsModule,
-        ResultsModule,
         DamModule,
       ],
       controllers: [AppController],

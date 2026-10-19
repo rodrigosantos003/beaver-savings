@@ -1,8 +1,10 @@
-import 'dotenv/config';
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
-import helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+
+import 'dotenv/config';
+import helmet from 'helmet';
+
+import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(await AppModule.register(), {

@@ -1,4 +1,5 @@
 import { BadRequestException } from '@nestjs/common';
+
 import { SavingsInput, SavingsMethod } from 'savings-core';
 
 export interface SavingsEmailRequest {
@@ -21,11 +22,7 @@ const NUMBER_FIELDS = [
   'savingsAmount',
 ] as const;
 
-const BOOLEAN_FIELDS = [
-  'includeSubsidies',
-  'includeExtras',
-  'subsidiesInTwelfths',
-] as const;
+const BOOLEAN_FIELDS = ['includeSubsidies', 'includeExtras', 'subsidiesInTwelfths'] as const;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
@@ -56,18 +53,11 @@ export function parseEmailRequest(body: unknown): SavingsEmailRequest {
     throw new BadRequestException('Invalid body');
   }
 
-  if (
-    typeof body.to !== 'string' ||
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.to)
-  ) {
+  if (typeof body.to !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.to)) {
     throw new BadRequestException('Invalid email address');
   }
 
-  if (
-    body.locale !== undefined &&
-    body.locale !== 'pt' &&
-    body.locale !== 'en'
-  ) {
+  if (body.locale !== undefined && body.locale !== 'pt' && body.locale !== 'en') {
     throw new BadRequestException('locale must be pt or en');
   }
 

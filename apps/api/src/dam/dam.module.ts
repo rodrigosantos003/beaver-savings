@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
+
 import { Connection } from 'mongoose';
+
 import { DamController } from './dam.controller';
-import {
-  DAM_ENTRY_MODEL,
-  DamEntrySchema,
-  DamRepository,
-} from './dam.repository';
+import { DAM_ENTRY_MODEL, DamEntrySchema, DamRepository } from './dam.repository';
 import { DamService } from './dam.service';
 
 @Module({
@@ -14,8 +12,7 @@ import { DamService } from './dam.service';
     {
       provide: DAM_ENTRY_MODEL,
       inject: [Connection],
-      useFactory: (connection: Connection) =>
-        connection.model('DamEntry', DamEntrySchema),
+      useFactory: (connection: Connection) => connection.model('DamEntry', DamEntrySchema),
     },
     DamRepository,
     DamService,

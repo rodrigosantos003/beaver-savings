@@ -1,8 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
+
 import request from 'supertest';
 import { App } from 'supertest/types';
+
 import { NotFoundFilter } from './not-found.filter';
 
 describe('NotFoundFilter', () => {
@@ -22,9 +24,6 @@ describe('NotFoundFilter', () => {
   });
 
   it('returns a fixed body for an unknown route', () => {
-    return request(app.getHttpServer())
-      .get('/.env')
-      .expect(404)
-      .expect({ statusCode: 404 });
+    return request(app.getHttpServer()).get('/.env').expect(404).expect({ statusCode: 404 });
   });
 });

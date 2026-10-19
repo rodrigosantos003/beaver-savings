@@ -1,10 +1,12 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { Resend } from 'resend';
 import request from 'supertest';
 import { App } from 'supertest/types';
-import { SavingsController } from './savings.controller';
+
 import { SavingsEmailService } from './savings-email.service';
+import { SavingsController } from './savings.controller';
 
 jest.mock('resend');
 
@@ -15,10 +17,7 @@ type SentEmail = {
   text: string;
 };
 
-let sendEmail: jest.Mock<
-  Promise<{ data: { id: string }; error: null }>,
-  [SentEmail]
->;
+let sendEmail: jest.Mock<Promise<{ data: { id: string }; error: null }>, [SentEmail]>;
 
 const validBody = {
   to: 'ana@example.com',

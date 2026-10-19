@@ -1,4 +1,5 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+
 import { Schema, Types } from 'mongoose';
 import type { Model } from 'mongoose';
 
@@ -22,35 +23,24 @@ export const DamEntrySchema = new Schema<DamEntry>(
   },
 );
 
-DamEntrySchema.index(
-  { userId: 1, createdAt: -1 },
-  { name: 'by_userId_createdAt' },
-);
+DamEntrySchema.index({ userId: 1, createdAt: -1 }, { name: 'by_userId_createdAt' });
 
 /** Plain-object shape, same as the old interface. */
 export type DamEntryDocument = DamEntry & { _id: Types.ObjectId };
 
 @Injectable()
 export class DamRepository implements OnModuleInit {
-  constructor(
-    @Inject(DAM_ENTRY_MODEL) private readonly model: Model<DamEntry>,
-  ) {}
+  constructor(@Inject(DAM_ENTRY_MODEL) private readonly model: Model<DamEntry>) {}
 
   async onModuleInit() {
     await this.model.createIndexes();
   }
 
   findByUserId(userId: Types.ObjectId): Promise<DamEntryDocument[]> {
-    return this.model
-      .find({ userId })
-      .sort({ createdAt: -1 })
-      .lean<DamEntryDocument[]>()
-      .exec();
+    return this.model.find({ userId }).sort({ createdAt: -1 }).lean<DamEntryDocument[]>().exec();
   }
 
-  async create(
-    data: Omit<DamEntryDocument, '_id' | 'createdAt'>,
-  ): Promise<DamEntryDocument> {
+  async create(data: Omit<DamEntryDocument, '_id' | 'createdAt'>): Promise<DamEntryDocument> {
     const doc = await this.model.create(data);
     return doc.toObject() as DamEntryDocument;
   }

@@ -42,6 +42,8 @@ type View = {
   annualExceeds: boolean;
 };
 
+type Feedback = { kind: 'success' | 'error'; message: string };
+
 function fromSaved(saved: SavedResult): View {
   return {
     month: saved.month,
@@ -67,6 +69,8 @@ export function Results({
   const [loaded, setLoaded] = useState<SavedResult | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [feedback, setFeedback] = useState<Feedback | null>(null);
+  const [applying, setApplying] = useState(false);
 
   const dam = useDam(userId);
   const [applyInput, setApplyInput] = useState<string | null>(null);
@@ -88,6 +92,32 @@ export function Results({
     }
     refresh();
   }, [userId, refresh]);
+
+  useEffect(() => {
+    if (!feedback) return;
+    const id = setTimeout(() => setFeedback(null), 4000);
+    return () => clearTimeout(id);
+  }, [feedback]);
+
+  async function applyAmount(amount: number): Promise<boolean> {
+    if (applying) return false;
+    setApplying(true);
+    try {
+      const ok = await dam.add(amount);
+      setFeedback(
+        ok
+          ? { kind: 'success', message: t('applySuccess', { amount: money(amount) }) }
+          : { kind: 'error', message: t('applyError') },
+      );
+      return Boolean(ok);
+    } catch {
+      setFeedback({ kind: 'error', message: t('applyError') });
+      return false;
+    } finally {
+      setApplying(false);
+    }
+  }
+
 
   async function handleSave() {
     if (!userId) return;
@@ -135,10 +165,12 @@ export function Results({
   const applyValue = applyInput ?? view.month.savings.toFixed(2);
 
   async function handleApply() {
-    if (applyValue.trim() === '') return;
-    const amount = Number(applyValue.replace(',', '.'));
-    if (Number.isNaN(amount)) return;
-    if (await dam.add(amount)) setApplyInput(null);
+    const amount = Number(applyValue.trim().replace(',', '.'));
+    if (applyValue.trim() === '' || Number.isNaN(amount)) {
+      setFeedback({ kind: 'error', message: t('applyInvalid') });
+      return;
+    }
+    if (await applyAmount(amount)) setApplyInput(null);
   }
 
   const dateFmt = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'pt-PT', {
@@ -191,7 +223,8 @@ export function Results({
                 <button
                   type="button"
                   onClick={() => void handleApply()}
-                  className="rounded-xl bg-secondary px-4 py-2 text-sm font-medium text-white"
+                  disabled={applying}
+                  className="rounded-xl bg-secondary px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
                 >
                   {t('apply')}
                 </button>
@@ -324,8 +357,9 @@ export function Results({
                       <td className={`${planCell} print:hidden`}>
                         <button
                           type="button"
-                          onClick={() => dam.add(row.savings)}
-                          className="rounded-lg border border-stone-300 px-2 py-1 text-xs hover:bg-stone-50"
+                          onClick={() => void applyAmount(row.savings)}
+                          disabled={applying}
+                          className="rounded-lg border border-stone-300 px-2 py-1 text-xs hover:bg-stone-50 disabled:opacity-60"
                         >
                           {t('apply')}
                         </button>
@@ -361,6 +395,17 @@ export function Results({
           dateFmt={dateFmt}
         />
       ) : null}
+
+      <div aria-live="polite" role="status" className="print:hidden">
+        {feedback ? (
+          <div
+            className={`fixed right-4 bottom-4 z-50 max-w-sm rounded-xl px-4 py-3 text-sm text-white shadow-lg ${feedback.kind === 'success' ? 'bg-secondary' : 'bg-red-600'
+              }`}
+          >
+            {feedback.message}
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

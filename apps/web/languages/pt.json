@@ -117,8 +117,8 @@
   "auth": {
     "loginTitle": "Entrar",
     "signupTitle": "Criar conta",
-    "loginDescription": "Usa o email e a palavra-passe para entrar nas tua barragem de castor.",
-    "signupDescription": "Cria uma conta para experimentar a barragem de castor.",
+    "loginDescription": "Usa o email e a palavra-passe para acederes à tua conta.",
+    "signupDescription": "Cria uma conta para começares a construir as tuas poupanças.",
     "name": "Nome",
     "email": "Email",
     "password": "Palavra-passe",
@@ -133,7 +133,7 @@
     "signupFailed": "Não foi possível criar a conta.",
     "verifyTitle": "Confirm your account",
     "verifyDescription": "Estamos a verificar o seu email.",
-    "verifyLoading": "A verificar o seu email email…",
+    "verifyLoading": "A verificar o teu email email…",
     "verifySuccess": "Email verificado com sucesso.",
     "verifyContinue": "Continuar",
     "verifyError": "Este link de confirmação é inválido ou expirou.",
@@ -151,7 +151,7 @@
     "resetPasswordTitle": "Escolhe uma nova palavra-passe",
     "newPassword": "Nova palavra-passe",
     "confirmPassword": "Confirmar palavra-passe",
-    "passwordsDontMatch": "Palavras-passe não correspondem.",
+    "passwordsDontMatch": "Palavras-passe não coincidem.",
     "resetPassword": "Recuperar palavra-passe",
     "resetFailed": "Não conseguimos recuperar a tua palavra-passe. Tenta novamente mais tarde",
     "invalidResetLink": "Este link é inválido ou expirou.",
@@ -213,12 +213,12 @@
     "loadError": "Não foi possível carregar o resultado.",
     "deleteError": "Não foi possível remover o resultado.",
     "savedTitle": "Resultados guardados",
-    "noSaved": "Sem resultados guarados.",
+    "noSaved": "Ainda não existem resultados guardados.",
     "open": "Abrir",
     "delete": "Apagar",
     "totalSavingsShort": "Total de poupança",
     "backToCurrent": "Voltar ao cálculo atual",
-    "viewingSaved": "Visalizar resultado guardado em {date}",
+    "viewingSaved": "A visalizar resultado guardado em {date}",
     "damTitle": "A tua barragem de castor",
     "damHint": "Aplica a tua poupança mensal para construir a barragem.",
     "damAria": "Uma barragem de castor que representa {total} poupados",
@@ -236,7 +236,10 @@
     "privacyPolicy": "Política de Privacidade",
     "terms": "Termos e Condições",
     "deleteAccount": "Eliminar conta",
-    "suggested": "Sugerido"
+    "suggested": "Sugerido",
+    "applySuccess": "{amount} adicionado à tua represa.",
+    "applyError": "Não foi possível adicionar o montante à tua barragem de poupanças.",
+    "applyInvalid": "Introduz um valor válido."
   },
   "unlock": {
     "title": "Desbloquear mais funcionalidades",
@@ -267,7 +270,7 @@
     "failedToFetch": "Não foi possível efetuar o pedido. Por favor, tente novamente mais tarde."
   },
   "languageSwitcher": {
-    "label": "Change language",
+    "label": "Alterar idioma",
     "locales": {
       "en": "English",
       "pt": "Português"

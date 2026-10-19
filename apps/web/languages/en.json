@@ -3,7 +3,6 @@
     "siteName": "Beaver Savings",
     "title": "Beaver Savings — Save bit by bit",
     "description": "Plan your monthly savings based on your salary, taxes, and expenses.",
-
     "calculator": {
       "title": "Calculator",
       "description": "Work out this month's savings and a 12-month plan from your salary, taxes, and expenses."
@@ -59,9 +58,18 @@
     "seeHowItWorks": "See how it works"
   },
   "stats": {
-    "netIncome": { "label": "Net income", "sub": "after IRS & SS" },
-    "monthlySavings": { "label": "Monthly savings", "sub": "15% of net" },
-    "yearEndTotal": { "label": "Year-end total", "sub": "projected" }
+    "netIncome": {
+      "label": "Net income",
+      "sub": "after IRS & SS"
+    },
+    "monthlySavings": {
+      "label": "Monthly savings",
+      "sub": "15% of net"
+    },
+    "yearEndTotal": {
+      "label": "Year-end total",
+      "sub": "projected"
+    }
   },
   "features": {
     "title": "Everything you need to plan smarter",
@@ -106,7 +114,7 @@
     ]
   },
   "cta": {
-    "title": "Ready to build your dam of savings?",
+    "title": "Ready to build your savings?",
     "description": "Start with this month. Small, steady contributions beat big promises every time.",
     "button": "Get started free"
   },
@@ -117,8 +125,8 @@
   "auth": {
     "loginTitle": "Log in",
     "signupTitle": "Create an account",
-    "loginDescription": "Use your email and password to open your beaver dam.",
-    "signupDescription": "Create an account to try the beaver dam.",
+    "loginDescription": "Log in to access your savings dashboard.",
+    "signupDescription": "Create an account to start building your savings.",
     "name": "Name",
     "email": "Email",
     "password": "Password",
@@ -141,7 +149,7 @@
     "backToLogin": "Back to log in",
     "acceptTerms": "By using the app, you accept the",
     "termsAndConditions": "terms and conditions.",
-    "failedToFetch": "Unable to do the request. Please try again later.",
+    "failedToFetch": "We couldn't complete your request. Please try again later.",
     "forgotPassword": "Forgot your password?",
     "forgotPasswordTitle": "Reset your password",
     "forgotPasswordIntro": "Enter your email and we'll send you a link to reset your password.",
@@ -163,8 +171,8 @@
     "description": "Estimate your net pay, expenses, and how much you can set aside — this month and across the year.",
     "income": "Income",
     "baseSalary": "Base salary",
-    "holidaySubsidy": "Holiday subsidy",
-    "christmasSubsidy": "Christmas subsidy",
+    "holidaySubsidy": "Holiday allowance",
+    "christmasSubsidy": "Christmas allowance",
     "subsidiesInTwelfths": "Paid in twelfths",
     "holidayMonth": "Holiday subsidy month",
     "christmasMonth": "Christmas subsidy month",
@@ -176,7 +184,7 @@
     "ssRate": "Social security rate (%)",
     "expenses": "Estimated monthly expenses",
     "method": "Savings method",
-    "percent": "Percentage of net",
+    "percent": "Percentage of net income",
     "fixed": "Fixed amount",
     "savingsPercent": "Percentage",
     "savingsAmount": "Savings amount",
@@ -186,18 +194,18 @@
     "annualTitle": "Annual plan",
     "annualHint": "Each subsidy is included only in the month it is paid.",
     "annualHintTwelfths": "Each month includes one twelfth of the holiday and Christmas subsidies.",
-    "gross": "Gross",
+    "gross": "Gross income",
     "ss": "Social security",
     "irsResult": "IRS",
-    "net": "Net",
+    "net": "Net income",
     "expensesLabel": "Expenses",
-    "disposable": "Disposable",
+    "disposable": "Available after expenses",
     "savings": "Savings",
     "remaining": "Remaining",
     "cumulative": "Cumulative",
-    "total": "Year total",
+    "total": "Annual total",
     "month": "Month",
-    "warning": "Savings are higher than what is left after expenses.",
+    "warning": "Your savings target exceeds the amount left after expenses.",
     "exportPdf": "Export PDF",
     "email": "Send by email",
     "emailPlaceholder": "name@email.com",
@@ -207,7 +215,7 @@
     "emailFailed": "The email could not be sent.",
     "save": "Save result",
     "saving": "Saving…",
-    "saveError": "Couldn't save this result.",
+    "saveError": "We couldn't save your results. Please try again.",
     "loadError": "Couldn't load saved results.",
     "deleteError": "Couldn't delete this result.",
     "savedTitle": "Saved results",
@@ -218,23 +226,26 @@
     "backToCurrent": "Back to current calculation",
     "viewingSaved": "Viewing result saved on {date}",
     "damTitle": "Your beaver dam",
-    "damHint": "Apply your monthly savings to build your dam.",
+    "damHint": "Add your monthly savings to grow your dam.",
     "damAria": "A beaver dam representing {total} saved",
     "damNext": "Next log at {amount}",
     "damMax": "Your dam is complete!",
     "damHistory": "History ({count})",
     "damMonthlyLabel": "Monthly savings",
-    "applyLabel": "Amount to apply (€)",
+    "applyLabel": "Amount to add (€)",
     "apply": "Apply",
     "remove": "Remove",
-    "damLoadError": "Couldn't load your dam.",
-    "damAddError": "Couldn't apply that amount.",
-    "damRemoveError": "Couldn't remove that entry.",
+    "damLoadError": "We couldn't load your savings dam. Please try again.",
+    "damAddError": "We couldn't add that amount. Please try again.",
+    "damRemoveError": "We couldn't remove that entry. Please try again.",
     "footerNav": "Footer",
     "privacyPolicy": "Privacy Policy",
     "terms": "Terms and Conditions",
     "deleteAccount": "Delete account",
-    "suggested": "Suggested"
+    "suggested": "Suggested",
+    "applySuccess": "{amount} added to your dam.",
+    "applyError": "We couldn't add to your savings dam. Please try again.",
+    "applyInvalid": "Enter a valid amount."
   },
   "unlock": {
     "title": "Unlock more features",
@@ -261,7 +272,7 @@
     "deletedTitle": "Account deleted",
     "deletedBody": "Your account and data have been removed. Thanks for trying Beaver Savings.",
     "backHome": "Back to home",
-    "failedToFetch": "Unable to do the request. Please try again later."
+    "failedToFetch": "We couldn't complete your request. Please try again later."
   },
   "languageSwitcher": {
     "label": "Change language",
@@ -272,9 +283,9 @@
   },
   "PrivacyPolicy": {
     "title": "Privacy Policy",
-    "lastUpdated": "Last updated: October 16, 2026",
+    "lastUpdated": "Last updated: 16 October 2026",
     "intro": {
-      "p1": "Beaver Savings (“Beaver Savings”, “we”, “us”, or “our”) is a personal finance web application developed and operated by <strong>Rodrigo Santos</strong>.",
+      "p1": "In this Privacy Policy, “Beaver Savings”, “we”, “us” and “our” refer to the personal finance web application developed and operated by <strong>Rodrigo Santos</strong>.",
       "p2": "This Privacy Policy explains how we collect, use, store, and protect personal information when you use Beaver Savings."
     },
     "toc": "Table of contents",
@@ -329,7 +340,7 @@
         "list": {
           "i1": "Create and manage your account",
           "i2": "Authenticate you and maintain your signed-in session",
-          "i3": "Secure the application and prevent unauthorized access",
+          "i3": "Secure the application and prevent unauthorised access",
           "i4": "Store and display your savings information",
           "i5": "Provide the application's savings-related functionality",
           "i6": "Allow you to export your savings results",
@@ -337,7 +348,7 @@
           "i8": "Maintain and secure the service",
           "i9": "Detect, prevent, and address technical or security problems"
         },
-        "p3": "We do not use your personal financial information for advertising or behavioral profiling.",
+        "p3": "We do not use your personal financial information for advertising or behavioural profiling.",
         "p4": "We do not sell your personal information."
       },
       "legalBases": {
@@ -371,7 +382,7 @@
         },
         "p3": "Email delivery for this feature is handled by <strong>Resend</strong>.",
         "p4": "The email address you provide for an export is transmitted to Resend as necessary to deliver the email. Resend may process that information according to its own privacy practices and applicable contractual terms.",
-        "p5": "You should only provide an email address that you are authorized to use for this purpose."
+        "p5": "You should only provide an email address that you are authorised to use for this purpose."
       },
       "providers": {
         "title": "Service providers",
@@ -439,9 +450,9 @@
       "cookies": {
         "title": "Cookies and analytics",
         "p1": "Beaver Savings does not use advertising cookies or third-party analytics services to track users across the web.",
-        "p2": "We do not use services such as Google Analytics or similar analytics platforms for behavioral tracking.",
+        "p2": "We do not use services such as Google Analytics or similar analytics platforms for behavioural tracking.",
         "p3": "The application may use technically necessary cookies or similar mechanisms required for authentication, session management, security, or the basic operation of the service.",
-        "p4": "These technologies are used to provide the service rather than for advertising or cross-site behavioral tracking."
+        "p4": "These technologies are used to provide the service rather than for advertising or cross-site behavioural tracking."
       },
       "children": {
         "title": "Children's privacy",
@@ -458,7 +469,7 @@
       },
       "security": {
         "title": "Data security",
-        "p1": "We take reasonable technical and organizational measures designed to protect personal information against unauthorized access, alteration, disclosure, or destruction.",
+        "p1": "We take reasonable technical and organisational measures designed to protect personal information against unauthorised access, alteration, disclosure, or destruction.",
         "p2": "These measures include, among other things:",
         "list": {
           "i1": "HTTPS encryption for connections to Beaver Savings",
@@ -536,7 +547,7 @@
           "i5": "Keep your account information reasonably up to date."
         },
         "p3": "You are responsible for activities carried out through your account, except where applicable law provides otherwise or the activity results from circumstances for which you are not responsible.",
-        "p4": "You must not impersonate another person, create accounts for fraudulent purposes, or attempt to gain unauthorized access to another user's account.",
+        "p4": "You must not impersonate another person, create accounts for fraudulent purposes, or attempt to gain unauthorised access to another user's account.",
         "p5": "You may delete your account through the application, subject to the account deletion process described in our Privacy Policy."
       },
       "freeService": {

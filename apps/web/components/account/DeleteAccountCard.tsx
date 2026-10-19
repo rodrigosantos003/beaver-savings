@@ -34,7 +34,7 @@ export function DeleteAccountCard() {
         return;
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
       setError(t('failedToFetch'));
       return;
     }

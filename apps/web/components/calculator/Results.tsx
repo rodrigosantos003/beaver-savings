@@ -282,8 +282,9 @@ export function Results({
       <div aria-live="polite" role="status" className="print:hidden">
         {feedback ? (
           <div
-            className={`fixed right-4 bottom-4 z-50 max-w-sm rounded-xl px-4 py-3 text-sm text-white shadow-lg ${feedback.kind === 'success' ? 'bg-secondary' : 'bg-red-600'
-              }`}
+            className={`fixed right-4 bottom-4 z-50 max-w-sm rounded-xl px-4 py-3 text-sm text-white shadow-lg ${
+              feedback.kind === 'success' ? 'bg-secondary' : 'bg-red-600'
+            }`}
           >
             {feedback.message}
           </div>

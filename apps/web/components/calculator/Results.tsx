@@ -1,11 +1,10 @@
 'use client';
 
-import { type ReactNode, useCallback, useEffect, useState } from 'react';
+import { type ReactNode, useState, useEffect } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
 import { AnnualPlan, MonthBreakdown } from 'savings-core';
 
-import { SavedResult, deleteResult, listResults, saveResult } from '../../lib/api/results';
 import { useDam } from '../../lib/hooks/useDam';
 import { SavingsDam } from './SavingsDam';
 
@@ -44,15 +43,6 @@ type View = {
 
 type Feedback = { kind: 'success' | 'error'; message: string };
 
-function fromSaved(saved: SavedResult): View {
-  return {
-    month: saved.month,
-    rows: saved.year.length ? saved.year.map((r) => ({ ...r, month: Number(r.month) })) : null,
-    totalSavings: saved.totalSavings,
-    annualExceeds: false,
-  };
-}
-
 export function Results({
   userId,
   month,
@@ -65,33 +55,11 @@ export function Results({
   const locale = useLocale();
   const money = (value: number) => formatMoney(locale, value);
 
-  const [saved, setSaved] = useState<SavedResult[]>([]);
-  const [loaded, setLoaded] = useState<SavedResult | null>(null);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [applying, setApplying] = useState(false);
 
   const dam = useDam(userId);
   const [applyInput, setApplyInput] = useState<string | null>(null);
-
-  const refresh = useCallback(async () => {
-    if (!userId) return;
-    try {
-      setSaved(await listResults(userId));
-    } catch {
-      setError(t('loadError'));
-    }
-  }, [userId, t]);
-
-  useEffect(() => {
-    if (!userId) {
-      setSaved([]);
-      setLoaded(null);
-      return;
-    }
-    refresh();
-  }, [userId, refresh]);
 
   useEffect(() => {
     if (!feedback) return;
@@ -118,49 +86,21 @@ export function Results({
     }
   }
 
-
-  async function handleSave() {
-    if (!userId) return;
-    setSaving(true);
-    setError(null);
-    try {
-      const created = await saveResult(userId, month, plan);
-      setSaved((prev) => [created, ...prev]);
-    } catch {
-      setError(t('saveError'));
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function handleDelete(id: string) {
-    setError(null);
-    try {
-      await deleteResult(id);
-      setSaved((prev) => prev.filter((r) => r._id !== id));
-      if (loaded?._id === id) setLoaded(null);
-    } catch {
-      setError(t('deleteError'));
-    }
-  }
-
-  const view: View = loaded
-    ? fromSaved(loaded)
-    : {
-      month,
-      rows:
-        plan?.months.map((r) => ({
-          month: r.month,
-          gross: r.gross,
-          net: r.net,
-          expenses: r.expenses,
-          savings: r.savings,
-          remaining: r.remaining,
-          cumulative: r.cumulativeSavings,
-        })) ?? null,
-      totalSavings: plan?.totalSavings ?? 0,
-      annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
-    };
+  const view: View = {
+    month,
+    rows:
+      plan?.months.map((r) => ({
+        month: r.month,
+        gross: r.gross,
+        net: r.net,
+        expenses: r.expenses,
+        savings: r.savings,
+        remaining: r.remaining,
+        cumulative: r.cumulativeSavings,
+      })) ?? null,
+    totalSavings: plan?.totalSavings ?? 0,
+    annualExceeds: plan?.months.some((r) => r.savingsExceedsDisposable) ?? false,
+  };
 
   const applyValue = applyInput ?? view.month.savings.toFixed(2);
 
@@ -185,9 +125,9 @@ export function Results({
         <div className="min-w-0">{children}</div>
 
         {/* Right column: monthly results, dam, save bar, saved list */}
-        <div className="flex min-w-0 flex-col gap-6">
+        <div className="flex min-w-0 flex-col gap-6 md:h-full">
           {/* 1. Monthly results */}
-          <section className="rounded-2xl border border-beaver-200 bg-beaver-50 p-6">
+          <section className="flex-1 rounded-2xl border border-beaver-200 bg-beaver-50 p-6">
             <h2 className="text-lg font-semibold text-stone-900">{t('monthTitle')}</h2>
             <p className="mt-1 text-sm text-stone-600">
               {t(subsidiesInTwelfths ? 'monthHintTwelfths' : 'monthHint')}
@@ -230,80 +170,22 @@ export function Results({
                 </button>
               </div>
             ) : null}
+
+
+            {userId && <FinancialBreakdown
+              net={view.month.net}
+              expenses={view.month.expenses}
+              savings={view.month.savings}
+              remaining={view.month.remaining}
+              money={money}
+              title={t('breakdownTitle')}
+              labels={{
+                expenses: t('expensesLabel'),
+                savings: t('savings'),
+                remaining: t('remaining'),
+              }}
+            />}
           </section>
-
-          {/* 3. Save / back-to-current bar */}
-          {userId && (
-            <div className="flex flex-wrap items-center gap-3 print:hidden">
-              {loaded ? (
-                <>
-                  <p className="text-sm text-stone-600">
-                    {t('viewingSaved', {
-                      date: dateFmt.format(new Date(loaded.createdAt)),
-                    })}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setLoaded(null)}
-                    className="rounded-xl border border-stone-300 px-4 py-2 text-sm font-medium text-stone-800 hover:bg-stone-50"
-                  >
-                    {t('backToCurrent')}
-                  </button>
-                </>
-              ) : (
-                <button
-                  type="button"
-                  onClick={handleSave}
-                  disabled={saving}
-                  className="rounded-xl bg-secondary px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
-                >
-                  {saving ? t('saving') : t('save')}
-                </button>
-              )}
-              {error ? <p className="text-sm text-red-600">{error}</p> : null}
-            </div>
-          )}
-
-          {/* 4. Saved results */}
-          {userId && (
-            <section className="rounded-2xl border border-stone-200 bg-white p-6 print:hidden">
-              <h2 className="text-lg font-semibold text-stone-900">{t('savedTitle')}</h2>
-              {saved.length === 0 ? (
-                <p className="mt-2 text-sm text-stone-600">{t('noSaved')}</p>
-              ) : (
-                <ul className="mt-3 divide-y divide-stone-100">
-                  {saved.map((r) => (
-                    <li key={r._id} className="flex items-center justify-between gap-3 py-2">
-                      <div className="min-w-0 text-sm">
-                        <p className="font-medium text-stone-800">
-                          {dateFmt.format(new Date(r.createdAt))}
-                        </p>
-                        <p className="text-stone-500">
-                          {t('totalSavingsShort')}: {money(r.totalSavings)}
-                        </p>
-                      </div>
-                      <div className="flex gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setLoaded(r)}
-                          className="rounded-lg border border-stone-300 px-3 py-1 text-sm hover:bg-stone-50"
-                        >
-                          {t('open')}
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleDelete(r._id)}
-                          className="rounded-lg border border-stone-300 px-3 py-1 text-sm text-red-600 hover:bg-stone-50"
-                        >
-                          {t('delete')}
-                        </button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          )}
         </div>
       </div>
 
@@ -434,4 +316,99 @@ function formatMoney(locale: string, value: number): string {
     style: 'currency',
     currency: 'EUR',
   }).format(value);
+}
+
+
+function FinancialBreakdown({
+  net,
+  expenses,
+  savings,
+  remaining,
+  money,
+  title,
+  labels,
+}: {
+  net: number;
+  expenses: number;
+  savings: number;
+  remaining: number;
+  money: (value: number) => string;
+  title: string;
+  labels: {
+    expenses: string;
+    savings: string;
+    remaining: string;
+  };
+}) {
+  const items = [
+    { label: labels.expenses, value: expenses, color: 'bg-stone-400' },
+    { label: labels.savings, value: savings, color: 'bg-secondary' },
+    { label: labels.remaining, value: remaining, color: 'bg-amber-300' },
+  ];
+
+  const total = items.reduce(
+    (sum, item) => sum + Math.max(0, item.value),
+    0,
+  );
+
+  return (
+    <div className="mt-6 border-t border-beaver-200 pt-5">
+      <div className="flex items-baseline justify-between gap-3">
+        <h3 className="text-sm font-semibold text-stone-900">
+          {title}
+        </h3>
+        <span className="text-sm font-semibold text-stone-900">
+          {money(net)}
+        </span>
+      </div>
+
+      <div
+        className="mt-3 flex h-3 overflow-hidden rounded-full bg-stone-200"
+        role="img"
+        aria-label={title}
+      >
+        {items.map((item) => {
+          const percentage =
+            total > 0 ? (Math.max(0, item.value) / total) * 100 : 0;
+
+          return (
+            <div
+              key={item.label}
+              className={`${item.color} h-full`}
+              style={{ width: `${percentage}%` }}
+            />
+          );
+        })}
+      </div>
+
+      <div className="mt-4 grid gap-3">
+        {items.map((item) => {
+          const percentage =
+            total > 0 ? (Math.max(0, item.value) / total) * 100 : 0;
+
+          return (
+            <div
+              key={item.label}
+              className="flex items-center gap-2 text-sm"
+            >
+              <span
+                className={`h-2.5 w-2.5 shrink-0 rounded-sm ${item.color}`}
+              />
+              <span className="min-w-0 flex-1 text-stone-600">
+                {item.label}
+              </span>
+              <span className="text-xs text-stone-500">
+                {percentage.toLocaleString(undefined, {
+                  maximumFractionDigits: 1,
+                })}%
+              </span>
+              <span className="whitespace-nowrap font-medium text-stone-900">
+                {money(item.value)}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }

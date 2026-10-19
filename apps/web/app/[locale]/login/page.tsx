@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     alternates: getAlternates(locale, '/login'),
     openGraph: getOpenGraph(locale, '/login', { title, description }),
-    robots: { index: false }
+    robots: { index: false },
   };
 }
 

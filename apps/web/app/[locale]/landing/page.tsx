@@ -1,10 +1,10 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { RiverWaveBackground } from '@/components/RiverWaveBackground';
 import { Link } from '@/i18n/navigation';
-import { Metadata } from 'next';
 import { getAlternates, getOpenGraph } from '@/lib/seo';
 
 const ctaClass =
@@ -105,8 +105,9 @@ export default async function LandingPage() {
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className={`rounded-2xl border p-6 text-center shadow-sm ${stat.accent ? 'border-beaver-200 bg-beaver-50' : 'border-stone-200 bg-white'
-                    }`}
+                  className={`rounded-2xl border p-6 text-center shadow-sm ${
+                    stat.accent ? 'border-beaver-200 bg-beaver-50' : 'border-stone-200 bg-white'
+                  }`}
                 >
                   <p className="text-sm font-medium text-stone-500">{stat.label}</p>
                   <p className="mt-1 text-3xl font-bold tracking-tight text-stone-900">

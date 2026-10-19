@@ -1,7 +1,9 @@
+import { Metadata } from 'next';
+
+import { getLocale, getTranslations } from 'next-intl/server';
+
 import { VerifyEmailScreen } from '@/components/auth/VerifyEmailScreen';
 import { getAlternates, getOpenGraph } from '@/lib/seo';
-import { Metadata } from 'next';
-import { getLocale, getTranslations } from 'next-intl/server';
 
 type PageProps = {
   searchParams: Promise<{ token?: string; error?: string }>;
@@ -19,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     alternates: getAlternates(locale, '/confirm-account'),
     openGraph: getOpenGraph(locale, '/confirm-account', { title, description }),
-    robots: { index: false }
+    robots: { index: false },
   };
 }
 

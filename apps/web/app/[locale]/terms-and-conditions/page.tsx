@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title,
     description,
     alternates: getAlternates(locale, '/terms-and-conditions'),
-    openGraph: getOpenGraph(locale, '/terms-and-conditions', { title, description })
+    openGraph: getOpenGraph(locale, '/terms-and-conditions', { title, description }),
   };
 }
 

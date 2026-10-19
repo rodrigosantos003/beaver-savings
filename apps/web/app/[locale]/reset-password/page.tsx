@@ -1,10 +1,10 @@
+import { Metadata } from 'next';
 import { Suspense } from 'react';
 
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { ResetPasswordForm } from '@/components/auth/ResetPasswordForm';
 import { getAlternates, getOpenGraph } from '@/lib/seo';
-import { Metadata } from 'next';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('meta.resetPassword');
@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     alternates: getAlternates(locale, '/reset-password'),
     openGraph: getOpenGraph(locale, '/reset-password', { title, description }),
-    robots: { index: false }
+    robots: { index: false },
   };
 }
 

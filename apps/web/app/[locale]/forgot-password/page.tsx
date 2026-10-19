@@ -1,7 +1,8 @@
+import { Metadata } from 'next';
+
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { ForgotPasswordForm } from '@/components/auth/ForgotPasswordForm';
-import { Metadata } from 'next';
 import { getAlternates, getOpenGraph } from '@/lib/seo';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -16,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     alternates: getAlternates(locale, '/forgot-password'),
     openGraph: getOpenGraph(locale, '/forgot-password', { title, description }),
-    robots: { index: false }
+    robots: { index: false },
   };
 }
 

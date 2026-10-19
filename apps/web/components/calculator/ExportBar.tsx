@@ -46,7 +46,8 @@ export function ExportBar({ input }: ExportBarProps) {
       }
 
       setStatus('sent');
-    } catch (sendError) {
+    } catch (error) {
+      console.error(error);
       setStatus('error');
       setError(t('emailFailed'));
     }

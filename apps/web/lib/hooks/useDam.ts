@@ -8,34 +8,43 @@ export type { DamEntry };
 export type DamError = 'load' | 'add' | 'remove' | null;
 
 export function useDam(userId?: string | null) {
-  const [entries, setEntries] = useState<DamEntry[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState<DamEntry[]>([]);
+  const [loadedFor, setLoadedFor] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState<DamError>(null);
 
-  useEffect(() => {
-    if (!userId) {
-      setEntries([]);
-      setError(null);
-      return;
-    }
-    let cancelled = false;
-    setLoading(true);
+  // Reset the error when the user changes (React-sanctioned "adjust state during render")
+  const [prevUserId, setPrevUserId] = useState(userId);
+  if (prevUserId !== userId) {
+    setPrevUserId(userId);
     setError(null);
+  }
+
+  useEffect(() => {
+    if (!userId) return;
+    let cancelled = false;
     listDam(userId)
       .then((res) => {
-        if (!cancelled) setEntries(res.entries);
+        if (cancelled) return;
+        setLoaded(res.entries);
+        setLoadedFor(userId);
       })
       .catch(() => {
-        if (!cancelled) setError('load');
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
+        if (cancelled) return;
+        setError('load');
+        setLoadedFor(userId);
       });
     return () => {
       cancelled = true;
     };
   }, [userId]);
+
+  // Derived: no data for the current user yet (or no user) means empty list
+  const entries = useMemo(
+    () => (userId && loadedFor === userId ? loaded : []),
+    [userId, loadedFor, loaded],
+  );
+  const loading = !!userId && loadedFor !== userId;
 
   const add = useCallback(
     async (amount: number): Promise<boolean> => {
@@ -44,7 +53,7 @@ export function useDam(userId?: string | null) {
       setError(null);
       try {
         const created = await addDamEntry(userId, Math.round(amount * 100) / 100);
-        setEntries((prev) => [created, ...prev]);
+        setLoaded((prev) => [created, ...prev]);
         return true;
       } catch {
         setError('add');
@@ -60,13 +69,13 @@ export function useDam(userId?: string | null) {
     async (id: string) => {
       if (!userId) return;
       setError(null);
-      setEntries((prev) => prev.filter((e) => e.id !== id));
+      setLoaded((prev) => prev.filter((e) => e.id !== id));
       try {
         await removeDamEntry(userId, id);
       } catch {
         setError('remove');
         try {
-          setEntries((await listDam(userId)).entries);
+          setLoaded((await listDam(userId)).entries);
         } catch {
           /* keep the error state set above */
         }

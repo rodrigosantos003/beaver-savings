@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import 'dotenv/config';
@@ -33,4 +33,10 @@ async function bootstrap() {
 
   console.log(`Server is running on port ${port}`);
 }
-bootstrap();
+bootstrap().catch((error: unknown) => {
+  new Logger('Bootstrap').error(
+    'Failed to start server',
+    error instanceof Error ? error.stack : String(error),
+  );
+  process.exit(1);
+});

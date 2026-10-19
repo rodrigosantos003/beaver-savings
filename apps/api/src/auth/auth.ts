@@ -78,7 +78,7 @@ export async function createAuth(connection: Connection) {
     emailAndPassword: {
       enabled: true,
       revokeSessionsOnPasswordReset: true,
-      sendResetPassword: async ({ user, token }, request) => {
+      sendResetPassword: ({ user, token }, request) => {
         const locale = resolveLocale(request);
 
         const url = `${process.env.WEB_ORIGIN}/reset-password?token=${token}`;
@@ -89,18 +89,13 @@ export async function createAuth(connection: Connection) {
           name: user.name,
         });
 
-        waitUntil(
-          sendEmail({
-            to: user.email,
-            subject,
-            text,
-            html,
-          }),
-        );
+        waitUntil(sendEmail({ to: user.email, subject, text, html }));
+
+        return Promise.resolve();
       },
     },
     emailVerification: {
-      sendVerificationEmail: async ({ user, token }, request) => {
+      sendVerificationEmail: ({ user, token }, request) => {
         const locale = resolveLocale(request);
 
         const url = `${process.env.WEB_ORIGIN}/confirm-account?token=${token}`;
@@ -111,14 +106,9 @@ export async function createAuth(connection: Connection) {
           name: user.name,
         });
 
-        waitUntil(
-          sendEmail({
-            to: user.email,
-            subject,
-            text,
-            html,
-          }),
-        );
+        waitUntil(sendEmail({ to: user.email, subject, text, html }));
+
+        return Promise.resolve();
       },
       autoSignInAfterVerification: true,
       expiresIn: VERIFICATION_EXPIRES_IN,

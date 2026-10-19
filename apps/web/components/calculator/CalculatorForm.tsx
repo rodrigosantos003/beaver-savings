@@ -205,7 +205,7 @@ function NumberField({
 
       <span className="relative mt-1 block">
         <input
-          className={`${inputClass} !mt-0 ${unit ? 'pr-9' : ''}`}
+          className={`${inputClass} mt-0! ${unit ? 'pr-9' : ''}`}
           type="text"
           inputMode="decimal"
           autoComplete="off"

@@ -54,6 +54,7 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
 
       router.push('/calculator');
     } catch (error) {
+      console.error(error);
       setError(t('failedToFetch'));
       return;
     } finally {

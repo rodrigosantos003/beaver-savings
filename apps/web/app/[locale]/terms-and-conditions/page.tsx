@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 import { getLocale, getTranslations } from 'next-intl/server';
 
-import { SITE_URL } from '@/lib/constants';
+import { LooseTranslator, SITE_URL } from '@/lib/constants';
 import { getAlternates, getOpenGraph } from '@/lib/seo';
 
 const EMAIL = 'rodrigo.s.santos003@gmail.com';
@@ -57,7 +57,7 @@ function UL({ children }: { children: ReactNode }) {
 export default async function TermsPage() {
   const t = await getTranslations('Terms');
 
-  const loose = t as any;
+  const loose = t as LooseTranslator;
 
   const r = (key: string): ReactNode =>
     loose.rich(key, {

@@ -42,7 +42,7 @@ export class DamRepository implements OnModuleInit {
 
   async create(data: Omit<DamEntryDocument, '_id' | 'createdAt'>): Promise<DamEntryDocument> {
     const doc = await this.model.create(data);
-    return doc.toObject() as DamEntryDocument;
+    return doc.toObject();
   }
 
   /** Scoped by userId so users can only delete their own entries. */

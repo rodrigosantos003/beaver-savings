@@ -127,7 +127,7 @@ export function Results({
         {/* Right column: monthly results, dam, save bar, saved list */}
         <div className="flex min-w-0 flex-col gap-6 md:h-full">
           {/* 1. Monthly results */}
-          <section className="flex-1 rounded-2xl border border-beaver-200 bg-beaver-50 p-6">
+          <section className="rounded-2xl border border-beaver-200 bg-beaver-50 p-6">
             <h2 className="text-lg font-semibold text-stone-900">{t('monthTitle')}</h2>
             <p className="mt-1 text-sm text-stone-600">
               {t(subsidiesInTwelfths ? 'monthHintTwelfths' : 'monthHint')}
@@ -282,9 +282,8 @@ export function Results({
       <div aria-live="polite" role="status" className="print:hidden">
         {feedback ? (
           <div
-            className={`fixed right-4 bottom-4 z-50 max-w-sm rounded-xl px-4 py-3 text-sm text-white shadow-lg ${
-              feedback.kind === 'success' ? 'bg-secondary' : 'bg-red-600'
-            }`}
+            className={`fixed right-4 bottom-4 z-50 max-w-sm rounded-xl px-4 py-3 text-sm text-white shadow-lg ${feedback.kind === 'success' ? 'bg-secondary' : 'bg-red-600'
+              }`}
           >
             {feedback.message}
           </div>

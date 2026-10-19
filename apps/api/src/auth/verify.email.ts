@@ -16,8 +16,7 @@ type Messages = {
   website: string;
 };
 
-const locales = ['en', 'pt'] as const;
-type Locale = (typeof locales)[number];
+type Locale = 'en' | 'pt';
 
 const VERIFICATION_EXPIRES_IN = 60 * 60 * 24; // seconds (24 hours)
 

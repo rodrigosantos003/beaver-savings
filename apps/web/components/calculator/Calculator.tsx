@@ -60,6 +60,7 @@ export function Calculator() {
           input={input}
           onChange={setInput}
           monthNames={loggedIn ? monthNames : undefined}
+          loggedIn={loggedIn}
         />
       </Results>
 
@@ -73,7 +74,7 @@ export function Calculator() {
           </div>
           <a
             href={`/${locale}/signup`}
-            className="shrink-0 rounded-lg bg-warning px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-beaver-700"
+            className="shrink-0 rounded-lg bg-secondary px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-secondary-hover"
           >
             {t('createAccount')}
           </a>

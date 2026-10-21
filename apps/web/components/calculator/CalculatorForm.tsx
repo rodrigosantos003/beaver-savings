@@ -12,9 +12,10 @@ type CalculatorFormProps = {
   input: SavingsInput;
   onChange: (next: SavingsInput) => void;
   monthNames?: string[];
+  loggedIn: boolean;
 };
 
-export function CalculatorForm({ input, onChange, monthNames }: CalculatorFormProps) {
+export function CalculatorForm({ input, onChange, monthNames, loggedIn }: CalculatorFormProps) {
   const t = useTranslations('calculator');
 
   function update<K extends keyof SavingsInput>(key: K, value: SavingsInput[K]) {
@@ -30,7 +31,7 @@ export function CalculatorForm({ input, onChange, monthNames }: CalculatorFormPr
     update(key, value);
   }
 
-  const suggestions = suggestSavings(input);
+  const suggestions = loggedIn ? suggestSavings(input) : undefined;
 
   return (
     <form
@@ -143,7 +144,7 @@ export function CalculatorForm({ input, onChange, monthNames }: CalculatorFormPr
             key="savingsPercent"
             label={t('savingsPercent')}
             value={input.savingsPercent}
-            suggestedValue={suggestions.savingsPercent}
+            suggestedValue={suggestions?.savingsPercent}
             unit="%"
             onChange={(raw) => updateNumber('savingsPercent', raw)}
           />
@@ -152,7 +153,7 @@ export function CalculatorForm({ input, onChange, monthNames }: CalculatorFormPr
             key="savingsAmount"
             label={t('savingsAmount')}
             value={input.savingsAmount}
-            suggestedValue={suggestions.savingsAmount}
+            suggestedValue={suggestions?.savingsAmount}
             unit="€"
             onChange={(raw) => updateNumber('savingsAmount', raw)}
           />

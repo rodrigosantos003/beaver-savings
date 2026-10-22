@@ -1,7 +1,9 @@
 import { Global, Inject, Logger, Module, OnApplicationShutdown } from '@nestjs/common';
 
 import { attachDatabasePool } from '@vercel/functions';
-import { Connection, Error, createConnection } from 'mongoose';
+import { type Connection, createConnection } from 'mongoose';
+
+export const DATABASE_CONNECTION = Symbol('DATABASE_CONNECTION');
 
 const logger = new Logger('MongoDB');
 
@@ -9,7 +11,7 @@ const logger = new Logger('MongoDB');
 @Module({
   providers: [
     {
-      provide: Connection,
+      provide: DATABASE_CONNECTION,
       useFactory: async (): Promise<Connection> => {
         const conn = createConnection(process.env.MONGODB_URI!, {
           dbName: 'app',
@@ -28,14 +30,12 @@ const logger = new Logger('MongoDB');
 
         await conn.asPromise();
 
-        // Connection lifecycle
         conn.on('connected', () => logger.log('DB connected'));
         conn.on('disconnected', () => logger.warn('DB disconnected'));
         conn.on('reconnected', () => logger.log('DB reconnected'));
         conn.on('error', (err: Error) => logger.error(`DB error: ${err.message}`));
         conn.on('close', () => logger.warn('DB connection closed'));
 
-        // Pool events
         client.on('connectionCreated', (e) =>
           logger.log(`Pool: socket created (id ${e.connectionId})`),
         );
@@ -45,10 +45,13 @@ const logger = new Logger('MongoDB');
       },
     },
   ],
-  exports: [Connection],
+  exports: [DATABASE_CONNECTION],
 })
 export class DatabaseModule implements OnApplicationShutdown {
-  constructor(@Inject(Connection) private readonly conn: Connection) {}
+  constructor(
+    @Inject(DATABASE_CONNECTION)
+    private readonly conn: Connection,
+  ) {}
 
   async onApplicationShutdown() {
     await this.conn.close();

@@ -3,8 +3,8 @@ import { Throttle } from '@nestjs/throttler';
 
 import { AuthGuard } from '@thallesp/nestjs-better-auth';
 
-import { parseEmailRequest } from './parse-email-request';
-import { SavingsEmailService } from './savings-email.service';
+import { parseEmailRequest } from './parse-email-request.js';
+import { SavingsEmailService } from './savings-email.service.js';
 
 @Controller('savings')
 @UseGuards(AuthGuard)

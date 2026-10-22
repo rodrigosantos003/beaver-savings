@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
-import { SavingsEmailService } from './savings-email.service';
-import { SavingsController } from './savings.controller';
+import { SavingsEmailService } from './savings-email.service.js';
+import { SavingsController } from './savings.controller.js';
 
 @Module({
   controllers: [SavingsController],

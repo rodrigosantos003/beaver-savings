@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Query } from '@nestjs/common';
 
-import { CreateDamEntryDto } from './dam.dto';
-import { DamService } from './dam.service';
+import { CreateDamEntryDto } from './dam.dto.js';
+import { DamService } from './dam.service.js';
 
 /**
  * NOTE: userId comes from the query string here to mirror the existing

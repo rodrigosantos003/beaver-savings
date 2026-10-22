@@ -3,10 +3,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { Resend } from 'resend';
 import request from 'supertest';
-import { App } from 'supertest/types';
+import { App } from 'supertest/types.js';
 
-import { SavingsEmailService } from './savings-email.service';
-import { SavingsController } from './savings.controller';
+import { SavingsEmailService } from './savings-email.service.js';
+import { SavingsController } from './savings.controller.js';
 
 jest.mock('resend');
 

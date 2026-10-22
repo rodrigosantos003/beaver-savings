@@ -3,9 +3,9 @@ import { APP_FILTER } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
 
 import request from 'supertest';
-import { App } from 'supertest/types';
+import { App } from 'supertest/types.js';
 
-import { NotFoundFilter } from './not-found.filter';
+import { NotFoundFilter } from './not-found.filter.js';
 
 describe('NotFoundFilter', () => {
   let app: INestApplication<App>;

@@ -2,8 +2,8 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 
 import { Types } from 'mongoose';
 
-import { CreateDamEntryDto } from './dam.dto';
-import { DamEntryDocument, DamRepository } from './dam.repository';
+import { CreateDamEntryDto } from './dam.dto.js';
+import { DamEntryDocument, DamRepository } from './dam.repository.js';
 
 export type DamEntryResponse = {
   id: string;

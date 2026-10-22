@@ -4,7 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import 'dotenv/config';
 import helmet from 'helmet';
 
-import { AppModule } from './app/app.module';
+import { AppModule } from './app/app.module.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(await AppModule.register(), {

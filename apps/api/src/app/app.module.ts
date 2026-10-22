@@ -5,12 +5,12 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 import { Connection } from 'mongoose';
 
-import { DatabaseModule } from '../../lib/database';
-import { DamModule } from '../dam/dam.module';
-import { SavingsModule } from '../savings/savings.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { NotFoundFilter } from './not-found.filter';
+import { DatabaseModule } from '../../lib/database.js';
+import { DamModule } from '../dam/dam.module.js';
+import { SavingsModule } from '../savings/savings.module.js';
+import { AppController } from './app.controller.js';
+import { AppService } from './app.service.js';
+import { NotFoundFilter } from './not-found.filter.js';
 
 @Module({})
 export class AppModule {

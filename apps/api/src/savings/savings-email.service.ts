@@ -7,8 +7,8 @@ import {
   calculateTypicalMonth,
 } from 'savings-core';
 
-import { escapeHtml, renderEmailLayout, sendEmail } from '../../lib/email';
-import { SavingsEmailRequest } from './parse-email-request';
+import { escapeHtml, renderEmailLayout, sendEmail } from '../../lib/email.js';
+import { SavingsEmailRequest } from './parse-email-request.js';
 
 @Injectable()
 export class SavingsEmailService {

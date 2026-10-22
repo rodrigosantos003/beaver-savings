@@ -2,7 +2,7 @@ import { BadGatewayException } from '@nestjs/common';
 
 import { Resend } from 'resend';
 
-import { SITE_URL } from './constants';
+import { SITE_URL } from './constants.js';
 
 const API_KEY = process.env.RESEND_API_KEY || '';
 const FROM = process.env.RESEND_FROM || '';

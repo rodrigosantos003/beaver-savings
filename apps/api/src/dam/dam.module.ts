@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 
 import { Connection } from 'mongoose';
 
-import { DamController } from './dam.controller';
-import { DAM_ENTRY_MODEL, DamEntrySchema, DamRepository } from './dam.repository';
-import { DamService } from './dam.service';
+import { DamController } from './dam.controller.js';
+import { DAM_ENTRY_MODEL, DamEntrySchema, DamRepository } from './dam.repository.js';
+import { DamService } from './dam.service.js';
 
 @Module({
   controllers: [DamController],

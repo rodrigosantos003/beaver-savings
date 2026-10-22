@@ -47,7 +47,9 @@
     "login": "Log in",
     "calculator": "Calculator",
     "signOut": "Sign out",
-    "backToHome": "Back to home"
+    "backToHome": "Back to home",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "hero": {
     "badge": "Savings calculator for Portugal",

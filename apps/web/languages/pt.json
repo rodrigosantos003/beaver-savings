@@ -48,7 +48,9 @@
     "login": "Entrar",
     "calculator": "Calculadora",
     "signOut": "Sair",
-    "backToHome": "Voltar ao início"
+    "backToHome": "Voltar ao início",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu"
   },
   "hero": {
     "badge": "Calculadora de poupança para Portugal",

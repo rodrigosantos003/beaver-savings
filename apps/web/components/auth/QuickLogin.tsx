@@ -35,7 +35,7 @@ export function QuickLogin({ initialLoggedIn }: { initialLoggedIn: boolean }) {
 
   if (loggedIn) {
     return (
-      <div className="flex items-center gap-3">
+      <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2">
         <button
           type="button"
           className="text-sm font-medium text-stone-500 transition-colors hover:text-stone-900"
@@ -58,7 +58,7 @@ export function QuickLogin({ initialLoggedIn }: { initialLoggedIn: boolean }) {
   }
 
   return (
-    <div className="relative" ref={panelRef}>
+    <div className="md:relative" ref={panelRef}>
       <button
         type="button"
         aria-expanded={open}
@@ -69,7 +69,7 @@ export function QuickLogin({ initialLoggedIn }: { initialLoggedIn: boolean }) {
         {t('login')}
       </button>
       {open ? (
-        <div className="absolute right-0 z-20 mt-2 w-72 rounded-2xl border border-stone-200 bg-white p-4 shadow-lg">
+        <div className="absolute inset-x-0 top-full z-20 border-b border-stone-200 bg-white p-4 shadow-lg md:inset-x-auto md:right-0 md:mt-2 md:w-72 md:rounded-2xl md:border">
           <CredentialsForm mode="login" compact />
         </div>
       ) : null}

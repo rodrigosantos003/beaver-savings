@@ -239,7 +239,8 @@
   "unlock": {
     "title": "Desbloquear mais funcionalidades",
     "description": "Cria uma conta para descobrires o verdadeiro poder das poupanças!",
-    "createAccount": "Criar conta"
+    "createAccount": "Criar conta",
+    "loading": "A carregar..."
   },
   "deleteAccount": {
     "metaTitle": "Eliminar conta",

@@ -14,6 +14,7 @@ import {
 
 import { authClient } from '@/lib/auth-client';
 
+import { Loading } from '../Loading';
 import { CalculatorForm } from './CalculatorForm';
 import { ExportBar } from './ExportBar';
 import { Results } from './Results';
@@ -40,12 +41,16 @@ export function Calculator() {
   const locale = useLocale();
   const t = useTranslations('unlock');
   const { data: session, isPending } = authClient.useSession();
-  const loggedIn = !isPending && !!session;
+  const loggedIn = !!session;
 
   const [input, setInput] = useState<SavingsInput>(initialInput);
   const monthNames = useMemo(() => monthLabels(locale), [locale]);
   const month = useMemo(() => calculateTypicalMonth(input), [input]);
   const plan = useMemo(() => (loggedIn ? calculateAnnualPlan(input) : null), [input, loggedIn]);
+
+  if (isPending) {
+    return <Loading message={t('loading')} fullScreen />;
+  }
 
   return (
     <div className="grid gap-8">

@@ -66,7 +66,7 @@ export function LanguageSwitcher() {
         aria-label={t('label')}
         className="inline-flex items-center gap-2 rounded-full border border-stone-200 px-3 py-1.5 text-sm font-medium text-stone-600 transition-colors hover:text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-300 disabled:opacity-50"
       >
-        <Flag locale={locale} className="h-3.5 w-5 rounded-[2px]" />
+        <Flag locale={locale} className="h-3.5 w-5 rounded-xs" />
         <span className="hidden sm:inline">{t(`locales.${locale as Locale}`)}</span>
         <span className="uppercase sm:hidden">{locale}</span>
         <svg
@@ -98,7 +98,7 @@ export function LanguageSwitcher() {
                   l === locale ? 'font-semibold text-stone-900' : 'text-stone-600'
                 }`}
               >
-                <Flag locale={l} className="h-3.5 w-5 rounded-[2px]" />
+                <Flag locale={l} className="h-3.5 w-5 rounded-xs" />
                 {t(`locales.${l}`)}
               </button>
             </li>

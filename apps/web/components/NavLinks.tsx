@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { usePathname } from '@/i18n/navigation';
 import { Link } from '@/i18n/navigation';
 
-const BACK_PAGES = ['/privacy-policy', '/terms-and-conditions', '/signup'];
+const BACK_PAGES = ['/privacy-policy', '/terms-and-conditions', '/signup', '/login'];
 
 export function NavLinks({ hasSession }: { hasSession: boolean }) {
   const pathname = usePathname();

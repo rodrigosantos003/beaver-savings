@@ -7,23 +7,23 @@ import { routing } from './i18n/routing';
 
 const handleI18nRouting = createMiddleware(routing);
 
+const localePattern = new RegExp(`^/(${routing.locales.join('|')})(?=/|$)`);
+
+const AUTH_PAGES = ['/login', '/signup'];
+
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const pathnameWithoutLocale =
-    pathname.replace(new RegExp(`^/(${routing.locales.join('|')})(?=/|$)`), '') || '/';
+  const locale = pathname.match(localePattern)?.[1] ?? routing.defaultLocale;
+  const path = pathname.replace(localePattern, '') || '/';
 
-  const sessionCookie = getSessionCookie(request);
+  const hasSession = !!getSessionCookie(request);
 
-  const isLandingPage = pathnameWithoutLocale === '/';
-  const isLoginPage = pathnameWithoutLocale === '/login' || pathnameWithoutLocale === '/signup';
+  const isLanding = path === '/';
+  const isAuthPage = AUTH_PAGES.includes(path);
 
-  if (sessionCookie && (isLandingPage || isLoginPage)) {
-    const url = request.nextUrl.clone();
-
-    url.pathname = `/${routing.defaultLocale}/calculator`;
-
-    return NextResponse.redirect(url);
+  if (hasSession && (isLanding || isAuthPage)) {
+    return NextResponse.redirect(new URL(`/${locale}/calculator`, request.url));
   }
 
   return handleI18nRouting(request);

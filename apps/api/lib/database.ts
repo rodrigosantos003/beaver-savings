@@ -1,7 +1,7 @@
 import { Global, Inject, Logger, Module, OnApplicationShutdown } from '@nestjs/common';
 
 import { attachDatabasePool } from '@vercel/functions';
-import { Connection, createConnection } from 'mongoose';
+import { Connection, Error, createConnection } from 'mongoose';
 
 const logger = new Logger('MongoDB');
 
@@ -32,7 +32,7 @@ const logger = new Logger('MongoDB');
         conn.on('connected', () => logger.log('DB connected'));
         conn.on('disconnected', () => logger.warn('DB disconnected'));
         conn.on('reconnected', () => logger.log('DB reconnected'));
-        conn.on('error', (err) => logger.error(`DB error: ${err.message}`));
+        conn.on('error', (err: Error) => logger.error(`DB error: ${err.message}`));
         conn.on('close', () => logger.warn('DB connection closed'));
 
         // Pool events

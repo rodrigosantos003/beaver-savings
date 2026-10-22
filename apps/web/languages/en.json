@@ -165,7 +165,8 @@
     "resetPassword": "Reset password",
     "resetFailed": "We couldn't reset your password. The link may have expired.",
     "invalidResetLink": "This reset link is invalid or has expired.",
-    "requestNewLink": "Request a new link"
+    "requestNewLink": "Request a new link",
+    "preferredCurrency": "Preferred currency"
   },
   "calculator": {
     "back": "Home",
@@ -684,5 +685,9 @@
         "p3": "Thank you for using Beaver Savings. We hope it helps you build better savings habits, one small step at a time."
       }
     }
+  },
+  "currencySwitcher": {
+    "label": "Currency",
+    "saveFailed": "Could not save your currency. Please try again."
   }
 }

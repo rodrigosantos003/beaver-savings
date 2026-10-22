@@ -6,7 +6,9 @@ import { getTranslations } from 'next-intl/server';
 
 import { QuickLogin } from '@/components/auth/QuickLogin';
 import { Link } from '@/i18n/navigation';
+import { resolveCurrency } from '@/lib/resolve-currency';
 
+import { CurrencySwitcher } from './CurrencySwitcher';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileMenu } from './MobileMenu';
 import { NavLinks } from './NavLinks';
@@ -14,6 +16,7 @@ import { NavLinks } from './NavLinks';
 export async function Header() {
   const hasSession = !!getSessionCookie(new Headers(await headers()));
   const t = await getTranslations();
+  const currency = await resolveCurrency();
 
   const getStartedClasses =
     'inline-flex h-9 items-center justify-center whitespace-nowrap rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-secondary-hover';
@@ -47,6 +50,8 @@ export async function Header() {
           )}
 
           <LanguageSwitcher />
+
+          <CurrencySwitcher initial={currency} initialLoggedIn={hasSession} />
 
           <MobileMenu openLabel={t('nav.openMenu')} closeLabel={t('nav.closeMenu')}>
             <nav className="flex flex-row flex-wrap items-center gap-x-4 gap-y-3">

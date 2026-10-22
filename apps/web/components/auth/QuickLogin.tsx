@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 import { useTranslations } from 'next-intl';
@@ -15,6 +16,7 @@ export function QuickLogin({ initialLoggedIn }: { initialLoggedIn: boolean }) {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   const loggedIn = isPending ? initialLoggedIn : !!session;
 
@@ -55,6 +57,10 @@ export function QuickLogin({ initialLoggedIn }: { initialLoggedIn: boolean }) {
         </button>
       </div>
     );
+  }
+
+  if (pathname === '/login' || pathname === '/signup') {
+    return null;
   }
 
   return (

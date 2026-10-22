@@ -1,11 +1,14 @@
+// components/auth/CredentialsForm.tsx
 'use client';
 
 import { SyntheticEvent, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
+import { type Currency, DEFAULT_CURRENCY, isCurrency } from 'savings-core';
 
 import { Link, useRouter } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
+import type { CurrencyOption } from '@/lib/currencies';
 
 const fieldClass =
   'mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100';
@@ -13,15 +16,23 @@ const fieldClass =
 type CredentialsFormProps = {
   mode: 'login' | 'signup';
   compact?: boolean;
+  defaultCurrency?: Currency; // resolved on the server (geo guess)
+  currencies?: CurrencyOption[]; // built on the server, never on the client
 };
 
-export function CredentialsForm({ mode, compact = false }: CredentialsFormProps) {
+export function CredentialsForm({
+  mode,
+  compact = false,
+  defaultCurrency = DEFAULT_CURRENCY,
+  currencies = [],
+}: CredentialsFormProps) {
   const t = useTranslations('auth');
   const locale = useLocale();
   const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [currency, setCurrency] = useState<Currency>(defaultCurrency);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const isSignup = mode === 'signup';
@@ -33,7 +44,12 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
 
     try {
       const result = isSignup
-        ? await authClient.signUp.email({ name, email, password })
+        ? await authClient.signUp.email({
+            name,
+            email,
+            password,
+            preferredCurrency: currency,
+          })
         : await authClient.signIn.email({ email, password });
 
       if (result.error) {
@@ -53,6 +69,7 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
         });
 
       router.push('/calculator');
+      router.refresh(); // re-render server components (header, etc.) with the new session
     } catch (error) {
       console.error(error);
       setError(t('failedToFetch'));
@@ -114,6 +131,26 @@ export function CredentialsForm({ mode, compact = false }: CredentialsFormProps)
           </div>
         ) : null}
       </div>
+      {isSignup && currencies.length > 0 ? (
+        <label className="block text-sm font-medium text-stone-700">
+          {t('preferredCurrency')}
+          <select
+            className={fieldClass}
+            name="preferredCurrency"
+            value={currency}
+            onChange={(event) => {
+              const next = event.target.value;
+              if (isCurrency(next)) setCurrency(next);
+            }}
+          >
+            {currencies.map(({ code, name }) => (
+              <option key={code} value={code}>
+                {code} · {name}
+              </option>
+            ))}
+          </select>
+        </label>
+      ) : null}
       {error ? <p className="rounded-xl bg-danger px-3 py-2 text-sm text-white">{error}</p> : null}
       <button
         type="submit"

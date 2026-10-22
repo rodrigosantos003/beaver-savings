@@ -1,5 +1,6 @@
 import { waitUntil } from '@vercel/functions';
 import type { Connection } from 'mongoose';
+import { CURRENCIES } from 'savings-core';
 
 import { sendEmail } from '../../lib/email';
 import { buildResetPasswordEmail } from './recover.email';
@@ -67,8 +68,15 @@ export async function createAuth(connection: Connection) {
         afterDelete: async (user) => {
           const query = { userId: user.id };
 
-          await db.collection('results').deleteMany(query);
           await db.collection('dam_entries').deleteMany(query);
+        },
+      },
+      additionalFields: {
+        preferredCurrency: {
+          type: [...(CURRENCIES as readonly string[])],
+          required: true,
+          input: true,
+          defaultValue: 'EUR',
         },
       },
     },

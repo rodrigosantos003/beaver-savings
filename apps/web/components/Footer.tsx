@@ -1,4 +1,3 @@
-// components/Footer.tsx
 import Image from 'next/image';
 
 import { getTranslations } from 'next-intl/server';

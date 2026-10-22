@@ -18,7 +18,6 @@ type Messages = {
 
 type Locale = 'en' | 'pt';
 
-// Keep in sync with `resetPasswordTokenExpiresIn` in your Better Auth config (default: 1 hour).
 const RESET_EXPIRES_IN = 60 * 60; // seconds (1 hour)
 
 function formatDuration(seconds: number, locale: Locale): string {

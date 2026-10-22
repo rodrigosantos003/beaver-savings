@@ -157,7 +157,8 @@
     "resetPassword": "Recuperar palavra-passe",
     "resetFailed": "Não conseguimos recuperar a tua palavra-passe. Tenta novamente mais tarde",
     "invalidResetLink": "Este link é inválido ou expirou.",
-    "requestNewLink": "Pedir novo link"
+    "requestNewLink": "Pedir novo link",
+    "preferredCurrency": "Moeda preferencial"
   },
   "calculator": {
     "metaTitle": "Calculadora — Beaver Savings",
@@ -687,5 +688,9 @@
         "p3": "Obrigado por utilizar a Beaver Savings. Esperamos que o ajude a criar melhores hábitos de poupança, um pequeno passo de cada vez."
       }
     }
+  },
+  "currencySwitcher": {
+    "label": "Moeda",
+    "saveFailed": "Não foi possível guardar a moeda. Tente novamente."
   }
 }

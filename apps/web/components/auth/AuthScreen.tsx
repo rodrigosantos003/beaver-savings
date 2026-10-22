@@ -1,6 +1,8 @@
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { CredentialsForm } from '@/components/auth/CredentialsForm';
+import { getCurrencyOptions } from '@/lib/currencies';
+import { resolveCurrency } from '@/lib/resolve-currency';
 
 type AuthScreenProps = {
   mode: 'login' | 'signup';
@@ -8,6 +10,10 @@ type AuthScreenProps = {
 
 export async function AuthScreen({ mode }: AuthScreenProps) {
   const t = await getTranslations('auth');
+  const locale = await getLocale();
+  const currencies = getCurrencyOptions(locale);
+  const defaultCurrency = await resolveCurrency();
+
   const isSignup = mode === 'signup';
 
   return (
@@ -20,7 +26,7 @@ export async function AuthScreen({ mode }: AuthScreenProps) {
           {t(isSignup ? 'signupDescription' : 'loginDescription')}
         </p>
         <div className="mt-8 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-          <CredentialsForm mode={mode} />
+          <CredentialsForm mode={mode} defaultCurrency={defaultCurrency} currencies={currencies} />
         </div>
       </main>
     </div>

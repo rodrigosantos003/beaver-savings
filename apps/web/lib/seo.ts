@@ -1,4 +1,3 @@
-// src/lib/seo.ts
 import type { Metadata } from 'next';
 
 import { routing } from '@/i18n/routing';

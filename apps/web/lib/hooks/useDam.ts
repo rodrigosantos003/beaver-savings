@@ -13,7 +13,6 @@ export function useDam(userId?: string | null) {
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState<DamError>(null);
 
-  // Reset the error when the user changes (React-sanctioned "adjust state during render")
   const [prevUserId, setPrevUserId] = useState(userId);
   if (prevUserId !== userId) {
     setPrevUserId(userId);
@@ -39,7 +38,6 @@ export function useDam(userId?: string | null) {
     };
   }, [userId]);
 
-  // Derived: no data for the current user yet (or no user) means empty list
   const entries = useMemo(
     () => (userId && loadedFor === userId ? loaded : []),
     [userId, loadedFor, loaded],

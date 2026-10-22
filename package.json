@@ -8,6 +8,7 @@
     "packages/*"
   ],
   "scripts": {
+    "build:core": "yarn workspace savings-core build",
     "dev:web": "yarn workspace savings-core build && yarn workspace web dev",
     "build:web": "yarn workspace savings-core build && yarn workspace web build",
     "start:web": "yarn workspace web start",
@@ -16,7 +17,6 @@
     "build:api": "yarn workspace savings-core build && yarn workspace api build",
     "start:api": "yarn workspace api start",
     "lint:api": "yarn workspace api lint",
-    "test:core": "yarn workspace savings-core test",
     "test:api": "yarn workspace savings-core build && yarn workspace api test",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

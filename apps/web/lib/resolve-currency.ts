@@ -8,12 +8,14 @@ export const CURRENCY_COOKIE = 'NEXT_CURRENCY';
 const DEFAULT_CURRENCY: Currency = 'EUR';
 
 const COUNTRY_CURRENCY: Record<string, Currency> = {
-  CZ: 'CZK',
-  DK: 'DKK',
-  HU: 'HUF',
-  PL: 'PLN',
-  RO: 'RON',
-  SE: 'SEK',
+  US: 'USD',
+  GB: 'GBP',
+  CH: 'CHF',
+  BR: 'BRL',
+  CA: 'CAD',
+  AO: 'AOA',
+  MZ: 'MZN',
+  CV: 'CVE',
 };
 
 function currencyFromCountry(country?: string | null): Currency | null {

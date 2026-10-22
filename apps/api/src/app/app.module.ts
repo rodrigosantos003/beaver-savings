@@ -3,8 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
-import { Connection } from 'mongoose';
+import type { Connection } from 'mongoose';
 
+import { DATABASE_CONNECTION } from '../../lib/database.js';
 import { DatabaseModule } from '../../lib/database.js';
 import { DamModule } from '../dam/dam.module.js';
 import { SavingsModule } from '../savings/savings.module.js';
@@ -28,7 +29,7 @@ export class AppModule {
         DatabaseModule,
         ThrottlerModule.forRoot([{ name: 'default', ttl: 60_000, limit: 60 }]),
         AuthModule.forRootAsync({
-          inject: [Connection],
+          inject: [DATABASE_CONNECTION],
           useFactory: async (connection: Connection) => ({
             auth: await createAuth(connection),
           }),

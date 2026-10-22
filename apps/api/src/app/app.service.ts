@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { Connection } from 'mongoose';
+import type { Connection } from 'mongoose';
 
 import { DATABASE_CONNECTION } from '../../lib/database.js';
 

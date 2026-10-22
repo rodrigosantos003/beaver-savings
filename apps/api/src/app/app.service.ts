@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { Connection } from 'mongoose';
 
+import { DATABASE_CONNECTION } from '../../lib/database.js';
+
 export type HealthStatus = 'up' | 'down';
 
 export interface HealthCheckResult {
@@ -16,7 +18,7 @@ const DB_PING_TIMEOUT_MS = 2000;
 
 @Injectable()
 export class AppService {
-  constructor(@Inject(Connection) private readonly connection: Connection) {}
+  constructor(@Inject(DATABASE_CONNECTION) private readonly connection: Connection) {}
 
   async health(): Promise<HealthCheckResult> {
     const database = await this.checkDatabase();

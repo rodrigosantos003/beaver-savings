@@ -7,22 +7,34 @@ import { routing } from './i18n/routing';
 
 const handleI18nRouting = createMiddleware(routing);
 
-const localePattern = new RegExp(`^/(${routing.locales.join('|')})(?=/|$)`);
+const localePattern = new RegExp(
+  `^/(${routing.locales
+    .map((locale) => locale.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    .join('|')})(?=/|$)`,
+);
 
 const AUTH_PAGES = ['/login', '/signup'];
 
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const locale = pathname.match(localePattern)?.[1] ?? routing.defaultLocale;
+  const localeMatch = pathname.match(localePattern);
+  const locale = localeMatch?.[1] ?? routing.defaultLocale;
   const path = pathname.replace(localePattern, '') || '/';
 
-  const hasSession = !!getSessionCookie(request);
+  const sessionCookie = getSessionCookie(request);
+  const hasSession = Boolean(sessionCookie);
 
-  const isLanding = path === '/';
-  const isAuthPage = AUTH_PAGES.includes(path);
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[proxy auth]', {
+      pathname,
+      path,
+      locale,
+      hasSession,
+    });
+  }
 
-  if (hasSession && (isLanding || isAuthPage)) {
+  if (hasSession && (path === '/' || AUTH_PAGES.includes(path))) {
     return NextResponse.redirect(new URL(`/${locale}/calculator`, request.url));
   }
 

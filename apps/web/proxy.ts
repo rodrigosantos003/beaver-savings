@@ -25,14 +25,12 @@ export default function proxy(request: NextRequest) {
   const sessionCookie = getSessionCookie(request);
   const hasSession = Boolean(sessionCookie);
 
-  if (process.env.NODE_ENV === 'development') {
-    console.log('[proxy auth]', {
-      pathname,
-      path,
-      locale,
-      hasSession,
-    });
-  }
+  console.log('[proxy auth]', {
+    pathname,
+    path,
+    locale,
+    hasSession,
+  });
 
   if (hasSession && (path === '/' || AUTH_PAGES.includes(path))) {
     return NextResponse.redirect(new URL(`/${locale}/calculator`, request.url));

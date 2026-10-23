@@ -25,15 +25,6 @@ export default function proxy(request: NextRequest) {
   const sessionCookie = getSessionCookie(request);
   const hasSession = Boolean(sessionCookie);
 
-  const cookieName = '__Secure-better-auth.session_token';
-
-  console.log('[proxy auth]', {
-    pathname: request.nextUrl.pathname,
-    hasSession: Boolean(getSessionCookie(request)),
-    secureCookiePresent: request.cookies.has(cookieName),
-    cookieNames: request.cookies.getAll().map((cookie) => cookie.name),
-  });
-
   if (hasSession && (path === '/' || AUTH_PAGES.includes(path))) {
     return NextResponse.redirect(new URL(`/${locale}/calculator`, request.url));
   }

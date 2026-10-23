@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { SavingsInput, suggestSavings } from 'savings-core';
+
+import { currencySymbol } from '../../lib/currencies';
 
 const inputClass =
   'mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100';
@@ -13,10 +15,19 @@ type CalculatorFormProps = {
   onChange: (next: SavingsInput) => void;
   monthNames?: string[];
   loggedIn: boolean;
+  currency?: string;
 };
 
-export function CalculatorForm({ input, onChange, monthNames, loggedIn }: CalculatorFormProps) {
+export function CalculatorForm({
+  input,
+  onChange,
+  monthNames,
+  loggedIn,
+  currency = '€',
+}: CalculatorFormProps) {
   const t = useTranslations('calculator');
+  const locale = useLocale();
+  const symbol = currencySymbol(currency, locale);
 
   function update<K extends keyof SavingsInput>(key: K, value: SavingsInput[K]) {
     onChange({ ...input, [key]: value });
@@ -43,21 +54,25 @@ export function CalculatorForm({ input, onChange, monthNames, loggedIn }: Calcul
         <NumberField
           label={t('baseSalary')}
           value={input.baseSalary}
+          unit={symbol}
           onChange={(raw) => updateNumber('baseSalary', raw)}
         />
         <NumberField
           label={t('extras')}
           value={input.extras}
+          unit={symbol}
           onChange={(raw) => updateNumber('extras', raw)}
         />
         <NumberField
           label={t('holidaySubsidy')}
           value={input.holidaySubsidy}
+          unit={symbol}
           onChange={(raw) => updateNumber('holidaySubsidy', raw)}
         />
         <NumberField
           label={t('christmasSubsidy')}
           value={input.christmasSubsidy}
+          unit={symbol}
           onChange={(raw) => updateNumber('christmasSubsidy', raw)}
         />
         <div className="sm:col-span-2">
@@ -103,16 +118,19 @@ export function CalculatorForm({ input, onChange, monthNames, loggedIn }: Calcul
         <NumberField
           label={t('irs')}
           value={input.irsRatePercent}
+          unit="%"
           onChange={(raw) => updateNumber('irsRatePercent', raw)}
         />
         <NumberField
           label={t('ssRate')}
           value={input.ssRatePercent}
+          unit="%"
           onChange={(raw) => updateNumber('ssRatePercent', raw)}
         />
         <NumberField
           label={t('expenses')}
           value={input.monthlyExpenses}
+          unit={symbol}
           onChange={(raw) => updateNumber('monthlyExpenses', raw)}
         />
       </fieldset>
@@ -154,7 +172,7 @@ export function CalculatorForm({ input, onChange, monthNames, loggedIn }: Calcul
             label={t('savingsAmount')}
             value={input.savingsAmount}
             suggestedValue={suggestions?.savingsAmount}
-            unit="€"
+            unit={symbol}
             onChange={(raw) => updateNumber('savingsAmount', raw)}
           />
         )}

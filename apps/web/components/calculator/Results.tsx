@@ -3,7 +3,7 @@
 import { type ReactNode, useEffect, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { AnnualPlan, MonthBreakdown } from 'savings-core';
+import { AnnualPlan, Currency, MonthBreakdown } from 'savings-core';
 
 import { useDam } from '../../lib/hooks/useDam';
 import { SavingsDam } from './SavingsDam';
@@ -13,6 +13,7 @@ const planMoney = `${planCell} whitespace-nowrap`;
 
 type ResultsProps = {
   userId?: string | null;
+  currency: Currency;
   month: MonthBreakdown;
   plan: AnnualPlan | null;
   monthNames: string[];
@@ -45,6 +46,7 @@ type Feedback = { kind: 'success' | 'error'; message: string };
 
 export function Results({
   userId,
+  currency,
   month,
   plan,
   monthNames,
@@ -53,7 +55,7 @@ export function Results({
 }: ResultsProps) {
   const t = useTranslations('calculator');
   const locale = useLocale();
-  const money = (value: number) => formatMoney(locale, value);
+  const money = (value: number) => formatMoney(locale, value, currency);
 
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [applying, setApplying] = useState(false);
@@ -313,10 +315,10 @@ function ResultItem({
   );
 }
 
-function formatMoney(locale: string, value: number): string {
+function formatMoney(locale: string, value: number, currency: Currency): string {
   return new Intl.NumberFormat(locale === 'en' ? 'en-GB' : 'pt-PT', {
     style: 'currency',
-    currency: 'EUR',
+    currency,
   }).format(value);
 }
 

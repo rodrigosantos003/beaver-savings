@@ -4,12 +4,15 @@ import { useMemo, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
 import {
+  Currency,
   DEFAULT_CHRISTMAS_MONTH,
+  DEFAULT_CURRENCY,
   DEFAULT_HOLIDAY_MONTH,
   DEFAULT_SS_RATE_PERCENT,
   SavingsInput,
   calculateAnnualPlan,
   calculateTypicalMonth,
+  isCurrency,
 } from 'savings-core';
 
 import { authClient } from '@/lib/auth-client';
@@ -52,6 +55,9 @@ export function Calculator() {
     return <Loading message={t('loading')} fullScreen />;
   }
 
+  const saved = session?.user.preferredCurrency;
+  const currency: Currency = saved && isCurrency(saved) ? saved : DEFAULT_CURRENCY;
+
   return (
     <div className="grid gap-8">
       <Results
@@ -60,12 +66,14 @@ export function Calculator() {
         monthNames={monthNames}
         subsidiesInTwelfths={input.subsidiesInTwelfths}
         userId={session?.user.id}
+        currency={currency}
       >
         <CalculatorForm
           input={input}
           onChange={setInput}
           monthNames={loggedIn ? monthNames : undefined}
           loggedIn={loggedIn}
+          currency={currency}
         />
       </Results>
 

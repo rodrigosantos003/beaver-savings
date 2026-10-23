@@ -61,8 +61,6 @@ export function CurrencySwitcher({
   const loggedIn = session ? true : sessionPending ? initialLoggedIn : false;
   if (!loggedIn) return null;
 
-  if (!session) return null;
-
   async function select(next: Currency) {
     setOpen(false);
     if (next === currency) return;

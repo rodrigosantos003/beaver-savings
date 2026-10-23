@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
         source: '/dam',
         destination: 'https://beaver-savings-api.vercel.app/dam',
       },
+      {
+        source: '/savings',
+        destination: 'https://beaver-savings-api.vercel.app/savings',
+      },
     ];
   },
 };

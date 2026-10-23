@@ -20,10 +20,10 @@ export async function Footer() {
 
         <div className="flex flex-col items-center gap-3 sm:items-end">
           <nav aria-label={t('footer.nav')} className="flex items-center gap-6">
-            <Link href="/privacy-policy" className={linkClass}>
+            <Link href="/privacy-policy" className={linkClass} prefetch={false}>
               {t('PrivacyPolicy.title')}
             </Link>
-            <Link href="/terms-and-conditions" className={linkClass}>
+            <Link href="/terms-and-conditions" className={linkClass} prefetch={false}>
               {t('Terms.title')}
             </Link>
             <DeleteAccountLink />

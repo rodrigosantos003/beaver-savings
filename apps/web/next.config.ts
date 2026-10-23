@@ -4,6 +4,8 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4331';
+
 const nextConfig: NextConfig = {
   transpilePackages: ['savings-core'],
 
@@ -11,23 +13,23 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/auth/:path*',
-        destination: 'https://beaver-savings-api.vercel.app/api/auth/:path*',
+        destination: `${apiUrl}/api/auth/:path*`,
       },
       {
         source: '/dam',
-        destination: 'https://beaver-savings-api.vercel.app/dam',
+        destination: `${apiUrl}/dam`,
       },
       {
         source: '/dam/:path*',
-        destination: 'https://beaver-savings-api.vercel.app/dam/:path*',
+        destination: `${apiUrl}/dam/:path*`,
       },
       {
         source: '/savings',
-        destination: 'https://beaver-savings-api.vercel.app/savings',
+        destination: `${apiUrl}/savings`,
       },
       {
         source: '/savings/:path*',
-        destination: 'https://beaver-savings-api.vercel.app/savings/:path*',
+        destination: `${apiUrl}/savings/:path*`,
       },
     ];
   },

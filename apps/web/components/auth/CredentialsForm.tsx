@@ -125,6 +125,7 @@ export function CredentialsForm({
             <Link
               href="/forgot-password"
               className="text-sm font-medium text-beaver-700 hover:text-beaver-900"
+              prefetch={false}
             >
               {t('forgotPassword')}
             </Link>
@@ -164,6 +165,7 @@ export function CredentialsForm({
         <Link
           href={isSignup ? '/login' : '/signup'}
           className="font-medium text-beaver-700 hover:text-beaver-900"
+          prefetch={false}
         >
           {isSignup ? t('loginLink') : t('signupLink')}
         </Link>
@@ -173,6 +175,7 @@ export function CredentialsForm({
         <Link
           href="/terms-and-conditions"
           className="font-medium text-beaver-700 hover:text-beaver-900"
+          prefetch={false}
         >
           {t('termsAndConditions')}
         </Link>

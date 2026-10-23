@@ -89,6 +89,7 @@ export default async function LandingPage() {
                 <Link
                   href="/calculator"
                   className={`${ctaClass} h-12 w-full px-8 text-base sm:w-auto`}
+                  prefetch={false}
                 >
                   {t('hero.exploreFeatures')}
                 </Link>

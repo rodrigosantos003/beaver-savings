@@ -1,15 +1,22 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
+
+import { AuthGuard } from '@thallesp/nestjs-better-auth';
 
 import { CreateDamEntryDto } from './dam.dto.js';
 import { DamService } from './dam.service.js';
 
-/**
- * NOTE: userId comes from the query string here to mirror the existing
- * results endpoints. Anyone can pass any userId this way, so once you have
- * a session guard, replace `@Query('userId')` with the authenticated
- * user's id (e.g. a custom @CurrentUserId() decorator).
- */
 @Controller('dam')
+@UseGuards(AuthGuard)
 export class DamController {
   constructor(private readonly dam: DamService) {}
 

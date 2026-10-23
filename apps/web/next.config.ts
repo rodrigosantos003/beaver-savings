@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
         source: '/api/auth/:path*',
         destination: 'https://beaver-savings-api.vercel.app/api/auth/:path*',
       },
+      {
+        source: '/dam',
+        destination: 'https://beaver-savings-api.vercel.app/dam',
+      },
     ];
   },
 };

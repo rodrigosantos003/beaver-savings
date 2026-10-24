@@ -33,5 +33,6 @@ export default function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/((?!api|dam(?:/|$)|savings(?:/|$)|trpc|_next|_vercel|.*\\..*).*)',
+  matcher:
+    '/((?!api|dam(?:/|$)|savings(?:/|$)|trpc|_next|_vercel|sw\\.js|manifest\\.webmanifest|.*\\..*).*)',
 };

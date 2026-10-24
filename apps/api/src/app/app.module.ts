@@ -1,6 +1,7 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { ResilienceModule } from '@nestjs/resilience';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 import type { Connection } from 'mongoose';
@@ -33,6 +34,15 @@ export class AppModule {
           useFactory: async (connection: Connection) => ({
             auth: await createAuth(connection),
           }),
+        }),
+        ResilienceModule.forRoot({
+          presets: {
+            carrier: {
+              timeout: '2s',
+              retry: { attempts: 2 },
+              circuitBreaker: { failureRateThreshold: 50, minimumCalls: 10, openDuration: '30s' },
+            },
+          },
         }),
         SavingsModule,
         DamModule,

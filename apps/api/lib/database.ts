@@ -7,6 +7,8 @@ export const DATABASE_CONNECTION = Symbol('DATABASE_CONNECTION');
 
 const logger = new Logger('MongoDB');
 
+const dbName = process.env.DB_NAME ?? 'dev';
+
 @Global()
 @Module({
   providers: [
@@ -14,7 +16,7 @@ const logger = new Logger('MongoDB');
       provide: DATABASE_CONNECTION,
       useFactory: async (): Promise<Connection> => {
         const conn = createConnection(process.env.MONGODB_URI!, {
-          dbName: 'app',
+          dbName: dbName,
           maxPoolSize: 3,
           minPoolSize: 0,
           maxIdleTimeMS: 30_000,

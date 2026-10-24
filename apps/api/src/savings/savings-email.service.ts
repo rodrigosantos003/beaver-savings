@@ -12,7 +12,7 @@ import { SavingsEmailRequest } from './parse-email-request.js';
 
 @Injectable()
 export class SavingsEmailService {
-  async send(request: SavingsEmailRequest): Promise<{ sent: true }> {
+  async send(request: SavingsEmailRequest, signal: AbortSignal): Promise<{ sent: true }> {
     const month = calculateTypicalMonth(request.input);
     const plan = calculateAnnualPlan(request.input);
 
@@ -21,9 +21,14 @@ export class SavingsEmailService {
       subject: subject(request.locale),
       text: formatSummary(request.locale, month, plan),
       html: formatHtml(request.locale, request.to, month, plan),
+      signal,
     });
 
     return { sent: true };
+  }
+
+  flatSend() {
+    return { sent: false };
   }
 }
 

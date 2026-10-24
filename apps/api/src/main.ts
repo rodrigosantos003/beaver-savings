@@ -2,7 +2,6 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import 'dotenv/config';
-import helmet from 'helmet';
 
 import { AppModule } from './app/app.module.js';
 
@@ -21,11 +20,9 @@ async function bootstrap() {
     allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
-  app.use(
-    helmet({
-      crossOriginResourcePolicy: { policy: 'cross-origin' },
-    }),
-  );
+  app.useSecurityHeaders({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  });
 
   const port = process.env.PORT || 3001;
 

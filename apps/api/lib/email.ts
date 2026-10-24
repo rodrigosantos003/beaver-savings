@@ -10,17 +10,31 @@ const FROM = process.env.RESEND_FROM || '';
 type SendEmailParams = {
   to: string;
   subject: string;
+  signal?: AbortSignal;
 } & ({ html: string; text?: string } | { text: string; html?: string });
 
-export async function sendEmail({ to, subject, html, text }: SendEmailParams): Promise<void> {
+export async function sendEmail({
+  to,
+  subject,
+  html,
+  text,
+  signal,
+}: SendEmailParams): Promise<void> {
   const resend = new Resend(API_KEY);
-  const { error } = await resend.emails.send({
-    from: FROM,
-    to,
-    subject,
-    ...(html ? { html } : {}),
-    ...(text ? { text } : {}),
-  } as Parameters<Resend['emails']['send']>[0]);
+  const { error } = await resend.emails.send(
+    {
+      from: FROM,
+      to,
+      subject,
+      ...(html ? { html } : {}),
+      ...(text ? { text } : {}),
+    } as Parameters<Resend['emails']['send']>[0],
+    { signal },
+  );
+
+  if (signal?.aborted) {
+    throw signal.reason;
+  }
 
   if (error) {
     throw new BadGatewayException(error.message);

@@ -159,7 +159,7 @@ export function Results({
                     inputMode="decimal"
                     value={applyValue}
                     onChange={(e) => setApplyInput(e.target.value)}
-                    className="w-32 rounded-xl border border-stone-300 bg-white px-3 py-2 text-stone-900"
+                    className="text-base w-32 rounded-xl border border-stone-300 bg-white px-3 py-2 text-stone-900"
                   />
                 </label>
                 <button

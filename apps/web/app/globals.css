@@ -153,8 +153,10 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+  max-width: 100%;
   overflow-x: clip;
   overscroll-behavior-x: none;
+  touch-action: manipulation;
 }
 
 button {

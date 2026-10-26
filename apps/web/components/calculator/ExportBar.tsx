@@ -79,7 +79,7 @@ export function ExportBar({ input }: ExportBarProps) {
                 setStatus('idle');
               }
             }}
-            className="w-full rounded-full border border-stone-200 px-4 py-2 text-sm outline-none focus:border-beaver-400"
+            className="w-full rounded-full border border-stone-200 px-4 py-2 text-base outline-none focus:border-beaver-400"
           />
           <button
             type="submit"

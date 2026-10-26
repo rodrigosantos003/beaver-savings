@@ -8,7 +8,7 @@ import { SavingsInput, suggestSavings } from 'savings-core';
 import { currencySymbol } from '../../lib/currencies';
 
 const inputClass =
-  'mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100';
+  'mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-base text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100';
 
 type CalculatorFormProps = {
   input: SavingsInput;

@@ -7,6 +7,7 @@ import { getMessages, getTranslations } from 'next-intl/server';
 
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import PWAInstallPrompt from '@/components/PWAInstallPrompt';
 import { routing } from '@/i18n/routing';
 import { SITE_URL } from '@/lib/constants';
 
@@ -99,6 +100,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header />
+          <PWAInstallPrompt />
           <main className="flex flex-1 flex-col">{children}</main>
           <Footer />
         </NextIntlClientProvider>

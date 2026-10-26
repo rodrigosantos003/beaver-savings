@@ -14,6 +14,7 @@ type NavigatorWithStandalone = Navigator & { standalone?: boolean };
 type Platform = 'ios' | 'ipad' | 'android' | 'desktop' | 'installed' | 'snoozed' | 'server';
 
 const DISMISS_KEY = 'pwa-install-dismissed-at';
+const INSTALLED_KEY = 'pwa-was-installed';
 const SNOOZE_DAYS = 14;
 const SHOW_DELAY_MS = 1000;
 
@@ -35,14 +36,42 @@ function writeDismissedAt() {
   }
 }
 
-function getPlatform(): Platform {
-  const standalone =
+function readWasInstalled(): boolean {
+  try {
+    return localStorage.getItem(INSTALLED_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function markWasInstalled() {
+  try {
+    localStorage.setItem(INSTALLED_KEY, '1');
+  } catch {
+    // ignore
+  }
+}
+
+function clearWasInstalled() {
+  try {
+    localStorage.removeItem(INSTALLED_KEY);
+  } catch {
+    // ignore
+  }
+}
+
+function isStandalone(): boolean {
+  return (
     window.matchMedia('(display-mode: standalone)').matches ||
-    (navigator as NavigatorWithStandalone).standalone === true;
-  if (standalone) return 'installed';
+    (navigator as NavigatorWithStandalone).standalone === true
+  );
+}
+
+function getPlatform(): Platform {
+  if (isStandalone()) return 'installed';
 
   const dismissedAt = readDismissedAt();
-  if (dismissedAt && Date.now() - dismissedAt < SNOOZE_DAYS * 86_400_000) {
+  if (!readWasInstalled() && dismissedAt && Date.now() - dismissedAt < SNOOZE_DAYS * 86_400_000) {
     return 'snoozed';
   }
 
@@ -122,13 +151,17 @@ export default function PWAInstallPrompt() {
   const [closed, setClosed] = useState(false);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setReady(true), SHOW_DELAY_MS);
+    if (isStandalone()) markWasInstalled();
+
+    const delay = readWasInstalled() ? 0 : SHOW_DELAY_MS;
+    const timer = window.setTimeout(() => setReady(true), delay);
 
     const onBeforeInstall = (e: Event) => {
       e.preventDefault();
       setDeferred(e as BeforeInstallPromptEvent);
     };
     const onInstalled = () => {
+      markWasInstalled();
       setDeferred(null);
       setClosed(true);
     };
@@ -148,6 +181,7 @@ export default function PWAInstallPrompt() {
   if (!ready || closed || (!isIOS && !isInstallable)) return null;
 
   const dismiss = () => {
+    clearWasInstalled();
     writeDismissedAt();
     setClosed(true);
   };
@@ -157,7 +191,12 @@ export default function PWAInstallPrompt() {
     try {
       await deferred.prompt();
       const { outcome } = await deferred.userChoice;
-      if (outcome === 'dismissed') writeDismissedAt();
+      if (outcome === 'accepted') {
+        markWasInstalled();
+      } else {
+        clearWasInstalled();
+        writeDismissedAt();
+      }
     } finally {
       setDeferred(null);
       setClosed(true);

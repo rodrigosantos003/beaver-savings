@@ -149,12 +149,13 @@
   --font-mono: var(--font-geist-mono);
 }
 
+html,
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   max-width: 100%;
-  overflow-x: clip;
+  overflow-x: hidden;
   overscroll-behavior-x: none;
   touch-action: manipulation;
 }
@@ -194,5 +195,13 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .river-wave-track {
     animation: none;
+  }
+}
+
+@supports (overflow: clip) {
+
+  html,
+  body {
+    overflow-x: clip;
   }
 }

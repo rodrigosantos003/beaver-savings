@@ -46,10 +46,10 @@ export function CalculatorForm({
 
   return (
     <form
-      className="grid gap-6 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm print:hidden"
+      className="grid min-w-0 gap-6 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm print:hidden"
       onSubmit={(event) => event.preventDefault()}
     >
-      <fieldset className="grid gap-4 sm:grid-cols-2">
+      <fieldset className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
         <legend className="mb-1 text-lg font-semibold text-stone-900">{t('income')}</legend>
         <NumberField
           label={t('baseSalary')}
@@ -113,7 +113,7 @@ export function CalculatorForm({
         />
       </div>
 
-      <fieldset className="grid gap-4 sm:grid-cols-2">
+      <fieldset className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
         <legend className="mb-1 text-lg font-semibold text-stone-900">{t('taxes')}</legend>
         <NumberField
           label={t('irs')}
@@ -135,7 +135,7 @@ export function CalculatorForm({
         />
       </fieldset>
 
-      <fieldset className="grid gap-4">
+      <fieldset className="grid min-w-0 grid-cols-1 gap-4">
         <legend className="text-lg font-semibold text-stone-900">{t('method')}</legend>
         <div className="flex flex-wrap gap-4 text-sm font-medium text-stone-700">
           <label className="flex items-center gap-2">

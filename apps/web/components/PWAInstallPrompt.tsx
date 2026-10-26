@@ -1,6 +1,8 @@
 'use client';
 
-import { useEffect, useState, useSyncExternalStore } from 'react';
+import { type ReactNode, useEffect, useState, useSyncExternalStore } from 'react';
+
+import { useTranslations } from 'next-intl';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -9,11 +11,11 @@ interface BeforeInstallPromptEvent extends Event {
 
 type NavigatorWithStandalone = Navigator & { standalone?: boolean };
 
-type Platform = 'ios' | 'android' | 'desktop' | 'installed' | 'snoozed' | 'server';
+type Platform = 'ios' | 'ipad' | 'android' | 'desktop' | 'installed' | 'snoozed' | 'server';
 
 const DISMISS_KEY = 'pwa-install-dismissed-at';
 const SNOOZE_DAYS = 14;
-const SHOW_DELAY_MS = 3000;
+const SHOW_DELAY_MS = 1000;
 
 const subscribe = () => () => {};
 
@@ -45,18 +47,24 @@ function getPlatform(): Platform {
   }
 
   const ua = navigator.userAgent;
-  const isIOS =
-    /iphone|ipad|ipod/i.test(ua) ||
-    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPadOS
+  const isIPhone = /iphone|ipod/i.test(ua);
+  const isIPad =
+    /ipad/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPadOS
   const isSafari = !/crios|fxios|edgios|opios/i.test(ua);
 
-  if (isIOS) return isSafari ? 'ios' : 'desktop';
+  if (isIPhone || isIPad) {
+    if (!isSafari) return 'desktop'; // non-Safari iOS browsers: no prompt
+    return isIPad ? 'ipad' : 'ios';
+  }
 
   const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
   if (/android/i.test(ua) || isTouchDevice) return 'android';
 
   return 'desktop';
 }
+
+// Renders <b>...</b> tags used inside the translation strings
+const bold = (chunks: ReactNode) => <b>{chunks}</b>;
 
 function ShareIcon({ className }: { className?: string }) {
   return (
@@ -100,12 +108,13 @@ function PlusSquareIcon({ className }: { className?: string }) {
 }
 
 const primaryButton =
-  'rounded-lg bg-secondary py-2.5 text-sm font-medium text-surface transition-colors hover:bg-sexondary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
+  'rounded-lg bg-secondary py-2.5 text-sm font-medium text-surface transition-colors hover:bg-secondary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 
 const ghostButton =
   'rounded-lg px-3 text-sm text-muted transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring';
 
 export default function PWAInstallPrompt() {
+  const t = useTranslations('PWAInstall');
   const platform = useSyncExternalStore<Platform>(subscribe, getPlatform, () => 'server');
 
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
@@ -133,7 +142,7 @@ export default function PWAInstallPrompt() {
     };
   }, []);
 
-  const isIOS = platform === 'ios';
+  const isIOS = platform === 'ios' || platform === 'ipad';
   const isInstallable = platform === 'android' && deferred !== null;
 
   if (!ready || closed || (!isIOS && !isInstallable)) return null;
@@ -155,19 +164,6 @@ export default function PWAInstallPrompt() {
     }
   };
 
-  const openShare = async () => {
-    try {
-      await navigator.share({
-        title: document.title,
-        url: window.location.origin,
-      });
-    } catch (err: unknown) {
-      if (!(err instanceof DOMException && err.name === 'AbortError')) {
-        console.error(err);
-      }
-    }
-  };
-
   return (
     <div
       role="dialog"
@@ -178,15 +174,13 @@ export default function PWAInstallPrompt() {
         <div className="flex items-start justify-between gap-3">
           <div>
             <h2 id="pwa-install-title" className="text-base font-semibold text-foreground">
-              Install the app
+              {t('title')}
             </h2>
-            <p className="mt-0.5 text-sm text-muted-foreground">
-              Open it from your home screen, full screen and faster to reach.
-            </p>
+            <p className="mt-0.5 text-sm text-muted-foreground">{t('description')}</p>
           </div>
           <button
             onClick={dismiss}
-            aria-label="Close"
+            aria-label={t('close')}
             className="-mr-1 -mt-1 rounded-full p-1.5 text-muted transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring"
           >
             <svg
@@ -209,50 +203,59 @@ export default function PWAInstallPrompt() {
             <ol className="mt-3 space-y-2 rounded-xl bg-surface-sunken p-3 text-sm text-foreground">
               <li className="flex items-center gap-2">
                 <ShareIcon className="shrink-0 text-river-500" />
-                <span>
-                  Tap <b>Share</b> in the Safari toolbar
-                </span>
+                <span>{t.rich('iosStepShare', { b: bold })}</span>
               </li>
               <li className="flex items-center gap-2">
                 <PlusSquareIcon className="shrink-0 text-primary" />
-                <span>
-                  Scroll down and tap <b>Add to Home Screen</b>
-                </span>
+                <span>{t.rich('iosStepAddToHome', { b: bold })}</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="flex h-4.5 w-4.5 shrink-0 items-center justify-center text-xs font-bold text-secondary">
                   ✓
                 </span>
-                <span>
-                  Tap <b>Add</b>
-                </span>
+                <span>{t.rich('iosStepConfirm', { b: bold })}</span>
               </li>
             </ol>
 
-            <div className="mt-4 flex gap-2">
-              <button
-                onClick={openShare}
-                className={`${primaryButton} flex flex-1 items-center justify-center gap-2`}
-              >
-                <ShareIcon />
-                Open share menu
-              </button>
+            <div className="mt-4 flex items-center justify-between gap-3">
+              <p className="text-xs text-muted">{t('iosToolbarHint')}</p>
               <button onClick={dismiss} className={ghostButton}>
-                Not now
+                {t('gotIt')}
               </button>
             </div>
           </>
         ) : (
           <div className="mt-4 flex gap-2">
             <button onClick={install} className={`${primaryButton} flex-1`}>
-              Install
+              {t('install')}
             </button>
             <button onClick={dismiss} className={ghostButton}>
-              Not now
+              {t('notNow')}
             </button>
           </div>
         )}
       </div>
+
+      {platform === 'ios' && (
+        <div
+          className="mt-1 flex justify-center text-secondary motion-safe:animate-bounce"
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M12 5v14" />
+            <path d="m6 13 6 6 6-6" />
+          </svg>
+        </div>
+      )}
     </div>
   );
 }

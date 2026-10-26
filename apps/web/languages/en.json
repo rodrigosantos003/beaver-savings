@@ -690,5 +690,17 @@
   "currencySwitcher": {
     "label": "Currency",
     "saveFailed": "Could not save your currency. Please try again."
+  },
+  "PWAInstall": {
+    "title": "Install the app",
+    "description": "Open it from your home screen, full screen and faster to reach.",
+    "close": "Close",
+    "install": "Install",
+    "notNow": "Not now",
+    "gotIt": "Got it",
+    "iosStepShare": "Tap <b>Share</b> in the Safari toolbar",
+    "iosStepAddToHome": "Scroll down and tap <b>Add to Home Screen</b>. Don't see it? Tap <b>View More</b> or <b>Edit Actions</b> at the bottom.",
+    "iosStepConfirm": "Tap <b>Add</b>",
+    "iosToolbarHint": "The Share button is in Safari's toolbar, not in this page."
   }
 }

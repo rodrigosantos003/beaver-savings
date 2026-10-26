@@ -693,5 +693,17 @@
   "currencySwitcher": {
     "label": "Moeda",
     "saveFailed": "Não foi possível guardar a moeda. Tente novamente."
+  },
+  "PWAInstall": {
+    "title": "Instalar a aplicação",
+    "description": "Abra-a a partir do ecrã principal, em ecrã inteiro e mais rápido de aceder.",
+    "close": "Fechar",
+    "install": "Instalar",
+    "notNow": "Agora não",
+    "gotIt": "Percebi",
+    "iosStepShare": "Toque em <b>Partilhar</b> na barra de ferramentas do Safari",
+    "iosStepAddToHome": "Deslize para baixo e toque em <b>Adicionar ao ecrã principal</b>. Não aparece? Toque em <b>Ver mais</b> ou <b>Editar ações</b> no fundo.",
+    "iosStepConfirm": "Toque em <b>Adicionar</b>",
+    "iosToolbarHint": "O botão Partilhar está na barra de ferramentas do Safari, não nesta página."
   }
 }

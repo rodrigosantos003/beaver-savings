@@ -60,7 +60,7 @@ export function Results({
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [applying, setApplying] = useState(false);
 
-  const dam = useDam(userId);
+  const { entries, total, adding, add, withdraw, remove } = useDam(userId);
   const [applyInput, setApplyInput] = useState<string | null>(null);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export function Results({
     if (applying) return false;
     setApplying(true);
     try {
-      const ok = await dam.add(amount);
+      const ok = await add(amount);
       setFeedback(
         ok
           ? { kind: 'success', message: t('applySuccess', { amount: money(amount) }) }
@@ -273,9 +273,11 @@ export function Results({
       {/* 2. Beaver dam */}
       {userId ? (
         <SavingsDam
-          total={dam.total}
-          entries={dam.entries}
-          onRemove={dam.remove}
+          total={total}
+          entries={entries}
+          onRemove={remove}
+          onWithdraw={withdraw}
+          busy={adding}
           money={money}
           dateFmt={dateFmt}
         />

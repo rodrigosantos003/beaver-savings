@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
 
 import withSerwistInit from '@serwist/next';
+import { withRedact } from '@tanstack/redact/next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
@@ -8,7 +9,7 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 const withSerwist = withSerwistInit({
   swSrc: 'app/sw.ts',
   swDest: 'public/sw.js',
-  disable: process.env.NODE_ENV === 'development',
+  disable: process.env.NODE_ENV !== 'production',
 });
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4331';
@@ -42,4 +43,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSerwist(withNextIntl(nextConfig));
+export default withSerwist(withRedact(withNextIntl(nextConfig)));

@@ -231,10 +231,15 @@
     "terms": "Termos e Condições",
     "deleteAccount": "Eliminar conta",
     "suggested": "Sugerido",
-    "applySuccess": "{amount} adicionado à tua represa.",
+    "applySuccess": "{amount} adicionado à tua barragem.",
     "applyError": "Não foi possível adicionar o montante à tua barragem de poupanças.",
     "applyInvalid": "Introduz um valor válido.",
-    "breakdownTitle": "Distribuição do rendimento líquido"
+    "breakdownTitle": "Distribuição do rendimento líquido",
+    "withdrawLabel": "Levanta um valor",
+    "withdrawButton": "Levantar",
+    "withdrawTooLarge": "Não podes retirar mais de {total}.",
+    "withdrawal": "Levantamento",
+    "errorWithdraw": "Não foi possível levantar. Tenta novamente mais tarde."
   },
   "unlock": {
     "title": "Desbloquear mais funcionalidades",

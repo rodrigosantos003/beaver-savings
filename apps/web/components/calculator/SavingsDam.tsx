@@ -1,5 +1,7 @@
 'use client';
 
+import { SyntheticEvent, useState } from 'react';
+
 import { useTranslations } from 'next-intl';
 
 import type { DamEntry } from '../../lib/hooks/useDam';
@@ -21,16 +23,39 @@ type Props = {
   total: number;
   entries: DamEntry[];
   onRemove: (id: string) => void;
+  onWithdraw: (amount: number) => Promise<boolean>;
+  busy?: boolean;
   money: (value: number) => string;
   dateFmt: Intl.DateTimeFormat;
 };
 
-export function SavingsDam({ total, entries, onRemove, money, dateFmt }: Props) {
+export function SavingsDam({
+  total,
+  entries,
+  onRemove,
+  onWithdraw,
+  busy = false,
+  money,
+  dateFmt,
+}: Props) {
   const t = useTranslations('calculator');
-  const { rows, full, partial, nextAt, maxed } = damProgress(total);
+  const [withdrawInput, setWithdrawInput] = useState('');
+
+  const safeTotal = Math.max(0, total);
+  const { rows, full, partial, nextAt, maxed } = damProgress(safeTotal);
   const drawnRows = Math.min(MAX_ROWS, full + (partial > 0 ? 1 : 0));
   const waterH = 30 + rows * 10;
   const top = Math.min(100, GROUND_Y - drawnRows * ROW_H - 34);
+
+  const parsed = Number(withdrawInput.trim().replace(',', '.'));
+  const validAmount = Number.isFinite(parsed) && parsed > 0;
+  const tooLarge = validAmount && Math.round(parsed * 100) > Math.round(safeTotal * 100);
+
+  async function handleWithdraw(e: SyntheticEvent) {
+    e.preventDefault();
+    if (!validAmount || tooLarge || busy) return;
+    if (await onWithdraw(parsed)) setWithdrawInput('');
+  }
 
   return (
     <section className="min-w-0 rounded-2xl border border-beaver-200 bg-beaver-50 p-6 print:hidden">
@@ -90,6 +115,39 @@ export function SavingsDam({ total, entries, onRemove, money, dateFmt }: Props) 
         {maxed ? t('damMax') : t('damNext', { amount: money(nextAt) })}
       </p>
 
+      {safeTotal > 0 ? (
+        <form onSubmit={handleWithdraw} className="mt-4">
+          <label htmlFor="dam-withdraw" className="text-sm font-medium text-stone-800">
+            {t('withdrawLabel')}
+          </label>
+          <div className="mt-1 flex gap-2">
+            <input
+              id="dam-withdraw"
+              type="text"
+              inputMode="decimal"
+              autoComplete="off"
+              value={withdrawInput}
+              onChange={(e) => setWithdrawInput(e.target.value)}
+              aria-invalid={tooLarge}
+              aria-describedby={tooLarge ? 'dam-withdraw-error' : undefined}
+              className="w-30 rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm"
+            />
+            <button
+              type="submit"
+              disabled={!validAmount || tooLarge || busy}
+              className="rounded-lg border border-stone-300 px-3 py-2 text-sm font-medium text-red-600 hover:bg-white disabled:opacity-50"
+            >
+              {t('withdrawButton')}
+            </button>
+          </div>
+          {tooLarge ? (
+            <p id="dam-withdraw-error" className="mt-1 text-sm text-red-600">
+              {t('withdrawTooLarge', { total: money(safeTotal) })}
+            </p>
+          ) : null}
+        </form>
+      ) : null}
+
       {entries.length > 0 ? (
         <details className="mt-4">
           <summary className="cursor-pointer text-sm font-medium text-stone-800">
@@ -99,7 +157,14 @@ export function SavingsDam({ total, entries, onRemove, money, dateFmt }: Props) 
             {entries.map((e) => (
               <li key={e.id} className="flex items-center justify-between gap-3 py-2 text-sm">
                 <div className="min-w-0">
-                  <p className="font-medium text-stone-800">{money(e.amount)}</p>
+                  <p className="font-medium text-stone-800">
+                    {money(e.amount)}
+                    {e.amount < 0 ? (
+                      <span className="ml-2 rounded bg-stone-200 px-1.5 py-0.5 text-xs font-normal text-stone-700">
+                        {t('withdrawal')}
+                      </span>
+                    ) : null}
+                  </p>
                   <p className="text-stone-500">{dateFmt.format(new Date(e.createdAt))}</p>
                 </div>
                 <button

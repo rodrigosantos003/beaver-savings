@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
 import {
@@ -13,16 +13,23 @@ import {
   calculateAnnualPlan,
   calculateTypicalMonth,
   isCurrency,
+  suggestSavings,
 } from 'savings-core';
 
 import { authClient } from '@/lib/auth-client';
 
+import {
+  type CalculatorHabits,
+  getCalculatorHabits,
+  getLatestCalculatorInput,
+} from '../../lib/api/calculator';
+import { usePersistInput } from '../../lib/hooks/usePersistInput';
 import { Loading } from '../Loading';
 import { CalculatorForm } from './CalculatorForm';
 import { ExportBar } from './ExportBar';
 import { Results } from './Results';
 
-const initialInput: SavingsInput = {
+const defaultInput: SavingsInput = {
   baseSalary: 1500,
   holidaySubsidy: 1500,
   christmasSubsidy: 1500,
@@ -41,22 +48,81 @@ const initialInput: SavingsInput = {
 };
 
 export function Calculator() {
-  const locale = useLocale();
   const t = useTranslations('unlock');
   const { data: session, isPending } = authClient.useSession();
-  const loggedIn = !!session;
+  const userId = session?.user.id;
 
-  const [input, setInput] = useState<SavingsInput>(initialInput);
-  const monthNames = useMemo(() => monthLabels(locale), [locale]);
-  const month = useMemo(() => calculateTypicalMonth(input), [input]);
-  const plan = useMemo(() => (loggedIn ? calculateAnnualPlan(input) : null), [input, loggedIn]);
+  const [latest, setLatest] = useState<{ userId: string; input: SavingsInput | null } | null>(null);
 
-  if (isPending) {
+  useEffect(() => {
+    if (!userId) return;
+
+    let cancelled = false;
+    getLatestCalculatorInput()
+      .then((res) => !cancelled && setLatest({ userId, input: res.input }))
+      .catch(() => !cancelled && setLatest({ userId, input: null }));
+
+    return () => {
+      cancelled = true;
+    };
+  }, [userId]);
+
+  const ready = !isPending && (!userId || latest?.userId === userId);
+
+  if (!ready) {
     return <Loading message={t('loading')} fullScreen />;
   }
 
   const saved = session?.user.preferredCurrency;
   const currency: Currency = saved && isCurrency(saved) ? saved : DEFAULT_CURRENCY;
+
+  return (
+    <CalculatorContent
+      key={userId ?? 'anonymous'}
+      userId={userId}
+      currency={currency}
+      startingInput={latest?.input ? { ...defaultInput, ...latest.input } : defaultInput}
+    />
+  );
+}
+
+function CalculatorContent({
+  userId,
+  currency,
+  startingInput,
+}: {
+  userId?: string;
+  currency: Currency;
+  startingInput: SavingsInput;
+}) {
+  const locale = useLocale();
+  const t = useTranslations('unlock');
+  const loggedIn = !!userId;
+
+  const [input, setInput] = useState<SavingsInput>(startingInput);
+  const monthNames = useMemo(() => monthLabels(locale), [locale]);
+  const month = useMemo(() => calculateTypicalMonth(input), [input]);
+  const plan = useMemo(() => (loggedIn ? calculateAnnualPlan(input) : null), [input, loggedIn]);
+
+  usePersistInput(input, loggedIn);
+
+  const [habits, setHabits] = useState<CalculatorHabits | null>(null);
+  useEffect(() => {
+    if (!loggedIn) return;
+    getCalculatorHabits()
+      .then(setHabits)
+      .catch(() => {});
+  }, [loggedIn]);
+
+  const suggestions = useMemo(() => {
+    if (!loggedIn) return undefined;
+    const base = suggestSavings(input);
+    return {
+      ...base,
+      savingsPercent: habits?.medianSavingsPercent ?? base.savingsPercent,
+      savingsAmount: habits?.medianSavingsAmount ?? base.savingsAmount,
+    };
+  }, [loggedIn, input, habits]);
 
   return (
     <div className="grid gap-8">
@@ -65,7 +131,7 @@ export function Calculator() {
         plan={plan}
         monthNames={monthNames}
         subsidiesInTwelfths={input.subsidiesInTwelfths}
-        userId={session?.user.id}
+        userId={userId}
         currency={currency}
       >
         <CalculatorForm
@@ -74,6 +140,7 @@ export function Calculator() {
           monthNames={loggedIn ? monthNames : undefined}
           loggedIn={loggedIn}
           currency={currency}
+          suggestions={suggestions}
         />
       </Results>
 

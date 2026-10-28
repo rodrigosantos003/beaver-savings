@@ -240,7 +240,12 @@
     "applySuccess": "{amount} added to your dam.",
     "applyError": "We couldn't add to your savings dam. Please try again.",
     "applyInvalid": "Enter a valid amount.",
-    "breakdownTitle": "Net income breakdown"
+    "breakdownTitle": "Net income breakdown",
+    "withdrawLabel": "Take out an amount",
+    "withdrawButton": "Withdraw",
+    "withdrawTooLarge": "You can't take out more than {total}.",
+    "withdrawal": "Withdrawal",
+    "errorWithdraw": "Couldn't withdraw. Please try again."
   },
   "unlock": {
     "title": "Unlock more features",

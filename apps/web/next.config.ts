@@ -39,6 +39,10 @@ const nextConfig: NextConfig = {
         source: '/savings/:path*',
         destination: `${apiUrl}/savings/:path*`,
       },
+      {
+        source: '/snapshots/:path*',
+        destination: `${apiUrl}/snapshots/:path*`,
+      },
     ];
   },
 };

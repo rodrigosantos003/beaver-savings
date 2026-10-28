@@ -710,5 +710,11 @@
     "iosStepAddToHome": "Deslize para baixo e toque em <b>Adicionar ao ecrã principal</b>. Não aparece? Toque em <b>Ver mais</b> ou <b>Editar ações</b> no fundo.",
     "iosStepConfirm": "Toque em <b>Adicionar</b>",
     "iosToolbarHint": "O botão Partilhar está na barra de ferramentas do Safari, não nesta página."
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "description": "A página que procuras não existe ou foi removida. Volta à página inicial ou abre a calculadora.",
+    "backHome": "Voltar ao início",
+    "openCalculator": "Abrir calculadora"
   }
 }

@@ -707,5 +707,11 @@
     "iosStepAddToHome": "Scroll down and tap <b>Add to Home Screen</b>. Don't see it? Tap <b>View More</b> or <b>Edit Actions</b> at the bottom.",
     "iosStepConfirm": "Tap <b>Add</b>",
     "iosToolbarHint": "The Share button is in Safari's toolbar, not in this page."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved. Head back home or jump into the calculator.",
+    "backHome": "Back to home",
+    "openCalculator": "Open the calculator"
   }
 }

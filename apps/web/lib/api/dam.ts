@@ -16,13 +16,10 @@ export function listDam() {
 }
 
 export function addDamEntry(amount: number) {
-  return (
-    request<DamEntry>('/dam'),
-    {
-      method: 'POST',
-      body: JSON.stringify({ amount }),
-    }
-  );
+  return request<DamEntry>('/dam', {
+    method: 'POST',
+    body: JSON.stringify({ amount }),
+  });
 }
 
 export function removeDamEntry(id: string) {

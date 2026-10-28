@@ -24,7 +24,7 @@ export function useDam(userId?: string | null) {
   useEffect(() => {
     if (!userId) return;
     let cancelled = false;
-    listDam(userId)
+    listDam()
       .then((res) => {
         if (cancelled) return;
         setLoaded(res.entries);
@@ -48,14 +48,13 @@ export function useDam(userId?: string | null) {
 
   const total = useMemo(() => round2(entries.reduce((sum, e) => sum + e.amount, 0)), [entries]);
 
-  // Shared by deposits (positive amount) and withdrawals (negative amount).
   const post = useCallback(
     async (amount: number, errorKind: 'add' | 'withdraw'): Promise<boolean> => {
       if (!userId || !Number.isFinite(amount) || amount === 0) return false;
       setAdding(true);
       setError(null);
       try {
-        const created = await addDamEntry(userId, round2(amount));
+        const created = await addDamEntry(round2(amount));
         setLoaded((prev) => [created, ...prev]);
         return true;
       } catch {
@@ -89,11 +88,11 @@ export function useDam(userId?: string | null) {
       setError(null);
       setLoaded((prev) => prev.filter((e) => e.id !== id));
       try {
-        await removeDamEntry(userId, id);
+        await removeDamEntry(id);
       } catch {
         setError('remove');
         try {
-          setLoaded((await listDam(userId)).entries);
+          setLoaded((await listDam()).entries);
         } catch {
           /* keep the error state set above */
         }

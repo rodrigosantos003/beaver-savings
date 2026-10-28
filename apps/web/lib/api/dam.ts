@@ -1,4 +1,4 @@
-import { request, withQuery } from './index';
+import { request } from './index';
 
 export type DamEntry = {
   id: string;
@@ -11,19 +11,22 @@ export type DamState = {
   total: number;
 };
 
-export function listDam(userId: string) {
-  return request<DamState>(withQuery('/dam', { userId }));
+export function listDam() {
+  return request<DamState>('/dam');
 }
 
-export function addDamEntry(userId: string, amount: number) {
-  return request<DamEntry>(withQuery('/dam', { userId }), {
-    method: 'POST',
-    body: JSON.stringify({ amount }),
-  });
+export function addDamEntry(amount: number) {
+  return (
+    request<DamEntry>('/dam'),
+    {
+      method: 'POST',
+      body: JSON.stringify({ amount }),
+    }
+  );
 }
 
-export function removeDamEntry(userId: string, id: string) {
-  return request<void>(withQuery(`/dam/${encodeURIComponent(id)}`, { userId }), {
+export function removeDamEntry(id: string) {
+  return request<void>(`/dam/${encodeURIComponent(id)}`, {
     method: 'DELETE',
   });
 }

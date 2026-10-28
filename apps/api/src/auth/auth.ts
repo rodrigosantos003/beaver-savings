@@ -69,6 +69,7 @@ export async function createAuth(connection: Connection) {
           const query = { userId: user.id };
 
           await db.collection('dam_entries').deleteMany(query);
+          await db.collection('calculator_snapshots').deleteMany(query);
         },
       },
       additionalFields: {

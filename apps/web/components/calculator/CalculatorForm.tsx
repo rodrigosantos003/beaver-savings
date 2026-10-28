@@ -16,6 +16,7 @@ type CalculatorFormProps = {
   monthNames?: string[];
   loggedIn: boolean;
   currency?: string;
+  suggestions?: { savingsPercent?: number; savingsAmount?: number };
 };
 
 export function CalculatorForm({
@@ -24,6 +25,7 @@ export function CalculatorForm({
   monthNames,
   loggedIn,
   currency = '€',
+  suggestions: suggestionsProp,
 }: CalculatorFormProps) {
   const t = useTranslations('calculator');
   const locale = useLocale();
@@ -42,7 +44,7 @@ export function CalculatorForm({
     update(key, value);
   }
 
-  const suggestions = loggedIn ? suggestSavings(input) : undefined;
+  const suggestions = loggedIn ? (suggestionsProp ?? suggestSavings(input)) : undefined;
 
   return (
     <form

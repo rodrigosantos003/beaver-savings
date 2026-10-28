@@ -8,6 +8,7 @@ import type { Connection } from 'mongoose';
 
 import { DATABASE_CONNECTION } from '../../lib/database.js';
 import { DatabaseModule } from '../../lib/database.js';
+import { CalculatorModule } from '../calculator/calculator.module.js';
 import { DamModule } from '../dam/dam.module.js';
 import { SavingsModule } from '../savings/savings.module.js';
 import { AppController } from './app.controller.js';
@@ -46,6 +47,7 @@ export class AppModule {
         }),
         SavingsModule,
         DamModule,
+        CalculatorModule,
       ],
       controllers: [AppController],
       providers: [

@@ -54,28 +54,16 @@ export function CalculatorForm({
       <fieldset className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
         <legend className="mb-1 text-lg font-semibold text-stone-900">{t('income')}</legend>
         <NumberField
-          label={t('baseSalary')}
-          value={input.baseSalary}
+          label={t('netSalary')}
+          value={input.netSalary}
           unit={symbol}
-          onChange={(raw) => updateNumber('baseSalary', raw)}
+          onChange={(raw) => updateNumber('netSalary', raw)}
         />
         <NumberField
           label={t('extras')}
           value={input.extras}
           unit={symbol}
           onChange={(raw) => updateNumber('extras', raw)}
-        />
-        <NumberField
-          label={t('holidaySubsidy')}
-          value={input.holidaySubsidy}
-          unit={symbol}
-          onChange={(raw) => updateNumber('holidaySubsidy', raw)}
-        />
-        <NumberField
-          label={t('christmasSubsidy')}
-          value={input.christmasSubsidy}
-          unit={symbol}
-          onChange={(raw) => updateNumber('christmasSubsidy', raw)}
         />
         <div className="sm:col-span-2">
           <Toggle
@@ -84,30 +72,50 @@ export function CalculatorForm({
             onChange={(checked) => update('subsidiesInTwelfths', checked)}
           />
         </div>
-        {monthNames && !input.subsidiesInTwelfths ? (
+
+        {/* Com duodécimos, os subsídios já estão incluídos no líquido mensal. */}
+        {!input.subsidiesInTwelfths ? (
           <>
-            <MonthField
-              label={t('holidayMonth')}
-              value={input.holidayMonth}
-              monthNames={monthNames}
-              onChange={(month) => update('holidayMonth', month)}
+            <NumberField
+              label={t('holidaySubsidyNet')}
+              value={input.holidaySubsidyNet}
+              unit={symbol}
+              onChange={(raw) => updateNumber('holidaySubsidyNet', raw)}
             />
-            <MonthField
-              label={t('christmasMonth')}
-              value={input.christmasMonth}
-              monthNames={monthNames}
-              onChange={(month) => update('christmasMonth', month)}
+            <NumberField
+              label={t('christmasSubsidyNet')}
+              value={input.christmasSubsidyNet}
+              unit={symbol}
+              onChange={(raw) => updateNumber('christmasSubsidyNet', raw)}
             />
+            {monthNames ? (
+              <>
+                <MonthField
+                  label={t('holidayMonth')}
+                  value={input.holidayMonth}
+                  monthNames={monthNames}
+                  onChange={(month) => update('holidayMonth', month)}
+                />
+                <MonthField
+                  label={t('christmasMonth')}
+                  value={input.christmasMonth}
+                  monthNames={monthNames}
+                  onChange={(month) => update('christmasMonth', month)}
+                />
+              </>
+            ) : null}
           </>
         ) : null}
       </fieldset>
 
       <div className="grid gap-3">
-        <Toggle
-          label={t('includeSubsidies')}
-          checked={input.includeSubsidies}
-          onChange={(checked) => update('includeSubsidies', checked)}
-        />
+        {!input.subsidiesInTwelfths ? (
+          <Toggle
+            label={t('includeSubsidies')}
+            checked={input.includeSubsidies}
+            onChange={(checked) => update('includeSubsidies', checked)}
+          />
+        ) : null}
         <Toggle
           label={t('includeExtras')}
           checked={input.includeExtras}
@@ -115,20 +123,8 @@ export function CalculatorForm({
         />
       </div>
 
-      <fieldset className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
-        <legend className="mb-1 text-lg font-semibold text-stone-900">{t('taxes')}</legend>
-        <NumberField
-          label={t('irs')}
-          value={input.irsRatePercent}
-          unit="%"
-          onChange={(raw) => updateNumber('irsRatePercent', raw)}
-        />
-        <NumberField
-          label={t('ssRate')}
-          value={input.ssRatePercent}
-          unit="%"
-          onChange={(raw) => updateNumber('ssRatePercent', raw)}
-        />
+      <fieldset className="grid min-w-0 grid-cols-1 gap-4">
+        <legend className="mb-1 text-lg font-semibold text-stone-900">{t('expensesTitle')}</legend>
         <NumberField
           label={t('expenses')}
           value={input.monthlyExpenses}

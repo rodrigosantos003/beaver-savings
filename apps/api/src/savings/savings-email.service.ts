@@ -51,9 +51,6 @@ function formatSummary(
   });
   const lines = [
     labels.monthTitle,
-    `${labels.gross}: ${money.format(month.gross)}`,
-    `${labels.socialSecurity}: ${money.format(month.socialSecurity)}`,
-    `${labels.irs}: ${money.format(month.irs)}`,
     `${labels.net}: ${money.format(month.net)}`,
     `${labels.expenses}: ${money.format(month.expenses)}`,
     `${labels.disposable}: ${money.format(month.disposable)}`,
@@ -107,9 +104,6 @@ function formatHtml(
     }">${content}</td>`;
 
   const summaryRows: [string, number, boolean?][] = [
-    [labels.gross, month.gross],
-    [labels.socialSecurity, month.socialSecurity],
-    [labels.irs, month.irs],
     [labels.net, month.net, true],
     [labels.expenses, month.expenses],
     [labels.disposable, month.disposable, true],
@@ -193,10 +187,7 @@ function formatHtml(
 const portugueseLabels = {
   monthTitle: 'Calculadora do mês',
   annualTitle: 'Plano anual',
-  gross: 'Bruto',
-  socialSecurity: 'Segurança Social',
-  irs: 'IRS',
-  net: 'Líquido',
+  net: 'Rendimento líquido',
   expenses: 'Despesas',
   disposable: 'Disponível',
   savings: 'Poupança',
@@ -213,9 +204,6 @@ const portugueseLabels = {
 const englishLabels = {
   monthTitle: 'Monthly calculator',
   annualTitle: 'Annual plan',
-  gross: 'Gross',
-  socialSecurity: 'Social security',
-  irs: 'IRS',
   net: 'Net',
   expenses: 'Expenses',
   disposable: 'Disposable',

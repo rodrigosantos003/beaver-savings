@@ -27,7 +27,6 @@ type MonthView = Omit<MonthBreakdown, 'savingsExceedsDisposable'> & {
 
 type PlanRow = {
   month: number;
-  gross: number;
   net: number;
   expenses: number;
   savings: number;
@@ -93,7 +92,6 @@ export function Results({
     rows:
       plan?.months.map((r) => ({
         month: r.month,
-        gross: r.gross,
         net: r.net,
         expenses: r.expenses,
         savings: r.savings,
@@ -135,9 +133,6 @@ export function Results({
               {t(subsidiesInTwelfths ? 'monthHintTwelfths' : 'monthHint')}
             </p>
             <dl className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
-              <ResultItem label={t('gross')} value={money(view.month.gross)} />
-              <ResultItem label={t('ss')} value={money(view.month.socialSecurity)} />
-              <ResultItem label={t('irsResult')} value={money(view.month.irs)} />
               <ResultItem label={t('net')} value={money(view.month.net)} />
               <ResultItem label={t('expensesLabel')} value={money(view.month.expenses)} />
               <ResultItem label={t('disposable')} value={money(view.month.disposable)} />
@@ -211,7 +206,6 @@ export function Results({
               <thead className="border-y border-stone-200 bg-stone-50 text-stone-500">
                 <tr>
                   <th className={`${planCell} font-medium print:w-[16%]`}>{t('month')}</th>
-                  <th className={`${planCell} font-medium`}>{t('gross')}</th>
                   <th className={`${planCell} font-medium`}>{t('net')}</th>
                   <th className={`${planCell} font-medium`}>{t('expensesLabel')}</th>
                   <th className={`${planCell} font-medium`}>{t('savings')}</th>
@@ -230,7 +224,6 @@ export function Results({
                     <th className={`${planCell} font-medium text-stone-800`}>
                       {monthNames[row.month - 1]}
                     </th>
-                    <td className={planMoney}>{money(row.gross)}</td>
                     <td className={planMoney}>{money(row.net)}</td>
                     <td className={planMoney}>{money(row.expenses)}</td>
                     <td className={`${planMoney} font-medium text-secondary`}>
@@ -258,7 +251,7 @@ export function Results({
                   <th className="px-4 py-3 text-left whitespace-nowrap print:px-1.5 print:py-2">
                     {t('total')}
                   </th>
-                  <td colSpan={5} />
+                  <td colSpan={4} />
                   <td className="px-4 py-3 whitespace-nowrap print:px-1.5 print:py-2">
                     {money(view.totalSavings)}
                   </td>

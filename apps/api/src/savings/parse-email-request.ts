@@ -9,14 +9,12 @@ export interface SavingsEmailRequest {
 }
 
 const NUMBER_FIELDS = [
-  'baseSalary',
-  'holidaySubsidy',
-  'christmasSubsidy',
+  'netSalary',
+  'holidaySubsidyNet',
+  'christmasSubsidyNet',
   'holidayMonth',
   'christmasMonth',
   'extras',
-  'irsRatePercent',
-  'ssRatePercent',
   'monthlyExpenses',
   'savingsPercent',
   'savingsAmount',
@@ -66,19 +64,17 @@ export function parseEmailRequest(body: unknown): SavingsEmailRequest {
   }
 
   const savingsMethod: SavingsMethod = body.savingsMethod;
-  const input = {
+  const input: SavingsInput = {
     savingsMethod,
     includeSubsidies: false,
     includeExtras: false,
     subsidiesInTwelfths: false,
-    baseSalary: 0,
-    holidaySubsidy: 0,
-    christmasSubsidy: 0,
+    netSalary: 0,
+    holidaySubsidyNet: 0,
+    christmasSubsidyNet: 0,
     holidayMonth: 0,
     christmasMonth: 0,
     extras: 0,
-    irsRatePercent: 0,
-    ssRatePercent: 0,
     monthlyExpenses: 0,
     savingsPercent: 0,
     savingsAmount: 0,

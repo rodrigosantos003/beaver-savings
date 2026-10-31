@@ -29,17 +29,15 @@ const Month = () =>
   );
 
 export class SaveCalculatorInputDto implements SavingsInput {
-  @Money() baseSalary: number;
+  @Money() netSalary: number;
   @Money() extras: number;
-  @Money() holidaySubsidy: number;
-  @Money() christmasSubsidy: number;
+  @Money() holidaySubsidyNet: number;
+  @Money() christmasSubsidyNet: number;
   @IsBoolean() subsidiesInTwelfths: boolean;
   @Month() holidayMonth: number;
   @Month() christmasMonth: number;
   @IsBoolean() includeSubsidies: boolean;
   @IsBoolean() includeExtras: boolean;
-  @Percent() irsRatePercent: number;
-  @Percent() ssRatePercent: number;
   @Money() monthlyExpenses: number;
   @IsIn(['percent', 'fixed']) savingsMethod: 'percent' | 'fixed';
   @Percent() savingsPercent: number;

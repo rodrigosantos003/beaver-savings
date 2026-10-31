@@ -8,7 +8,6 @@ import {
   DEFAULT_CHRISTMAS_MONTH,
   DEFAULT_CURRENCY,
   DEFAULT_HOLIDAY_MONTH,
-  DEFAULT_SS_RATE_PERCENT,
   SavingsInput,
   calculateAnnualPlan,
   calculateTypicalMonth,
@@ -30,22 +29,44 @@ import { ExportBar } from './ExportBar';
 import { Results } from './Results';
 
 const defaultInput: SavingsInput = {
-  baseSalary: 1500,
-  holidaySubsidy: 1500,
-  christmasSubsidy: 1500,
+  netSalary: 1200,
+  holidaySubsidyNet: 1200,
+  christmasSubsidyNet: 1200,
   holidayMonth: DEFAULT_HOLIDAY_MONTH,
   christmasMonth: DEFAULT_CHRISTMAS_MONTH,
   subsidiesInTwelfths: false,
   extras: 0,
   includeSubsidies: true,
   includeExtras: false,
-  irsRatePercent: 11,
-  ssRatePercent: DEFAULT_SS_RATE_PERCENT,
   monthlyExpenses: 800,
   savingsMethod: 'percent',
   savingsPercent: 15,
   savingsAmount: 200,
 };
+
+const inputKeys = Object.keys(defaultInput) as (keyof SavingsInput)[];
+
+/**
+ * Junta um input guardado com os valores por defeito, ignorando campos antigos
+ * (baseSalary, holidaySubsidy, christmasSubsidy, irsRatePercent, ssRatePercent)
+ * e valores com o tipo errado. Os valores de rendimento antigos eram brutos,
+ * por isso não são convertidos: o utilizador volta a introduzir o líquido.
+ */
+function mergeSavedInput(saved: SavingsInput | null): SavingsInput {
+  if (!saved) return defaultInput;
+
+  const source = saved as unknown as Record<string, unknown>;
+  const merged: Record<string, unknown> = { ...defaultInput };
+
+  for (const key of inputKeys) {
+    const value = source[key];
+    if (typeof value === typeof defaultInput[key]) {
+      merged[key] = value;
+    }
+  }
+
+  return merged as unknown as SavingsInput;
+}
 
 export function Calculator() {
   const t = useTranslations('unlock');
@@ -81,7 +102,7 @@ export function Calculator() {
       key={userId ?? 'anonymous'}
       userId={userId}
       currency={currency}
-      startingInput={latest?.input ? { ...defaultInput, ...latest.input } : defaultInput}
+      startingInput={mergeSavedInput(latest?.input ?? null)}
     />
   );
 }

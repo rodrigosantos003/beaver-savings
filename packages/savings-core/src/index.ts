@@ -1,4 +1,3 @@
-export const DEFAULT_SS_RATE_PERCENT = 11;
 export const DEFAULT_HOLIDAY_MONTH = 6;
 export const DEFAULT_CHRISTMAS_MONTH = 12;
 
@@ -22,18 +21,23 @@ export const DEFAULT_CURRENCY: Currency = 'EUR';
 
 export const isCurrency = (c: unknown): c is Currency =>
   typeof c === 'string' && (CURRENCIES as readonly string[]).includes(c);
+
+/**
+ * Todos os valores de rendimento são LÍQUIDOS (o que cai na conta).
+ * - netSalary: líquido mensal. Se subsidiesInTwelfths for true, já inclui os subsídios.
+ * - holidaySubsidyNet / christmasSubsidyNet: líquido recebido no mês do subsídio
+ *   (só usados quando subsidiesInTwelfths é false).
+ */
 export interface SavingsInput {
-  baseSalary: number;
-  holidaySubsidy: number;
-  christmasSubsidy: number;
+  netSalary: number;
+  holidaySubsidyNet: number;
+  christmasSubsidyNet: number;
   holidayMonth: number;
   christmasMonth: number;
   subsidiesInTwelfths: boolean;
   extras: number;
   includeSubsidies: boolean;
   includeExtras: boolean;
-  irsRatePercent: number;
-  ssRatePercent: number;
   monthlyExpenses: number;
   savingsMethod: SavingsMethod;
   savingsPercent: number;
@@ -41,9 +45,6 @@ export interface SavingsInput {
 }
 
 export interface MonthBreakdown {
-  gross: number;
-  socialSecurity: number;
-  irs: number;
   net: number;
   expenses: number;
   disposable: number;
@@ -62,23 +63,7 @@ export interface AnnualPlan {
   totalSavings: number;
 }
 
-interface NormalizedInput {
-  baseSalary: number;
-  holidaySubsidy: number;
-  christmasSubsidy: number;
-  holidayMonth: number;
-  christmasMonth: number;
-  subsidiesInTwelfths: boolean;
-  extras: number;
-  includeSubsidies: boolean;
-  includeExtras: boolean;
-  irsRatePercent: number;
-  ssRatePercent: number;
-  monthlyExpenses: number;
-  savingsMethod: SavingsMethod;
-  savingsPercent: number;
-  savingsAmount: number;
-}
+type NormalizedInput = SavingsInput;
 
 function roundMoney(value: number): number {
   return Math.round((value + Number.EPSILON) * 100) / 100;
@@ -110,17 +95,15 @@ function monthNumber(value: number, fallback: number): number {
 
 function normalize(input: SavingsInput): NormalizedInput {
   return {
-    baseSalary: nonNegative(input.baseSalary),
-    holidaySubsidy: nonNegative(input.holidaySubsidy),
-    christmasSubsidy: nonNegative(input.christmasSubsidy),
+    netSalary: nonNegative(input.netSalary),
+    holidaySubsidyNet: nonNegative(input.holidaySubsidyNet),
+    christmasSubsidyNet: nonNegative(input.christmasSubsidyNet),
     holidayMonth: monthNumber(input.holidayMonth, DEFAULT_HOLIDAY_MONTH),
     christmasMonth: monthNumber(input.christmasMonth, DEFAULT_CHRISTMAS_MONTH),
     subsidiesInTwelfths: input.subsidiesInTwelfths === true,
     extras: nonNegative(input.extras),
     includeSubsidies: input.includeSubsidies,
     includeExtras: input.includeExtras,
-    irsRatePercent: percentRate(input.irsRatePercent),
-    ssRatePercent: percentRate(input.ssRatePercent),
     monthlyExpenses: nonNegative(input.monthlyExpenses),
     savingsMethod: input.savingsMethod,
     savingsPercent: percentRate(input.savingsPercent),
@@ -128,11 +111,8 @@ function normalize(input: SavingsInput): NormalizedInput {
   };
 }
 
-function breakdown(grossInput: number, input: NormalizedInput): MonthBreakdown {
-  const gross = roundMoney(grossInput);
-  const socialSecurity = roundMoney(gross * (input.ssRatePercent / 100));
-  const irs = roundMoney((gross - socialSecurity) * (input.irsRatePercent / 100));
-  const net = roundMoney(gross - socialSecurity - irs);
+function breakdown(netInput: number, input: NormalizedInput): MonthBreakdown {
+  const net = roundMoney(netInput);
   const expenses = roundMoney(input.monthlyExpenses);
   const disposable = roundMoney(net - expenses);
   const savings =
@@ -142,9 +122,6 @@ function breakdown(grossInput: number, input: NormalizedInput): MonthBreakdown {
   const remaining = roundMoney(disposable - savings);
 
   return {
-    gross,
-    socialSecurity,
-    irs,
     net,
     expenses,
     disposable,
@@ -154,50 +131,46 @@ function breakdown(grossInput: number, input: NormalizedInput): MonthBreakdown {
   };
 }
 
-function monthlyGross(input: NormalizedInput, subsidy: number): number {
+function monthlyNet(input: NormalizedInput, subsidy: number): number {
   const extras = input.includeExtras ? input.extras : 0;
-  return input.baseSalary + extras + subsidy;
+  return input.netSalary + extras + subsidy;
 }
 
-function twelfth(amount: number): number {
-  return roundMoney(amount / 12);
-}
-
-function twelfthShare(input: NormalizedInput): number {
-  return roundMoney(twelfth(input.holidaySubsidy) + twelfth(input.christmasSubsidy));
-}
-
+/**
+ * Líquido do subsídio recebido num mês concreto.
+ * Com duodécimos, os subsídios já estão no líquido mensal, por isso não se somam.
+ */
 function subsidyInMonth(input: NormalizedInput, month: number): number {
-  if (!input.includeSubsidies) {
+  if (!input.includeSubsidies || input.subsidiesInTwelfths) {
     return 0;
-  }
-
-  if (input.subsidiesInTwelfths) {
-    return twelfthShare(input);
   }
 
   let subsidy = 0;
 
   if (month === input.holidayMonth) {
-    subsidy += input.holidaySubsidy;
+    subsidy += input.holidaySubsidyNet;
   }
 
   if (month === input.christmasMonth) {
-    subsidy += input.christmasSubsidy;
+    subsidy += input.christmasSubsidyNet;
   }
 
   return subsidy;
 }
 
+/** Média mensal dos subsídios líquidos (só quando não são pagos em duodécimos). */
+function averageSubsidy(input: NormalizedInput): number {
+  if (!input.includeSubsidies || input.subsidiesInTwelfths) {
+    return 0;
+  }
+
+  return roundMoney((input.holidaySubsidyNet + input.christmasSubsidyNet) / 12);
+}
+
 export function calculateTypicalMonth(input: SavingsInput): MonthBreakdown {
   const normalized = normalize(input);
-  const subsidyShare = !normalized.includeSubsidies
-    ? 0
-    : normalized.subsidiesInTwelfths
-      ? twelfthShare(normalized)
-      : roundMoney((normalized.holidaySubsidy + normalized.christmasSubsidy) / 12);
 
-  return breakdown(monthlyGross(normalized, subsidyShare), normalized);
+  return breakdown(monthlyNet(normalized, averageSubsidy(normalized)), normalized);
 }
 
 export function calculateAnnualPlan(input: SavingsInput): AnnualPlan {
@@ -206,7 +179,7 @@ export function calculateAnnualPlan(input: SavingsInput): AnnualPlan {
   let cumulativeSavings = 0;
 
   for (let month = 1; month <= 12; month += 1) {
-    const row = breakdown(monthlyGross(normalized, subsidyInMonth(normalized, month)), normalized);
+    const row = breakdown(monthlyNet(normalized, subsidyInMonth(normalized, month)), normalized);
     cumulativeSavings = roundMoney(cumulativeSavings + row.savings);
     months.push({
       ...row,

@@ -2,11 +2,10 @@
   "meta": {
     "siteName": "Beaver Savings",
     "title": "Beaver Savings — Poupa um bocadinho de cada vez",
-    "description": "Planeia as tuas poupanças mensais com base no teu salário, nos impostos e nas despesas.",
-
+    "description": "Planeia as tuas poupanças mensais com base no teu salário líquido e nas despesas.",
     "calculator": {
       "title": "Calculadora",
-      "description": "Descobre quanto podes poupar este mês e planeia as tuas poupanças para os próximos 12 meses com base no teu salário, nos impostos e nas despesas."
+      "description": "Descobre quanto podes poupar este mês e planeia as tuas poupanças para os próximos 12 meses com base no teu salário líquido e nas despesas."
     },
     "confirmAccount": {
       "title": "Confirma a tua conta",
@@ -56,14 +55,23 @@
     "badge": "Calculadora de poupança para Portugal",
     "title": "Poupa como um castor rói a madeira",
     "subtitle": "Bocado a bocado.",
-    "description": "Planeia a tua poupança mensal com base no salário, impostos e despesas. Cria hábitos que duram — um pequeno depósito de cada vez.",
+    "description": "Planeia a tua poupança mensal com base no salário líquido e nas despesas. Cria hábitos que duram — um pequeno depósito de cada vez.",
     "exploreFeatures": "Explorar funcionalidades",
     "seeHowItWorks": "Ver como funciona"
   },
   "stats": {
-    "netIncome": { "label": "Rendimento líquido", "sub": "após IRS e SS" },
-    "monthlySavings": { "label": "Poupança mensal", "sub": "15% do líquido" },
-    "yearEndTotal": { "label": "Total no fim do ano", "sub": "projetado" }
+    "netIncome": {
+      "label": "Rendimento líquido",
+      "sub": "direto do recibo"
+    },
+    "monthlySavings": {
+      "label": "Poupança mensal",
+      "sub": "15% do líquido"
+    },
+    "yearEndTotal": {
+      "label": "Total no fim do ano",
+      "sub": "projetado"
+    }
   },
   "features": {
     "title": "Tudo o que precisas para planear melhor",
@@ -71,7 +79,7 @@
     "items": [
       {
         "title": "Calculadora mensal",
-        "description": "Estima o rendimento líquido, despesas e quanto podes poupar por mês.",
+        "description": "Descobre quanto podes poupar por mês a partir do teu salário líquido, subsídios e despesas.",
         "icon": "📊"
       },
       {
@@ -93,7 +101,7 @@
       {
         "step": "1",
         "title": "Introduz o teu rendimento",
-        "description": "Salário base, subsídios, extras e taxas — ou carrega um recibo de vencimento."
+        "description": "O teu salário líquido, subsídios e extras — direto do recibo de vencimento."
       },
       {
         "step": "2",
@@ -162,23 +170,17 @@
   },
   "calculator": {
     "metaTitle": "Calculadora — Beaver Savings",
-    "metaDescription": "Calcula a poupança do mês e o plano anual a partir do salário, impostos e despesas.",
+    "metaDescription": "Calcula a poupança do mês e o plano anual a partir do salário líquido e das despesas.",
     "back": "Início",
     "title": "Calculadora de poupança",
-    "description": "Estima o líquido, as despesas e quanto podes pôr de lado — este mês e ao longo do ano.",
+    "description": "Estima quanto podes pôr de lado a partir do teu líquido — este mês e ao longo do ano.",
     "income": "Rendimento",
-    "baseSalary": "Salário base",
-    "holidaySubsidy": "Subsídio de férias",
-    "christmasSubsidy": "Subsídio de Natal",
-    "subsidiesInTwelfths": "Receber em duodécimos",
+    "subsidiesInTwelfths": "Subsídios em duodécimos (já incluídos no meu líquido)",
     "holidayMonth": "Mês do subsídio de férias",
     "christmasMonth": "Mês do subsídio de Natal",
     "extras": "Valores extra",
     "includeSubsidies": "Incluir subsídios no cálculo",
     "includeExtras": "Incluir valores extra no cálculo",
-    "taxes": "Taxas e despesas",
-    "irs": "Taxa IRS",
-    "ssRate": "Taxa Segurança Social",
     "expenses": "Despesas mensais estimadas",
     "method": "Método de poupança",
     "percent": "Percentagem do líquido",
@@ -187,14 +189,11 @@
     "savingsAmount": "Valor de poupança",
     "monthTitle": "Calculadora do mês",
     "monthHint": "Neste resumo, os subsídios entram como média mensal.",
-    "monthHintTwelfths": "Neste resumo, cada mês inclui um duodécimo dos subsídios.",
+    "monthHintTwelfths": "O teu salário líquido já inclui os subsídios, por isso todos os meses são iguais.",
     "annualTitle": "Plano anual",
     "annualHint": "Cada subsídio entra só no mês em que é pago.",
-    "annualHintTwelfths": "Cada mês inclui um duodécimo dos subsídios de férias e de Natal.",
-    "gross": "Bruto",
-    "ss": "Segurança Social",
-    "irsResult": "IRS",
-    "net": "Líquido",
+    "annualHintTwelfths": "Todos os meses são iguais, porque os subsídios já estão no teu salário líquido.",
+    "net": "Rendimento líquido",
     "expensesLabel": "Despesas",
     "disposable": "Disponível",
     "savings": "Poupança",
@@ -239,7 +238,11 @@
     "withdrawButton": "Levantar",
     "withdrawTooLarge": "Não podes retirar mais de {total}.",
     "withdrawal": "Levantamento",
-    "errorWithdraw": "Não foi possível levantar. Tenta novamente mais tarde."
+    "errorWithdraw": "Não foi possível levantar. Tenta novamente mais tarde.",
+    "netSalary": "Salário líquido",
+    "holidaySubsidyNet": "Subsídio de férias (líquido)",
+    "christmasSubsidyNet": "Subsídio de Natal (líquido)",
+    "expensesTitle": "Despesas"
   },
   "unlock": {
     "title": "Desbloquear mais funcionalidades",
@@ -524,12 +527,11 @@
         "p1": "A Beaver Savings é uma ferramenta online gratuita concebida para o ajudar a compreender o seu rendimento, planear as suas despesas, definir objetivos de poupança e estimar como as suas poupanças podem crescer ao longo do tempo.",
         "p2": "O serviço pode incluir funcionalidades como:",
         "list": {
-          "i1": "Cálculo do rendimento líquido estimado com base no salário, impostos e contribuições para a segurança social.",
+          "i1": "Estimativa do rendimento líquido mensal, das despesas e do valor que pode poupar.",
           "i2": "Estimativa das despesas mensais e da poupança potencial.",
           "i3": "Criação de projeções anuais de poupança.",
           "i4": "Definição de objetivos de poupança com base num montante fixo ou numa percentagem do rendimento.",
-          "i5": "Exportação dos resultados de poupança em PDF ou partilha por email.",
-          "i6": "Carregamento de um recibo de vencimento para apoiar o seu planeamento financeiro, quando esta funcionalidade estiver disponível."
+          "i5": "Exportação dos resultados de poupança em PDF ou partilha por email."
         },
         "p3": "Podemos atualizar, melhorar, adicionar ou remover funcionalidades à medida que o serviço evolui."
       },
@@ -563,9 +565,9 @@
       },
       "financialInfo": {
         "title": "As Suas Informações Financeiras",
-        "p1": "Pode introduzir informações como o seu salário, rendimento, despesas, pressupostos fiscais, contribuições para a segurança social e objetivos de poupança.",
+        "p1": "Pode introduzir informações como o seu salário líquido, subsídios, rendimentos extra, despesas e objetivos de poupança.",
         "p2": "É responsável por garantir que as informações que introduz são tão exatas e completas quanto razoavelmente possível.",
-        "p3": "Os seus resultados dependem das informações e dos pressupostos que fornece. Informações incorretas, incompletas ou desatualizadas podem produzir estimativas inexatas.",
+        "p3": "Os seus resultados dependem das informações que fornece. Informações incorretas, incompletas ou desatualizadas podem produzir estimativas inexatas.",
         "p4": "Deve evitar incluir informações pessoais ou confidenciais desnecessárias nos documentos que carrega."
       },
       "disclaimer": {
@@ -575,8 +577,8 @@
         "p3": "Todos os cálculos, estimativas e projeções são fornecidos apenas para fins informativos e de planeamento gerais.",
         "p4": "Em particular:",
         "list": {
-          "i1": "As estimativas de rendimento líquido podem diferir do seu vencimento líquido real.",
-          "i2": "Os cálculos de impostos e de segurança social podem não refletir todas as circunstâncias individuais, deduções, isenções ou alterações legislativas.",
+          "i1": "O rendimento líquido resulta dos valores que introduz, pelo que pode diferir do seu vencimento líquido real.",
+          "i2": "Os subsídios, os rendimentos extra e as despesas podem variar de mês para mês e podem não refletir todas as circunstâncias individuais.",
           "i3": "As projeções de poupança são ilustrativas e dependem dos pressupostos e montantes que introduz.",
           "i4": "As despesas, os rendimentos e as poupanças reais podem diferir das suas projeções.",
           "i5": "Um saldo de poupança projetado não é uma garantia de poupanças ou resultados financeiros futuros."

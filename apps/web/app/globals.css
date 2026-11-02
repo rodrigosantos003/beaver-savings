@@ -155,9 +155,10 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
+  overflow-y: auto;
   overscroll-behavior-x: none;
-  touch-action: manipulation;
+  touch-action: pan-y;
 }
 
 button {
@@ -195,13 +196,5 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .river-wave-track {
     animation: none;
-  }
-}
-
-@supports (overflow: clip) {
-
-  html,
-  body {
-    overflow-x: clip;
   }
 }

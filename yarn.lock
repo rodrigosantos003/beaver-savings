@@ -1284,10 +1284,10 @@
     path-to-regexp "8.4.2"
     tslib "2.8.1"
 
-"@nestjs/resilience@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@nestjs/resilience/-/resilience-0.0.2.tgz#5f09ecd77dba4c4a765d0e88a3978e9529b14ebb"
-  integrity sha512-WYupBbv0KhjV1pE4mxNaQkJbMhlQiMCxIccOn/4G1xcmWg8FjmRPcUPsU7QPXO+T2xxU0aaHPj9fbL6bHgfViw==
+"@nestjs/resilience@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/resilience/-/resilience-0.0.3.tgz#da49212e7c0fe9743f19797c26a306145c2c1b19"
+  integrity sha512-bko0FbzpRKr9pjTzh4nAggfYLLW2Eql4YFxrPS+8/3y3vS90DZE91UIGL4pioRbyQgOjHJso0YRLFpNcezBWaw==
 
 "@nestjs/schematics@^12.0.0":
   version "12.0.12"

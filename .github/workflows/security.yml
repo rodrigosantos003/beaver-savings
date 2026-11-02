@@ -18,6 +18,7 @@ concurrency:
 jobs:
   dependency-audit:
     name: Dependency audit
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
     runs-on: ubuntu-latest
 
     steps:
@@ -44,6 +45,7 @@ jobs:
 
   secret-scan:
     name: Secret detection
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
     runs-on: ubuntu-latest
 
     permissions:

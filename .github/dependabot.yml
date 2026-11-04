@@ -4,10 +4,9 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
-      day: monday
-      time: "08:00"
-      timezone: Europe/Lisbon
+      interval: "monthly"
+      time: "03:00"
+      timezone: "Europe/Lisbon"
     open-pull-requests-limit: 5
     labels:
       - dependencies
@@ -28,10 +27,9 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
-      day: monday
-      time: "08:00"
-      timezone: Europe/Lisbon
+      interval: "monthly"
+      time: "03:00"
+      timezone: "Europe/Lisbon"
     open-pull-requests-limit: 5
     labels:
       - github-actions

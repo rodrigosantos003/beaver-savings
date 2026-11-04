@@ -527,11 +527,10 @@
         "p1": "A Beaver Savings é uma ferramenta online gratuita concebida para o ajudar a compreender o seu rendimento, planear as suas despesas, definir objetivos de poupança e estimar como as suas poupanças podem crescer ao longo do tempo.",
         "p2": "O serviço pode incluir funcionalidades como:",
         "list": {
-          "i1": "Estimativa do rendimento líquido mensal, das despesas e do valor que pode poupar.",
-          "i2": "Estimativa das despesas mensais e da poupança potencial.",
-          "i3": "Criação de projeções anuais de poupança.",
-          "i4": "Definição de objetivos de poupança com base num montante fixo ou numa percentagem do rendimento.",
-          "i5": "Exportação dos resultados de poupança em PDF ou partilha por email."
+          "i1": "Estimativa das despesas mensais e da poupança potencial.",
+          "i2": "Criação de projeções anuais de poupança.",
+          "i3": "Definição de objetivos de poupança com base num montante fixo ou numa percentagem do rendimento.",
+          "i4": "Exportação dos resultados de poupança em PDF ou partilha por email."
         },
         "p3": "Podemos atualizar, melhorar, adicionar ou remover funcionalidades à medida que o serviço evolui."
       },

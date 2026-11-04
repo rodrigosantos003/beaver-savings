@@ -18,14 +18,10 @@ could grow over time.
 
 The service may include features such as:
 
-- Calculating estimated net income based on salary, taxes, and social security
-  contributions.
 - Estimating monthly expenses and potential savings.
 - Creating annual savings projections.
 - Setting savings goals based on a fixed amount or a percentage of income.
 - Exporting savings results as a PDF or sharing them by email.
-- Uploading a payslip to support your financial planning, where this feature is
-  available.
 
 We may update, improve, add, or remove features as the service develops.
 

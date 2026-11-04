@@ -516,11 +516,10 @@
         "p1": "Beaver Savings is a free online tool designed to help you understand your income, plan your expenses, set savings goals, and estimate how your savings could grow over time.",
         "p2": "The service may include features such as:",
         "list": {
-          "i1": "Estimating your monthly net income, expenses, and how much you can save.",
-          "i2": "Estimating monthly expenses and potential savings.",
-          "i3": "Creating annual savings projections.",
-          "i4": "Setting savings goals based on a fixed amount or a percentage of income.",
-          "i5": "Exporting savings results as a PDF or sharing them by email."
+          "i1": "Estimating monthly expenses and potential savings.",
+          "i2": "Creating annual savings projections.",
+          "i3": "Setting savings goals based on a fixed amount or a percentage of income.",
+          "i4": "Exporting savings results as a PDF or sharing them by email."
         },
         "p3": "We may update, improve, add, or remove features as the service develops."
       },

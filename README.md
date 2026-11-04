@@ -11,8 +11,8 @@ progresso ao longo do tempo.
 ## Visão geral
 
 Beaver Savings ajuda utilizadores a planear poupança de forma incremental — mês
-a mês — com inputs realistas do mercado de trabalho português (salário base,
-subsídios, IRS, Segurança Social) e ferramentas para exportar resultados e gerar
+a mês — com inputs realistas do mercado de trabalho português (salário,
+subsídios, etc) e ferramentas para exportar resultados e gerar
 planos anuais.
 
 ---
@@ -23,11 +23,9 @@ planos anuais.
 | ------------------------------- | ------------------------------------------------------------------ |
 | **Método de poupança**          | Percentagem do rendimento líquido ou valor fixo mensal             |
 | **Valor poupança**              | Calculado automaticamente ou definido manualmente pelo utilizador  |
-| **Salário base**                | Remuneração mensal bruta                                           |
-| **Subsídios**                   | Férias e Natal                                                     |
+| **Salário líquido**             | Remuneração mensal líquida                                         |
+| **Subsídios**                   | Férias e Natal (incluir ou não no salário)                         |
 | **Valores extra**               | Rendimentos adicionais (bónus, horas extra, etc.)                  |
-| **Toggle subsídios/extras**     | Incluir ou excluir subsídios e extras no cálculo                   |
-| **Taxas IRS e SS**              | Imposto sobre o rendimento e contribuições para a Segurança Social |
 | **Estimativa despesas mensais** | Despesas fixas e variáveis para calcular o disponível para poupar  |
 
 ---
@@ -59,7 +57,6 @@ definidos.
 | **API**                 | NestJS                    |
 | **Base de dados**       | MongoDB                   |
 | **Email**               | Resend                    |
-| **AI (payslip parser)** | Google Gemini API (Flash) |
 
 ---
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
 import {
@@ -15,15 +15,10 @@ import {
   suggestSavings,
 } from 'savings-core';
 
-import { authClient } from '@/lib/auth-client';
+import { DamEntry } from '@/lib/api/dam';
 
-import {
-  type CalculatorHabits,
-  getCalculatorHabits,
-  getLatestCalculatorInput,
-} from '../../lib/api/calculator';
+import type { CalculatorHabits } from '../../lib/api/calculator';
 import { usePersistInput } from '../../lib/hooks/usePersistInput';
-import { Loading } from '../Loading';
 import { CalculatorForm } from './CalculatorForm';
 import { ExportBar } from './ExportBar';
 import { Results } from './Results';
@@ -68,72 +63,34 @@ function mergeSavedInput(saved: SavingsInput | null): SavingsInput {
   return merged as unknown as SavingsInput;
 }
 
-export function Calculator() {
-  const t = useTranslations('unlock');
-  const { data: session, isPending } = authClient.useSession();
-  const userId = session?.user.id;
-
-  const [latest, setLatest] = useState<{ userId: string; input: SavingsInput | null } | null>(null);
-
-  useEffect(() => {
-    if (!userId) return;
-
-    let cancelled = false;
-    getLatestCalculatorInput()
-      .then((res) => !cancelled && setLatest({ userId, input: res.input }))
-      .catch(() => !cancelled && setLatest({ userId, input: null }));
-
-    return () => {
-      cancelled = true;
-    };
-  }, [userId]);
-
-  const ready = !isPending && (!userId || latest?.userId === userId);
-
-  if (!ready) {
-    return <Loading message={t('loading')} fullScreen />;
-  }
-
-  const saved = session?.user.preferredCurrency;
-  const currency: Currency = saved && isCurrency(saved) ? saved : DEFAULT_CURRENCY;
-
-  return (
-    <CalculatorContent
-      key={userId ?? 'anonymous'}
-      userId={userId}
-      currency={currency}
-      startingInput={mergeSavedInput(latest?.input ?? null)}
-    />
-  );
-}
-
-function CalculatorContent({
-  userId,
-  currency,
-  startingInput,
-}: {
+export type CalculatorProps = {
   userId?: string;
-  currency: Currency;
-  startingInput: SavingsInput;
-}) {
+  preferredCurrency?: string | null;
+  savedInput?: SavingsInput | null;
+  habits?: CalculatorHabits | null;
+  damEntries: DamEntry[] | null;
+};
+
+export function Calculator({
+  userId,
+  preferredCurrency,
+  savedInput = null,
+  habits = null,
+  damEntries,
+}: CalculatorProps) {
   const locale = useLocale();
   const t = useTranslations('unlock');
   const loggedIn = !!userId;
 
-  const [input, setInput] = useState<SavingsInput>(startingInput);
+  const currency: Currency =
+    preferredCurrency && isCurrency(preferredCurrency) ? preferredCurrency : DEFAULT_CURRENCY;
+
+  const [input, setInput] = useState<SavingsInput>(() => mergeSavedInput(savedInput));
   const monthNames = useMemo(() => monthLabels(locale), [locale]);
   const month = useMemo(() => calculateTypicalMonth(input), [input]);
   const plan = useMemo(() => (loggedIn ? calculateAnnualPlan(input) : null), [input, loggedIn]);
 
   usePersistInput(input, loggedIn);
-
-  const [habits, setHabits] = useState<CalculatorHabits | null>(null);
-  useEffect(() => {
-    if (!loggedIn) return;
-    getCalculatorHabits()
-      .then(setHabits)
-      .catch(() => {});
-  }, [loggedIn]);
 
   const suggestions = useMemo(() => {
     if (!loggedIn) return undefined;
@@ -154,6 +111,7 @@ function CalculatorContent({
         subsidiesInTwelfths={input.subsidiesInTwelfths}
         userId={userId}
         currency={currency}
+        damEntries={damEntries}
       >
         <CalculatorForm
           input={input}

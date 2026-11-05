@@ -21,7 +21,7 @@ function damProgress(total: number) {
 
 type Props = {
   total: number;
-  entries: DamEntry[];
+  entries: DamEntry[] | null;
   onRemove: (id: string) => void;
   onWithdraw: (amount: number) => Promise<boolean>;
   busy?: boolean;
@@ -148,7 +148,7 @@ export function SavingsDam({
         </form>
       ) : null}
 
-      {entries.length > 0 ? (
+      {entries && entries.length > 0 ? (
         <details className="mt-4">
           <summary className="cursor-pointer text-sm font-medium text-stone-800">
             {t('damHistory', { count: entries.length })}

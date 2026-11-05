@@ -3,6 +3,12 @@ import type { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { Calculator } from '@/components/calculator/Calculator';
+import {
+  getCalculatorHabitsServer,
+  getDamServer,
+  getLatestCalculatorInputServer,
+  getServerSession,
+} from '@/lib/api/calculator.server';
 import { getAlternates, getOpenGraph } from '@/lib/seo';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -22,6 +28,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function CalculatorPage() {
   const t = await getTranslations('calculator');
+  const session = await getServerSession();
+  const userId = session?.user.id;
+
+  const [savedInput, habits, damEntries] = await Promise.all([
+    getLatestCalculatorInputServer(),
+    getCalculatorHabitsServer(),
+    getDamServer(),
+  ]);
 
   return (
     <div className="flex min-h-full flex-col bg-stone-50 text-stone-900">
@@ -31,7 +45,13 @@ export default async function CalculatorPage() {
         </h1>
         <p className="mt-3 max-w-2xl text-lg text-stone-600">{t('description')}</p>
         <div className="mt-8">
-          <Calculator />
+          <Calculator
+            key={userId ?? 'anonymous'}
+            userId={userId}
+            habits={habits}
+            savedInput={savedInput ?? null}
+            damEntries={damEntries}
+          />
         </div>
       </main>
     </div>

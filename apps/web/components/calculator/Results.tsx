@@ -1,15 +1,20 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { type ReactNode, useEffect, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
 import { AnnualPlan, Currency, MonthBreakdown } from 'savings-core';
 
-import { useDam } from '../../lib/hooks/useDam';
-import { SavingsDam } from './SavingsDam';
+import { DamEntry, useDam } from '../../lib/hooks/useDam';
 
 const planCell = 'px-4 py-2 print:px-1.5 print:py-1';
 const planMoney = `${planCell} whitespace-nowrap`;
+
+const SavingsDam = dynamic(() => import('./SavingsDam').then((m) => m.SavingsDam), {
+  ssr: false,
+  loading: () => <div className="min-h-96 rounded-2xl border border-beaver-200 bg-beaver-50" />,
+});
 
 type ResultsProps = {
   userId?: string | null;
@@ -19,6 +24,7 @@ type ResultsProps = {
   monthNames: string[];
   subsidiesInTwelfths: boolean;
   children?: ReactNode;
+  damEntries: DamEntry[] | null;
 };
 
 type MonthView = Omit<MonthBreakdown, 'savingsExceedsDisposable'> & {
@@ -51,6 +57,7 @@ export function Results({
   monthNames,
   subsidiesInTwelfths,
   children,
+  damEntries,
 }: ResultsProps) {
   const t = useTranslations('calculator');
   const locale = useLocale();
@@ -59,7 +66,7 @@ export function Results({
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [applying, setApplying] = useState(false);
 
-  const { entries, total, adding, add, withdraw, remove } = useDam(userId);
+  const { entries, total, adding, add, withdraw, remove } = useDam(userId, damEntries);
   const [applyInput, setApplyInput] = useState<string | null>(null);
 
   useEffect(() => {
@@ -116,6 +123,7 @@ export function Results({
   const dateFmt = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'pt-PT', {
     dateStyle: 'medium',
     timeStyle: 'short',
+    timeZone: 'Europe/Lisbon',
   });
 
   return (
@@ -181,6 +189,7 @@ export function Results({
                   savings: t('savings'),
                   remaining: t('remaining'),
                 }}
+                percentLocale={locale === 'en' ? 'en-GB' : 'pt-PT'}
               />
             )}
           </section>
@@ -325,6 +334,7 @@ function FinancialBreakdown({
   money,
   title,
   labels,
+  percentLocale,
 }: {
   net: number;
   expenses: number;
@@ -337,6 +347,7 @@ function FinancialBreakdown({
     savings: string;
     remaining: string;
   };
+  percentLocale: string;
 }) {
   const items = [
     { label: labels.expenses, value: expenses, color: 'bg-stone-400' },
@@ -380,10 +391,7 @@ function FinancialBreakdown({
               <span className={`h-2.5 w-2.5 shrink-0 rounded-sm ${item.color}`} />
               <span className="min-w-0 flex-1 text-stone-600">{item.label}</span>
               <span className="text-xs text-stone-500">
-                {percentage.toLocaleString(undefined, {
-                  maximumFractionDigits: 1,
-                })}
-                %
+                {percentage.toLocaleString(percentLocale, { maximumFractionDigits: 1 })}%
               </span>
               <span className="whitespace-nowrap font-medium text-stone-900">
                 {money(item.value)}

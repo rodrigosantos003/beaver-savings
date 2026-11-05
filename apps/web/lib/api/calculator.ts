@@ -27,7 +27,7 @@ export function getLatestCalculatorInput() {
 }
 
 export function getCalculatorHabits() {
-  return request<CalculatorHabits>('snapshots/habits');
+  return request<CalculatorHabits>('/snapshots/habits');
 }
 
 export function clearCalculatorHistory() {

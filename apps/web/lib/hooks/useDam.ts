@@ -9,9 +9,11 @@ export type DamError = 'load' | 'add' | 'withdraw' | 'remove' | null;
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
-export function useDam(userId?: string | null) {
-  const [loaded, setLoaded] = useState<DamEntry[]>([]);
-  const [loadedFor, setLoadedFor] = useState<string | null>(null);
+export function useDam(userId?: string | null, initialEntries?: DamEntry[] | null) {
+  const [loaded, setLoaded] = useState<DamEntry[]>(initialEntries ?? []);
+  const [loadedFor, setLoadedFor] = useState<string | null>(
+    userId && initialEntries ? userId : null,
+  );
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState<DamError>(null);
 
@@ -22,7 +24,7 @@ export function useDam(userId?: string | null) {
   }
 
   useEffect(() => {
-    if (!userId) return;
+    if (!userId || loadedFor === userId) return;
     let cancelled = false;
     listDam()
       .then((res) => {
@@ -38,7 +40,7 @@ export function useDam(userId?: string | null) {
     return () => {
       cancelled = true;
     };
-  }, [userId]);
+  }, [userId, loadedFor]);
 
   const entries = useMemo(
     () => (userId && loadedFor === userId ? loaded : []),

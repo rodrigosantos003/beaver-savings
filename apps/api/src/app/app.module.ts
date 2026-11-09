@@ -18,8 +18,10 @@ import { NotFoundFilter } from './not-found.filter.js';
 @Module({})
 export class AppModule {
   static async register(): Promise<DynamicModule> {
-    const { AuthModule } = await import('@thallesp/nestjs-better-auth');
-    const { createAuth } = await import('../auth/auth.js');
+    const [{ AuthModule }, { createAuth }] = await Promise.all([
+      import('@thallesp/nestjs-better-auth'),
+      import('../auth/auth.js'),
+    ]);
 
     return {
       module: AppModule,
@@ -27,6 +29,8 @@ export class AppModule {
         ConfigModule.forRoot({
           isGlobal: true,
           envFilePath: '.env',
+          cache: true,
+          ignoreEnvFile: process.env.VERCEL === '1',
         }),
         DatabaseModule,
         ThrottlerModule.forRoot([{ name: 'default', ttl: 60_000, limit: 60 }]),

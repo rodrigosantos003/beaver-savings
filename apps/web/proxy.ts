@@ -22,10 +22,7 @@ export default function proxy(request: NextRequest) {
   const locale = localeMatch?.[1] ?? routing.defaultLocale;
   const path = pathname.replace(localePattern, '') || '/';
 
-  const sessionCookie = getSessionCookie(request);
-  const hasSession = Boolean(sessionCookie);
-
-  if (hasSession && (path === '/' || AUTH_PAGES.includes(path))) {
+  if ((path === '/' || AUTH_PAGES.includes(path)) && getSessionCookie(request)) {
     return NextResponse.redirect(new URL(`/${locale}/calculator`, request.url));
   }
 

@@ -50,12 +50,20 @@ export function resolveLocale(request?: Request): Locale {
 }
 
 export async function createAuth(connection: Connection) {
-  const { betterAuth } = await import('better-auth');
-  const { mongodbAdapter } = await import('better-auth/adapters/mongodb');
+  const [{ betterAuth }, { mongodbAdapter }] = await Promise.all([
+    import('better-auth'),
+    import('better-auth/adapters/mongodb'),
+  ]);
 
   const db = connection.db;
   const client = connection.getClient();
   if (!db || !client) throw new Error('Mongoose connection is not ready');
+
+  const secret = process.env.BETTER_AUTH_SECRET;
+
+  if (!secret || secret.length < 32) {
+    throw new Error('BETTER_AUTH_SECRET must be configured securely');
+  }
 
   return betterAuth({
     database: mongodbAdapter(db, {
@@ -68,8 +76,10 @@ export async function createAuth(connection: Connection) {
         afterDelete: async (user) => {
           const query = { userId: user.id };
 
-          await db.collection('dam_entries').deleteMany(query);
-          await db.collection('calculator_snapshots').deleteMany(query);
+          await Promise.all([
+            db.collection('dam_entries').deleteMany(query),
+            db.collection('calculator_snapshots').deleteMany(query),
+          ]);
         },
       },
       additionalFields: {
@@ -82,7 +92,7 @@ export async function createAuth(connection: Connection) {
       },
     },
     baseURL: process.env.BETTER_AUTH_URL ?? 'http://localhost:4331',
-    secret: process.env.BETTER_AUTH_SECRET ?? 'secret',
+    secret: secret,
     trustedOrigins: [process.env.WEB_ORIGIN ?? 'http://localhost:3000'],
     emailAndPassword: {
       enabled: true,

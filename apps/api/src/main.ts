@@ -1,8 +1,6 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
-import 'dotenv/config';
-
 import { AppModule } from './app/app.module.js';
 
 async function bootstrap() {

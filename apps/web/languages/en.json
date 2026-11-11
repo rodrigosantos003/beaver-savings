@@ -248,6 +248,27 @@
     "createAccount": "Create account",
     "loading": "Loading..."
   },
+  "coach": {
+    "title": "Bucky",
+    "subtitle": "Your savings coach",
+    "open": "Bucky",
+    "close": "Close Bucky",
+    "intro": "I look at your income, expenses, savings target and dam to suggest practical ways to save more.",
+    "tipsButton": "Get tips for my plan",
+    "tipsRequest": "Give me tips for my plan.",
+    "tipsAgain": "Get fresh tips",
+    "thinking": "Thinking…",
+    "you": "You",
+    "questionLabel": "Ask Bucky a question",
+    "questionPlaceholder": "e.g. How can I build an emergency fund?",
+    "send": "Send",
+    "disclaimer": "AI-generated guidance, not financial advice.",
+    "errors": {
+      "noPlan": "Fill in the calculator first so I have a plan to look at.",
+      "rateLimited": "You have asked a lot in a short time. Try again in a minute.",
+      "unavailable": "Bucky is unavailable right now. Please try again."
+    }
+  },
   "deleteAccount": {
     "title": "Delete your account",
     "warning": "This action is permanent and cannot be undone.",

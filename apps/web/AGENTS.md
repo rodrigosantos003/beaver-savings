@@ -14,8 +14,3 @@ diff only re-creates the uncommitted change; committing it with your work keeps
 the tree clean.
 
 <!-- END:nextjs-agent-rules -->
-
-# Repository structure
-
-Any updates on the file tree should be reflected on the repository structure
-section of `README.md`.

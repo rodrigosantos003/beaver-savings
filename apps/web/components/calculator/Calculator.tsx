@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
 import {
@@ -20,6 +20,7 @@ import { DamEntry } from '@/lib/api/dam';
 import type { CalculatorHabits } from '../../lib/api/calculator';
 import { usePersistInput } from '../../lib/hooks/usePersistInput';
 import { CalculatorForm } from './CalculatorForm';
+import { CoachSidebar, CoachToggle } from './CoachSidebar';
 import { ExportBar } from './ExportBar';
 import { Results } from './Results';
 
@@ -86,6 +87,8 @@ export function Calculator({
     preferredCurrency && isCurrency(preferredCurrency) ? preferredCurrency : DEFAULT_CURRENCY;
 
   const [input, setInput] = useState<SavingsInput>(() => mergeSavedInput(savedInput));
+  const [coachOpen, setCoachOpen] = useState(false);
+  const closeCoach = useCallback(() => setCoachOpen(false), []);
   const monthNames = useMemo(() => monthLabels(locale), [locale]);
   const month = useMemo(() => calculateTypicalMonth(input), [input]);
   const plan = useMemo(() => (loggedIn ? calculateAnnualPlan(input) : null), [input, loggedIn]);
@@ -102,8 +105,8 @@ export function Calculator({
     };
   }, [loggedIn, input, habits]);
 
-  return (
-    <div className="grid gap-8">
+  const calculator = (
+    <div className="grid min-w-0 gap-8">
       <Results
         month={month}
         plan={plan}
@@ -139,6 +142,17 @@ export function Calculator({
           </a>
         </section>
       )}
+    </div>
+  );
+
+  // The coach API needs a session, so anonymous users just get the calculator.
+  if (!loggedIn) return calculator;
+
+  return (
+    <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_22rem]">
+      {calculator}
+      <CoachSidebar input={input} open={coachOpen} onClose={closeCoach} />
+      <CoachToggle open={coachOpen} onOpen={() => setCoachOpen(true)} />
     </div>
   );
 }

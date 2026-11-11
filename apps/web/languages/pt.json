@@ -250,6 +250,27 @@
     "createAccount": "Criar conta",
     "loading": "A carregar..."
   },
+  "coach": {
+    "title": "Bucky",
+    "subtitle": "O teu coach de poupanças",
+    "open": "Bucky",
+    "close": "Fechar Bucky",
+    "intro": "Analiso o teu rendimento, despesas, objetivo de poupança e a tua barragem para sugerir formas práticas de poupares mais.",
+    "tipsButton": "Dá-me dicas para o meu plano",
+    "tipsRequest": "Dá-me dicas para o meu plano.",
+    "tipsAgain": "Novas dicas",
+    "thinking": "A pensar…",
+    "you": "Tu",
+    "questionLabel": "Faz uma pergunta ao Bucky",
+    "questionPlaceholder": "ex.: Como crio um fundo de emergência?",
+    "send": "Enviar",
+    "disclaimer": "Orientação gerada por IA, não é aconselhamento financeiro.",
+    "errors": {
+      "noPlan": "Preenche primeiro a calculadora para eu ter um plano para analisar.",
+      "rateLimited": "Fizeste muitos pedidos em pouco tempo. Tenta novamente daqui a um minuto.",
+      "unavailable": "O Bucky não está disponível de momento. Tenta novamente."
+    }
+  },
   "deleteAccount": {
     "metaTitle": "Eliminar conta",
     "title": "Eliminar a tua conta",

@@ -39,7 +39,12 @@ export default async function CalculatorPage() {
 
   return (
     <div className="flex min-h-full flex-col bg-stone-50 text-stone-900">
-      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10 print:max-w-none print:px-0 print:py-4">
+      {/* Logged-in users get the coach sidebar, so give the page room for a third column. */}
+      <main
+        className={`mx-auto w-full flex-1 px-6 py-10 print:max-w-none print:px-0 print:py-4 ${
+          userId ? 'max-w-7xl' : 'max-w-6xl'
+        }`}
+      >
         <h1 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
           {t('title')}
         </h1>
@@ -48,6 +53,7 @@ export default async function CalculatorPage() {
           <Calculator
             key={userId ?? 'anonymous'}
             userId={userId}
+            preferredCurrency={session?.user.preferredCurrency}
             habits={habits}
             savedInput={savedInput ?? null}
             damEntries={damEntries}

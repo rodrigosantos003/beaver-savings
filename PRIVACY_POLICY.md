@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Last updated:** October 5, 2026
+**Last updated:** November 12, 2026
 
 Beaver Savings ("Beaver Savings", "we", "us", or "our") is a personal finance
 web application developed and operated by **Rodrigo Santos**.
@@ -80,6 +80,8 @@ This includes using your information to:
 - Respond to requests or questions you send to us
 - Maintain and secure the service
 - Detect, prevent, and address technical or security problems
+- Generate savings tips and answer your questions through the optional AI
+  savings coach, when you choose to use it
 
 We do not use your personal financial information for advertising or behavioral
 profiling.
@@ -99,6 +101,9 @@ your account information, authentication information, and savings data.
 For example, we need your email address and authentication information to
 maintain your account and authenticated sessions, and we need your savings
 information to provide the application's core functionality.
+
+When you choose to use the AI savings coach, we process your savings information
+and any question you type in order to provide the tips or answers you request.
 
 ### Legitimate interests
 
@@ -154,7 +159,55 @@ its own privacy practices and applicable contractual terms.
 You should only provide an email address that you are authorized to use for this
 purpose.
 
-## 7. Service providers
+## 7. AI savings coach
+
+Beaver Savings includes an optional AI savings coach, **Bucky**, available to
+signed-in users. Bucky is powered by a large language model run by
+**Scaleway**, a French cloud provider, through its Generative APIs service
+hosted in the European Union.
+
+The coach only runs when you ask it to, for example when you request tips for
+your plan or type a question. Each time, Beaver Savings sends the following
+information to Scaleway so that the model can generate a response:
+
+- The savings plan you entered in the calculator, such as your income,
+  subsidies, extra income, expenses, savings goal, and savings method
+- Figures calculated from that plan, such as your typical month, projected
+  annual savings, and suggested savings
+- A summary of your saving habits based on your recent plans, such as median
+  savings and median monthly expenses
+- The total amount saved in your dam and the number of deposits
+- Your preferred currency and the language of the app
+- The text of any question you type
+
+We do not send your name, email address, password, or session information to
+Scaleway as part of coach requests.
+
+Questions you type are sent to Scaleway as written. Please do not include
+information that is not needed for your question, such as names, contact
+details, bank details, or information about your health or other sensitive
+matters.
+
+Beaver Savings does not store your questions or the coach's responses in its
+database. A response is shown in your browser and is lost when you close the
+coach or leave the page.
+
+Scaleway processes this information as our service provider, only to generate
+the response and within the European Union. Under Scaleway's terms for this
+service, your information is not used to train or improve AI models, and the
+content of requests and responses is not retained by default. Scaleway may
+collect anonymised usage data, such as the number of requests, to operate the
+service.
+
+Coach responses are generated automatically and are not reviewed by a person.
+They do not produce legal or similarly significant effects on you, and they are
+not professional financial advice.
+
+Using the coach is entirely optional. If you do not want your savings
+information to be sent to Scaleway, simply do not use it. All other features of
+Beaver Savings work without it.
+
+## 8. Service providers
 
 Beaver Savings uses third-party infrastructure and service providers to operate
 the application.
@@ -195,10 +248,20 @@ When you request an export, the email address you provide is transmitted to
 Resend as necessary to send the email. Beaver Savings does not store that export
 recipient address in your account data.
 
+### Scaleway
+
+Beaver Savings uses **Scaleway Generative APIs** to power the optional AI
+savings coach.
+
+When you use the coach, the savings information and questions described in the
+"AI savings coach" section are transmitted to Scaleway to generate a response.
+Scaleway processes this information in data centres located in the European
+Union.
+
 These providers process information as necessary to provide their respective
 services. Their own privacy policies and contractual terms may also apply.
 
-## 8. International data transfers
+## 9. International data transfers
 
 Beaver Savings is available worldwide.
 
@@ -214,7 +277,7 @@ For users protected by the GDPR, we take reasonable steps to ensure that
 international transfers of personal data are conducted in accordance with
 applicable data protection requirements.
 
-## 9. Data retention
+## 10. Data retention
 
 We retain your personal information for as long as your Beaver Savings account
 remains active and as necessary to provide the service.
@@ -239,7 +302,7 @@ providers in their own operational logs or systems according to their respective
 retention policies. Such information is subject to those providers' applicable
 privacy policies and contractual terms.
 
-## 10. Account deletion
+## 11. Account deletion
 
 You can delete your Beaver Savings account directly through the application.
 
@@ -254,7 +317,7 @@ contact us at:
 
 We may need to verify your identity before processing a deletion request.
 
-## 11. Your data protection rights
+## 12. Your data protection rights
 
 Depending on your location and applicable law, you may have rights regarding
 your personal data.
@@ -284,7 +347,7 @@ To exercise a privacy right, contact:
 
 We will respond to requests within the timeframe required by applicable law.
 
-## 12. Right to lodge a complaint
+## 13. Right to lodge a complaint
 
 If you are located in the European Union or European Economic Area and believe
 that your personal data has been processed in violation of applicable data
@@ -298,7 +361,7 @@ You may contact the supervisory authority without first contacting us, although
 we encourage you to contact us so that we have an opportunity to address your
 concern.
 
-## 13. Cookies and analytics
+## 14. Cookies and analytics
 
 Beaver Savings does not use advertising cookies or third-party analytics
 services to track users across the web.
@@ -313,7 +376,7 @@ operation of the service.
 These technologies are used to provide the service rather than for advertising
 or cross-site behavioral tracking.
 
-## 14. Children's privacy
+## 15. Children's privacy
 
 Beaver Savings is intended for adults and is not specifically directed toward
 children.
@@ -326,7 +389,7 @@ please contact us at
 **[rodrigo.s.santos003@gmail.com](mailto:rodrigo.s.santos003@gmail.com)** so
 that we can investigate and take appropriate action.
 
-## 15. Financial information
+## 16. Financial information
 
 Beaver Savings is a personal finance management and savings calculation tool.
 
@@ -340,7 +403,7 @@ professional financial services.
 You are responsible for the accuracy of the information you enter into the
 application.
 
-## 16. Data security
+## 17. Data security
 
 We take reasonable technical and organizational measures designed to protect
 personal information against unauthorized access, alteration, disclosure, or
@@ -359,7 +422,7 @@ However, no internet-based service can guarantee absolute security. You should
 use a strong and unique password and notify us if you believe your account has
 been compromised.
 
-## 17. Data breaches
+## 18. Data breaches
 
 If we become aware of a personal data breach affecting your personal
 information, we will take appropriate steps to investigate, contain, and
@@ -368,7 +431,7 @@ remediate the incident.
 Where required by applicable law, we will notify affected users and/or the
 relevant supervisory authorities within the applicable legal timeframe.
 
-## 18. Changes to this Privacy Policy
+## 19. Changes to this Privacy Policy
 
 We may update this Privacy Policy from time to time to reflect changes to Beaver
 Savings, our data-processing practices, legal requirements, or the services we
@@ -379,7 +442,7 @@ Privacy Policy.
 
 We encourage you to review this Privacy Policy periodically.
 
-## 19. Contact
+## 20. Contact
 
 If you have questions, concerns, or requests regarding this Privacy Policy or
 your personal data, please contact:

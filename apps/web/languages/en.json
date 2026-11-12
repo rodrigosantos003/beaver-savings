@@ -300,7 +300,7 @@
   },
   "PrivacyPolicy": {
     "title": "Privacy Policy",
-    "lastUpdated": "Last updated: 16 October 2026",
+    "lastUpdated": "Last updated: 12 November 2026",
     "intro": {
       "p1": "In this Privacy Policy, “Beaver Savings”, “we”, “us” and “our” refer to the personal finance web application developed and operated by <strong>Rodrigo Santos</strong>.",
       "p2": "This Privacy Policy explains how we collect, use, store, and protect personal information when you use Beaver Savings."
@@ -363,7 +363,8 @@
           "i6": "Allow you to export your savings results",
           "i7": "Respond to requests or questions you send to us",
           "i8": "Maintain and secure the service",
-          "i9": "Detect, prevent, and address technical or security problems"
+          "i9": "Detect, prevent, and address technical or security problems",
+          "i10": "Generate savings tips and answer your questions through the optional AI savings coach, when you choose to use it"
         },
         "p3": "We do not use your personal financial information for advertising or behavioural profiling.",
         "p4": "We do not sell your personal information."
@@ -374,6 +375,7 @@
         "contractHeading": "Performance of a contract",
         "contractP1": "We process information necessary to provide Beaver Savings to you, including your account information, authentication information, and savings data.",
         "contractP2": "For example, we need your email address and authentication information to maintain your account and authenticated sessions, and we need your savings information to provide the application's core functionality.",
+        "contractP3": "When you choose to use the AI savings coach, we process your savings information and any question you type in order to provide the tips or answers you request.",
         "interestsHeading": "Legitimate interests",
         "interestsP1": "We may process limited information where this is necessary for legitimate interests such as maintaining, securing, debugging, and improving the reliability of Beaver Savings, provided that those interests do not override your rights and freedoms.",
         "interestsP2": "This may include processing technical and security information such as IP addresses and user-agent information for authentication and security purposes.",
@@ -401,6 +403,25 @@
         "p4": "The email address you provide for an export is transmitted to Resend as necessary to deliver the email. Resend may process that information according to its own privacy practices and applicable contractual terms.",
         "p5": "You should only provide an email address that you are authorised to use for this purpose."
       },
+      "aiCoach": {
+        "title": "AI savings coach",
+        "p1": "Beaver Savings includes an optional AI savings coach, <strong>Bucky</strong>, available to signed-in users. Bucky is powered by a large language model run by <strong>Scaleway</strong>, a French cloud provider, through its Generative APIs service hosted in the European Union.",
+        "p2": "The coach only runs when you ask it to, for example when you request tips for your plan or type a question. Each time, Beaver Savings sends the following information to Scaleway so that the model can generate a response:",
+        "list": {
+          "i1": "The savings plan you entered in the calculator, such as your income, subsidies, extra income, expenses, savings goal, and savings method",
+          "i2": "Figures calculated from that plan, such as your typical month, projected annual savings, and suggested savings",
+          "i3": "A summary of your saving habits based on your recent plans, such as median savings and median monthly expenses",
+          "i4": "The total amount saved in your dam and the number of deposits",
+          "i5": "Your preferred currency and the language of the app",
+          "i6": "The text of any question you type"
+        },
+        "p3": "We do not send your name, email address, password, or session information to Scaleway as part of coach requests.",
+        "p4": "Questions you type are sent to Scaleway as written. Please do not include information that is not needed for your question, such as names, contact details, bank details, or information about your health or other sensitive matters.",
+        "p5": "Beaver Savings does not store your questions or the coach's responses in its database. A response is shown in your browser and is lost when you close the coach or leave the page.",
+        "p6": "Scaleway processes this information as our service provider, only to generate the response and within the European Union. Under Scaleway's terms for this service, your information is not used to train or improve AI models, and the content of requests and responses is not retained by default. Scaleway may collect anonymised usage data, such as the number of requests, to operate the service.",
+        "p7": "Coach responses are generated automatically and are not reviewed by a person. They do not produce legal or similarly significant effects on you, and they are not professional financial advice.",
+        "p8": "Using the coach is entirely optional. If you do not want your savings information to be sent to Scaleway, simply do not use it. All other features of Beaver Savings work without it."
+      },
       "providers": {
         "title": "Service providers",
         "p1": "Beaver Savings uses third-party infrastructure and service providers to operate the application.",
@@ -414,6 +435,8 @@
         "betterAuthP2": "Better Auth handles authentication and session management within the Beaver Savings application. The resulting authentication and session information is stored in our application database.",
         "resendP1": "Beaver Savings uses <strong>Resend</strong> to deliver emails associated with the export feature.",
         "resendP2": "When you request an export, the email address you provide is transmitted to Resend as necessary to send the email. Beaver Savings does not store that export recipient address in your account data.",
+        "scalewayP1": "Beaver Savings uses <strong>Scaleway Generative APIs</strong> to power the optional AI savings coach.",
+        "scalewayP2": "When you use the coach, the savings information and questions described in the “AI savings coach” section are transmitted to Scaleway to generate a response. Scaleway processes this information in data centres located in the European Union.",
         "closing": "These providers process information as necessary to provide their respective services. Their own privacy policies and contractual terms may also apply.",
         "policyLink": "Read the {provider} Privacy Policy"
       },
@@ -517,7 +540,7 @@
   },
   "Terms": {
     "title": "Terms and Conditions",
-    "lastUpdated": "Last updated: 16 October 2026",
+    "lastUpdated": "Last updated: 12 November 2026",
     "intro": {
       "welcome": "Welcome to Beaver Savings!",
       "p1": "These Terms and Conditions explain how you can use Beaver Savings, a personal finance and savings planning web application operated by <strong>Rodrigo Santos</strong>.",
@@ -540,7 +563,8 @@
           "i1": "Estimating monthly expenses and potential savings.",
           "i2": "Creating annual savings projections.",
           "i3": "Setting savings goals based on a fixed amount or a percentage of income.",
-          "i4": "Exporting savings results as a PDF or sharing them by email."
+          "i4": "Exporting savings results as a PDF or sharing them by email.",
+          "i5": "Getting AI-generated savings tips and answers to your questions from Bucky, our AI savings coach."
         },
         "p3": "We may update, improve, add, or remove features as the service develops."
       },
@@ -595,6 +619,22 @@
         "p5": "You should verify important calculations against official sources or consult a qualified professional when making significant financial or tax decisions.",
         "p6": "Beaver Savings does not hold your money, transfer funds, connect to your bank account, or execute financial transactions on your behalf."
       },
+      "aiFeatures": {
+        "title": "AI Features",
+        "p1": "Beaver Savings offers an optional AI savings coach, Bucky, available to signed-in users. Bucky is powered by a large language model run by <strong>Scaleway</strong>, a third-party AI service provider. When you use Bucky, you are interacting with an AI system, not a person.",
+        "p2": "Bucky's responses are generated automatically and are not reviewed by a person before they are shown to you. They may be inaccurate, incomplete, outdated, or unsuitable for your circumstances, and the same request may produce different responses.",
+        "p3": "Bucky's responses are general guidance only. They are not personalised professional financial, investment, accounting, or tax advice, and the Financial and Tax Disclaimer above applies to them in full. You should check any suggestion against your own circumstances before acting on it.",
+        "p4": "To generate a response, your savings information and the text of any question you type are sent to Scaleway. Our Privacy Policy explains what is shared and how it is handled. Please do not include unnecessary personal or sensitive information in your questions.",
+        "p5": "When using the AI features, you must not:",
+        "list": {
+          "i1": "Attempt to make the coach produce unlawful, harmful, abusive, or misleading content.",
+          "i2": "Attempt to bypass, override, or extract the coach's instructions or safeguards.",
+          "i3": "Use the coach for purposes unrelated to your personal savings and budgeting.",
+          "i4": "Send automated or excessive requests to the coach.",
+          "i5": "Present the coach's responses as verified professional advice or as content written by a person."
+        },
+        "p6": "To protect the service, we limit how many requests can be made to the coach in a short period. The AI features depend on a third-party provider and may be unavailable, changed, limited, or discontinued at any time."
+      },
       "acceptableUse": {
         "title": "Acceptable Use",
         "p1": "You agree to use Beaver Savings lawfully and responsibly.",
@@ -636,7 +676,7 @@
       },
       "thirdParty": {
         "title": "Third-Party Services",
-        "p1": "Beaver Savings relies on third-party providers to operate certain parts of the service, including hosting, data storage, authentication, and email delivery.",
+        "p1": "Beaver Savings relies on third-party providers to operate certain parts of the service, including hosting, data storage, authentication, email delivery, and AI-generated responses.",
         "p2": "These providers may experience outages, technical issues, or changes to their services that affect Beaver Savings.",
         "p3": "Where you interact with third-party services, their own terms and policies may also apply.",
         "p4": "We will take reasonable steps to manage our use of third-party services, but we cannot guarantee the independent availability or performance of systems that we do not control.",

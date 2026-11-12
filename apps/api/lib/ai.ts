@@ -1,67 +1,109 @@
-import { GoogleGenAI } from '@google/genai';
+/**
+ * Scaleway Generative APIs client (OpenAI-compatible chat completions, hosted in Paris).
+ * Uses the built-in fetch, so no SDK is needed.
+ */
 
-let client: GoogleGenAI | undefined;
+const DEFAULT_BASE_URL = 'https://api.scaleway.ai/v1';
+const DEFAULT_MODEL = 'mistral-small-3.2-24b-instruct-2506';
+const TIMEOUT_MS = 25_000;
+const MAX_TOKENS = 600;
+
+type AiConfig = { apiKey: string; baseUrl: string; model: string };
 
 /**
- * Created on first use, not at import time: `.env` is loaded by ConfigModule.forRoot()
+ * Read on each call, not at import time: `.env` is loaded by ConfigModule.forRoot()
  * during AppModule.register(), which runs after every module has been imported.
  */
-function getClient(): GoogleGenAI {
-  if (client) return client;
-
+function getConfig(): AiConfig {
   const apiKey = process.env.AI_KEY;
   if (!apiKey) {
     throw new Error('AI_KEY is not set');
   }
 
-  const model = process.env.AI_MODEL;
-  if (!model) {
-    throw new Error('AI_MODEL is not set');
+  return {
+    apiKey,
+    // A project-scoped URL (https://api.scaleway.ai/<project_id>/v1) is needed for any
+    // Scaleway project other than the default one.
+    baseUrl: (process.env.AI_BASE_URL || DEFAULT_BASE_URL).replace(/\/+$/, ''),
+    model: process.env.AI_MODEL || DEFAULT_MODEL,
+  };
+}
+
+/** Raised when the provider answers with a non-2xx status. */
+export class AiApiError extends Error {
+  readonly status: number;
+
+  constructor(status: number, message: string) {
+    super(message);
+    this.name = 'AiApiError';
+    this.status = status;
   }
-
-  client = new GoogleGenAI({ apiKey, httpOptions: { timeout: 25_000 } });
-  return client;
 }
 
-/**
- * The SDK raises different classes per surface (`ApiError` for models, an unexported
- * `APIError`/`BadRequestError` hierarchy for interactions), so match on shape instead.
- */
-export function isAiApiError(error: unknown): error is Error & { status: number } {
-  return error instanceof Error && typeof (error as { status?: unknown }).status === 'number';
+export function isAiApiError(error: unknown): error is AiApiError {
+  return error instanceof AiApiError;
 }
 
-/** Pulls Google's human-readable message out of the raw error body, if there is one. */
-function upstreamMessage(error: Error): string {
-  const body = (error as { body?: unknown }).body;
-  if (typeof body === 'string') {
-    try {
-      const parsed: unknown = JSON.parse(body);
-      const first = (Array.isArray(parsed) ? parsed[0] : parsed) as
-        { error?: { message?: string } } | undefined;
-      if (first?.error?.message) return first.error.message;
-    } catch {
-      /* fall through to the SDK message */
-    }
+/** Pulls the provider's human-readable message out of an error body, if there is one. */
+function upstreamMessage(body: string, fallback: string): string {
+  try {
+    const parsed = JSON.parse(body) as { error?: { message?: string }; message?: string };
+    return parsed.error?.message ?? parsed.message ?? fallback;
+  } catch {
+    return body.trim() || fallback;
   }
-  return error.message;
 }
+
+type ChatCompletion = {
+  model?: string;
+  choices?: {
+    finish_reason?: string | null;
+    message?: { content?: string | null; reasoning?: string | null };
+  }[];
+};
 
 export async function generateTextResponse(input: string, systemInstruction: string) {
   try {
-    const interaction = await getClient().interactions.create({
-      model: process.env.AI_MODEL ?? 'gemini-flash-latest',
-      input: input,
-      system_instruction: systemInstruction,
+    const { apiKey, baseUrl, model } = getConfig();
+
+    const response = await fetch(`${baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'system', content: systemInstruction },
+          { role: 'user', content: input },
+        ],
+        max_tokens: MAX_TOKENS,
+      }),
+      // Surfaces as a TimeoutError, which CoachService maps to a 504.
+      signal: AbortSignal.timeout(TIMEOUT_MS),
     });
 
-    return interaction.output_text;
+    if (!response.ok) {
+      const body = await response.text();
+      throw new AiApiError(response.status, upstreamMessage(body, response.statusText));
+    }
+
+    const completion = (await response.json()) as ChatCompletion;
+    const choice = completion.choices?.[0];
+    const content = choice?.message?.content;
+    if (!content?.trim()) {
+      // Reasoning models can spend the whole token budget "thinking" and return no content.
+      console.error('AI returned no content', {
+        model: completion.model,
+        finishReason: choice?.finish_reason,
+        hasReasoning: Boolean(choice?.message?.reasoning),
+      });
+    }
+    return content ?? undefined;
   } catch (error) {
     if (isAiApiError(error)) {
-      console.error('Gemini API error', {
-        status: error.status,
-        message: upstreamMessage(error),
-      });
+      console.error('AI API error', { status: error.status, message: error.message });
     } else {
       console.error('Non-API error (network, timeout, etc.)', error);
     }

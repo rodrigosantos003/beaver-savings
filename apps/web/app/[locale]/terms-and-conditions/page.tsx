@@ -156,6 +156,21 @@ export default async function TermsPage() {
       ),
     },
     {
+      id: 'ai-features',
+      titleKey: s('aiFeatures', 'title'),
+      body: (
+        <>
+          {p('aiFeatures', 'p1')}
+          {p('aiFeatures', 'p2')}
+          {p('aiFeatures', 'p3')}
+          {p('aiFeatures', 'p4')}
+          {p('aiFeatures', 'p5')}
+          {ul('aiFeatures', 'list')}
+          {p('aiFeatures', 'p6')}
+        </>
+      ),
+    },
+    {
       id: 'acceptable-use',
       titleKey: s('acceptableUse', 'title'),
       body: (

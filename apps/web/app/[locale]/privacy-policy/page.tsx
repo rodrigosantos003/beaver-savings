@@ -62,6 +62,7 @@ const PROVIDER_POLICY_URLS = {
   vercel: 'https://vercel.com/legal/privacy-policy',
   mongodb: 'https://www.mongodb.com/legal/privacy/privacy-policy',
   resend: 'https://resend.com/legal/privacy-policy',
+  scaleway: 'https://www.scaleway.com/en/docs/generative-apis/reference-content/data-privacy/',
 } as const;
 
 function PolicyLink({ href, children }: { href: string; children: ReactNode }) {
@@ -168,6 +169,7 @@ export default async function PrivacyPolicyPage() {
           <H3>{r(s('legalBases', 'contractHeading'))}</H3>
           <P>{r(s('legalBases', 'contractP1'))}</P>
           <P>{r(s('legalBases', 'contractP2'))}</P>
+          <P>{r(s('legalBases', 'contractP3'))}</P>
 
           <H3>{r(s('legalBases', 'interestsHeading'))}</H3>
           <P>{r(s('legalBases', 'interestsP1'))}</P>
@@ -206,6 +208,23 @@ export default async function PrivacyPolicyPage() {
       ),
     },
     {
+      id: 'ai-coach',
+      titleKey: s('aiCoach', 'title'),
+      body: (
+        <>
+          <P>{r(s('aiCoach', 'p1'))}</P>
+          <P>{r(s('aiCoach', 'p2'))}</P>
+          <UL>{items(s('aiCoach', 'list'))}</UL>
+          <P>{r(s('aiCoach', 'p3'))}</P>
+          <P>{r(s('aiCoach', 'p4'))}</P>
+          <P>{r(s('aiCoach', 'p5'))}</P>
+          <P>{r(s('aiCoach', 'p6'))}</P>
+          <P>{r(s('aiCoach', 'p7'))}</P>
+          <P>{r(s('aiCoach', 'p8'))}</P>
+        </>
+      ),
+    },
+    {
       id: 'service-providers',
       titleKey: s('providers', 'title'),
       body: (
@@ -232,6 +251,11 @@ export default async function PrivacyPolicyPage() {
           <P>{r(s('providers', 'resendP1'))}</P>
           <P>{r(s('providers', 'resendP2'))}</P>
           <PolicyLink href={PROVIDER_POLICY_URLS.resend}>{policyLabel('Resend')}</PolicyLink>
+
+          <H3>Scaleway</H3>
+          <P>{r(s('providers', 'scalewayP1'))}</P>
+          <P>{r(s('providers', 'scalewayP2'))}</P>
+          <PolicyLink href={PROVIDER_POLICY_URLS.scaleway}>{policyLabel('Scaleway')}</PolicyLink>
 
           <P>{r(s('providers', 'closing'))}</P>
         </>

@@ -250,10 +250,10 @@
   },
   "coach": {
     "title": "Bucky",
-    "subtitle": "Your savings coach",
+    "subtitle": "Your AI savings coach",
     "open": "Bucky",
     "close": "Close Bucky",
-    "intro": "I look at your income, expenses, savings target and dam to suggest practical ways to save more.",
+    "intro": "I'm Bucky, an AI assistant, not a person. I look at your income, expenses, savings target and dam to suggest practical ways to save more.",
     "tipsButton": "Get tips for my plan",
     "tipsRequest": "Give me tips for my plan.",
     "tipsAgain": "Get fresh tips",
@@ -290,6 +290,11 @@
     "deletedBody": "Your account and data have been removed. Thanks for trying Beaver Savings.",
     "backHome": "Back to home",
     "failedToFetch": "We couldn't complete your request. Please try again later."
+  },
+  "dataExport": {
+    "link": "Download my data",
+    "downloading": "Preparing…",
+    "failed": "Download failed. Try again"
   },
   "languageSwitcher": {
     "label": "Change language",
@@ -364,7 +369,8 @@
           "i7": "Respond to requests or questions you send to us",
           "i8": "Maintain and secure the service",
           "i9": "Detect, prevent, and address technical or security problems",
-          "i10": "Generate savings tips and answer your questions through the optional AI savings coach, when you choose to use it"
+          "i10": "Generate savings tips and answer your questions through the optional AI savings coach, when you choose to use it",
+          "i11": "Send you service notices about your account, such as a warning before an inactive account is deleted"
         },
         "p3": "We do not use your personal financial information for advertising or behavioural profiling.",
         "p4": "We do not sell your personal information."
@@ -444,14 +450,15 @@
         "title": "International data transfers",
         "p1": "Beaver Savings is available worldwide.",
         "p2": "Although our primary application database is deployed in Frankfurt, Germany, some of our service providers may process information in other countries, including countries outside the European Economic Area (EEA).",
-        "p3": "Where applicable data protection law requires safeguards for international transfers, we rely on appropriate mechanisms provided by our service providers and applicable law.",
+        "p3": "Vercel, MongoDB, and Resend are based in the United States. Each of them is certified under the <strong>EU-U.S. Data Privacy Framework</strong> for the type of personal data we share with them. Transfers of personal data from the EEA to these providers rely on that certification and on the European Commission's adequacy decision for the EU-U.S. Data Privacy Framework.",
+        "p5": "Scaleway, which runs the AI savings coach, is based in France and processes coach requests within the European Union.",
         "p4": "For users protected by the GDPR, we take reasonable steps to ensure that international transfers of personal data are conducted in accordance with applicable data protection requirements."
       },
       "retention": {
         "title": "Data retention",
         "p1": "We retain your personal information for as long as your Beaver Savings account remains active and as necessary to provide the service.",
         "p2": "Session information is retained according to the expiration period configured for the applicable session.",
-        "p3": "We do not currently define a separate fixed retention period for active accounts.",
+        "p3": "If you do not use your account for 24 months, we delete it together with all associated data. If your email address is verified, we email you at least 30 days before the deletion, and signing in during that period keeps your account.",
         "p4": "You can delete your Beaver Savings account directly through the application.",
         "p5": "When you delete your account, the account information, authentication information, session information, and savings data associated with your account are permanently deleted from Beaver Savings.",
         "p6": "We do not maintain separate application backups of your data on MongoDB Atlas or Vercel.",
@@ -477,6 +484,7 @@
           "i6": "<strong>Right to object:</strong> You may have the right to object to certain processing based on legitimate interests.",
           "i7": "<strong>Right to withdraw consent:</strong> Where processing is based on your consent, you may withdraw that consent at any time."
         },
+        "selfService": "While signed in, you can download a copy of the personal data stored in your account at any time, in a machine-readable format (JSON), using the “Download my data” link at the bottom of the page.",
         "p3": "Some of these rights are subject to legal exceptions and conditions.",
         "p4": "To exercise a privacy right, contact: <email></email>",
         "p5": "We will respond to requests within the timeframe required by applicable law."
@@ -491,7 +499,13 @@
         "title": "Cookies and analytics",
         "p1": "Beaver Savings does not use advertising cookies or third-party analytics services to track users across the web.",
         "p2": "We do not use services such as Google Analytics or similar analytics platforms for behavioural tracking.",
-        "p3": "The application may use technically necessary cookies or similar mechanisms required for authentication, session management, security, or the basic operation of the service.",
+        "p3": "The application only uses cookies and similar technologies that are needed for the service to work or that remember choices you make:",
+        "list": {
+          "i1": "<strong>Session cookie</strong> (<code>better-auth.session_token</code>): keeps you signed in. It is set when you sign in and expires after 7 days unless it is renewed while you use the app.",
+          "i2": "<strong>Language cookie</strong> (<code>NEXT_LOCALE</code>): remembers the language you use.",
+          "i3": "<strong>Currency cookie</strong> (<code>NEXT_CURRENCY</code>): remembers the currency you choose, for up to 1 year.",
+          "i4": "<strong>Browser local storage</strong> (<code>pwa-install-dismissed-at</code>, <code>pwa-was-installed</code>): remembers whether you dismissed or installed the app, so the install prompt is not shown again. This information stays on your device."
+        },
         "p4": "These technologies are used to provide the service rather than for advertising or cross-site behavioural tracking."
       },
       "children": {
@@ -600,8 +614,7 @@
         "title": "Your Financial Information",
         "p1": "You may enter information such as your net salary, subsidies, extra income, expenses, and savings goals.",
         "p2": "You are responsible for ensuring that the information you enter is as accurate and complete as reasonably possible.",
-        "p3": "Your results depend on the information you provide. Incorrect, incomplete, or outdated information may produce inaccurate estimates.",
-        "p4": "You should avoid including unnecessary personal or confidential information in any uploaded documents."
+        "p3": "Your results depend on the information you provide. Incorrect, incomplete, or outdated information may produce inaccurate estimates."
       },
       "disclaimer": {
         "title": "Financial and Tax Disclaimer",
@@ -717,7 +730,8 @@
         "p2": "We may restrict or suspend access where reasonably necessary to address suspected fraud, unlawful activity, security threats, serious breaches of these Terms, or risks to other users or the service.",
         "p3": "Where appropriate, we will provide notice and an opportunity to address the issue before taking action. We may act without prior notice where urgent action is reasonably necessary or legally required.",
         "p4": "Any suspension or termination will be handled in accordance with applicable law.",
-        "p5": "Deleting your account may permanently remove your saved savings information. You should export any information you wish to keep before deleting your account."
+        "p5": "Deleting your account may permanently remove your saved savings information. You should export any information you wish to keep before deleting your account.",
+        "p6": "If you do not use your account for 24 months, we may delete it as described in our Privacy Policy. If your email address is verified, we will warn you by email at least 30 days in advance."
       },
       "changes": {
         "title": "Changes to These Terms",

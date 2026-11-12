@@ -85,9 +85,6 @@ and complete as reasonably possible.
 Your results depend on the information and assumptions you provide. Incorrect,
 incomplete, or outdated information may produce inaccurate estimates.
 
-You should avoid including unnecessary personal or confidential information in
-any uploaded documents.
-
 ## 6. Financial and Tax Disclaimer
 
 Beaver Savings is a personal budgeting and savings planning tool. It is not a
@@ -318,6 +315,10 @@ Any suspension or termination will be handled in accordance with applicable law.
 
 Deleting your account may permanently remove your saved savings information. You
 should export any information you wish to keep before deleting your account.
+
+If you do not use your account for 24 months, we may delete it as described in
+our Privacy Policy. If your email address is verified, we will warn you by email
+at least 30 days in advance.
 
 ## 17. Changes to These Terms
 

@@ -252,10 +252,10 @@
   },
   "coach": {
     "title": "Bucky",
-    "subtitle": "O teu coach de poupanças",
+    "subtitle": "O teu coach de poupanças com IA",
     "open": "Bucky",
     "close": "Fechar Bucky",
-    "intro": "Analiso o teu rendimento, despesas, objetivo de poupança e a tua barragem para sugerir formas práticas de poupares mais.",
+    "intro": "Sou o Bucky, um assistente de IA, não uma pessoa. Analiso o teu rendimento, despesas, objetivo de poupança e a tua barragem para sugerir formas práticas de poupares mais.",
     "tipsButton": "Dá-me dicas para o meu plano",
     "tipsRequest": "Dá-me dicas para o meu plano.",
     "tipsAgain": "Novas dicas",
@@ -293,6 +293,11 @@
     "deletedBody": "A tua conta e os teus dados foram removidos. Obrigado por experimentares o Beaver Savings.",
     "backHome": "Voltar ao início",
     "failedToFetch": "Não foi possível efetuar o pedido. Por favor, tente novamente mais tarde."
+  },
+  "dataExport": {
+    "link": "Descarregar os meus dados",
+    "downloading": "A preparar…",
+    "failed": "Erro ao descarregar. Tentar novamente"
   },
   "languageSwitcher": {
     "label": "Alterar idioma",
@@ -371,7 +376,8 @@
           "i7": "Responder a pedidos ou questões que nos envie",
           "i8": "Manter e proteger o serviço",
           "i9": "Detetar, prevenir e resolver problemas técnicos ou de segurança",
-          "i10": "Gerar dicas de poupança e responder às suas perguntas através do coach de poupanças com IA opcional, quando opta por utilizá-lo"
+          "i10": "Gerar dicas de poupança e responder às suas perguntas através do coach de poupanças com IA opcional, quando opta por utilizá-lo",
+          "i11": "Enviar-lhe avisos de serviço sobre a sua conta, como um aviso antes de uma conta inativa ser eliminada"
         },
         "p3": "Não utilizamos as suas informações financeiras pessoais para publicidade nem para criação de perfis comportamentais.",
         "p4": "Não vendemos as suas informações pessoais."
@@ -451,14 +457,15 @@
         "title": "Transferências internacionais de dados",
         "p1": "A Beaver Savings está disponível em todo o mundo.",
         "p2": "Embora a nossa base de dados principal esteja implementada em Frankfurt, Alemanha, alguns dos nossos prestadores de serviços podem tratar informações noutros países, incluindo países fora do Espaço Económico Europeu (EEE).",
-        "p3": "Sempre que a legislação de proteção de dados aplicável exija salvaguardas para transferências internacionais, recorremos aos mecanismos adequados disponibilizados pelos nossos prestadores de serviços e pela lei aplicável.",
+        "p3": "A Vercel, a MongoDB e a Resend estão sediadas nos Estados Unidos. Cada uma delas está certificada ao abrigo do <strong>Quadro de Privacidade de Dados UE-EUA</strong> (EU-U.S. Data Privacy Framework) para o tipo de dados pessoais que partilhamos com elas. As transferências de dados pessoais do EEE para estes prestadores baseiam-se nessa certificação e na decisão de adequação da Comissão Europeia relativa ao Quadro de Privacidade de Dados UE-EUA.",
+        "p5": "A Scaleway, que executa o coach de poupanças com IA, está sediada em França e trata os pedidos ao coach dentro da União Europeia.",
         "p4": "Para os utilizadores protegidos pelo RGPD, tomamos medidas razoáveis para garantir que as transferências internacionais de dados pessoais são realizadas em conformidade com os requisitos de proteção de dados aplicáveis."
       },
       "retention": {
         "title": "Conservação de dados",
         "p1": "Conservamos as suas informações pessoais enquanto a sua conta Beaver Savings se mantiver ativa e na medida do necessário para prestar o serviço.",
         "p2": "As informações de sessão são conservadas de acordo com o prazo de expiração configurado para a respetiva sessão.",
-        "p3": "Atualmente, não definimos um prazo de conservação fixo separado para contas ativas.",
+        "p3": "Se não utilizar a sua conta durante 24 meses, eliminamo-la juntamente com todos os dados associados. Se o seu endereço de email estiver verificado, enviamos-lhe um email pelo menos 30 dias antes da eliminação, e basta iniciar sessão nesse período para manter a sua conta.",
         "p4": "Pode eliminar a sua conta Beaver Savings diretamente na aplicação.",
         "p5": "Quando elimina a sua conta, as informações da conta, as informações de autenticação, as informações de sessão e os dados de poupança associados à sua conta são eliminados permanentemente da Beaver Savings.",
         "p6": "Não mantemos cópias de segurança separadas da aplicação com os seus dados no MongoDB Atlas ou na Vercel.",
@@ -484,6 +491,7 @@
           "i6": "<strong>Direito de oposição:</strong> Pode ter o direito de se opor a determinados tratamentos baseados em interesses legítimos.",
           "i7": "<strong>Direito de retirar o consentimento:</strong> Sempre que o tratamento se baseie no seu consentimento, pode retirá-lo a qualquer momento."
         },
+        "selfService": "Com a sessão iniciada, pode descarregar a qualquer momento uma cópia dos dados pessoais guardados na sua conta, num formato legível por máquina (JSON), através da ligação “Descarregar os meus dados” no fundo da página.",
         "p3": "Alguns destes direitos estão sujeitos a exceções e condições legais.",
         "p4": "Para exercer um direito de privacidade, contacte: <email></email>",
         "p5": "Responderemos aos pedidos dentro do prazo exigido pela lei aplicável."
@@ -498,7 +506,13 @@
         "title": "Cookies e análise de utilização",
         "p1": "A Beaver Savings não utiliza cookies publicitários nem serviços de análise de terceiros para rastrear utilizadores na web.",
         "p2": "Não utilizamos serviços como o Google Analytics ou plataformas de análise semelhantes para rastreamento comportamental.",
-        "p3": "A aplicação pode utilizar cookies tecnicamente necessários ou mecanismos semelhantes exigidos para autenticação, gestão de sessões, segurança ou o funcionamento básico do serviço.",
+        "p3": "A aplicação utiliza apenas cookies e tecnologias semelhantes necessárias para o funcionamento do serviço ou que memorizam escolhas que faz:",
+        "list": {
+          "i1": "<strong>Cookie de sessão</strong> (<code>better-auth.session_token</code>): mantém a sua sessão iniciada. É criado quando inicia sessão e expira ao fim de 7 dias, a menos que seja renovado enquanto utiliza a aplicação.",
+          "i2": "<strong>Cookie de idioma</strong> (<code>NEXT_LOCALE</code>): memoriza o idioma que utiliza.",
+          "i3": "<strong>Cookie de moeda</strong> (<code>NEXT_CURRENCY</code>): memoriza a moeda que escolhe, durante até 1 ano.",
+          "i4": "<strong>Armazenamento local do navegador</strong> (<code>pwa-install-dismissed-at</code>, <code>pwa-was-installed</code>): memoriza se fechou ou instalou a aplicação, para que o pedido de instalação não volte a ser apresentado. Esta informação fica no seu dispositivo."
+        },
         "p4": "Estas tecnologias são utilizadas para prestar o serviço e não para publicidade ou rastreamento comportamental entre sites."
       },
       "children": {
@@ -611,8 +625,7 @@
         "title": "As Suas Informações Financeiras",
         "p1": "Pode introduzir informações como o seu salário líquido, subsídios, rendimentos extra, despesas e objetivos de poupança.",
         "p2": "É responsável por garantir que as informações que introduz são tão exatas e completas quanto razoavelmente possível.",
-        "p3": "Os seus resultados dependem das informações que fornece. Informações incorretas, incompletas ou desatualizadas podem produzir estimativas inexatas.",
-        "p4": "Deve evitar incluir informações pessoais ou confidenciais desnecessárias nos documentos que carrega."
+        "p3": "Os seus resultados dependem das informações que fornece. Informações incorretas, incompletas ou desatualizadas podem produzir estimativas inexatas."
       },
       "disclaimer": {
         "title": "Aviso Financeiro e Fiscal",
@@ -728,7 +741,8 @@
         "p2": "Podemos restringir ou suspender o acesso quando razoavelmente necessário para fazer face a suspeitas de fraude, atividade ilícita, ameaças de segurança, violações graves destes Termos ou riscos para outros utilizadores ou para o serviço.",
         "p3": "Sempre que adequado, notificá-lo-emos e dar-lhe-emos oportunidade de resolver a situação antes de tomar medidas. Podemos atuar sem aviso prévio quando a ação urgente seja razoavelmente necessária ou legalmente exigida.",
         "p4": "Qualquer suspensão ou cessação será tratada de acordo com a lei aplicável.",
-        "p5": "A eliminação da sua conta pode remover permanentemente as suas informações de poupança guardadas. Deve exportar as informações que pretenda manter antes de eliminar a sua conta."
+        "p5": "A eliminação da sua conta pode remover permanentemente as suas informações de poupança guardadas. Deve exportar as informações que pretenda manter antes de eliminar a sua conta.",
+        "p6": "Se não utilizar a sua conta durante 24 meses, podemos eliminá-la, conforme descrito na nossa Política de Privacidade. Se o seu endereço de email estiver verificado, avisá-lo-emos por email com pelo menos 30 dias de antecedência."
       },
       "changes": {
         "title": "Alterações a Estes Termos",

@@ -82,6 +82,8 @@ This includes using your information to:
 - Detect, prevent, and address technical or security problems
 - Generate savings tips and answer your questions through the optional AI
   savings coach, when you choose to use it
+- Send you service notices about your account, such as a warning before an
+  inactive account is deleted
 
 We do not use your personal financial information for advertising or behavioral
 profiling.
@@ -269,13 +271,18 @@ Although our primary application database is deployed in Frankfurt, Germany,
 some of our service providers may process information in other countries,
 including countries outside the European Economic Area (EEA).
 
-Where applicable data protection law requires safeguards for international
-transfers, we rely on appropriate mechanisms provided by our service providers
-and applicable law.
+Vercel, MongoDB, and Resend are based in the United States. Each of them is
+certified under the **EU-U.S. Data Privacy Framework** for the type of personal
+data we share with them. Transfers of personal data from the EEA to these
+providers rely on that certification and on the European Commission's adequacy
+decision for the EU-U.S. Data Privacy Framework.
 
 For users protected by the GDPR, we take reasonable steps to ensure that
 international transfers of personal data are conducted in accordance with
 applicable data protection requirements.
+
+Scaleway, which runs the AI savings coach, is based in France and processes
+coach requests within the European Union.
 
 ## 10. Data retention
 
@@ -285,8 +292,9 @@ remains active and as necessary to provide the service.
 Session information is retained according to the expiration period configured
 for the applicable session.
 
-We do not currently define a separate fixed retention period for active
-accounts.
+If you do not use your account for 24 months, we delete it together with all
+associated data. If your email address is verified, we email you at least 30
+days before the deletion, and signing in during that period keeps your account.
 
 You can delete your Beaver Savings account directly through the application.
 
@@ -339,6 +347,10 @@ If the GDPR applies to you, these rights may include:
 - **Right to withdraw consent:** Where processing is based on your consent, you
   may withdraw that consent at any time.
 
+While signed in, you can download a copy of the personal data stored in your
+account at any time, in a machine-readable format (JSON), using the "Download my
+data" link at the bottom of the page.
+
 Some of these rights are subject to legal exceptions and conditions.
 
 To exercise a privacy right, contact:
@@ -369,9 +381,18 @@ services to track users across the web.
 We do not use services such as Google Analytics or similar analytics platforms
 for behavioral tracking.
 
-The application may use technically necessary cookies or similar mechanisms
-required for authentication, session management, security, or the basic
-operation of the service.
+The application only uses cookies and similar technologies that are needed for
+the service to work or that remember choices you make:
+
+- **Session cookie** (`better-auth.session_token`): keeps you signed in. It is
+  set when you sign in and expires after 7 days unless it is renewed while you
+  use the app.
+- **Language cookie** (`NEXT_LOCALE`): remembers the language you use.
+- **Currency cookie** (`NEXT_CURRENCY`): remembers the currency you choose, for
+  up to 1 year.
+- **Browser local storage** (`pwa-install-dismissed-at`, `pwa-was-installed`):
+  remembers whether you dismissed or installed the app, so the install prompt
+  is not shown again. This information stays on your device.
 
 These technologies are used to provide the service rather than for advertising
 or cross-site behavioral tracking.

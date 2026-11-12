@@ -8,9 +8,11 @@ import type { Connection } from 'mongoose';
 
 import { DATABASE_CONNECTION } from '../../lib/database.js';
 import { DatabaseModule } from '../../lib/database.js';
+import { AccountModule } from '../account/account.module.js';
 import { CalculatorModule } from '../calculator/calculator.module.js';
 import { CoachModule } from '../coach/coach.module.js';
 import { DamModule } from '../dam/dam.module.js';
+import { RetentionModule } from '../retention/retention.module.js';
 import { SavingsModule } from '../savings/savings.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
@@ -54,6 +56,8 @@ export class AppModule {
         DamModule,
         CalculatorModule,
         CoachModule,
+        AccountModule,
+        RetentionModule,
       ],
       controllers: [AppController],
       providers: [

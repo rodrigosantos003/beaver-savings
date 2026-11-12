@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 
 import { DeleteAccountLink } from '@/components/account/DeleteAccountLink';
+import { DownloadDataLink } from '@/components/account/DownloadDataLink';
 import { Link } from '@/i18n/navigation';
 
 const linkClass = 'text-sm font-medium text-stone-500 transition-colors hover:text-stone-900';
@@ -19,13 +20,17 @@ export async function Footer() {
         </div>
 
         <div className="flex flex-col items-center gap-3 sm:items-end">
-          <nav aria-label={t('footer.nav')} className="flex items-center gap-6">
+          <nav
+            aria-label={t('footer.nav')}
+            className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:justify-end"
+          >
             <Link href="/privacy-policy" className={linkClass} prefetch={false}>
               {t('PrivacyPolicy.title')}
             </Link>
             <Link href="/terms-and-conditions" className={linkClass} prefetch={false}>
               {t('Terms.title')}
             </Link>
+            <DownloadDataLink />
             <DeleteAccountLink />
           </nav>
           <p className="text-sm text-stone-500">

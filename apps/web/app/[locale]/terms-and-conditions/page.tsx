@@ -136,7 +136,6 @@ export default async function TermsPage() {
           {p('financialInfo', 'p1')}
           {p('financialInfo', 'p2')}
           {p('financialInfo', 'p3')}
-          {p('financialInfo', 'p4')}
         </>
       ),
     },
@@ -283,6 +282,7 @@ export default async function TermsPage() {
           {p('termination', 'p3')}
           {p('termination', 'p4')}
           {p('termination', 'p5')}
+          {p('termination', 'p6')}
         </>
       ),
     },

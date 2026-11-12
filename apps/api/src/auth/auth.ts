@@ -1,5 +1,5 @@
 import { waitUntil } from '@vercel/functions';
-import type { Connection } from 'mongoose';
+import { type Connection, Types } from 'mongoose';
 import { CURRENCIES } from 'savings-core';
 
 import { sendEmail } from '../../lib/email.js';
@@ -59,6 +59,19 @@ export async function createAuth(connection: Connection) {
   const client = connection.getClient();
   if (!db || !client) throw new Error('Mongoose connection is not ready');
 
+  /**
+   * Better Auth hands ids to hooks as strings, but the Mongo adapter stores them (and our own
+   * collections reference them) as ObjectIds, so raw queries must convert first.
+   */
+  const toObjectId = (id: string) => new Types.ObjectId(id);
+
+  /** Feeds the inactive-account retention job (see src/retention). */
+  const touchLastActive = async (session: { userId: string }) => {
+    await db
+      .collection('users')
+      .updateOne({ _id: toObjectId(session.userId) }, { $set: { lastActiveAt: new Date() } });
+  };
+
   const secret = process.env.BETTER_AUTH_SECRET;
 
   if (!secret || secret.length < 32) {
@@ -74,7 +87,7 @@ export async function createAuth(connection: Connection) {
       deleteUser: {
         enabled: true,
         afterDelete: async (user) => {
-          const query = { userId: user.id };
+          const query = { userId: toObjectId(user.id) };
 
           await Promise.all([
             db.collection('dam_entries').deleteMany(query),
@@ -89,6 +102,13 @@ export async function createAuth(connection: Connection) {
           input: true,
           defaultValue: 'EUR',
         },
+      },
+    },
+    databaseHooks: {
+      session: {
+        // Sign-in creates a session; while the user stays active it is refreshed (updateAge).
+        create: { after: touchLastActive },
+        update: { after: touchLastActive },
       },
     },
     baseURL: process.env.BETTER_AUTH_URL ?? 'http://localhost:4331',

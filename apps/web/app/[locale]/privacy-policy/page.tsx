@@ -89,6 +89,9 @@ export default async function PrivacyPolicyPage() {
   const r = (key: string): ReactNode =>
     loose.rich(key, {
       strong: (chunks: ReactNode) => <strong>{chunks}</strong>,
+      code: (chunks: ReactNode) => (
+        <code className="rounded bg-stone-100 px-1 py-0.5 text-[0.9em] break-all">{chunks}</code>
+      ),
       email: () => <Email />,
     });
 
@@ -270,6 +273,7 @@ export default async function PrivacyPolicyPage() {
           <P>{r(s('transfers', 'p2'))}</P>
           <P>{r(s('transfers', 'p3'))}</P>
           <P>{r(s('transfers', 'p4'))}</P>
+          <P>{r(s('transfers', 'p5'))}</P>
         </>
       ),
     },
@@ -308,6 +312,7 @@ export default async function PrivacyPolicyPage() {
           <P>{r(s('rights', 'p1'))}</P>
           <P>{r(s('rights', 'p2'))}</P>
           <UL>{items(s('rights', 'list'))}</UL>
+          <P>{r(s('rights', 'selfService'))}</P>
           <P>{r(s('rights', 'p3'))}</P>
           <P>{r(s('rights', 'p4'))}</P>
           <P>{r(s('rights', 'p5'))}</P>
@@ -333,6 +338,7 @@ export default async function PrivacyPolicyPage() {
           <P>{r(s('cookies', 'p1'))}</P>
           <P>{r(s('cookies', 'p2'))}</P>
           <P>{r(s('cookies', 'p3'))}</P>
+          <UL>{items(s('cookies', 'list'))}</UL>
           <P>{r(s('cookies', 'p4'))}</P>
         </>
       ),

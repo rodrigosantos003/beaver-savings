@@ -136,7 +136,6 @@ export default async function TermsPage() {
           {p('financialInfo', 'p1')}
           {p('financialInfo', 'p2')}
           {p('financialInfo', 'p3')}
-          {p('financialInfo', 'p4')}
         </>
       ),
     },
@@ -152,6 +151,21 @@ export default async function TermsPage() {
           {ul('disclaimer', 'list')}
           {p('disclaimer', 'p5')}
           {p('disclaimer', 'p6')}
+        </>
+      ),
+    },
+    {
+      id: 'ai-features',
+      titleKey: s('aiFeatures', 'title'),
+      body: (
+        <>
+          {p('aiFeatures', 'p1')}
+          {p('aiFeatures', 'p2')}
+          {p('aiFeatures', 'p3')}
+          {p('aiFeatures', 'p4')}
+          {p('aiFeatures', 'p5')}
+          {ul('aiFeatures', 'list')}
+          {p('aiFeatures', 'p6')}
         </>
       ),
     },
@@ -268,6 +282,7 @@ export default async function TermsPage() {
           {p('termination', 'p3')}
           {p('termination', 'p4')}
           {p('termination', 'p5')}
+          {p('termination', 'p6')}
         </>
       ),
     },

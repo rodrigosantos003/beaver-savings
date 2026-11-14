@@ -252,10 +252,10 @@
   },
   "coach": {
     "title": "Bucky",
-    "subtitle": "O teu coach de poupanças",
+    "subtitle": "O teu coach de poupanças com IA",
     "open": "Bucky",
     "close": "Fechar Bucky",
-    "intro": "Analiso o teu rendimento, despesas, objetivo de poupança e a tua barragem para sugerir formas práticas de poupares mais.",
+    "intro": "Sou o Bucky, um assistente de IA, não uma pessoa. Analiso o teu rendimento, despesas, objetivo de poupança e a tua barragem para sugerir formas práticas de poupares mais.",
     "tipsButton": "Dá-me dicas para o meu plano",
     "tipsRequest": "Dá-me dicas para o meu plano.",
     "tipsAgain": "Novas dicas",
@@ -294,6 +294,11 @@
     "backHome": "Voltar ao início",
     "failedToFetch": "Não foi possível efetuar o pedido. Por favor, tente novamente mais tarde."
   },
+  "dataExport": {
+    "link": "Descarregar os meus dados",
+    "downloading": "A preparar…",
+    "failed": "Erro ao descarregar. Tentar novamente"
+  },
   "languageSwitcher": {
     "label": "Alterar idioma",
     "locales": {
@@ -307,7 +312,7 @@
       "description": "Como a Beaver Savings recolhe, utiliza, armazena e protege as suas informações pessoais."
     },
     "title": "Política de Privacidade",
-    "lastUpdated": "Última atualização: 16 de outubro de 2026",
+    "lastUpdated": "Última atualização: 12 de novembro de 2026",
     "intro": {
       "p1": "A Beaver Savings («Beaver Savings», «nós» ou «nosso») é uma aplicação web de finanças pessoais desenvolvida e operada por <strong>Rodrigo Santos</strong>.",
       "p2": "Esta Política de Privacidade explica como recolhemos, utilizamos, armazenamos e protegemos as informações pessoais quando utiliza a Beaver Savings."
@@ -370,7 +375,9 @@
           "i6": "Permitir-lhe exportar os resultados das suas poupanças",
           "i7": "Responder a pedidos ou questões que nos envie",
           "i8": "Manter e proteger o serviço",
-          "i9": "Detetar, prevenir e resolver problemas técnicos ou de segurança"
+          "i9": "Detetar, prevenir e resolver problemas técnicos ou de segurança",
+          "i10": "Gerar dicas de poupança e responder às suas perguntas através do coach de poupanças com IA opcional, quando opta por utilizá-lo",
+          "i11": "Enviar-lhe avisos de serviço sobre a sua conta, como um aviso antes de uma conta inativa ser eliminada"
         },
         "p3": "Não utilizamos as suas informações financeiras pessoais para publicidade nem para criação de perfis comportamentais.",
         "p4": "Não vendemos as suas informações pessoais."
@@ -381,6 +388,7 @@
         "contractHeading": "Execução de um contrato",
         "contractP1": "Tratamos as informações necessárias para lhe disponibilizar a Beaver Savings, incluindo as informações da conta, as informações de autenticação e os dados de poupança.",
         "contractP2": "Por exemplo, precisamos do seu endereço de email e das informações de autenticação para manter a sua conta e as sessões autenticadas, e precisamos das suas informações de poupança para disponibilizar a funcionalidade principal da aplicação.",
+        "contractP3": "Quando opta por utilizar o coach de poupanças com IA, tratamos as suas informações de poupança e qualquer pergunta que escreva para lhe dar as dicas ou respostas que pede.",
         "interestsHeading": "Interesses legítimos",
         "interestsP1": "Podemos tratar informações limitadas quando tal seja necessário para interesses legítimos, como manter, proteger, depurar e melhorar a fiabilidade da Beaver Savings, desde que esses interesses não prevaleçam sobre os seus direitos e liberdades.",
         "interestsP2": "Isto pode incluir o tratamento de informações técnicas e de segurança, como endereços IP e informações de user-agent, para efeitos de autenticação e segurança.",
@@ -408,6 +416,25 @@
         "p4": "O endereço de email que indica para uma exportação é transmitido ao Resend na medida do necessário para enviar o email. O Resend pode tratar essa informação de acordo com as suas próprias práticas de privacidade e os termos contratuais aplicáveis.",
         "p5": "Deve indicar apenas um endereço de email que esteja autorizado a utilizar para este efeito."
       },
+      "aiCoach": {
+        "title": "Coach de poupanças com IA",
+        "p1": "A Beaver Savings inclui um coach de poupanças com IA opcional, o <strong>Bucky</strong>, disponível para utilizadores com sessão iniciada. O Bucky funciona com um modelo de linguagem de grande dimensão executado pela <strong>Scaleway</strong>, um fornecedor de cloud francês, através do seu serviço Generative APIs alojado na União Europeia.",
+        "p2": "O coach só é executado quando o pede, por exemplo quando pede dicas para o seu plano ou escreve uma pergunta. Em cada pedido, a Beaver Savings envia à Scaleway as seguintes informações para que o modelo possa gerar uma resposta:",
+        "list": {
+          "i1": "O plano de poupança que introduziu na calculadora, como o seu rendimento, subsídios, rendimentos extra, despesas, objetivo de poupança e método de poupança",
+          "i2": "Valores calculados a partir desse plano, como o seu mês típico, a poupança anual prevista e a poupança sugerida",
+          "i3": "Um resumo dos seus hábitos de poupança com base nos seus planos recentes, como a poupança mediana e as despesas mensais medianas",
+          "i4": "O montante total poupado na sua barragem e o número de depósitos",
+          "i5": "A sua moeda preferida e o idioma da aplicação",
+          "i6": "O texto de qualquer pergunta que escreva"
+        },
+        "p3": "Não enviamos à Scaleway o seu nome, endereço de email, palavra-passe ou informações de sessão nos pedidos ao coach.",
+        "p4": "As perguntas que escreve são enviadas à Scaleway tal como as escreveu. Não inclua informações que não sejam necessárias para a sua pergunta, como nomes, contactos, dados bancários ou informações sobre a sua saúde ou outros assuntos sensíveis.",
+        "p5": "A Beaver Savings não armazena as suas perguntas nem as respostas do coach na sua base de dados. Cada resposta é apresentada no seu navegador e perde-se quando fecha o coach ou sai da página.",
+        "p6": "A Scaleway trata estas informações enquanto nosso prestador de serviços, apenas para gerar a resposta e dentro da União Europeia. Ao abrigo dos termos da Scaleway para este serviço, as suas informações não são utilizadas para treinar ou melhorar modelos de IA, e o conteúdo dos pedidos e das respostas não é conservado por predefinição. A Scaleway pode recolher dados de utilização anonimizados, como o número de pedidos, para operar o serviço.",
+        "p7": "As respostas do coach são geradas automaticamente e não são revistas por uma pessoa. Não produzem efeitos jurídicos nem efeitos igualmente significativos sobre si e não constituem aconselhamento financeiro profissional.",
+        "p8": "A utilização do coach é totalmente opcional. Se não quiser que as suas informações de poupança sejam enviadas à Scaleway, basta não o utilizar. Todas as outras funcionalidades da Beaver Savings funcionam sem ele."
+      },
       "providers": {
         "title": "Prestadores de serviços",
         "p1": "A Beaver Savings utiliza infraestruturas e prestadores de serviços de terceiros para operar a aplicação.",
@@ -421,6 +448,8 @@
         "betterAuthP2": "O Better Auth trata da autenticação e da gestão de sessões dentro da aplicação Beaver Savings. As informações de autenticação e de sessão resultantes são armazenadas na base de dados da nossa aplicação.",
         "resendP1": "A Beaver Savings utiliza o <strong>Resend</strong> para enviar os emails associados à funcionalidade de exportação.",
         "resendP2": "Quando pede uma exportação, o endereço de email que indica é transmitido ao Resend na medida do necessário para enviar o email. A Beaver Savings não armazena esse endereço de destinatário nos dados da sua conta.",
+        "scalewayP1": "A Beaver Savings utiliza o serviço <strong>Scaleway Generative APIs</strong> para o coach de poupanças com IA opcional.",
+        "scalewayP2": "Quando utiliza o coach, as informações de poupança e as perguntas descritas na secção “Coach de poupanças com IA” são transmitidas à Scaleway para gerar uma resposta. A Scaleway trata estas informações em centros de dados localizados na União Europeia.",
         "closing": "Estes prestadores tratam informações na medida do necessário para prestar os respetivos serviços. As suas próprias políticas de privacidade e termos contratuais também podem ser aplicáveis.",
         "policyLink": "Ler a Política de Privacidade da {provider}"
       },
@@ -428,14 +457,15 @@
         "title": "Transferências internacionais de dados",
         "p1": "A Beaver Savings está disponível em todo o mundo.",
         "p2": "Embora a nossa base de dados principal esteja implementada em Frankfurt, Alemanha, alguns dos nossos prestadores de serviços podem tratar informações noutros países, incluindo países fora do Espaço Económico Europeu (EEE).",
-        "p3": "Sempre que a legislação de proteção de dados aplicável exija salvaguardas para transferências internacionais, recorremos aos mecanismos adequados disponibilizados pelos nossos prestadores de serviços e pela lei aplicável.",
+        "p3": "A Vercel, a MongoDB e a Resend estão sediadas nos Estados Unidos. Cada uma delas está certificada ao abrigo do <strong>Quadro de Privacidade de Dados UE-EUA</strong> (EU-U.S. Data Privacy Framework) para o tipo de dados pessoais que partilhamos com elas. As transferências de dados pessoais do EEE para estes prestadores baseiam-se nessa certificação e na decisão de adequação da Comissão Europeia relativa ao Quadro de Privacidade de Dados UE-EUA.",
+        "p5": "A Scaleway, que executa o coach de poupanças com IA, está sediada em França e trata os pedidos ao coach dentro da União Europeia.",
         "p4": "Para os utilizadores protegidos pelo RGPD, tomamos medidas razoáveis para garantir que as transferências internacionais de dados pessoais são realizadas em conformidade com os requisitos de proteção de dados aplicáveis."
       },
       "retention": {
         "title": "Conservação de dados",
         "p1": "Conservamos as suas informações pessoais enquanto a sua conta Beaver Savings se mantiver ativa e na medida do necessário para prestar o serviço.",
         "p2": "As informações de sessão são conservadas de acordo com o prazo de expiração configurado para a respetiva sessão.",
-        "p3": "Atualmente, não definimos um prazo de conservação fixo separado para contas ativas.",
+        "p3": "Se não utilizar a sua conta durante 24 meses, eliminamo-la juntamente com todos os dados associados. Se o seu endereço de email estiver verificado, enviamos-lhe um email pelo menos 30 dias antes da eliminação, e basta iniciar sessão nesse período para manter a sua conta.",
         "p4": "Pode eliminar a sua conta Beaver Savings diretamente na aplicação.",
         "p5": "Quando elimina a sua conta, as informações da conta, as informações de autenticação, as informações de sessão e os dados de poupança associados à sua conta são eliminados permanentemente da Beaver Savings.",
         "p6": "Não mantemos cópias de segurança separadas da aplicação com os seus dados no MongoDB Atlas ou na Vercel.",
@@ -461,6 +491,7 @@
           "i6": "<strong>Direito de oposição:</strong> Pode ter o direito de se opor a determinados tratamentos baseados em interesses legítimos.",
           "i7": "<strong>Direito de retirar o consentimento:</strong> Sempre que o tratamento se baseie no seu consentimento, pode retirá-lo a qualquer momento."
         },
+        "selfService": "Com a sessão iniciada, pode descarregar a qualquer momento uma cópia dos dados pessoais guardados na sua conta, num formato legível por máquina (JSON), através da ligação “Descarregar os meus dados” no fundo da página.",
         "p3": "Alguns destes direitos estão sujeitos a exceções e condições legais.",
         "p4": "Para exercer um direito de privacidade, contacte: <email></email>",
         "p5": "Responderemos aos pedidos dentro do prazo exigido pela lei aplicável."
@@ -475,7 +506,13 @@
         "title": "Cookies e análise de utilização",
         "p1": "A Beaver Savings não utiliza cookies publicitários nem serviços de análise de terceiros para rastrear utilizadores na web.",
         "p2": "Não utilizamos serviços como o Google Analytics ou plataformas de análise semelhantes para rastreamento comportamental.",
-        "p3": "A aplicação pode utilizar cookies tecnicamente necessários ou mecanismos semelhantes exigidos para autenticação, gestão de sessões, segurança ou o funcionamento básico do serviço.",
+        "p3": "A aplicação utiliza apenas cookies e tecnologias semelhantes necessárias para o funcionamento do serviço ou que memorizam escolhas que faz:",
+        "list": {
+          "i1": "<strong>Cookie de sessão</strong> (<code>better-auth.session_token</code>): mantém a sua sessão iniciada. É criado quando inicia sessão e expira ao fim de 7 dias, a menos que seja renovado enquanto utiliza a aplicação.",
+          "i2": "<strong>Cookie de idioma</strong> (<code>NEXT_LOCALE</code>): memoriza o idioma que utiliza.",
+          "i3": "<strong>Cookie de moeda</strong> (<code>NEXT_CURRENCY</code>): memoriza a moeda que escolhe, durante até 1 ano.",
+          "i4": "<strong>Armazenamento local do navegador</strong> (<code>pwa-install-dismissed-at</code>, <code>pwa-was-installed</code>): memoriza se fechou ou instalou a aplicação, para que o pedido de instalação não volte a ser apresentado. Esta informação fica no seu dispositivo."
+        },
         "p4": "Estas tecnologias são utilizadas para prestar o serviço e não para publicidade ou rastreamento comportamental entre sites."
       },
       "children": {
@@ -528,7 +565,7 @@
       "description": "Os termos aplicáveis à utilização da Beaver Savings, uma ferramenta gratuita de finanças pessoais e planeamento de poupanças."
     },
     "title": "Termos e Condições",
-    "lastUpdated": "Última atualização: 16 de outubro de 2026",
+    "lastUpdated": "Última atualização: 12 de novembro de 2026",
     "intro": {
       "welcome": "Bem-vindo à Beaver Savings!",
       "p1": "Estes Termos e Condições explicam como pode utilizar a Beaver Savings, uma aplicação web de finanças pessoais e planeamento de poupanças operada por <strong>Rodrigo Santos</strong>.",
@@ -551,7 +588,8 @@
           "i1": "Estimativa das despesas mensais e da poupança potencial.",
           "i2": "Criação de projeções anuais de poupança.",
           "i3": "Definição de objetivos de poupança com base num montante fixo ou numa percentagem do rendimento.",
-          "i4": "Exportação dos resultados de poupança em PDF ou partilha por email."
+          "i4": "Exportação dos resultados de poupança em PDF ou partilha por email.",
+          "i5": "Dicas de poupança e respostas às suas perguntas geradas por IA pelo Bucky, o nosso coach de poupanças."
         },
         "p3": "Podemos atualizar, melhorar, adicionar ou remover funcionalidades à medida que o serviço evolui."
       },
@@ -587,8 +625,7 @@
         "title": "As Suas Informações Financeiras",
         "p1": "Pode introduzir informações como o seu salário líquido, subsídios, rendimentos extra, despesas e objetivos de poupança.",
         "p2": "É responsável por garantir que as informações que introduz são tão exatas e completas quanto razoavelmente possível.",
-        "p3": "Os seus resultados dependem das informações que fornece. Informações incorretas, incompletas ou desatualizadas podem produzir estimativas inexatas.",
-        "p4": "Deve evitar incluir informações pessoais ou confidenciais desnecessárias nos documentos que carrega."
+        "p3": "Os seus resultados dependem das informações que fornece. Informações incorretas, incompletas ou desatualizadas podem produzir estimativas inexatas."
       },
       "disclaimer": {
         "title": "Aviso Financeiro e Fiscal",
@@ -605,6 +642,22 @@
         },
         "p5": "Deve verificar os cálculos importantes junto de fontes oficiais ou consultar um profissional qualificado ao tomar decisões financeiras ou fiscais significativas.",
         "p6": "A Beaver Savings não detém o seu dinheiro, não transfere fundos, não se liga à sua conta bancária nem executa transações financeiras em seu nome."
+      },
+      "aiFeatures": {
+        "title": "Funcionalidades de IA",
+        "p1": "A Beaver Savings oferece um coach de poupanças com IA opcional, o Bucky, disponível para utilizadores com sessão iniciada. O Bucky funciona com um modelo de linguagem de grande dimensão executado pela <strong>Scaleway</strong>, um prestador de serviços de IA terceiro. Quando utiliza o Bucky, está a interagir com um sistema de IA e não com uma pessoa.",
+        "p2": "As respostas do Bucky são geradas automaticamente e não são revistas por uma pessoa antes de lhe serem apresentadas. Podem ser inexatas, incompletas, desatualizadas ou inadequadas às suas circunstâncias, e o mesmo pedido pode produzir respostas diferentes.",
+        "p3": "As respostas do Bucky são apenas orientações gerais. Não constituem aconselhamento profissional personalizado em matéria financeira, de investimento, contabilística ou fiscal, e o Aviso Financeiro e Fiscal acima aplica-se-lhes integralmente. Deve confirmar qualquer sugestão face às suas circunstâncias antes de agir com base nela.",
+        "p4": "Para gerar uma resposta, as suas informações de poupança e o texto de qualquer pergunta que escreva são enviados à Scaleway. A nossa Política de Privacidade explica o que é partilhado e como é tratado. Não inclua informações pessoais ou sensíveis desnecessárias nas suas perguntas.",
+        "p5": "Ao utilizar as funcionalidades de IA, não pode:",
+        "list": {
+          "i1": "Tentar levar o coach a produzir conteúdos ilegais, nocivos, abusivos ou enganosos.",
+          "i2": "Tentar contornar, anular ou extrair as instruções ou salvaguardas do coach.",
+          "i3": "Utilizar o coach para fins não relacionados com as suas poupanças e orçamento pessoais.",
+          "i4": "Enviar pedidos automatizados ou excessivos ao coach.",
+          "i5": "Apresentar as respostas do coach como aconselhamento profissional verificado ou como conteúdo escrito por uma pessoa."
+        },
+        "p6": "Para proteger o serviço, limitamos o número de pedidos que podem ser feitos ao coach num curto período. As funcionalidades de IA dependem de um prestador terceiro e podem ficar indisponíveis, ser alteradas, limitadas ou descontinuadas a qualquer momento."
       },
       "acceptableUse": {
         "title": "Utilização Aceitável",
@@ -647,7 +700,7 @@
       },
       "thirdParty": {
         "title": "Serviços de Terceiros",
-        "p1": "A Beaver Savings recorre a prestadores de serviços terceiros para operar determinadas partes do serviço, incluindo alojamento, armazenamento de dados, autenticação e envio de emails.",
+        "p1": "A Beaver Savings recorre a prestadores de serviços terceiros para operar determinadas partes do serviço, incluindo alojamento, armazenamento de dados, autenticação, envio de emails e respostas geradas por IA.",
         "p2": "Estes prestadores podem sofrer interrupções, problemas técnicos ou alterações nos seus serviços que afetem a Beaver Savings.",
         "p3": "Quando interage com serviços de terceiros, os respetivos termos e políticas também podem ser aplicáveis.",
         "p4": "Tomaremos medidas razoáveis para gerir a nossa utilização de serviços de terceiros, mas não podemos garantir a disponibilidade ou o desempenho independentes de sistemas que não controlamos.",
@@ -688,7 +741,8 @@
         "p2": "Podemos restringir ou suspender o acesso quando razoavelmente necessário para fazer face a suspeitas de fraude, atividade ilícita, ameaças de segurança, violações graves destes Termos ou riscos para outros utilizadores ou para o serviço.",
         "p3": "Sempre que adequado, notificá-lo-emos e dar-lhe-emos oportunidade de resolver a situação antes de tomar medidas. Podemos atuar sem aviso prévio quando a ação urgente seja razoavelmente necessária ou legalmente exigida.",
         "p4": "Qualquer suspensão ou cessação será tratada de acordo com a lei aplicável.",
-        "p5": "A eliminação da sua conta pode remover permanentemente as suas informações de poupança guardadas. Deve exportar as informações que pretenda manter antes de eliminar a sua conta."
+        "p5": "A eliminação da sua conta pode remover permanentemente as suas informações de poupança guardadas. Deve exportar as informações que pretenda manter antes de eliminar a sua conta.",
+        "p6": "Se não utilizar a sua conta durante 24 meses, podemos eliminá-la, conforme descrito na nossa Política de Privacidade. Se o seu endereço de email estiver verificado, avisá-lo-emos por email com pelo menos 30 dias de antecedência."
       },
       "changes": {
         "title": "Alterações a Estes Termos",

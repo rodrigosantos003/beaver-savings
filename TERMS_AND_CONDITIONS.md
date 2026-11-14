@@ -1,6 +1,6 @@
 # Terms and Conditions
 
-**Last updated: 12 October 2026**
+**Last updated: 12 November 2026**
 
 Welcome to Beaver Savings!
 
@@ -22,6 +22,8 @@ The service may include features such as:
 - Creating annual savings projections.
 - Setting savings goals based on a fixed amount or a percentage of income.
 - Exporting savings results as a PDF or sharing them by email.
+- Getting AI-generated savings tips and answers to your questions from Bucky,
+  our AI savings coach.
 
 We may update, improve, add, or remove features as the service develops.
 
@@ -83,9 +85,6 @@ and complete as reasonably possible.
 Your results depend on the information and assumptions you provide. Incorrect,
 incomplete, or outdated information may produce inaccurate estimates.
 
-You should avoid including unnecessary personal or confidential information in
-any uploaded documents.
-
 ## 6. Financial and Tax Disclaimer
 
 Beaver Savings is a personal budgeting and savings planning tool. It is not a
@@ -115,7 +114,44 @@ qualified professional when making significant financial or tax decisions.
 Beaver Savings does not hold your money, transfer funds, connect to your bank
 account, or execute financial transactions on your behalf.
 
-## 7. Acceptable Use
+## 7. AI Features
+
+Beaver Savings offers an optional AI savings coach, Bucky, available to
+signed-in users. Bucky is powered by a large language model run by
+**Scaleway**, a third-party AI service provider. When you use Bucky, you are interacting with an AI
+system, not a person.
+
+Bucky's responses are generated automatically and are not reviewed by a person
+before they are shown to you. They may be inaccurate, incomplete, outdated, or
+unsuitable for your circumstances, and the same request may produce different
+responses.
+
+Bucky's responses are general guidance only. They are not personalised
+professional financial, investment, accounting, or tax advice, and the Financial
+and Tax Disclaimer above applies to them in full. You should check any
+suggestion against your own circumstances before acting on it.
+
+To generate a response, your savings information and the text of any question
+you type are sent to Scaleway. Our Privacy Policy explains what is shared and how
+it is handled. Please do not include unnecessary personal or sensitive
+information in your questions.
+
+When using the AI features, you must not:
+
+- Attempt to make the coach produce unlawful, harmful, abusive, or misleading
+  content.
+- Attempt to bypass, override, or extract the coach's instructions or
+  safeguards.
+- Use the coach for purposes unrelated to your personal savings and budgeting.
+- Send automated or excessive requests to the coach.
+- Present the coach's responses as verified professional advice or as content
+  written by a person.
+
+To protect the service, we limit how many requests can be made to the coach in
+a short period. The AI features depend on a third-party provider and may be
+unavailable, changed, limited, or discontinued at any time.
+
+## 8. Acceptable Use
 
 You agree to use Beaver Savings lawfully and responsibly.
 
@@ -193,7 +229,8 @@ lawfully be excluded under applicable law.
 ## 12. Third-Party Services
 
 Beaver Savings relies on third-party providers to operate certain parts of the
-service, including hosting, data storage, authentication, and email delivery.
+service, including hosting, data storage, authentication, email delivery, and
+AI-generated responses.
 
 These providers may experience outages, technical issues, or changes to their
 services that affect Beaver Savings.
@@ -278,6 +315,10 @@ Any suspension or termination will be handled in accordance with applicable law.
 
 Deleting your account may permanently remove your saved savings information. You
 should export any information you wish to keep before deleting your account.
+
+If you do not use your account for 24 months, we may delete it as described in
+our Privacy Policy. If your email address is verified, we will warn you by email
+at least 30 days in advance.
 
 ## 17. Changes to These Terms
 

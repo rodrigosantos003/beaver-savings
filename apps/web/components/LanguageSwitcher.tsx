@@ -64,7 +64,7 @@ export function LanguageSwitcher() {
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={t('label')}
-        className="inline-flex items-center gap-2 rounded-full border border-stone-200 px-3 py-1.5 text-sm font-medium text-stone-600 transition-colors hover:text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-300 disabled:opacity-50"
+        className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 px-2.5 py-1.5 sm:gap-2 sm:px-3 text-sm font-medium text-stone-600 transition-colors hover:text-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-300 disabled:opacity-50"
       >
         <Flag locale={locale} className="h-3.5 w-5 rounded-xs" />
         <span className="hidden sm:inline">{t(`locales.${locale as Locale}`)}</span>

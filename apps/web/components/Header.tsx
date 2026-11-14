@@ -32,12 +32,12 @@ export async function Header() {
             height={42}
             className="h-9 w-9 shrink-0 sm:h-10.5 sm:w-10.5"
           />
-          <span className="text-base font-semibold leading-tight tracking-tight text-beaver-900 sm:text-lg">
+          <span className="hidden whitespace-nowrap text-base min-[400px]:inline font-semibold leading-tight tracking-tight text-beaver-900 sm:text-lg">
             Beaver Savings
           </span>
         </Link>
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
           <nav className="hidden items-center gap-3 md:flex">
             <NavLinks hasSession={hasSession} />
             <QuickLogin initialLoggedIn={hasSession} />

@@ -12,7 +12,7 @@ const withSerwist = withSerwistInit({
   disable: process.env.NODE_ENV !== 'production',
 });
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4331';
+const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
 
 const nextConfig: NextConfig = {
   transpilePackages: ['savings-core'],

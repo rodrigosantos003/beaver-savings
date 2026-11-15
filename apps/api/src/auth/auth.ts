@@ -111,7 +111,7 @@ export async function createAuth(connection: Connection) {
         update: { after: touchLastActive },
       },
     },
-    baseURL: process.env.BETTER_AUTH_URL ?? 'http://localhost:4331',
+    baseURL: process.env.BETTER_AUTH_URL ?? 'http://localhost:3001',
     secret: secret,
     trustedOrigins: [process.env.WEB_ORIGIN ?? 'http://localhost:3000'],
     emailAndPassword: {

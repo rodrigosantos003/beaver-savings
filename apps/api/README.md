@@ -1,117 +1,129 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Beaver Savings — API
 
-[circleci-image]:
-  https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+The backend for [Beaver Savings](../../README.md). It is a NestJS app that
+handles authentication, stores calculator snapshots and savings ("dam") entries
+in MongoDB, sends emails through Resend and runs the AI savings coach.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+It is deployed to Vercel as the `beaver-savings-api` project.
 
-## Description
+## Stack
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+| Concern         | Technology                                                      |
+| --------------- | --------------------------------------------------------------- |
+| Framework       | NestJS 12 (ESM)                                                 |
+| Database        | MongoDB Atlas through Mongoose                                  |
+| Auth            | Better Auth (Mongo adapter) via `@thallesp/nestjs-better-auth`  |
+| Email           | Resend                                                          |
+| AI coach        | OpenAI-compatible chat completions API (Scaleway by default)    |
+| Rate limiting   | `@nestjs/throttler`                                             |
+| Resilience      | `@nestjs/resilience` (timeout, retry, circuit breaker)          |
+| Shared logic    | `savings-core` workspace package                                |
+| Edge middleware | `@vercel/functions` (method, CORS preflight and body-size gate) |
 
-## Project setup
+## Project structure
 
-```bash
-$ yarn install
+```
+apps/api
+├── lib/              # Shared infrastructure: database, email, AI client, pipes
+├── middleware.ts     # Vercel edge middleware run before the Nest app
+├── src/
+│   ├── main.ts       # Bootstrap: validation, CORS, security headers
+│   ├── app/          # Root module, health check, 404 filter
+│   ├── auth/         # Better Auth config plus verification and recovery emails
+│   ├── account/      # GDPR data export
+│   ├── calculator/   # Calculator snapshots and spending habits
+│   ├── coach/        # AI savings coach
+│   ├── dam/          # Savings dam entries (money actually put aside)
+│   ├── retention/    # Inactive-account cleanup job
+│   └── savings/      # Email a savings summary
+└── test/             # e2e tests
 ```
 
-## Compile and run the project
+## Endpoints
+
+All routes require a signed-in session unless marked **public**. The global rate
+limit is 60 requests per minute.
+
+| Method   | Path                             | Description                                             |
+| -------- | -------------------------------- | ------------------------------------------------------- |
+| `GET`    | `/`                              | **Public.** Root endpoint                               |
+| `GET`    | `/health`                        | **Public.** API and database health                     |
+| `*`      | `/api/auth/*`                    | Better Auth routes (sign-up, sign-in, reset, verify, …) |
+| `POST`   | `/snapshots`                     | Save the current calculator input                       |
+| `GET`    | `/snapshots/latest`              | Load the most recent calculator input                   |
+| `GET`    | `/snapshots/habits`              | Spending habits derived from recent snapshots           |
+| `DELETE` | `/snapshots`                     | Delete all of the user's snapshots                      |
+| `GET`    | `/dam`                           | List savings dam entries                                |
+| `POST`   | `/dam`                           | Add a savings dam entry                                 |
+| `DELETE` | `/dam/:id`                       | Remove a savings dam entry                              |
+| `GET`    | `/coach/insights`                | AI-generated insights (10 per minute)                   |
+| `POST`   | `/coach/ask`                     | Ask the AI coach a question (10 per minute)             |
+| `POST`   | `/savings/email`                 | Email the savings summary (5 per minute)                |
+| `GET`    | `/account/export`                | Export all of the user's data (5 per minute)            |
+| `GET`    | `/maintenance/inactive-accounts` | Cron only, needs `Authorization: Bearer $CRON_SECRET`   |
+
+### Inactive-account retention
+
+The Privacy Policy states that inactive accounts are deleted, and Vercel Cron
+calls `/maintenance/inactive-accounts` to enforce it:
+
+- After **24 months** without activity, the account and its sessions, dam
+  entries and calculator snapshots are deleted.
+- Verified users get a warning email **30 days** before deletion. Unverified
+  accounts are deleted without a warning.
+- Each run is capped at 20 warnings and 100 deletions so it fits within one
+  serverless invocation.
+
+## Environment variables
+
+For local development, put these in `apps/api/.env`. On Vercel the `.env` file
+is ignored and the variables come from the project settings.
+
+| Variable             | Required | Description                                                       |
+| -------------------- | -------- | ----------------------------------------------------------------- |
+| `PORT`               | No       | Port to listen on (default `3001`)                                |
+| `MONGODB_URI`        | Yes      | MongoDB connection string                                         |
+| `DB_NAME`            | No       | Database name (default `dev`)                                     |
+| `BETTER_AUTH_SECRET` | Yes      | Secret used to sign sessions                                      |
+| `BETTER_AUTH_URL`    | No       | Public URL of this API (default `http://localhost:3001`)          |
+| `WEB_ORIGIN`         | Yes      | Web app origin, used for CORS, trusted origins and email links    |
+| `RESEND_API_KEY`     | Yes      | Resend API key                                                    |
+| `RESEND_FROM`        | Yes      | Sender address for outgoing emails                                |
+| `AI_KEY`             | Yes\*    | API key for the AI provider                                       |
+| `AI_BASE_URL`        | No       | OpenAI-compatible base URL (default `https://api.scaleway.ai/v1`) |
+| `AI_MODEL`           | No       | Model name (default `mistral-small-3.2-24b-instruct-2506`)        |
+| `CRON_SECRET`        | Yes\*    | Bearer token Vercel Cron sends to the retention endpoint          |
+
+\* Only needed for the coach and the retention job respectively.
+
+## Development
+
+Run these from the **repository root**. The root scripts build `savings-core`
+first, which the API depends on.
 
 ```bash
-# development
-$ yarn run start
+yarn install
 
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+yarn dev:api     # build savings-core, then start Nest in watch mode
+yarn build:api   # lint and compile to dist/
+yarn start:api   # run the compiled app
+yarn lint:api
+yarn test:api    # unit tests
 ```
 
-## Run tests
+The workspace has more scripts that you can run with
+`yarn workspace api <script>`:
 
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+yarn workspace api test:e2e   # e2e tests (need a reachable MongoDB)
+yarn workspace api test:cov
+yarn workspace api lint:fix
 ```
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are
-some key steps you can take to ensure it runs as efficiently as possible. Check
-out the [deployment documentation](https://docs.nestjs.com/deployment) for more
-information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application,
-check out [Mau](https://mau.nestjs.com), our official platform for deploying
-NestJS applications on AWS. Mau makes deployment straightforward and fast,
-requiring just a few simple steps:
-
-```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to
-focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about
-  the framework.
-- For questions and support, please visit our
-  [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video
-  [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of
-  [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in
-  real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official
-  [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on
-  [X](https://x.com/nestframework) and
-  [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official
-  [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors
-and support by the amazing backers. If you'd like to join them, please
-[read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+The API deploys to Vercel through the Git integration. Pushes to `main` go to
+production, and other branches get preview deployments. Deployments from `dev`
+are turned off in the root `vercel.json`. The Vercel project and the MongoDB
+Atlas cluster are managed with Terraform in `infrastructure/terraform`. See the
+[root README](../../README.md#devops-and-infrastructure) for details.

@@ -1,49 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with
-[`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Beaver Savings — Web
 
-## Getting Started
+The frontend for [Beaver Savings](../../README.md). It is a Next.js app with the
+savings calculator, the savings "dam", the AI coach, accounts and the legal
+pages. It is available in Portuguese and English and can be installed as a PWA.
 
-First, run the development server:
+It is deployed to Vercel as the `beaver-savings` project, at
+<https://beaver-savings.vercel.app>.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Stack
+
+| Concern      | Technology                                                    |
+| ------------ | ------------------------------------------------------------- |
+| Framework    | Next.js 16 (App Router), React 19                             |
+| Styling      | Tailwind CSS 4                                                |
+| i18n         | `next-intl` (`pt` by default, `en`, no locale prefix in URLs) |
+| Auth         | Better Auth React client                                      |
+| PWA          | Serwist service worker (production builds only)               |
+| Shared logic | `savings-core` workspace package (calculations, currencies)   |
+
+> This version of Next.js has breaking changes compared to older releases. Check
+> the docs in `node_modules/next/dist/docs/` before changing framework code (see
+> [AGENTS.md](AGENTS.md)).
+
+## Project structure
+
+```
+apps/web
+├── app/
+│   ├── [locale]/            # Every page, with the locale resolved by next-intl
+│   │   ├── landing/         # Marketing landing page
+│   │   ├── calculator/      # Calculator, savings dam and AI coach
+│   │   ├── login/, signup/, forgot-password/, reset-password/, confirm-account/
+│   │   ├── delete-account/
+│   │   └── privacy-policy/, terms-and-conditions/
+│   ├── manifest.ts, robots.ts, sitemap.ts
+│   └── sw.ts                # Service worker source
+├── components/
+│   ├── calculator/          # Form, results, export bar, dam, coach sidebar
+│   ├── auth/                # Sign-in, sign-up, password and verification flows
+│   └── account/             # Data download and account deletion
+├── i18n/                    # next-intl routing and request config
+├── languages/               # pt.json and en.json message files
+└── lib/
+    ├── api/                 # Client and server-side API helpers
+    ├── auth-client.ts       # Better Auth client
+    └── hooks/, currencies.ts, seo.ts, …
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the
-result.
+## How it talks to the API
 
-You can start editing the page by modifying `app/page.tsx`. The page
-auto-updates as you edit the file.
+The browser sends API calls to its own origin, and `next.config.ts` proxies them
+to the API with rewrites. Auth cookies therefore stay first-party. These paths
+are proxied:
 
-This project uses
-[`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts)
-to automatically optimize and load [Geist](https://vercel.com/font), a new font
-family for Vercel.
+`/api/auth/*`, `/account/*`, `/coach/*`, `/dam/*`, `/savings/*`, `/snapshots/*`
 
-## Learn More
+Server components call the API directly with `lib/api/server.ts` and pass along
+the incoming request's cookies.
 
-To learn more about Next.js, take a look at the following resources:
+## Environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+For local development, put these in `apps/web/.env`.
 
-You can check out
-[the Next.js GitHub repository](https://github.com/vercel/next.js) - your
-feedback and contributions are welcome!
+| Variable                      | Description                                                       |
+| ----------------------------- | ----------------------------------------------------------------- |
+| `NEXT_PUBLIC_API_URL`         | Base URL of the API, e.g. `http://localhost:3001`                 |
+| `NEXT_PUBLIC_BETTER_AUTH_URL` | Better Auth base URL in development, e.g. `http://localhost:3001` |
 
-## Deploy on Vercel
+In production the auth client is hard-coded to
+`https://beaver-savings.vercel.app/api/auth`, which goes through the rewrite
+above.
 
-The easiest way to deploy your Next.js app is to use the
-[Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-from the creators of Next.js.
+## Development
 
-Check out our
-[Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying)
-for more details.
+Run these from the **repository root**. The root scripts build `savings-core`
+first. The API needs to be running too (`yarn dev:api`, see
+[apps/api](../api/README.md)).
+
+```bash
+yarn install
+
+yarn dev:web     # build savings-core, then start next dev on http://localhost:3000
+yarn build:web   # lint and build for production
+yarn start:web   # serve the production build
+yarn lint:web
+```
+
+The service worker is only generated in production builds. Use
+`yarn build:web && yarn start:web` to test the PWA install flow.
+
+### Translations
+
+The UI text lives in `languages/pt.json` and `languages/en.json`. Add every new
+key to both files.
+
+## Deployment
+
+The web app deploys to Vercel through the Git integration. Pushes to `main` go
+to production, and other branches get preview deployments. Deployments from
+`dev` are turned off in `vercel.json`. See the
+[root README](../../README.md#devops-and-infrastructure) for the infrastructure
+and CI setup.

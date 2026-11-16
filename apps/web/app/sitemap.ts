@@ -1,51 +1,25 @@
 import type { MetadataRoute } from 'next';
 
-import { SITE_URL } from '@/lib/constants';
+import { routing } from '@/i18n/routing';
+import { localizedUrl } from '@/lib/seo';
+
+const PUBLIC_PATHS = ['/landing', '/calculator', '/privacy-policy', '/terms-and-conditions'];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const ptAlernate = `${SITE_URL}/pt`;
-  const enAlternate = `${SITE_URL}/en`;
+  const lastModified = new Date();
 
-  return [
-    {
-      url: SITE_URL,
-      lastModified: new Date(),
-      alternates: {
-        languages: {
-          pt: ptAlernate,
-          en: enAlternate,
-        },
-      },
-    },
-    {
-      url: `${SITE_URL}/landing`,
-      lastModified: new Date(),
-      alternates: {
-        languages: {
-          pt: `${ptAlernate}/landing`,
-          en: `${enAlternate}/landing`,
-        },
-      },
-    },
-    {
-      url: `${SITE_URL}/calculator`,
-      lastModified: new Date(),
-      alternates: {
-        languages: {
-          pt: `${ptAlernate}/calculator`,
-          en: `${enAlternate}/calculator`,
-        },
-      },
-    },
-    {
-      url: `${SITE_URL}/privacy-policy`,
-      lastModified: new Date(),
-      alternates: {
-        languages: {
-          pt: `${ptAlernate}/privacy-policy`,
-          en: `${enAlternate}/privacy-policy`,
-        },
-      },
-    },
-  ];
+  return PUBLIC_PATHS.flatMap((path) => {
+    const languages = {
+      ...Object.fromEntries(routing.locales.map((l) => [l, localizedUrl(l, path)])),
+      'x-default': localizedUrl(routing.defaultLocale, path),
+    };
+
+    return routing.locales.map((locale) => ({
+      url: localizedUrl(locale, path),
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: path === '/landing' ? 1 : 0.7,
+      alternates: { languages },
+    }));
+  });
 }

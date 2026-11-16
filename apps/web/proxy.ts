@@ -4,6 +4,7 @@ import { getSessionCookie } from 'better-auth/cookies';
 import createMiddleware from 'next-intl/middleware';
 
 import { routing } from './i18n/routing';
+import { localizedPath } from './lib/seo';
 
 const handleI18nRouting = createMiddleware(routing);
 
@@ -23,7 +24,7 @@ export default function proxy(request: NextRequest) {
   const path = pathname.replace(localePattern, '') || '/';
 
   if ((path === '/' || AUTH_PAGES.includes(path)) && getSessionCookie(request)) {
-    return NextResponse.redirect(new URL(`/${locale}/calculator`, request.url));
+    return NextResponse.redirect(new URL(localizedPath(locale, '/calculator'), request.url));
   }
 
   return handleI18nRouting(request);

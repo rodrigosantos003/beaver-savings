@@ -1,8 +1,8 @@
 import { getLocale } from 'next-intl/server';
 
-import { redirect } from '@/i18n/navigation';
+import { permanentRedirect } from '@/i18n/navigation';
 
 export default async function Home() {
   const locale = await getLocale();
-  redirect({ href: '/landing', locale });
+  permanentRedirect({ href: '/landing', locale });
 }

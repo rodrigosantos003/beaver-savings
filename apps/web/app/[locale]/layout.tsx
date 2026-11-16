@@ -10,6 +10,7 @@ import { Header } from '@/components/Header';
 import PWAInstallPrompt from '@/components/PWAInstallPrompt';
 import { routing } from '@/i18n/routing';
 import { SITE_URL } from '@/lib/constants';
+import { OG_IMAGE, OG_LOCALES } from '@/lib/seo';
 
 import '../globals.css';
 
@@ -24,11 +25,6 @@ const geistMono = Geist_Mono({
 });
 
 type Props = LayoutProps<'/[locale]'>;
-
-const OG_LOCALES: Record<string, string> = {
-  en: 'en_GB',
-  pt: 'pt_PT',
-};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -67,16 +63,20 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       description,
       locale: OG_LOCALES[locale] ?? locale,
       alternateLocale: routing.locales.filter((l) => l !== locale).map((l) => OG_LOCALES[l] ?? l),
-      images: [{ url: '/og.png', width: 1200, height: 630, alt: title }],
+      images: [{ ...OG_IMAGE, alt: title }],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: 'summary',
       title,
       description,
-      images: ['/og.png'],
+      images: [OG_IMAGE.url],
     },
     robots: {
+      index: true,
+      follow: true,
       googleBot: {
+        index: true,
+        follow: true,
         'max-image-preview': 'large',
         'max-snippet': -1,
       },

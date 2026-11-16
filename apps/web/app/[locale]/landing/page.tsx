@@ -35,10 +35,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = t('description');
 
   return {
-    title,
+    title: { absolute: title },
     description,
-    alternates: getAlternates(locale, '/'),
-    openGraph: getOpenGraph(locale, '/', { title, description }),
+    alternates: getAlternates(locale, '/landing'),
+    openGraph: getOpenGraph(locale, '/landing', { title, description }),
   };
 }
 

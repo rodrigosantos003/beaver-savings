@@ -1,8 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
+import 'server-only';
 
-import type { Connection } from 'mongoose';
-
-import { DATABASE_CONNECTION } from '../../lib/database.js';
+import { getDb } from '@/server/db/connection';
 
 export type HealthStatus = 'up' | 'down';
 
@@ -16,40 +14,29 @@ export interface HealthCheckResult {
 
 const DB_PING_TIMEOUT_MS = 2000;
 
-@Injectable()
-export class AppService {
-  constructor(@Inject(DATABASE_CONNECTION) private readonly connection: Connection) {}
+export async function health(): Promise<HealthCheckResult> {
+  const database = await checkDatabase();
 
-  async health(): Promise<HealthCheckResult> {
-    const database = await this.checkDatabase();
+  return {
+    status: database === 'up' ? 'ok' : 'error',
+    checks: { api: 'up', database },
+  };
+}
 
-    return {
-      status: database === 'up' ? 'ok' : 'error',
-      checks: { api: 'up', database },
-    };
-  }
+async function checkDatabase(): Promise<HealthStatus> {
+  let timer: NodeJS.Timeout | undefined;
 
-  private async checkDatabase(): Promise<HealthStatus> {
-    let timer: NodeJS.Timeout | undefined;
-
-    try {
-      const db = this.connection.db;
-      if (!db) return 'down';
-
-      await Promise.race([
-        db.command({ ping: 1 }),
-        new Promise<never>((_, reject) => {
-          timer = setTimeout(
-            () => reject(new Error('Database ping timed out')),
-            DB_PING_TIMEOUT_MS,
-          );
-        }),
-      ]);
-      return 'up';
-    } catch {
-      return 'down';
-    } finally {
-      clearTimeout(timer);
-    }
+  try {
+    await Promise.race([
+      getDb().command({ ping: 1 }),
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => reject(new Error('Database ping timed out')), DB_PING_TIMEOUT_MS);
+      }),
+    ]);
+    return 'up';
+  } catch {
+    return 'down';
+  } finally {
+    clearTimeout(timer);
   }
 }

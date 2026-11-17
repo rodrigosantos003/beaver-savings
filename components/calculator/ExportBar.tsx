@@ -3,10 +3,10 @@
 import { SyntheticEvent, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { SavingsInput } from 'savings-core';
 
 import { authClient } from '@/lib/auth-client';
 import { API_URL } from '@/lib/constants';
+import type { SavingsInput } from '@/shared/savings/types';
 
 type ExportBarProps = {
   input: SavingsInput;

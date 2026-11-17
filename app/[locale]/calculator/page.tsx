@@ -3,13 +3,8 @@ import type { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { Calculator } from '@/components/calculator/Calculator';
-import {
-  getCalculatorHabitsServer,
-  getDamServer,
-  getLatestCalculatorInputServer,
-  getServerSession,
-} from '@/lib/api/calculator.server';
 import { getAlternates, getOpenGraph } from '@/lib/seo';
+import { getCalculatorPageData } from '@/server/calculator/page-data';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('meta.calculator');
@@ -28,21 +23,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function CalculatorPage() {
   const t = await getTranslations('calculator');
-  const session = await getServerSession();
-  const userId = session?.user.id;
-
-  const [savedInput, habits, damEntries] = await Promise.all([
-    getLatestCalculatorInputServer(),
-    getCalculatorHabitsServer(),
-    getDamServer(),
-  ]);
+  const { user, savedInput, habits, damEntries } = await getCalculatorPageData();
+  const userId = user?.id;
 
   return (
     <div className="flex min-h-full flex-col bg-stone-50 text-stone-900">
-      {/* Logged-in users get the coach sidebar, so give the page room for a third column. */}
+      {/* Bottom padding keeps the last card clear of the floating coach button. */}
       <main
-        className={`mx-auto w-full flex-1 px-6 py-10 print:max-w-none print:px-0 print:py-4 ${
-          userId ? 'max-w-7xl' : 'max-w-6xl'
+        className={`mx-auto w-full max-w-6xl flex-1 px-6 py-10 print:max-w-none print:px-0 print:py-4 ${
+          userId ? 'pb-24' : ''
         }`}
       >
         <h1 className="text-3xl font-bold tracking-tight text-stone-900 sm:text-4xl">
@@ -53,9 +42,9 @@ export default async function CalculatorPage() {
           <Calculator
             key={userId ?? 'anonymous'}
             userId={userId}
-            preferredCurrency={session?.user.preferredCurrency}
+            preferredCurrency={user?.preferredCurrency}
             habits={habits}
-            savedInput={savedInput ?? null}
+            savedInput={savedInput}
             damEntries={damEntries}
           />
         </div>

@@ -1,67 +1,7 @@
+import type { AnnualMonth, AnnualPlan, MonthBreakdown, SavingsInput } from './types';
+
 export const DEFAULT_HOLIDAY_MONTH = 6;
 export const DEFAULT_CHRISTMAS_MONTH = 12;
-
-export type SavingsMethod = 'percent' | 'fixed';
-
-export const CURRENCIES = [
-  'EUR', // euro (Portugal, zona euro)
-  'USD', // dólar dos EUA
-  'GBP', // libra esterlina (emigrantes no Reino Unido)
-  'CHF', // franco suíço (comunidade portuguesa na Suíça)
-  'BRL', // real brasileiro
-  'CAD', // dólar canadiano
-  'AOA', // kwanza angolano
-  'MZN', // metical moçambicano
-  'CVE', // escudo cabo-verdiano
-] as const;
-
-export type Currency = (typeof CURRENCIES)[number];
-
-export const DEFAULT_CURRENCY: Currency = 'EUR';
-
-export const isCurrency = (c: unknown): c is Currency =>
-  typeof c === 'string' && (CURRENCIES as readonly string[]).includes(c);
-
-/**
- * Todos os valores de rendimento são LÍQUIDOS (o que cai na conta).
- * - netSalary: líquido mensal. Se subsidiesInTwelfths for true, já inclui os subsídios.
- * - holidaySubsidyNet / christmasSubsidyNet: líquido recebido no mês do subsídio
- *   (só usados quando subsidiesInTwelfths é false).
- */
-export interface SavingsInput {
-  netSalary: number;
-  holidaySubsidyNet: number;
-  christmasSubsidyNet: number;
-  holidayMonth: number;
-  christmasMonth: number;
-  subsidiesInTwelfths: boolean;
-  extras: number;
-  includeSubsidies: boolean;
-  includeExtras: boolean;
-  monthlyExpenses: number;
-  savingsMethod: SavingsMethod;
-  savingsPercent: number;
-  savingsAmount: number;
-}
-
-export interface MonthBreakdown {
-  net: number;
-  expenses: number;
-  disposable: number;
-  savings: number;
-  remaining: number;
-  savingsExceedsDisposable: boolean;
-}
-
-export interface AnnualMonth extends MonthBreakdown {
-  month: number;
-  cumulativeSavings: number;
-}
-
-export interface AnnualPlan {
-  months: AnnualMonth[];
-  totalSavings: number;
-}
 
 type NormalizedInput = SavingsInput;
 
@@ -193,5 +133,3 @@ export function calculateAnnualPlan(input: SavingsInput): AnnualPlan {
     totalSavings: cumulativeSavings,
   };
 }
-
-export { suggestSavings } from './suggestions';

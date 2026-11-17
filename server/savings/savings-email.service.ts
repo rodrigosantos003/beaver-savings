@@ -1,35 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import { randomUUID } from 'node:crypto';
 
-import {
-  AnnualPlan,
-  MonthBreakdown,
-  calculateAnnualPlan,
-  calculateTypicalMonth,
-} from 'savings-core';
+import 'server-only';
 
-import { escapeHtml, renderEmailLayout, sendEmail } from '../../lib/email.js';
-import { SavingsEmailRequest } from './parse-email-request.js';
+import { escapeHtml, renderEmailLayout, sendEmail } from '@/server/lib/email';
+import { badGateway } from '@/server/lib/errors';
+import { withRetry } from '@/server/lib/retry';
+import { calculateAnnualPlan, calculateTypicalMonth } from '@/shared/savings/calculate';
+import type { AnnualPlan, MonthBreakdown } from '@/shared/savings/types';
 
-@Injectable()
-export class SavingsEmailService {
-  async send(request: SavingsEmailRequest, signal: AbortSignal): Promise<{ sent: true }> {
-    const month = calculateTypicalMonth(request.input);
-    const plan = calculateAnnualPlan(request.input);
+import type { SavingsEmailRequest } from './parse-email-request';
 
-    await sendEmail({
-      to: request.to,
-      subject: subject(request.locale),
-      text: formatSummary(request.locale, month, plan),
-      html: formatHtml(request.locale, request.to, month, plan),
-      signal,
-    });
+/** Each try gets 2s (Resend usually answers in well under that); 3 tries in total. */
+const SEND_RETRY = { attempts: 3, timeoutMs: 2_000 };
 
-    return { sent: true };
+export async function send(request: SavingsEmailRequest): Promise<{ sent: true }> {
+  const month = calculateTypicalMonth(request.input);
+  const plan = calculateAnnualPlan(request.input);
+  const message = {
+    to: request.to,
+    subject: subject(request.locale),
+    text: formatSummary(request.locale, month, plan),
+    html: formatHtml(request.locale, request.to, month, plan),
+    // Same key on every try, so a timed-out attempt that did reach Resend is not sent twice.
+    idempotencyKey: `savings-plan/${randomUUID()}`,
+  };
+
+  try {
+    await withRetry((signal) => sendEmail({ ...message, signal }), SEND_RETRY);
+  } catch (error) {
+    console.error('Savings email failed', error);
+    throw badGateway('The email could not be sent right now.');
   }
 
-  flatSend() {
-    return { sent: false };
-  }
+  return { sent: true };
 }
 
 function subject(locale: SavingsEmailRequest['locale']): string {

@@ -1,61 +1,56 @@
-import { Global, Inject, Logger, Module, OnApplicationShutdown } from '@nestjs/common';
-
 import { attachDatabasePool } from '@vercel/functions';
-import { type Connection, createConnection } from 'mongoose';
+import mongoose, { type Connection, type Model, type Schema } from 'mongoose';
+import 'server-only';
 
-export const DATABASE_CONNECTION = Symbol('DATABASE_CONNECTION');
+const DB_NAME = process.env.DB_NAME ?? 'dev';
 
-const logger = new Logger('MongoDB');
+/**
+ * One connection per server instance, kept on `globalThis` so it survives dev hot reloads and is
+ * reused by every request a warm serverless instance handles. It is created lazily, so importing
+ * this module (e.g. while `next build` collects route config) never opens a socket.
+ */
+const globalForDb = globalThis as typeof globalThis & { __mongoConnection?: Connection };
 
-const dbName = process.env.DB_NAME ?? 'dev';
+function createConnection(): Connection {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) throw new Error('MONGODB_URI is not set');
 
-@Global()
-@Module({
-  providers: [
-    {
-      provide: DATABASE_CONNECTION,
-      useFactory: async (): Promise<Connection> => {
-        const conn = createConnection(process.env.MONGODB_URI!, {
-          dbName: dbName,
-          maxPoolSize: 3,
-          minPoolSize: 0,
-          maxIdleTimeMS: 30_000,
-          serverSelectionTimeoutMS: 5_000,
-          connectTimeoutMS: 10_000,
-          socketTimeoutMS: 30_000,
-          waitQueueTimeoutMS: 5_000,
-        });
+  const conn = mongoose.createConnection(uri, {
+    dbName: DB_NAME,
+    maxPoolSize: 3,
+    minPoolSize: 0,
+    maxIdleTimeMS: 30_000,
+    serverSelectionTimeoutMS: 5_000,
+    connectTimeoutMS: 10_000,
+    socketTimeoutMS: 30_000,
+    waitQueueTimeoutMS: 5_000,
+  });
 
-        const client = conn.getClient();
+  // Lets Vercel Fluid compute close idle sockets before an instance is suspended.
+  attachDatabasePool(conn.getClient());
 
-        attachDatabasePool(client);
+  conn.on('disconnected', () => console.warn('[mongo] disconnected'));
+  conn.on('reconnected', () => console.log('[mongo] reconnected'));
+  conn.on('error', (err: Error) => console.error(`[mongo] ${err.message}`));
 
-        await conn.asPromise();
+  return conn;
+}
 
-        conn.on('connected', () => logger.log('DB connected'));
-        conn.on('disconnected', () => logger.warn('DB disconnected'));
-        conn.on('reconnected', () => logger.log('DB reconnected'));
-        conn.on('error', (err: Error) => logger.error(`DB error: ${err.message}`));
-        conn.on('close', () => logger.warn('DB connection closed'));
+/** The shared Mongoose connection. Queries issued before it is open are buffered by Mongoose. */
+export function getConnection(): Connection {
+  return (globalForDb.__mongoConnection ??= createConnection());
+}
 
-        client.on('connectionCreated', (e) =>
-          logger.log(`Pool: socket created (id ${e.connectionId})`),
-        );
-        client.on('connectionClosed', (e) => logger.log(`Pool: socket closed (${e.reason})`));
+/**
+ * Raw driver access for collections Mongoose does not model (Better Auth's users, sessions, …).
+ * The driver connects on first use, so this is safe to call synchronously.
+ */
+export function getDb() {
+  return getConnection().getClient().db(DB_NAME);
+}
 
-        return conn;
-      },
-    },
-  ],
-  exports: [DATABASE_CONNECTION],
-})
-export class DatabaseModule implements OnApplicationShutdown {
-  constructor(
-    @Inject(DATABASE_CONNECTION)
-    private readonly conn: Connection,
-  ) {}
-
-  async onApplicationShutdown() {
-    await this.conn.close();
-  }
+/** Registers a model once per connection; re-evaluated modules (hot reload) reuse it. */
+export function getModel<T>(name: string, schema: Schema<T>): Model<T> {
+  const conn = getConnection();
+  return (conn.models[name] as Model<T> | undefined) ?? conn.model<T>(name, schema);
 }

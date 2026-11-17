@@ -17,12 +17,7 @@ const serwist = new Serwist({
   runtimeCaching: [
     {
       // Personal data: never serve these from (or write them to) the offline cache.
-      matcher: ({ url }) =>
-        url.pathname.startsWith('/api/auth') ||
-        url.pathname.startsWith('/account') ||
-        url.pathname.startsWith('/coach') ||
-        url.pathname.startsWith('/dam') ||
-        url.pathname.startsWith('/savings'),
+      matcher: ({ url }) => url.pathname.startsWith('/api/'),
       handler: new NetworkOnly(),
     },
     ...defaultCache,

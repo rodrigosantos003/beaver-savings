@@ -4,9 +4,9 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, useTransition } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { CURRENCIES, type Currency, isCurrency } from 'savings-core';
 
 import { authClient } from '@/lib/auth-client';
+import { CURRENCIES, type Currency, isCurrency } from '@/shared/currency';
 
 const COOKIE = 'NEXT_CURRENCY';
 

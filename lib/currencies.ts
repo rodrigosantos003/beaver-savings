@@ -1,6 +1,6 @@
 import { cache } from 'react';
 
-import { CURRENCIES } from 'savings-core';
+import { CURRENCIES } from '@/shared/currency';
 
 export type CurrencyOption = { code: string; name: string };
 

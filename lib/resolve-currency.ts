@@ -1,8 +1,10 @@
 import { cookies, headers } from 'next/headers';
 import { cache } from 'react';
 
-import { Currency, isCurrency } from 'savings-core';
 import 'server-only';
+
+import { getSession } from '@/server/auth/session';
+import { type Currency, isCurrency } from '@/shared/currency';
 
 export const CURRENCY_COOKIE = 'NEXT_CURRENCY';
 const DEFAULT_CURRENCY: Currency = 'EUR';
@@ -22,23 +24,9 @@ function currencyFromCountry(country?: string | null): Currency | null {
   return (country && COUNTRY_CURRENCY[country.toUpperCase()]) || null;
 }
 
-async function getSavedCurrency(cookieHeader: string): Promise<Currency | null> {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/get-session`, {
-      headers: { cookie: cookieHeader },
-      cache: 'no-store',
-    });
-    if (!res.ok) return null;
-
-    const data = (await res.json()) as {
-      user?: { preferredCurrency?: string | null };
-    } | null;
-
-    const currency = data?.user?.preferredCurrency;
-    return currency && isCurrency(currency) ? currency : null;
-  } catch {
-    return null;
-  }
+async function getSavedCurrency(): Promise<Currency | null> {
+  const currency = (await getSession())?.user.preferredCurrency;
+  return isCurrency(currency) ? currency : null;
 }
 
 export const resolveCurrency = cache(async (): Promise<Currency> => {
@@ -47,7 +35,7 @@ export const resolveCurrency = cache(async (): Promise<Currency> => {
   const hasSession = cookieStore.getAll().some((c) => c.name.includes('better-auth.session_token'));
 
   if (hasSession) {
-    const saved = await getSavedCurrency(cookieStore.toString());
+    const saved = await getSavedCurrency();
     if (saved) return saved;
   }
 

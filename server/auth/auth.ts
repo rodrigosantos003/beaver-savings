@@ -1,13 +1,21 @@
-import { waitUntil } from '@vercel/functions';
-import { type Connection, Types } from 'mongoose';
-import { CURRENCIES } from 'savings-core';
+import { after } from 'next/server';
 
-import { sendEmail } from '../../lib/email.js';
-import { buildResetPasswordEmail } from './recover.email.js';
-import { buildVerificationEmail } from './verify.email.js';
+import { betterAuth } from 'better-auth';
+import { mongodbAdapter } from 'better-auth/adapters/mongodb';
+import { nextCookies } from 'better-auth/next-js';
+import 'server-only';
 
-const locales = ['en', 'pt'] as const;
-type Locale = (typeof locales)[number];
+import { routing } from '@/i18n/routing';
+import { getConnection, getDb } from '@/server/db/connection';
+import { APP_URL } from '@/server/lib/constants';
+import { sendEmail } from '@/server/lib/email';
+import { toObjectId } from '@/server/lib/object-id';
+import { CURRENCIES } from '@/shared/currency';
+
+import { buildResetPasswordEmail } from './emails/recover.email';
+import { buildVerificationEmail } from './emails/verify.email';
+
+type Locale = (typeof routing.locales)[number];
 const defaultLocale: Locale = 'en';
 
 const VERIFICATION_EXPIRES_IN = 60 * 60 * 24; // seconds (24 hours)
@@ -32,62 +40,48 @@ function parseLanguages(header?: string | null): string[] {
     .map(({ lang }) => lang);
 }
 
-function primaryLanguage<T extends string>(
-  header: string | null | undefined,
-  supported: readonly T[],
-): T | undefined {
-  return parseLanguages(header).find((lang): lang is T =>
-    (supported as readonly string[]).includes(lang),
+function primaryLanguage(header: string | null | undefined): Locale | undefined {
+  return parseLanguages(header).find((lang): lang is Locale =>
+    (routing.locales as readonly string[]).includes(lang),
   );
 }
 
 export function resolveLocale(request?: Request): Locale {
   return (
-    primaryLanguage(request?.headers.get('content-language'), locales) ??
-    primaryLanguage(request?.headers.get('accept-language'), locales) ??
+    primaryLanguage(request?.headers.get('content-language')) ??
+    primaryLanguage(request?.headers.get('accept-language')) ??
     defaultLocale
   );
 }
 
-export async function createAuth(connection: Connection) {
-  const [{ betterAuth }, { mongodbAdapter }] = await Promise.all([
-    import('better-auth'),
-    import('better-auth/adapters/mongodb'),
-  ]);
-
-  const db = connection.db;
-  const client = connection.getClient();
-  if (!db || !client) throw new Error('Mongoose connection is not ready');
-
-  /**
-   * Better Auth hands ids to hooks as strings, but the Mongo adapter stores them (and our own
-   * collections reference them) as ObjectIds, so raw queries must convert first.
-   */
-  const toObjectId = (id: string) => new Types.ObjectId(id);
-
-  /** Feeds the inactive-account retention job (see src/retention). */
-  const touchLastActive = async (session: { userId: string }) => {
-    await db
-      .collection('users')
-      .updateOne({ _id: toObjectId(session.userId) }, { $set: { lastActiveAt: new Date() } });
-  };
-
+function createAuth() {
   const secret = process.env.BETTER_AUTH_SECRET;
-
   if (!secret || secret.length < 32) {
     throw new Error('BETTER_AUTH_SECRET must be configured securely');
   }
 
+  const db = getDb();
+
+  /** Feeds the inactive-account retention job (see server/retention). */
+  const touchLastActive = async (session: { userId: string }) => {
+    await db
+      .collection('users')
+      .updateOne(
+        { _id: toObjectId(session.userId, 'userId') },
+        { $set: { lastActiveAt: new Date() } },
+      );
+  };
+
   return betterAuth({
     database: mongodbAdapter(db, {
-      client: client,
+      client: getConnection().getClient(),
       usePlural: true,
     }),
     user: {
       deleteUser: {
         enabled: true,
         afterDelete: async (user) => {
-          const query = { userId: toObjectId(user.id) };
+          const query = { userId: toObjectId(user.id, 'userId') };
 
           await Promise.all([
             db.collection('dam_entries').deleteMany(query),
@@ -111,41 +105,33 @@ export async function createAuth(connection: Connection) {
         update: { after: touchLastActive },
       },
     },
-    baseURL: process.env.BETTER_AUTH_URL ?? 'http://localhost:3001',
-    secret: secret,
-    trustedOrigins: [process.env.WEB_ORIGIN ?? 'http://localhost:3000'],
+    baseURL: APP_URL,
+    secret,
+    trustedOrigins: [APP_URL],
     emailAndPassword: {
       enabled: true,
       revokeSessionsOnPasswordReset: true,
       sendResetPassword: ({ user, token }, request) => {
-        const locale = resolveLocale(request);
-
-        const url = `${process.env.WEB_ORIGIN}/reset-password?token=${token}`;
-
-        const { subject, text, html } = buildResetPasswordEmail(locale, {
-          url,
+        const { subject, text, html } = buildResetPasswordEmail(resolveLocale(request), {
+          url: `${APP_URL}/reset-password?token=${token}`,
           email: user.email,
           name: user.name,
         });
 
-        waitUntil(sendEmail({ to: user.email, subject, text, html }));
+        after(() => sendEmail({ to: user.email, subject, text, html }));
 
         return Promise.resolve();
       },
     },
     emailVerification: {
       sendVerificationEmail: ({ user, token }, request) => {
-        const locale = resolveLocale(request);
-
-        const url = `${process.env.WEB_ORIGIN}/confirm-account?token=${token}`;
-
-        const { subject, text, html } = buildVerificationEmail(locale, {
-          url,
+        const { subject, text, html } = buildVerificationEmail(resolveLocale(request), {
+          url: `${APP_URL}/confirm-account?token=${token}`,
           email: user.email,
           name: user.name,
         });
 
-        waitUntil(sendEmail({ to: user.email, subject, text, html }));
+        after(() => sendEmail({ to: user.email, subject, text, html }));
 
         return Promise.resolve();
       },
@@ -153,10 +139,6 @@ export async function createAuth(connection: Connection) {
       expiresIn: VERIFICATION_EXPIRES_IN,
     },
     advanced: {
-      defaultCookieAttributes: {
-        sameSite: 'None',
-        secure: true,
-      },
       ipAddress: {
         ipAddressHeaders: ['x-vercel-forwarded-for', 'x-forwarded-for'],
       },
@@ -173,5 +155,16 @@ export async function createAuth(connection: Connection) {
       updateAge: 60 * 60 * 24, // 1 day
       freshAge: 60 * 60 * 24, // 1 day
     },
+    // Lets auth.api calls made from server actions set cookies; must stay the last plugin.
+    plugins: [nextCookies()],
   });
+}
+
+export type Auth = ReturnType<typeof createAuth>;
+
+const globalForAuth = globalThis as typeof globalThis & { __auth?: Auth };
+
+/** Created on first use, so `next build` can import route modules without env or database. */
+export function getAuth(): Auth {
+  return (globalForAuth.__auth ??= createAuth());
 }

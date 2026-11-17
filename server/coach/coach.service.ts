@@ -1,24 +1,19 @@
-import {
-  BadGatewayException,
-  GatewayTimeoutException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import 'server-only';
 
-import {
-  DEFAULT_CURRENCY,
-  calculateAnnualPlan,
-  calculateTypicalMonth,
-  isCurrency,
-  suggestSavings,
-} from 'savings-core';
-import type { SavingsInput } from 'savings-core';
+import * as calculator from '@/server/calculator/calculator.service';
+import * as dam from '@/server/dam/dam.service';
+import { generateTextResponse, isAiApiError } from '@/server/lib/ai';
+import { badGateway, gatewayTimeout, notFound } from '@/server/lib/errors';
+import { DEFAULT_CURRENCY, isCurrency } from '@/shared/currency';
+import { calculateAnnualPlan, calculateTypicalMonth } from '@/shared/savings/calculate';
+import { suggestSavings } from '@/shared/savings/suggestions';
+import type { SavingsInput } from '@/shared/savings/types';
 
-import { generateTextResponse, isAiApiError } from '../../lib/ai.js';
-import { CalculatorService } from '../calculator/calculator.service.js';
-import { DamService } from '../dam/dam.service.js';
-import type { CoachLocale } from './coach.dto.js';
-import { askInstruction, insightsInstruction } from './coach.prompts.js';
+import { askInstruction, insightsInstruction } from './coach.prompts';
+import type { CoachLocale } from './coach.schema';
+
+/** Each request is a paid LLM call, so the limit is much tighter than the global default. */
+export const COACH_RATE_LIMIT = { limit: 10 };
 
 /** The session fields the coach needs; `preferredCurrency` is a Better Auth additional field. */
 export type CoachUser = {
@@ -31,76 +26,72 @@ export type CoachResponse = {
   generatedAt: string;
 };
 
-@Injectable()
-export class CoachService {
-  constructor(
-    private readonly calculator: CalculatorService,
-    private readonly dam: DamService,
-  ) {}
+export async function insights(user: CoachUser, locale: CoachLocale): Promise<CoachResponse> {
+  const context = await buildContext(user);
+  if (!context.plan) {
+    throw notFound('No savings plan found. Use the calculator first.');
+  }
 
-  async insights(user: CoachUser, locale: CoachLocale): Promise<CoachResponse> {
-    const context = await this.buildContext(user);
-    if (!context.plan) {
-      throw new NotFoundException('No savings plan found. Use the calculator first.');
-    }
+  return generate(
+    `User data (JSON):\n${JSON.stringify(context)}`,
+    insightsInstruction(locale, context.currency),
+  );
+}
 
-    return this.generate(
+export async function ask(
+  user: CoachUser,
+  question: string,
+  locale: CoachLocale,
+): Promise<CoachResponse> {
+  const context = await buildContext(user);
+
+  return generate(
+    [
       `User data (JSON):\n${JSON.stringify(context)}`,
-      insightsInstruction(locale, context.currency),
-    );
-  }
+      `User question:\n"""\n${question.trim()}\n"""`,
+    ].join('\n\n'),
+    askInstruction(locale, context.currency),
+  );
+}
 
-  async ask(user: CoachUser, question: string, locale: CoachLocale): Promise<CoachResponse> {
-    const context = await this.buildContext(user);
+/** Aggregates everything the coach knows about the user into a compact, model-friendly object. */
+async function buildContext(user: CoachUser) {
+  const [{ input }, habits, damState] = await Promise.all([
+    calculator.getLatest(user.id),
+    calculator.getHabits(user.id),
+    dam.list(user.id),
+  ]);
 
-    return this.generate(
-      [
-        `User data (JSON):\n${JSON.stringify(context)}`,
-        `User question:\n"""\n${question.trim()}\n"""`,
-      ].join('\n\n'),
-      askInstruction(locale, context.currency),
-    );
-  }
+  return {
+    currency: isCurrency(user.preferredCurrency) ? user.preferredCurrency : DEFAULT_CURRENCY,
+    plan: input ? describePlan(input) : null,
+    habits: habits.samples > 0 ? habits : null,
+    dam: { totalSaved: damState.total, deposits: damState.entries.length },
+  };
+}
 
-  /** Aggregates everything the coach knows about the user into a compact, model-friendly object. */
-  private async buildContext(user: CoachUser) {
-    const [{ input }, habits, dam] = await Promise.all([
-      this.calculator.getLatest(user.id),
-      this.calculator.getHabits(user.id),
-      this.dam.list(user.id),
-    ]);
-
-    return {
-      currency: isCurrency(user.preferredCurrency) ? user.preferredCurrency : DEFAULT_CURRENCY,
-      plan: input ? describePlan(input) : null,
-      habits: habits.samples > 0 ? habits : null,
-      dam: { totalSaved: dam.total, deposits: dam.entries.length },
-    };
-  }
-
-  private async generate(input: string, instruction: string): Promise<CoachResponse> {
-    let text: string | undefined;
-    try {
-      text = await generateTextResponse(input, instruction);
-    } catch (error) {
-      // generateTextResponse already logs the details; map to a gateway error for the client.
-      const isTimeout =
-        !isAiApiError(error) &&
-        error instanceof Error &&
-        /timeout|timed out|abort/i.test(`${error.name} ${error.message}`);
-      if (isTimeout) {
-        throw new GatewayTimeoutException('The savings coach took too long to respond.');
-      }
-      throw new BadGatewayException('The savings coach is unavailable right now.');
+async function generate(input: string, instruction: string): Promise<CoachResponse> {
+  let text: string | undefined;
+  try {
+    text = await generateTextResponse(input, instruction);
+  } catch (error) {
+    // generateTextResponse already logs the details; map to a gateway error for the client.
+    const isTimeout =
+      !isAiApiError(error) &&
+      error instanceof Error &&
+      /timeout|timed out|abort/i.test(`${error.name} ${error.message}`);
+    if (isTimeout) {
+      throw gatewayTimeout('The savings coach took too long to respond.');
     }
-
-    const advice = text?.trim();
-    if (!advice) {
-      throw new BadGatewayException('The savings coach returned an empty response.');
-    }
-
-    return { advice, generatedAt: new Date().toISOString() };
+    throw badGateway('The savings coach is unavailable right now.');
   }
+
+  const advice = text?.trim();
+  if (!advice) {
+    throw badGateway('The savings coach returned an empty response.');
+  }
+
+  return { advice, generatedAt: new Date().toISOString() };
 }
 
 function describePlan(input: SavingsInput) {

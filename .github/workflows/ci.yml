@@ -37,20 +37,15 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build savings-core
-        run: yarn build:core
+      - name: Lint
+        run: yarn lint
 
-      - name: Lint Web
-        run: yarn lint:web
+      - name: Typecheck
+        run: yarn typecheck
 
-      - name: Lint API
-        run: yarn lint:api
+      - name: Test
+        run: yarn test
 
-      - name: Test API
-        run: yarn workspace api test --runInBand
-
-      - name: Build Web
-        run: yarn build:web
-
-      - name: Build API
-        run: yarn build:api
+      - name: Build
+        # Lint already ran above; `yarn build` would run it again.
+        run: yarn next build

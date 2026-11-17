@@ -1,21 +1,13 @@
-import { IsIn, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import { z } from 'zod';
 
 export const COACH_LOCALES = ['pt', 'en'] as const;
 export type CoachLocale = (typeof COACH_LOCALES)[number];
 
-export class CoachInsightsQueryDto {
-  @IsOptional()
-  @IsIn(COACH_LOCALES)
-  locale?: CoachLocale;
-}
+const locale = z.enum(COACH_LOCALES).default('pt');
 
-export class AskCoachDto {
-  @IsString()
-  @MinLength(3)
-  @MaxLength(500)
-  question: string;
+export const coachInsightsQuerySchema = z.object({ locale });
 
-  @IsOptional()
-  @IsIn(COACH_LOCALES)
-  locale?: CoachLocale;
-}
+export const askCoachSchema = z.object({
+  question: z.string().min(3).max(500),
+  locale,
+});

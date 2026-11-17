@@ -1,9 +1,9 @@
-import { Type } from 'class-transformer';
-import { IsNumber, Max } from 'class-validator';
+import { z } from 'zod';
 
-export class CreateDamEntryDto {
-  @Type(() => Number)
-  @IsNumber({ maxDecimalPlaces: 2 })
-  @Max(1_000_000)
-  amount: number;
-}
+import { money } from '@/server/lib/validation';
+
+export const createDamEntrySchema = z.object({
+  amount: money({ max: 1_000_000 }),
+});
+
+export type CreateDamEntry = z.infer<typeof createDamEntrySchema>;

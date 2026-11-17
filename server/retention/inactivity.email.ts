@@ -1,5 +1,7 @@
-import { SITE_URL } from '../../lib/constants.js';
-import { escapeHtml, renderEmailLayout } from '../../lib/email.js';
+import 'server-only';
+
+import { APP_URL } from '@/server/lib/constants';
+import { escapeHtml, renderEmailLayout } from '@/server/lib/email';
 
 type InactivityEmailInput = {
   email: string;
@@ -12,7 +14,7 @@ type InactivityEmailInput = {
  * Portuguese (the app's default locale) and English.
  */
 export function buildInactivityWarningEmail({ email, name, deleteAfter }: InactivityEmailInput) {
-  const loginUrl = `${SITE_URL}/login`;
+  const loginUrl = `${APP_URL}/login`;
   const datePt = deleteAfter.toLocaleDateString('pt-PT', { dateStyle: 'long', timeZone: 'UTC' });
   const dateEn = deleteAfter.toLocaleDateString('en-GB', { dateStyle: 'long', timeZone: 'UTC' });
 

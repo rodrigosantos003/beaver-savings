@@ -84,31 +84,34 @@ definidos.
 
 ## Stack tecnológica
 
-| Camada                   | Tecnologia      |
-| ------------------------ | --------------- |
-| **Frontend**             | React + Next.js |
-| **API**                  | NestJS          |
-| **Base de dados**        | MongoDB (Atlas) |
-| **Email**                | Resend          |
-| **Hosting**              | Vercel          |
-| **Infraestrutura (IaC)** | Terraform       |
+| Camada                   | Tecnologia             |
+| ------------------------ | ---------------------- |
+| **Frontend**             | React + Next.js        |
+| **API**                  | Next.js route handlers |
+| **Base de dados**        | MongoDB (Atlas)        |
+| **Email**                | Resend                 |
+| **Hosting**              | Vercel                 |
+| **Infraestrutura (IaC)** | Terraform              |
 
 ## DevOps e infraestrutura
 
 ### Arquitetura
 
-O projeto é um monorepo (`apps/web` e `apps/api`) e a infraestrutura é gerida
-com Terraform, em `infrastructure/terraform`.
+O projeto é uma única aplicação Next.js: as páginas e a API (route handlers em
+`app/api`) são publicadas juntas no mesmo projeto Vercel. O código só de
+servidor vive em `server/` e a lógica partilhada (cálculos, moedas) em
+`shared/`. Ver [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) para a estrutura, os
+endpoints e as variáveis de ambiente. A infraestrutura é gerida com Terraform,
+em `infrastructure/terraform`.
 
 | Recurso                                        | Provider      | Descrição                               |
 | ---------------------------------------------- | ------------- | --------------------------------------- |
-| `vercel_project.web`                           | Vercel        | Frontend Next.js (`beaver-savings`)     |
-| `vercel_project.api`                           | Vercel        | API NestJS (`beaver-savings-api`)       |
+| `vercel_project.web`                           | Vercel        | App Next.js (`beaver-savings`)          |
 | `mongodbatlas_advanced_cluster.beaver_savings` | MongoDB Atlas | Cluster `Cluster0` (M0, free tier, AWS) |
 
 ### Deploys
 
-Os dois projetos Vercel estão ligados ao repositório GitHub
+O projeto Vercel está ligado ao repositório GitHub
 (`rodrigosantos003/beaver-savings`):
 
 - **Produção** — cada push para a branch `main` dispara um deploy.
@@ -155,15 +158,16 @@ terraform apply    # aplicar alterações
 
 ### Pipelines CI/CD
 
-O repositório tem três workflows no GitHub Actions. Todos correm com permissões
-de leitura por defeito, e os de CI e Security cancelam execuções anteriores do
-mesmo ref (`concurrency`).
+O repositório tem quatro workflows no GitHub Actions. Todos correm com
+permissões de leitura por defeito, e os de CI e Security cancelam execuções
+anteriores do mesmo ref (`concurrency`).
 
-| Workflow                      | Quando corre                                                        | O que faz                                                                                           |
-| ----------------------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| **Beaver Savings - CI**       | Push e PR para `main`                                               | Instala dependências, compila `savings-core`, faz lint (web e API), testa a API e compila web e API |
-| **Beaver Savings - Security** | Push e PR para `main`, e todas as segundas às 07:00 UTC             | Auditoria de dependências (`yarn audit --level high`) e deteção de segredos com Gitleaks            |
-| **Terraform - Validation**    | Push e PR que alterem `infrastructure/terraform/**`, ou manualmente | Verifica `terraform fmt`, `terraform init -backend=false` e `terraform validate`                    |
+| Workflow                               | Quando corre                                                        | O que faz                                                                                   |
+| -------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| **Beaver Savings - CI**                | Push e PR para `main`                                               | Instala dependências, faz lint, verifica os tipos, corre os testes (Vitest) e compila a app |
+| **Beaver Savings - Security**          | Push e PR para `main`, e todas as segundas às 07:00 UTC             | Auditoria de dependências (`yarn audit --level high`) e deteção de segredos com Gitleaks    |
+| **Terraform - Validation**             | Push e PR que alterem `infrastructure/terraform/**`, ou manualmente | Verifica `terraform fmt`, `terraform init -backend=false` e `terraform validate`            |
+| **Beaver Savings - Inactive Accounts** | Todos os dias às 03:00 UTC, ou manualmente                          | Chama `/api/maintenance/inactive-accounts` (retenção de contas inativas)                    |
 
 **Notas**
 
@@ -178,10 +182,10 @@ mesmo ref (`concurrency`).
 
 ```bash
 yarn install --frozen-lockfile
-yarn build:core
-yarn lint:web && yarn lint:api
-yarn workspace api test --runInBand
-yarn build:web && yarn build:api
+yarn lint
+yarn typecheck
+yarn test
+yarn build
 
 cd infrastructure/terraform
 terraform fmt -check -recursive
@@ -239,31 +243,34 @@ Projects accumulated savings over 12 months based on the chosen parameters.
 
 ## Tech stack
 
-| Layer                    | Technology      |
-| ------------------------ | --------------- |
-| **Frontend**             | React + Next.js |
-| **API**                  | NestJS          |
-| **Database**             | MongoDB (Atlas) |
-| **Email**                | Resend          |
-| **Hosting**              | Vercel          |
-| **Infrastructure (IaC)** | Terraform       |
+| Layer                    | Technology             |
+| ------------------------ | ---------------------- |
+| **Frontend**             | React + Next.js        |
+| **API**                  | Next.js route handlers |
+| **Database**             | MongoDB (Atlas)        |
+| **Email**                | Resend                 |
+| **Hosting**              | Vercel                 |
+| **Infrastructure (IaC)** | Terraform              |
 
 ## DevOps and infrastructure
 
 ### Architecture
 
-The project is a monorepo (`apps/web` and `apps/api`) and the infrastructure is
-managed with Terraform, in `infrastructure/terraform`.
+The project is a single Next.js app: the pages and the API (route handlers in
+`app/api`) are deployed together as one Vercel project. Server-only code lives
+in `server/` and logic shared by both sides (calculations, currencies) in
+`shared/`. See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for the structure,
+endpoints and environment variables. The infrastructure is managed with
+Terraform, in `infrastructure/terraform`.
 
 | Resource                                       | Provider      | Description                             |
 | ---------------------------------------------- | ------------- | --------------------------------------- |
-| `vercel_project.web`                           | Vercel        | Next.js frontend (`beaver-savings`)     |
-| `vercel_project.api`                           | Vercel        | NestJS API (`beaver-savings-api`)       |
+| `vercel_project.web`                           | Vercel        | Next.js app (`beaver-savings`)          |
 | `mongodbatlas_advanced_cluster.beaver_savings` | MongoDB Atlas | `Cluster0` cluster (M0, free tier, AWS) |
 
 ### Deployments
 
-Both Vercel projects are connected to the GitHub repository
+The Vercel project is connected to the GitHub repository
 (`rodrigosantos003/beaver-savings`):
 
 - **Production** — every push to the `main` branch triggers a deployment.
@@ -309,15 +316,16 @@ terraform apply    # apply changes
 
 ### CI/CD workflows
 
-The repository has three GitHub Actions workflows. All of them run with
-read-only permissions by default, and the CI and Security workflows cancel
-previous runs for the same ref (`concurrency`).
+The repository has four GitHub Actions workflows. All of them run with read-only
+permissions by default, and the CI and Security workflows cancel previous runs
+for the same ref (`concurrency`).
 
-| Workflow                      | When it runs                                                    | What it does                                                                                            |
-| ----------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| **Beaver Savings - CI**       | Push and PR to `main`                                           | Installs dependencies, builds `savings-core`, lints (web and API), tests the API and builds web and API |
-| **Beaver Savings - Security** | Push and PR to `main`, and every Monday at 07:00 UTC            | Dependency audit (`yarn audit --level high`) and secret detection with Gitleaks                         |
-| **Terraform - Validation**    | Push and PR changing `infrastructure/terraform/**`, or manually | Checks `terraform fmt`, `terraform init -backend=false` and `terraform validate`                        |
+| Workflow                               | When it runs                                                    | What it does                                                                          |
+| -------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| **Beaver Savings - CI**                | Push and PR to `main`                                           | Installs dependencies, lints, type-checks, runs the tests (Vitest) and builds the app |
+| **Beaver Savings - Security**          | Push and PR to `main`, and every Monday at 07:00 UTC            | Dependency audit (`yarn audit --level high`) and secret detection with Gitleaks       |
+| **Terraform - Validation**             | Push and PR changing `infrastructure/terraform/**`, or manually | Checks `terraform fmt`, `terraform init -backend=false` and `terraform validate`      |
+| **Beaver Savings - Inactive Accounts** | Every day at 03:00 UTC, or manually                             | Calls `/api/maintenance/inactive-accounts` (inactive-account retention)               |
 
 **Notes**
 
@@ -332,10 +340,10 @@ previous runs for the same ref (`concurrency`).
 
 ```bash
 yarn install --frozen-lockfile
-yarn build:core
-yarn lint:web && yarn lint:api
-yarn workspace api test --runInBand
-yarn build:web && yarn build:api
+yarn lint
+yarn typecheck
+yarn test
+yarn build
 
 cd infrastructure/terraform
 terraform fmt -check -recursive

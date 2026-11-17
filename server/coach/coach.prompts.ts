@@ -1,6 +1,8 @@
-import type { Currency } from 'savings-core';
+import 'server-only';
 
-import type { CoachLocale } from './coach.dto.js';
+import type { Currency } from '@/shared/currency';
+
+import type { CoachLocale } from './coach.schema';
 
 const LANGUAGE: Record<CoachLocale, string> = {
   pt: 'European Portuguese (pt-PT)',

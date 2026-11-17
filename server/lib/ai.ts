@@ -1,3 +1,5 @@
+import 'server-only';
+
 /**
  * Scaleway Generative APIs client (OpenAI-compatible chat completions, hosted in Paris).
  * Uses the built-in fetch, so no SDK is needed.
@@ -10,10 +12,7 @@ const MAX_TOKENS = 600;
 
 type AiConfig = { apiKey: string; baseUrl: string; model: string };
 
-/**
- * Read on each call, not at import time: `.env` is loaded by ConfigModule.forRoot()
- * during AppModule.register(), which runs after every module has been imported.
- */
+/** Read on each call so a missing key fails the request, not the build. */
 function getConfig(): AiConfig {
   const apiKey = process.env.AI_KEY;
   if (!apiKey) {

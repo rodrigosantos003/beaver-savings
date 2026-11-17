@@ -3,7 +3,9 @@
 import { useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { SavingsInput, suggestSavings } from 'savings-core';
+
+import { suggestSavings } from '@/shared/savings/suggestions';
+import type { SavingsInput } from '@/shared/savings/types';
 
 import { currencySymbol } from '../../lib/currencies';
 

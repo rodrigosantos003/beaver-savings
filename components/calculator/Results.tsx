@@ -4,7 +4,9 @@ import dynamic from 'next/dynamic';
 import { type ReactNode, useEffect, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { AnnualPlan, Currency, MonthBreakdown } from 'savings-core';
+
+import type { Currency } from '@/shared/currency';
+import type { AnnualPlan, MonthBreakdown } from '@/shared/savings/types';
 
 import { DamEntry, useDam } from '../../lib/hooks/useDam';
 
@@ -13,7 +15,7 @@ const planMoney = `${planCell} whitespace-nowrap`;
 
 const SavingsDam = dynamic(() => import('./SavingsDam').then((m) => m.SavingsDam), {
   ssr: false,
-  loading: () => <div className="min-h-96 rounded-2xl border border-beaver-200 bg-beaver-50" />,
+  loading: () => <div className="min-h-72 rounded-2xl border border-beaver-200 bg-beaver-50" />,
 });
 
 type ResultsProps = {
@@ -132,9 +134,8 @@ export function Results({
         {/* Left column: the form */}
         <div className="min-w-0">{children}</div>
 
-        {/* Right column: monthly results, dam, save bar, saved list */}
-        <div className="flex min-w-0 flex-col gap-6 md:h-full">
-          {/* 1. Monthly results */}
+        {/* Right column: this month's result */}
+        <div className="flex min-w-0 flex-col gap-6">
           <section className="rounded-2xl border border-beaver-200 bg-beaver-50 p-6">
             <h2 className="text-lg font-semibold text-stone-900">{t('monthTitle')}</h2>
             <p className="mt-1 text-sm text-stone-600">
@@ -196,7 +197,20 @@ export function Results({
         </div>
       </div>
 
-      {/* 5. Annual plan, full width */}
+      {/* Savings dam, full width between this month and the year */}
+      {userId ? (
+        <SavingsDam
+          total={total}
+          entries={entries}
+          onRemove={remove}
+          onWithdraw={withdraw}
+          busy={adding}
+          money={money}
+          dateFmt={dateFmt}
+        />
+      ) : null}
+
+      {/* Annual plan, full width */}
       {view.rows ? (
         <section className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm print:overflow-visible">
           <div className="p-6 pb-2 print:px-3 print:pt-3">
@@ -272,23 +286,10 @@ export function Results({
         </section>
       ) : null}
 
-      {/* 2. Beaver dam */}
-      {userId ? (
-        <SavingsDam
-          total={total}
-          entries={entries}
-          onRemove={remove}
-          onWithdraw={withdraw}
-          busy={adding}
-          money={money}
-          dateFmt={dateFmt}
-        />
-      ) : null}
-
       <div aria-live="polite" role="status" className="print:hidden">
         {feedback ? (
           <div
-            className={`fixed right-4 bottom-4 z-50 max-w-sm rounded-xl px-4 py-3 text-sm text-white shadow-lg ${
+            className={`fixed right-4 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-50 max-w-sm rounded-xl px-4 py-3 text-sm text-white shadow-lg ${
               feedback.kind === 'success' ? 'bg-secondary' : 'bg-red-600'
             }`}
           >

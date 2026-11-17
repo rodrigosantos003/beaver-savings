@@ -31,6 +31,5 @@ export default function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher:
-    '/((?!api|account(?:/|$)|coach(?:/|$)|dam(?:/|$)|savings(?:/|$)|snapshots(?:/|$)|trpc|_next|_vercel|sw\\.js|manifest\\.webmanifest|.*\\..*).*)',
+  matcher: '/((?!api(?:/|$)|_next|_vercel|sw\\.js|manifest\\.webmanifest|.*\\..*).*)',
 };

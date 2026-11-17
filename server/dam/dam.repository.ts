@@ -1,10 +1,7 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
-
 import { Schema, Types } from 'mongoose';
-import type { Model } from 'mongoose';
+import 'server-only';
 
-/** DI token for the DamEntry model (provided in DamModule). */
-export const DAM_ENTRY_MODEL = 'DAM_ENTRY_MODEL';
+import { getModel } from '@/server/db/connection';
 
 export interface DamEntry {
   userId: Types.ObjectId;
@@ -12,7 +9,7 @@ export interface DamEntry {
   createdAt: Date;
 }
 
-export const DamEntrySchema = new Schema<DamEntry>(
+const DamEntrySchema = new Schema<DamEntry>(
   {
     userId: { type: Schema.Types.ObjectId, required: true },
     amount: { type: Number, required: true },
@@ -25,29 +22,23 @@ export const DamEntrySchema = new Schema<DamEntry>(
 
 DamEntrySchema.index({ userId: 1, createdAt: -1 }, { name: 'by_userId_createdAt' });
 
-/** Plain-object shape, same as the old interface. */
 export type DamEntryDocument = DamEntry & { _id: Types.ObjectId };
 
-@Injectable()
-export class DamRepository implements OnModuleInit {
-  constructor(@Inject(DAM_ENTRY_MODEL) private readonly model: Model<DamEntry>) {}
+const model = () => getModel('DamEntry', DamEntrySchema);
 
-  async onModuleInit() {
-    await this.model.createIndexes();
-  }
+export function findByUserId(userId: Types.ObjectId): Promise<DamEntryDocument[]> {
+  return model().find({ userId }).sort({ createdAt: -1 }).lean<DamEntryDocument[]>().exec();
+}
 
-  findByUserId(userId: Types.ObjectId): Promise<DamEntryDocument[]> {
-    return this.model.find({ userId }).sort({ createdAt: -1 }).lean<DamEntryDocument[]>().exec();
-  }
+export async function create(
+  data: Omit<DamEntryDocument, '_id' | 'createdAt'>,
+): Promise<DamEntryDocument> {
+  const doc = await model().create(data);
+  return doc.toObject();
+}
 
-  async create(data: Omit<DamEntryDocument, '_id' | 'createdAt'>): Promise<DamEntryDocument> {
-    const doc = await this.model.create(data);
-    return doc.toObject();
-  }
-
-  /** Scoped by userId so users can only delete their own entries. */
-  async deleteByIdAndUserId(id: Types.ObjectId, userId: Types.ObjectId) {
-    const { deletedCount } = await this.model.deleteOne({ _id: id, userId });
-    return deletedCount === 1;
-  }
+/** Scoped by userId so users can only delete their own entries. */
+export async function deleteByIdAndUserId(id: Types.ObjectId, userId: Types.ObjectId) {
+  const { deletedCount } = await model().deleteOne({ _id: id, userId });
+  return deletedCount === 1;
 }

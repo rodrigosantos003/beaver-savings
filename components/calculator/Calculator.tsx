@@ -3,24 +3,22 @@
 import { useCallback, useMemo, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
-import {
-  Currency,
-  DEFAULT_CHRISTMAS_MONTH,
-  DEFAULT_CURRENCY,
-  DEFAULT_HOLIDAY_MONTH,
-  SavingsInput,
-  calculateAnnualPlan,
-  calculateTypicalMonth,
-  isCurrency,
-  suggestSavings,
-} from 'savings-core';
 
 import { DamEntry } from '@/lib/api/dam';
+import { type Currency, DEFAULT_CURRENCY, isCurrency } from '@/shared/currency';
+import {
+  DEFAULT_CHRISTMAS_MONTH,
+  DEFAULT_HOLIDAY_MONTH,
+  calculateAnnualPlan,
+  calculateTypicalMonth,
+} from '@/shared/savings/calculate';
+import { suggestSavings } from '@/shared/savings/suggestions';
+import type { SavingsInput } from '@/shared/savings/types';
 
 import type { CalculatorHabits } from '../../lib/api/calculator';
 import { usePersistInput } from '../../lib/hooks/usePersistInput';
 import { CalculatorForm } from './CalculatorForm';
-import { CoachSidebar, CoachToggle } from './CoachSidebar';
+import { CoachPanel, CoachToggle } from './CoachPanel';
 import { ExportBar } from './ExportBar';
 import { Results } from './Results';
 
@@ -149,11 +147,11 @@ export function Calculator({
   if (!loggedIn) return calculator;
 
   return (
-    <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_22rem]">
+    <>
       {calculator}
-      <CoachSidebar input={input} open={coachOpen} onClose={closeCoach} />
-      <CoachToggle open={coachOpen} onOpen={() => setCoachOpen(true)} />
-    </div>
+      <CoachPanel input={input} open={coachOpen} onClose={closeCoach} />
+      <CoachToggle open={coachOpen} onToggle={() => setCoachOpen((open) => !open)} />
+    </>
   );
 }
 

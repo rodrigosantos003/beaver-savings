@@ -1,4 +1,5 @@
-import { type SavingsInput, calculateTypicalMonth } from './index';
+import { calculateTypicalMonth } from './calculate';
+import type { SavingsInput } from './types';
 
 const SUGGESTED_SAVINGS_RATE = 0.2;
 

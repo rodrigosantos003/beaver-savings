@@ -1,4 +1,4 @@
-import type { SavingsInput } from 'savings-core';
+import type { SavingsInput } from '@/shared/savings/types';
 
 import { request } from './index';
 

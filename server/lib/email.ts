@@ -1,8 +1,8 @@
-import { BadGatewayException } from '@nestjs/common';
-
 import { Resend } from 'resend';
+import 'server-only';
 
-import { SITE_URL } from './constants.js';
+import { APP_URL } from './constants';
+import { badGateway } from './errors';
 
 const API_KEY = process.env.RESEND_API_KEY || '';
 const FROM = process.env.RESEND_FROM || '';
@@ -11,6 +11,8 @@ type SendEmailParams = {
   to: string;
   subject: string;
   signal?: AbortSignal;
+  /** Makes retries safe: Resend sends at most one email per key (24h). */
+  idempotencyKey?: string;
 } & ({ html: string; text?: string } | { text: string; html?: string });
 
 export async function sendEmail({
@@ -19,6 +21,7 @@ export async function sendEmail({
   html,
   text,
   signal,
+  idempotencyKey,
 }: SendEmailParams): Promise<void> {
   const resend = new Resend(API_KEY);
   const { error } = await resend.emails.send(
@@ -29,7 +32,7 @@ export async function sendEmail({
       ...(html ? { html } : {}),
       ...(text ? { text } : {}),
     } as Parameters<Resend['emails']['send']>[0],
-    { signal },
+    { signal, ...(idempotencyKey ? { idempotencyKey } : {}) },
   );
 
   if (signal?.aborted) {
@@ -37,7 +40,7 @@ export async function sendEmail({
   }
 
   if (error) {
-    throw new BadGatewayException(error.message);
+    throw badGateway(error.message);
   }
 }
 
@@ -103,7 +106,7 @@ export function renderEmailLayout(p: LayoutParams): string {
               </p>
               <p style="margin:0 0 12px;font-size:12px;line-height:1.7;color:#7b887d;">${escapeHtml(p.footerNote)}</p>
               <p style="margin:0;font-size:12px;line-height:1.7;">
-                <a href="${SITE_URL}" style="color:#287545;text-decoration:underline;">${escapeHtml(p.websiteLabel)}</a>
+                <a href="${APP_URL}" style="color:#287545;text-decoration:underline;">${escapeHtml(p.websiteLabel)}</a>
               </p>
             </td>
           </tr>

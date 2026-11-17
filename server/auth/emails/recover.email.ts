@@ -1,4 +1,6 @@
-import { SITE_URL } from '../../lib/constants.js';
+import 'server-only';
+
+import { APP_URL } from '@/server/lib/constants';
 
 type Messages = {
   subject: string;
@@ -225,7 +227,7 @@ export function buildResetPasswordEmail(
               </p>
 
               <p style="margin:0;font-size:12px;line-height:1.7;">
-                <a href="${SITE_URL}" style="color:#287545;text-decoration:underline;">
+                <a href="${APP_URL}" style="color:#287545;text-decoration:underline;">
                   ${escapeHtml(m.website)}
                 </a>
               </p>

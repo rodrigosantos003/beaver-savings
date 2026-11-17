@@ -1,6 +1,7 @@
-import { BadRequestException } from '@nestjs/common';
+import 'server-only';
 
-import { SavingsInput, SavingsMethod } from 'savings-core';
+import { badRequest } from '@/server/lib/errors';
+import type { SavingsInput, SavingsMethod } from '@/shared/savings/types';
 
 export interface SavingsEmailRequest {
   to: string;
@@ -30,7 +31,7 @@ function readNumber(body: Record<string, unknown>, field: string): number {
   const value = body[field];
 
   if (typeof value !== 'number' || !Number.isFinite(value)) {
-    throw new BadRequestException(`${field} must be a finite number`);
+    throw badRequest(`${field} must be a finite number`);
   }
 
   return value;
@@ -40,7 +41,7 @@ function readBoolean(body: Record<string, unknown>, field: string): boolean {
   const value = body[field];
 
   if (typeof value !== 'boolean') {
-    throw new BadRequestException(`${field} must be a boolean`);
+    throw badRequest(`${field} must be a boolean`);
   }
 
   return value;
@@ -48,19 +49,19 @@ function readBoolean(body: Record<string, unknown>, field: string): boolean {
 
 export function parseEmailRequest(body: unknown): SavingsEmailRequest {
   if (!isRecord(body)) {
-    throw new BadRequestException('Invalid body');
+    throw badRequest('Invalid body');
   }
 
   if (typeof body.to !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.to)) {
-    throw new BadRequestException('Invalid email address');
+    throw badRequest('Invalid email address');
   }
 
   if (body.locale !== undefined && body.locale !== 'pt' && body.locale !== 'en') {
-    throw new BadRequestException('locale must be pt or en');
+    throw badRequest('locale must be pt or en');
   }
 
   if (body.savingsMethod !== 'percent' && body.savingsMethod !== 'fixed') {
-    throw new BadRequestException('savingsMethod must be percent or fixed');
+    throw badRequest('savingsMethod must be percent or fixed');
   }
 
   const savingsMethod: SavingsMethod = body.savingsMethod;

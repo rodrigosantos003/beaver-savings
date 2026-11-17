@@ -2,11 +2,7 @@ import { inferAdditionalFields } from 'better-auth/client/plugins';
 import { createAuthClient } from 'better-auth/react';
 
 export const authClient = createAuthClient({
-  baseURL:
-    process.env.NODE_ENV === 'production'
-      ? 'https://beaver-savings.vercel.app/api/auth'
-      : (process.env.NEXT_PUBLIC_BETTER_AUTH_URL ?? 'http://localhost:3001'),
-
+  // No baseURL: in the browser the client calls /api/auth on the origin serving the page.
   fetchOptions: {
     credentials: 'include',
     onError: async (context) => {

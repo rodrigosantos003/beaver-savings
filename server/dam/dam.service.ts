@@ -1,9 +1,11 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import 'server-only';
 
-import { Types } from 'mongoose';
+import { notFound } from '@/server/lib/errors';
+import { toObjectId } from '@/server/lib/object-id';
 
-import { CreateDamEntryDto } from './dam.dto.js';
-import { DamEntryDocument, DamRepository } from './dam.repository.js';
+import * as repo from './dam.repository';
+import type { DamEntryDocument } from './dam.repository';
+import type { CreateDamEntry } from './dam.schema';
 
 export type DamEntryResponse = {
   id: string;
@@ -18,13 +20,6 @@ export type DamResponse = {
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
-function toObjectId(value: string, field: string): Types.ObjectId {
-  if (!/^[a-f\d]{24}$/i.test(value ?? '')) {
-    throw new BadRequestException(`Invalid ${field}`);
-  }
-  return new Types.ObjectId(value);
-}
-
 function toResponse(doc: DamEntryDocument): DamEntryResponse {
   return {
     id: doc._id.toString(),
@@ -33,31 +28,26 @@ function toResponse(doc: DamEntryDocument): DamEntryResponse {
   };
 }
 
-@Injectable()
-export class DamService {
-  constructor(private readonly repo: DamRepository) {}
+export async function list(userId: string): Promise<DamResponse> {
+  const docs = await repo.findByUserId(toObjectId(userId, 'userId'));
+  return {
+    entries: docs.map(toResponse),
+    total: round2(docs.reduce((sum, d) => sum + d.amount, 0)),
+  };
+}
 
-  async list(userId: string): Promise<DamResponse> {
-    const docs = await this.repo.findByUserId(toObjectId(userId, 'userId'));
-    return {
-      entries: docs.map(toResponse),
-      total: round2(docs.reduce((sum, d) => sum + d.amount, 0)),
-    };
-  }
+export async function create(userId: string, input: CreateDamEntry): Promise<DamEntryResponse> {
+  const doc = await repo.create({
+    userId: toObjectId(userId, 'userId'),
+    amount: round2(input.amount),
+  });
+  return toResponse(doc);
+}
 
-  async create(userId: string, dto: CreateDamEntryDto): Promise<DamEntryResponse> {
-    const doc = await this.repo.create({
-      userId: toObjectId(userId, 'userId'),
-      amount: round2(dto.amount),
-    });
-    return toResponse(doc);
-  }
-
-  async remove(userId: string, id: string): Promise<void> {
-    const deleted = await this.repo.deleteByIdAndUserId(
-      toObjectId(id, 'id'),
-      toObjectId(userId, 'userId'),
-    );
-    if (!deleted) throw new NotFoundException('Dam entry not found');
-  }
+export async function remove(userId: string, id: string): Promise<void> {
+  const deleted = await repo.deleteByIdAndUserId(
+    toObjectId(id, 'id'),
+    toObjectId(userId, 'userId'),
+  );
+  if (!deleted) throw notFound('Dam entry not found');
 }

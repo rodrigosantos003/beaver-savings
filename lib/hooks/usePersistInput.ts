@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import type { SavingsInput } from 'savings-core';
+import type { SavingsInput } from '@/shared/savings/types';
 
 import { saveCalculatorInput } from '../api/calculator';
 

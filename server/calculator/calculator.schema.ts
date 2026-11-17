@@ -1,45 +1,22 @@
-import { applyDecorators } from '@nestjs/common';
+import { z } from 'zod';
 
-import { Type } from 'class-transformer';
-import { IsBoolean, IsIn, IsInt, IsNumber, Max, Min } from 'class-validator';
-import type { SavingsInput } from 'savings-core';
+import { money, month } from '@/server/lib/validation';
+import type { SavingsInput } from '@/shared/savings/types';
 
-const Money = () =>
-  applyDecorators(
-    Type(() => Number),
-    IsNumber({ maxDecimalPlaces: 2 }),
-    Min(0),
-    Max(1_000_000),
-  );
+const amount = () => money({ min: 0, max: 1_000_000 });
 
-const Percent = () =>
-  applyDecorators(
-    Type(() => Number),
-    IsNumber({ maxDecimalPlaces: 2 }),
-    Min(0),
-    Max(100),
-  );
-
-const Month = () =>
-  applyDecorators(
-    Type(() => Number),
-    IsInt(),
-    Min(1),
-    Max(12),
-  );
-
-export class SaveCalculatorInputDto implements SavingsInput {
-  @Money() netSalary: number;
-  @Money() extras: number;
-  @Money() holidaySubsidyNet: number;
-  @Money() christmasSubsidyNet: number;
-  @IsBoolean() subsidiesInTwelfths: boolean;
-  @Month() holidayMonth: number;
-  @Month() christmasMonth: number;
-  @IsBoolean() includeSubsidies: boolean;
-  @IsBoolean() includeExtras: boolean;
-  @Money() monthlyExpenses: number;
-  @IsIn(['percent', 'fixed']) savingsMethod: 'percent' | 'fixed';
-  @Percent() savingsPercent: number;
-  @Money() savingsAmount: number;
-}
+export const saveCalculatorInputSchema = z.object({
+  netSalary: amount(),
+  extras: amount(),
+  holidaySubsidyNet: amount(),
+  christmasSubsidyNet: amount(),
+  subsidiesInTwelfths: z.boolean(),
+  holidayMonth: month(),
+  christmasMonth: month(),
+  includeSubsidies: z.boolean(),
+  includeExtras: z.boolean(),
+  monthlyExpenses: amount(),
+  savingsMethod: z.enum(['percent', 'fixed']),
+  savingsPercent: money({ min: 0, max: 100 }),
+  savingsAmount: amount(),
+}) satisfies z.ZodType<SavingsInput>;

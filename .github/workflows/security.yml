@@ -39,7 +39,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Audit dependencies
-        run: yarn audit --level high
+        run: node scripts/audit.mjs
 
   secret-scan:
     name: Secret detection

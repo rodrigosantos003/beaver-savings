@@ -1,0 +1,11 @@
+{
+  "$comment": "Advisories accepted by scripts/audit.mjs. Each entry needs a reason and an expiry date; once expired the audit fails again, so the exception gets re-reviewed instead of lingering.",
+  "advisories": [
+    {
+      "id": "GHSA-fc5q-39xc-vjpf",
+      "module": "picomatch",
+      "reason": "ReDoS needs an attacker-supplied glob pattern. picomatch only gets patterns from our own config (ESLint, Vitest, next-intl's file watcher at dev/build time), never from request data. No patched version exists yet (latest is 4.0.7).",
+      "expires": "2027-02-15"
+    }
+  ]
+}

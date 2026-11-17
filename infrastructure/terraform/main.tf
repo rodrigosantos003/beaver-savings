@@ -19,25 +19,11 @@ provider "vercel" {}
 provider "mongodbatlas" {}
 
 
+# The whole app (pages + API route handlers) is one Next.js project at the repository root.
 resource "vercel_project" "web" {
-  name           = "beaver-savings"
-  framework      = "nextjs"
-  root_directory = "apps/web"
-  build_command  = "cd ../.. && yarn build:web"
-
-  git_repository = {
-    type              = "github"
-    repo              = "rodrigosantos003/beaver-savings"
-    production_branch = "main"
-  }
-}
-
-resource "vercel_project" "api" {
-  name             = "beaver-savings-api"
-  framework        = "nestjs"
-  build_command    = "yarn install --production=false && yarn build:api"
-  install_command  = "yarn install --production=false"
-  output_directory = "./apps/api/dist/src/"
+  name          = "beaver-savings"
+  framework     = "nextjs"
+  build_command = "yarn build"
 
   git_repository = {
     type              = "github"

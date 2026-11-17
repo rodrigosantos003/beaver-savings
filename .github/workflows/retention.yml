@@ -1,7 +1,7 @@
 name: Beaver Savings - Inactive Accounts
 
 # Runs the data-retention job described in the Privacy Policy: warns verified users after
-# ~23 months of inactivity and deletes accounts inactive for 24 months (see apps/api/src/retention).
+# ~23 months of inactivity and deletes accounts inactive for 24 months (see server/retention).
 on:
   schedule:
     - cron: "0 3 * * *"

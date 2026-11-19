@@ -5,6 +5,7 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
 
+import { PasskeyIcon } from '@/components/auth/PasskeyIcon';
 import { Link, useRouter } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
 import type { CurrencyOption } from '@/lib/currencies';
@@ -40,6 +41,9 @@ export function CredentialsForm({
   const passkeySupported = usePasskeySupport();
   // Autofill (conditional mediation) only on the full login page: one pending request per page.
   const passkeyAutofill = !isSignup && !compact;
+  // Bumped when the passkey button's own ceremony ends. Starting that ceremony aborts the
+  // autofill request, so this re-arms the email field's passkey suggestions afterwards.
+  const [autofillRun, setAutofillRun] = useState(0);
 
   useEffect(() => {
     if (!passkeyAutofill) return;
@@ -62,7 +66,7 @@ export function CredentialsForm({
     return () => {
       active = false;
     };
-  }, [passkeyAutofill, router]);
+  }, [passkeyAutofill, router, autofillRun]);
 
   async function onPasskeySignIn() {
     setError(null);
@@ -73,6 +77,7 @@ export function CredentialsForm({
 
       if (result.error) {
         if (!isPasskeyCancelled(result.error)) setError(t('passkeyLoginFailed'));
+        setAutofillRun((run) => run + 1);
         return;
       }
 
@@ -81,6 +86,7 @@ export function CredentialsForm({
     } catch (error) {
       console.error(error);
       setError(t('failedToFetch'));
+      setAutofillRun((run) => run + 1);
     } finally {
       setPending(false);
     }
@@ -248,25 +254,5 @@ export function CredentialsForm({
         </Link>
       </p>
     </form>
-  );
-}
-
-export function PasskeyIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className="size-5"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <circle cx="9" cy="7" r="4" />
-      <path d="M2 21v-1a6 6 0 0 1 9.5-4.9" />
-      <circle cx="17.5" cy="13.5" r="2.5" />
-      <path d="M17.5 16v5l1.5-1.5M17.5 18.5H19" />
-    </svg>
   );
 }

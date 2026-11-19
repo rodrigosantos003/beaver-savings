@@ -209,7 +209,7 @@
     "warning": "Your savings target exceeds the amount left after expenses.",
     "exportPdf": "Export PDF",
     "email": "Send by email",
-    "emailPlaceholder": "name@email.com",
+    "emailTo": "To {email}",
     "send": "Send",
     "sending": "Sending…",
     "sent": "Summary sent.",

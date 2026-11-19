@@ -4,5 +4,5 @@ import * as savingsEmail from '@/server/savings/savings-email.service';
 
 export const POST = route(
   { name: 'savings.email', rateLimit: { limit: 5 }, status: 201 },
-  async ({ req }) => savingsEmail.send(parseEmailRequest(await readRawJson(req))),
+  async ({ req, user }) => savingsEmail.send(user, parseEmailRequest(await readRawJson(req))),
 );

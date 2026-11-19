@@ -1,11 +1,14 @@
 import 'server-only';
 
 import { badRequest } from '@/server/lib/errors';
+import { type Currency, isCurrency } from '@/shared/currency';
 import type { SavingsInput, SavingsMethod } from '@/shared/savings/types';
 
+/** No recipient field: the email always goes to the signed-in user's own address. */
 export interface SavingsEmailRequest {
-  to: string;
   locale: 'pt' | 'en';
+  /** The currency the calculator showed; undefined when the client didn't send one. */
+  currency: Currency | undefined;
   input: SavingsInput;
 }
 
@@ -52,12 +55,12 @@ export function parseEmailRequest(body: unknown): SavingsEmailRequest {
     throw badRequest('Invalid body');
   }
 
-  if (typeof body.to !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.to)) {
-    throw badRequest('Invalid email address');
-  }
-
   if (body.locale !== undefined && body.locale !== 'pt' && body.locale !== 'en') {
     throw badRequest('locale must be pt or en');
+  }
+
+  if (body.currency !== undefined && !isCurrency(body.currency)) {
+    throw badRequest('Unsupported currency');
   }
 
   if (body.savingsMethod !== 'percent' && body.savingsMethod !== 'fixed') {
@@ -90,8 +93,8 @@ export function parseEmailRequest(body: unknown): SavingsEmailRequest {
   }
 
   return {
-    to: body.to,
     locale: body.locale === 'en' ? 'en' : 'pt',
+    currency: body.currency,
     input,
   };
 }

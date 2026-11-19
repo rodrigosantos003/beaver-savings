@@ -26,7 +26,9 @@ export function DownloadDataLink() {
       link.href = url;
       link.download = `beaver-savings-data-${new Date().toISOString().slice(0, 10)}.json`;
       link.click();
-      URL.revokeObjectURL(url);
+      // Revoking right away can cancel the download (Safari, some Firefox versions) because
+      // the browser reads the blob asynchronously after the click; give it time first.
+      setTimeout(() => URL.revokeObjectURL(url), 60_000);
       setStatus('idle');
     } catch (error) {
       console.error(error);

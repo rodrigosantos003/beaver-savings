@@ -5,6 +5,7 @@ import 'server-only';
 import { escapeHtml, renderEmailLayout, sendEmail } from '@/server/lib/email';
 import { badGateway } from '@/server/lib/errors';
 import { withRetry } from '@/server/lib/retry';
+import { type Currency, DEFAULT_CURRENCY, isCurrency } from '@/shared/currency';
 import { calculateAnnualPlan, calculateTypicalMonth } from '@/shared/savings/calculate';
 import type { AnnualPlan, MonthBreakdown } from '@/shared/savings/types';
 
@@ -13,14 +14,30 @@ import type { SavingsEmailRequest } from './parse-email-request';
 /** Each try gets 2s (Resend usually answers in well under that); 3 tries in total. */
 const SEND_RETRY = { attempts: 3, timeoutMs: 2_000 };
 
-export async function send(request: SavingsEmailRequest): Promise<{ sent: true }> {
+/** The session fields the email needs; `preferredCurrency` is a Better Auth additional field. */
+export type SavingsEmailUser = {
+  email: string;
+  preferredCurrency?: unknown;
+};
+
+/**
+ * Sends the plan to the signed-in user's own address only, so the endpoint can't be used to
+ * mail third parties from our sender.
+ */
+export async function send(
+  user: SavingsEmailUser,
+  request: SavingsEmailRequest,
+): Promise<{ sent: true }> {
   const month = calculateTypicalMonth(request.input);
   const plan = calculateAnnualPlan(request.input);
+  const currency =
+    request.currency ??
+    (isCurrency(user.preferredCurrency) ? user.preferredCurrency : DEFAULT_CURRENCY);
   const message = {
-    to: request.to,
+    to: user.email,
     subject: subject(request.locale),
-    text: formatSummary(request.locale, month, plan),
-    html: formatHtml(request.locale, request.to, month, plan),
+    text: formatSummary(request.locale, currency, month, plan),
+    html: formatHtml(request.locale, currency, user.email, month, plan),
     // Same key on every try, so a timed-out attempt that did reach Resend is not sent twice.
     idempotencyKey: `savings-plan/${randomUUID()}`,
   };
@@ -41,13 +58,14 @@ function subject(locale: SavingsEmailRequest['locale']): string {
 
 function formatSummary(
   locale: SavingsEmailRequest['locale'],
+  currency: Currency,
   month: MonthBreakdown,
   plan: AnnualPlan,
 ): string {
   const labels = locale === 'en' ? englishLabels : portugueseLabels;
   const money = new Intl.NumberFormat(locale === 'en' ? 'en-GB' : 'pt-PT', {
     style: 'currency',
-    currency: 'EUR',
+    currency,
   });
   const monthName = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'pt-PT', {
     month: 'long',
@@ -81,6 +99,7 @@ function formatSummary(
 
 function formatHtml(
   locale: SavingsEmailRequest['locale'],
+  currency: Currency,
   to: string,
   month: MonthBreakdown,
   plan: AnnualPlan,
@@ -89,7 +108,7 @@ function formatHtml(
   const tag = locale === 'en' ? 'en-GB' : 'pt-PT';
   const money = new Intl.NumberFormat(tag, {
     style: 'currency',
-    currency: 'EUR',
+    currency,
   });
   const monthName = new Intl.DateTimeFormat(tag, { month: 'long' });
 

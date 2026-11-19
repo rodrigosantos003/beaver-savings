@@ -4,6 +4,7 @@ import { SyntheticEvent, useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import { AccountCardSkeleton, AccountMessageCard } from '@/components/account/AccountCard';
 import { Link } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
 
@@ -43,36 +44,28 @@ export function DeleteAccountCard() {
   }
 
   if (isPending) {
-    return <div className="h-80 animate-pulse rounded-2xl border border-stone-200 bg-white" />;
+    return <AccountCardSkeleton />;
   }
 
   if (status === 'deleted') {
     return (
-      <Card>
-        <h1 className="text-2xl font-bold tracking-tight">{t('deletedTitle')}</h1>
-        <p className="mt-3 text-stone-600">{t('deletedBody')}</p>
-        <Link
-          href="/landing"
-          className="mt-6 inline-flex h-11 items-center rounded-full bg-secondary px-5 text-sm font-semibold text-white transition-colors hover:bg-secondary-hover"
-        >
-          {t('backHome')}
-        </Link>
-      </Card>
+      <AccountMessageCard
+        title={t('deletedTitle')}
+        body={t('deletedBody')}
+        href="/landing"
+        linkLabel={t('backHome')}
+      />
     );
   }
 
   if (!session) {
     return (
-      <Card>
-        <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
-        <p className="mt-3 text-stone-600">{t('signInRequired')}</p>
-        <Link
-          href="/login"
-          className="mt-6 inline-flex h-11 items-center rounded-full bg-secondary px-5 text-sm font-semibold text-white transition-colors hover:bg-secondary-hover"
-        >
-          {t('signIn')}
-        </Link>
-      </Card>
+      <AccountMessageCard
+        title={t('title')}
+        body={t('signInRequired')}
+        href="/login"
+        linkLabel={t('signIn')}
+      />
     );
   }
 
@@ -169,11 +162,5 @@ export function DeleteAccountCard() {
         </div>
       </form>
     </div>
-  );
-}
-
-function Card({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="rounded-2xl border border-stone-200 bg-white p-8 shadow-sm">{children}</div>
   );
 }

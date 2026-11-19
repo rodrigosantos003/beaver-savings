@@ -211,7 +211,7 @@
     "warning": "A poupança é superior ao disponível depois das despesas.",
     "exportPdf": "Exportar PDF",
     "email": "Enviar por email",
-    "emailPlaceholder": "nome@email.com",
+    "emailTo": "Para {email}",
     "send": "Enviar",
     "sending": "A enviar…",
     "sent": "Resumo enviado.",

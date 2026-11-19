@@ -79,7 +79,7 @@ export async function generateTextResponse(input: string, systemInstruction: str
         ],
         max_tokens: MAX_TOKENS,
       }),
-      // Surfaces as a TimeoutError, which CoachService maps to a 504.
+      // Surfaces as a TimeoutError, which coach.service's generate() maps to a 504.
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
 

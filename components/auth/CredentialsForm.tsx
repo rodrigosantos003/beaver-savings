@@ -1,4 +1,3 @@
-// components/auth/CredentialsForm.tsx
 'use client';
 
 import { SyntheticEvent, useEffect, useState } from 'react';

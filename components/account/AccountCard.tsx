@@ -9,7 +9,6 @@ export function AccountCard({ children }: { children: ReactNode }) {
   );
 }
 
-/** Placeholder while the session is loading. */
 export function AccountCardSkeleton() {
   return <div className="h-80 animate-pulse rounded-2xl border border-stone-200 bg-white" />;
 }

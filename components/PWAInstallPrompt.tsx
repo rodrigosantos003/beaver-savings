@@ -32,7 +32,7 @@ function writeDismissedAt() {
   try {
     localStorage.setItem(DISMISS_KEY, String(Date.now()));
   } catch {
-    // ignore
+    // Storage can be blocked (private mode, disabled site data); nothing to recover.
   }
 }
 
@@ -48,7 +48,7 @@ function markWasInstalled() {
   try {
     localStorage.setItem(INSTALLED_KEY, '1');
   } catch {
-    // ignore
+    // Storage can be blocked (private mode, disabled site data); nothing to recover.
   }
 }
 
@@ -56,7 +56,7 @@ function clearWasInstalled() {
   try {
     localStorage.removeItem(INSTALLED_KEY);
   } catch {
-    // ignore
+    // Storage can be blocked (private mode, disabled site data); nothing to recover.
   }
 }
 

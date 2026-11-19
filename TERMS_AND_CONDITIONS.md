@@ -1,6 +1,6 @@
 # Terms and Conditions
 
-**Last updated: 12 November 2026**
+**Last updated: 19 November 2026**
 
 Welcome to Beaver Savings!
 
@@ -21,7 +21,8 @@ The service may include features such as:
 - Estimating monthly expenses and potential savings.
 - Creating annual savings projections.
 - Setting savings goals based on a fixed amount or a percentage of income.
-- Exporting savings results as a PDF or sharing them by email.
+- Exporting savings results as a PDF or emailing them to your own account
+  address.
 - Getting AI-generated savings tips and answers to your questions from Bucky,
   our AI savings coach.
 
@@ -76,14 +77,14 @@ service.
 
 ## 5. Your Financial Information
 
-You may enter information such as your salary, income, expenses, tax
-assumptions, social security contributions, and savings goals.
+You may enter information such as your net salary, subsidies, extra income,
+expenses, and savings goals.
 
 You are responsible for ensuring that the information you enter is as accurate
 and complete as reasonably possible.
 
-Your results depend on the information and assumptions you provide. Incorrect,
-incomplete, or outdated information may produce inaccurate estimates.
+Your results depend on the information you provide. Incorrect, incomplete, or
+outdated information may produce inaccurate estimates.
 
 ## 6. Financial and Tax Disclaimer
 
@@ -99,9 +100,10 @@ informational and planning purposes only.
 
 In particular:
 
-- Net income estimates may differ from your actual take-home pay.
-- Tax and social security calculations may not reflect every individual
-  circumstance, deduction, exemption, or change in legislation.
+- Net income comes from the values you enter, so it may differ from your actual
+  take-home pay.
+- Subsidies, extra income, and expenses can vary from month to month and may not
+  reflect every individual circumstance.
 - Savings projections are illustrative and depend on the assumptions and amounts
   you enter.
 - Actual expenses, income, and savings may differ from your projections.
@@ -117,9 +119,9 @@ account, or execute financial transactions on your behalf.
 ## 7. AI Features
 
 Beaver Savings offers an optional AI savings coach, Bucky, available to
-signed-in users. Bucky is powered by a large language model run by
-**Scaleway**, a third-party AI service provider. When you use Bucky, you are interacting with an AI
-system, not a person.
+signed-in users. Bucky is powered by a large language model run by **Scaleway**,
+a third-party AI service provider. When you use Bucky, you are interacting with
+an AI system, not a person.
 
 Bucky's responses are generated automatically and are not reviewed by a person
 before they are shown to you. They may be inaccurate, incomplete, outdated, or
@@ -132,8 +134,8 @@ and Tax Disclaimer above applies to them in full. You should check any
 suggestion against your own circumstances before acting on it.
 
 To generate a response, your savings information and the text of any question
-you type are sent to Scaleway. Our Privacy Policy explains what is shared and how
-it is handled. Please do not include unnecessary personal or sensitive
+you type are sent to Scaleway. Our Privacy Policy explains what is shared and
+how it is handled. Please do not include unnecessary personal or sensitive
 information in your questions.
 
 When using the AI features, you must not:
@@ -147,8 +149,8 @@ When using the AI features, you must not:
 - Present the coach's responses as verified professional advice or as content
   written by a person.
 
-To protect the service, we limit how many requests can be made to the coach in
-a short period. The AI features depend on a third-party provider and may be
+To protect the service, we limit how many requests can be made to the coach in a
+short period. The AI features depend on a third-party provider and may be
 unavailable, changed, limited, or discontinued at any time.
 
 ## 8. Acceptable Use
@@ -174,20 +176,20 @@ service and its users, subject to applicable law.
 ## 9. Exporting and Sharing Results
 
 Beaver Savings may allow you to download a PDF containing your savings results
-or send those results to an email address.
+or send those results by email to the address of your account.
 
-You are responsible for checking the information before sharing it and ensuring
-that you are authorised to send it to the intended recipient.
+You are responsible for checking the information before you save, print, or
+forward it to anyone else.
 
 Savings reports may contain personal financial information. Anyone who receives
 a report may be able to view the information it contains.
 
-Please make sure you use the correct recipient address and only share reports
-with people you trust.
+Emailed results are only sent to your own account address. If you share a PDF or
+forward an email, please make sure you only share it with people you trust.
 
-We are not responsible for disclosures caused by your decision to share a report
-with an unintended recipient, except where applicable law provides otherwise or
-the disclosure results from circumstances for which we are responsible.
+We are not responsible for disclosures caused by your decision to share or
+forward a report, except where applicable law provides otherwise or the
+disclosure results from circumstances for which we are responsible.
 
 ## 10. Intellectual Property
 

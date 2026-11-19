@@ -7,7 +7,8 @@ import { notFound } from '@/server/lib/errors';
 /**
  * Everything Beaver Savings stores about the user, for GDPR access/portability requests.
  * Secrets (password hash, session tokens, OAuth tokens, passkey key material) are deliberately
- * left out.
+ * left out. Rate-limit counters are keyed by IP address or user id, not linked to the account,
+ * and expire within a day, so they are not included.
  */
 export async function exportData(userId: string) {
   const db = getDb();
@@ -28,6 +29,7 @@ export async function exportData(userId: string) {
           createdAt: 1,
           updatedAt: 1,
           lastActiveAt: 1,
+          inactivityWarningSentAt: 1,
         },
       },
     ),
@@ -56,7 +58,18 @@ export async function exportData(userId: string) {
       .collection('passkeys')
       .find(
         { userId: _id },
-        { projection: { _id: 0, name: 1, deviceType: 1, backedUp: 1, createdAt: 1 } },
+        {
+          projection: {
+            _id: 0,
+            name: 1,
+            deviceType: 1,
+            backedUp: 1,
+            transports: 1,
+            aaguid: 1,
+            counter: 1,
+            createdAt: 1,
+          },
+        },
       )
       .toArray(),
     db

@@ -35,10 +35,18 @@ type CandidateUser = {
   inactivityWarningSentAt?: Date;
 };
 
+/**
+ * Better Auth's database rate limiter keys rows by IP address and never deletes them, and
+ * `lastRequest` is a millisecond number, so a TTL index can't expire them. Its longest window is
+ * minutes, so anything older than this is no longer needed (stated in the Privacy Policy).
+ */
+const AUTH_RATE_LIMIT_MAX_AGE_MS = DAY_MS;
+
 export type RetentionRunResult = {
   warned: number;
   warningFailures: number;
   deleted: number;
+  rateLimitRowsPruned: number;
 };
 
 export async function run(now = new Date()): Promise<RetentionRunResult> {
@@ -48,9 +56,19 @@ export async function run(now = new Date()): Promise<RetentionRunResult> {
 
   const { warned, warningFailures } = await sendWarnings(now);
   const deleted = await deleteInactive(now);
+  const rateLimitRowsPruned = await pruneAuthRateLimits(now);
 
-  console.log(`Retention run: warned=${warned} failed=${warningFailures} deleted=${deleted}`);
-  return { warned, warningFailures, deleted };
+  console.log(
+    `Retention run: warned=${warned} failed=${warningFailures} deleted=${deleted} rateLimitRowsPruned=${rateLimitRowsPruned}`,
+  );
+  return { warned, warningFailures, deleted, rateLimitRowsPruned };
+}
+
+async function pruneAuthRateLimits(now: Date) {
+  const { deletedCount } = await getDb()
+    .collection('rateLimits')
+    .deleteMany({ lastRequest: { $lt: now.getTime() - AUTH_RATE_LIMIT_MAX_AGE_MS } });
+  return deletedCount;
 }
 
 /**

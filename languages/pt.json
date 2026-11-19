@@ -382,11 +382,14 @@
         "savingsHeading": "Informações de poupança",
         "savingsP1": "Quando utiliza a Beaver Savings, pode fornecer informações financeiras como:",
         "savingsList": {
-          "i1": "Rendimento mensal",
-          "i2": "Despesas mensais",
-          "i3": "Montante total de poupanças"
+          "i1": "O seu rendimento líquido mensal",
+          "i2": "Os subsídios de férias e de Natal, os meses em que são pagos e se são pagos em duodécimos",
+          "i3": "Rendimentos extra",
+          "i4": "Despesas mensais",
+          "i5": "O seu objetivo de poupança, como montante fixo ou percentagem do rendimento",
+          "i6": "Os depósitos que adiciona à sua barragem de poupança, com a data de cada um"
         },
-        "savingsP2": "Estas informações ficam associadas à sua conta para que a Beaver Savings possa disponibilizar as suas funcionalidades de poupança.",
+        "savingsP2": "Estas informações ficam associadas à sua conta para que a Beaver Savings possa disponibilizar as suas funcionalidades de poupança. Conservamos até aos seus 100 planos mais recentes da calculadora, e não apenas o último, para que o coach de poupanças com IA possa resumir os seus hábitos de poupança. Os planos mais antigos são eliminados automaticamente.",
         "savingsP3": "A Beaver Savings não solicita nem recolhe intencionalmente números de conta bancária, números de cartões de pagamento, credenciais de acesso bancário ou outras credenciais bancárias.",
         "sessionHeading": "Informações de sessão e segurança",
         "sessionP1": "Quando se autentica na Beaver Savings, o nosso sistema de autenticação cria informações de sessão que podem incluir:",
@@ -397,7 +400,8 @@
           "i4": "A data de expiração do token de sessão"
         },
         "sessionP2": "Estas informações são utilizadas para manter sessões autenticadas, manter a sua conta segura e permitir-lhe aceder à Beaver Savings sem ter de iniciar sessão repetidamente.",
-        "sessionP3": "Os tokens de sessão são credenciais de segurança. Não deve partilhá-los com outras pessoas."
+        "sessionP3": "Os tokens de sessão são credenciais de segurança. Não deve partilhá-los com outras pessoas.",
+        "sessionP4": "Para proteger a Beaver Savings contra abusos, como tentativas repetidas de início de sessão, contamos os pedidos recentes por endereço IP, ou por conta quando tem sessão iniciada. Estes contadores são armazenados na nossa base de dados, não fazem parte do perfil da sua conta e são eliminados no prazo de dois dias."
       },
       "howWeUse": {
         "title": "Como utilizamos as suas informações",
@@ -414,7 +418,7 @@
           "i8": "Manter e proteger o serviço",
           "i9": "Detetar, prevenir e resolver problemas técnicos ou de segurança",
           "i10": "Gerar dicas de poupança e responder às suas perguntas através do coach de poupanças com IA opcional, quando opta por utilizá-lo",
-          "i11": "Enviar-lhe avisos de serviço sobre a sua conta, como um aviso antes de uma conta inativa ser eliminada"
+          "i11": "Enviar-lhe os emails necessários ao funcionamento da sua conta, como a verificação do endereço de email, a redefinição da palavra-passe e um aviso antes de uma conta inativa ser eliminada"
         },
         "p3": "Não utilizamos as suas informações financeiras pessoais para publicidade nem para criação de perfis comportamentais.",
         "p4": "Não vendemos as suas informações pessoais."
@@ -444,16 +448,16 @@
       },
       "exporting": {
         "title": "Exportação dos resultados das suas poupanças",
-        "p1": "A Beaver Savings disponibiliza uma funcionalidade de exportação que lhe permite enviar os resultados das suas poupanças para um endereço de email.",
+        "p1": "Com sessão iniciada, pode enviar os resultados das suas poupanças para si próprio por email.",
         "p2": "Quando utiliza esta funcionalidade:",
         "steps": {
-          "i1": "Indica um endereço de email para a exportação.",
-          "i2": "A Beaver Savings envia os resultados pedidos para esse endereço.",
-          "i3": "A Beaver Savings não armazena o endereço de email do destinatário como parte dos dados da sua conta Beaver Savings."
+          "i1": "Os resultados são enviados apenas para o endereço de email da sua conta Beaver Savings. Não é possível escolher outro destinatário.",
+          "i2": "O email contém o resumo mensal e o plano anual apresentados na calculadora e indica o endereço para onde foi enviado.",
+          "i3": "A Beaver Savings não guarda uma cópia do email."
         },
         "p3": "O envio de emails desta funcionalidade é efetuado pelo <strong>Resend</strong>.",
-        "p4": "O endereço de email que indica para uma exportação é transmitido ao Resend na medida do necessário para enviar o email. O Resend pode tratar essa informação de acordo com as suas próprias práticas de privacidade e os termos contratuais aplicáveis.",
-        "p5": "Deve indicar apenas um endereço de email que esteja autorizado a utilizar para este efeito."
+        "p4": "Para entregar o email, o endereço de email da sua conta e o conteúdo do email são transmitidos ao Resend. O Resend pode tratar essa informação de acordo com as suas próprias práticas de privacidade e os termos contratuais aplicáveis.",
+        "p5": "Também pode guardar os seus resultados em PDF através da função de impressão do navegador. O PDF é criado no seu dispositivo e não nos é enviado."
       },
       "aiCoach": {
         "title": "Coach de poupanças com IA",
@@ -485,8 +489,8 @@
         "mongoP4": "Atualmente, não configuramos cópias de segurança separadas no MongoDB Atlas para a Beaver Savings.",
         "betterAuthP1": "A Beaver Savings utiliza o <strong>Better Auth</strong> como framework de autenticação.",
         "betterAuthP2": "O Better Auth trata da autenticação e da gestão de sessões dentro da aplicação Beaver Savings. As informações de autenticação e de sessão resultantes são armazenadas na base de dados da nossa aplicação.",
-        "resendP1": "A Beaver Savings utiliza o <strong>Resend</strong> para enviar os emails associados à funcionalidade de exportação.",
-        "resendP2": "Quando pede uma exportação, o endereço de email que indica é transmitido ao Resend na medida do necessário para enviar o email. A Beaver Savings não armazena esse endereço de destinatário nos dados da sua conta.",
+        "resendP1": "A Beaver Savings utiliza o <strong>Resend</strong> para enviar emails: verificação do endereço de email, redefinição da palavra-passe, aviso antes de uma conta inativa ser eliminada e os resultados de poupança que opta por enviar para si próprio.",
+        "resendP2": "Para enviar estes emails, o seu nome, o seu endereço de email e o conteúdo do email são transmitidos ao Resend. O Resend pode conservar registos de entrega de acordo com as suas próprias políticas de conservação.",
         "scalewayP1": "A Beaver Savings utiliza o serviço <strong>Scaleway Generative APIs</strong> para o coach de poupanças com IA opcional.",
         "scalewayP2": "Quando utiliza o coach, as informações de poupança e as perguntas descritas na secção “Coach de poupanças com IA” são transmitidas à Scaleway para gerar uma resposta. A Scaleway trata estas informações em centros de dados localizados na União Europeia.",
         "closing": "Estes prestadores tratam informações na medida do necessário para prestar os respetivos serviços. As suas próprias políticas de privacidade e termos contratuais também podem ser aplicáveis.",
@@ -503,7 +507,7 @@
       "retention": {
         "title": "Conservação de dados",
         "p1": "Conservamos as suas informações pessoais enquanto a sua conta Beaver Savings se mantiver ativa e na medida do necessário para prestar o serviço.",
-        "p2": "As informações de sessão são conservadas de acordo com o prazo de expiração configurado para a respetiva sessão.",
+        "p2": "As informações de sessão são conservadas de acordo com o prazo de expiração configurado para a respetiva sessão. Os contadores de pedidos utilizados para prevenir abusos, que podem incluir o seu endereço IP, são eliminados no prazo de dois dias.",
         "p3": "Se não utilizar a sua conta durante 24 meses, eliminamo-la juntamente com todos os dados associados. Se o seu endereço de email estiver verificado, enviamos-lhe um email pelo menos 30 dias antes da eliminação, e basta iniciar sessão nesse período para manter a sua conta.",
         "p4": "Pode eliminar a sua conta Beaver Savings diretamente na aplicação.",
         "p5": "Quando elimina a sua conta, as informações da conta, as informações de autenticação (incluindo quaisquer chaves de acesso), as informações de sessão e os dados de poupança associados à sua conta são eliminados permanentemente da Beaver Savings.",
@@ -606,7 +610,7 @@
       "description": "Os termos aplicáveis à utilização da Beaver Savings, uma ferramenta gratuita de finanças pessoais e planeamento de poupanças."
     },
     "title": "Termos e Condições",
-    "lastUpdated": "Última atualização: 12 de novembro de 2026",
+    "lastUpdated": "Última atualização: 19 de novembro de 2026",
     "intro": {
       "welcome": "Bem-vindo à Beaver Savings!",
       "p1": "Estes Termos e Condições explicam como pode utilizar a Beaver Savings, uma aplicação web de finanças pessoais e planeamento de poupanças operada por <strong>Rodrigo Santos</strong>.",
@@ -629,7 +633,7 @@
           "i1": "Estimativa das despesas mensais e da poupança potencial.",
           "i2": "Criação de projeções anuais de poupança.",
           "i3": "Definição de objetivos de poupança com base num montante fixo ou numa percentagem do rendimento.",
-          "i4": "Exportação dos resultados de poupança em PDF ou partilha por email.",
+          "i4": "Exportação dos resultados de poupança em PDF ou envio por email para o endereço da sua própria conta.",
           "i5": "Dicas de poupança e respostas às suas perguntas geradas por IA pelo Bucky, o nosso coach de poupanças."
         },
         "p3": "Podemos atualizar, melhorar, adicionar ou remover funcionalidades à medida que o serviço evolui."
@@ -717,11 +721,11 @@
       },
       "exporting": {
         "title": "Exportação e Partilha de Resultados",
-        "p1": "A Beaver Savings pode permitir-lhe descarregar um PDF com os resultados das suas poupanças ou enviar esses resultados para um endereço de email.",
-        "p2": "É responsável por verificar as informações antes de as partilhar e por garantir que está autorizado a enviá-las ao destinatário pretendido.",
+        "p1": "A Beaver Savings pode permitir-lhe descarregar um PDF com os resultados das suas poupanças ou enviar esses resultados por email para o endereço da sua conta.",
+        "p2": "É responsável por verificar as informações antes de as guardar, imprimir ou reencaminhar a outras pessoas.",
         "p3": "Os relatórios de poupança podem conter informações financeiras pessoais. Qualquer pessoa que receba um relatório poderá ver as informações nele contidas.",
-        "p4": "Certifique-se de que utiliza o endereço de destinatário correto e de que partilha os relatórios apenas com pessoas em quem confia.",
-        "p5": "Não somos responsáveis por divulgações causadas pela sua decisão de partilhar um relatório com um destinatário não pretendido, exceto quando a lei aplicável disponha de outra forma ou quando a divulgação resulte de circunstâncias pelas quais sejamos responsáveis."
+        "p4": "Os resultados enviados por email só são enviados para o endereço da sua própria conta. Se partilhar um PDF ou reencaminhar um email, certifique-se de que o partilha apenas com pessoas em quem confia.",
+        "p5": "Não somos responsáveis por divulgações causadas pela sua decisão de partilhar ou reencaminhar um relatório, exceto quando a lei aplicável disponha de outra forma ou quando a divulgação resulte de circunstâncias pelas quais sejamos responsáveis."
       },
       "ip": {
         "title": "Propriedade Intelectual",

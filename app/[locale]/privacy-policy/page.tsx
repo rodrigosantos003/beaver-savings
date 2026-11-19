@@ -151,6 +151,7 @@ export default async function PrivacyPolicyPage() {
           <UL>{items(s('informationWeCollect', 'sessionList'))}</UL>
           <P>{r(s('informationWeCollect', 'sessionP2'))}</P>
           <P>{r(s('informationWeCollect', 'sessionP3'))}</P>
+          <P>{r(s('informationWeCollect', 'sessionP4'))}</P>
         </>
       ),
     },

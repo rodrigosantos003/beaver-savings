@@ -38,6 +38,10 @@
     "termsAndConditions": {
       "title": "Terms and Conditions",
       "description": "The terms that apply when you use Beaver Savings, a free personal finance and savings planning tool."
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "description": "Manage the passkeys you use to sign in to Beaver Savings."
     }
   },
   "nav": {
@@ -166,7 +170,10 @@
     "resetFailed": "We couldn't reset your password. The link may have expired.",
     "invalidResetLink": "This reset link is invalid or has expired.",
     "requestNewLink": "Request a new link",
-    "preferredCurrency": "Preferred currency"
+    "preferredCurrency": "Preferred currency",
+    "or": "or",
+    "passkeyLogin": "Sign in with a passkey",
+    "passkeyLoginFailed": "Could not sign in with that passkey. Try again or use your email and password."
   },
   "calculator": {
     "back": "Home",
@@ -290,6 +297,27 @@
     "deletedBody": "Your account and data have been removed. Thanks for trying Beaver Savings.",
     "backHome": "Back to home",
     "failedToFetch": "We couldn't complete your request. Please try again later."
+  },
+  "passkeys": {
+    "link": "Passkeys",
+    "title": "Passkeys",
+    "description": "Sign in with your fingerprint, face or device PIN instead of a password.",
+    "yourPasskeys": "Your passkeys",
+    "empty": "You haven't added a passkey yet.",
+    "unnamed": "Passkey",
+    "addedOn": "Added {date}",
+    "nameLabel": "Name (optional)",
+    "namePlaceholder": "e.g. My laptop",
+    "add": "Add a passkey",
+    "adding": "Waiting for your device…",
+    "remove": "Remove",
+    "removing": "Removing…",
+    "addFailed": "We couldn't add the passkey. Please try again.",
+    "alreadyRegistered": "This device already has a passkey for your account.",
+    "removeFailed": "We couldn't remove the passkey. Please try again.",
+    "unsupported": "This browser doesn't support passkeys.",
+    "signInRequired": "Log in to manage your passkeys.",
+    "signIn": "Log in"
   },
   "dataExport": {
     "link": "Download my data",

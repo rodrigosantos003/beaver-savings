@@ -6,7 +6,8 @@ import { notFound } from '@/server/lib/errors';
 
 /**
  * Everything Beaver Savings stores about the user, for GDPR access/portability requests.
- * Secrets (password hash, session tokens, OAuth tokens) are deliberately left out.
+ * Secrets (password hash, session tokens, OAuth tokens, passkey key material) are deliberately
+ * left out.
  */
 export async function exportData(userId: string) {
   const db = getDb();
@@ -14,7 +15,7 @@ export async function exportData(userId: string) {
   if (!Types.ObjectId.isValid(userId)) throw notFound();
   const _id = new Types.ObjectId(userId);
 
-  const [user, sessions, accounts, plans, damEntries] = await Promise.all([
+  const [user, sessions, accounts, passkeys, plans, damEntries] = await Promise.all([
     db.collection('users').findOne(
       { _id },
       {
@@ -52,6 +53,13 @@ export async function exportData(userId: string) {
       .find({ userId: _id }, { projection: { _id: 0, providerId: 1, createdAt: 1, updatedAt: 1 } })
       .toArray(),
     db
+      .collection('passkeys')
+      .find(
+        { userId: _id },
+        { projection: { _id: 0, name: 1, deviceType: 1, backedUp: 1, createdAt: 1 } },
+      )
+      .toArray(),
+    db
       .collection('calculator_snapshots')
       .find({ userId: _id }, { projection: { _id: 0, input: 1, createdAt: 1 } })
       .sort({ createdAt: -1 })
@@ -70,6 +78,7 @@ export async function exportData(userId: string) {
     service: 'Beaver Savings',
     profile: user,
     signInMethods: accounts,
+    passkeys,
     sessions,
     savingsPlans: plans,
     damDeposits: damEntries,

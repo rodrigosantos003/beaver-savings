@@ -1,5 +1,6 @@
 import { after } from 'next/server';
 
+import { passkey } from '@better-auth/passkey';
 import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { nextCookies } from 'better-auth/next-js';
@@ -86,6 +87,7 @@ function createAuth() {
           await Promise.all([
             db.collection('dam_entries').deleteMany(query),
             db.collection('calculator_snapshots').deleteMany(query),
+            db.collection('passkeys').deleteMany(query),
           ]);
         },
       },
@@ -155,8 +157,16 @@ function createAuth() {
       updateAge: 60 * 60 * 24, // 1 day
       freshAge: 60 * 60 * 24, // 1 day
     },
-    // Lets auth.api calls made from server actions set cookies; must stay the last plugin.
-    plugins: [nextCookies()],
+    plugins: [
+      passkey({
+        // Bound to this deployment's host, so previews and localhost get working passkeys too.
+        rpID: new URL(APP_URL).hostname,
+        rpName: 'Beaver Savings',
+        origin: APP_URL,
+      }),
+      // Lets auth.api calls made from server actions set cookies; must stay the last plugin.
+      nextCookies(),
+    ],
   });
 }
 

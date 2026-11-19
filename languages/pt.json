@@ -38,6 +38,10 @@
     "termsAndConditions": {
       "title": "Termos e Condições",
       "description": "Fica a conhecer as regras de utilização da Beaver Savings, uma ferramenta gratuita para te ajudar a gerir o teu dinheiro e a planear as tuas poupanças."
+    },
+    "passkeys": {
+      "title": "Chaves de acesso",
+      "description": "Gere as chaves de acesso que usas para iniciar sessão na Beaver Savings."
     }
   },
   "nav": {
@@ -166,7 +170,10 @@
     "resetFailed": "Não conseguimos recuperar a tua palavra-passe. Tenta novamente mais tarde",
     "invalidResetLink": "Este link é inválido ou expirou.",
     "requestNewLink": "Pedir novo link",
-    "preferredCurrency": "Moeda preferencial"
+    "preferredCurrency": "Moeda preferencial",
+    "or": "ou",
+    "passkeyLogin": "Iniciar sessão com chave de acesso",
+    "passkeyLoginFailed": "Não foi possível iniciar sessão com essa chave de acesso. Tenta novamente ou usa o teu e-mail e palavra-passe."
   },
   "calculator": {
     "metaTitle": "Calculadora — Beaver Savings",
@@ -293,6 +300,27 @@
     "deletedBody": "A tua conta e os teus dados foram removidos. Obrigado por experimentares o Beaver Savings.",
     "backHome": "Voltar ao início",
     "failedToFetch": "Não foi possível efetuar o pedido. Por favor, tente novamente mais tarde."
+  },
+  "passkeys": {
+    "link": "Chaves de acesso",
+    "title": "Chaves de acesso",
+    "description": "Inicia sessão com a impressão digital, o rosto ou o PIN do dispositivo em vez da palavra-passe.",
+    "yourPasskeys": "As tuas chaves de acesso",
+    "empty": "Ainda não adicionaste nenhuma chave de acesso.",
+    "unnamed": "Chave de acesso",
+    "addedOn": "Adicionada a {date}",
+    "nameLabel": "Nome (opcional)",
+    "namePlaceholder": "ex.: O meu portátil",
+    "add": "Adicionar chave de acesso",
+    "adding": "A aguardar pelo teu dispositivo…",
+    "remove": "Remover",
+    "removing": "A remover…",
+    "addFailed": "Não foi possível adicionar a chave de acesso. Tenta novamente.",
+    "alreadyRegistered": "Este dispositivo já tem uma chave de acesso para a tua conta.",
+    "removeFailed": "Não foi possível remover a chave de acesso. Tenta novamente.",
+    "unsupported": "Este navegador não suporta chaves de acesso.",
+    "signInRequired": "Inicia sessão para gerires as tuas chaves de acesso.",
+    "signIn": "Iniciar sessão"
   },
   "dataExport": {
     "link": "Descarregar os meus dados",

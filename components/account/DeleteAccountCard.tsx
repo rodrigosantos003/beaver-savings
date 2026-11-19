@@ -67,7 +67,7 @@ export function DeleteAccountCard() {
         <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
         <p className="mt-3 text-stone-600">{t('signInRequired')}</p>
         <Link
-          href="/sign-in"
+          href="/login"
           className="mt-6 inline-flex h-11 items-center rounded-full bg-secondary px-5 text-sm font-semibold text-white transition-colors hover:bg-secondary-hover"
         >
           {t('signIn')}

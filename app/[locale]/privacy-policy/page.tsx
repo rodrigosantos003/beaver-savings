@@ -135,6 +135,11 @@ export default async function PrivacyPolicyPage() {
           <UL>{items(s('informationWeCollect', 'accountList'))}</UL>
           <P>{r(s('informationWeCollect', 'accountP2'))}</P>
 
+          <H3>{r(s('informationWeCollect', 'passkeyHeading'))}</H3>
+          <P>{r(s('informationWeCollect', 'passkeyP1'))}</P>
+          <UL>{items(s('informationWeCollect', 'passkeyList'))}</UL>
+          <P>{r(s('informationWeCollect', 'passkeyP2'))}</P>
+
           <H3>{r(s('informationWeCollect', 'savingsHeading'))}</H3>
           <P>{r(s('informationWeCollect', 'savingsP1'))}</P>
           <UL>{items(s('informationWeCollect', 'savingsList'))}</UL>
@@ -192,6 +197,8 @@ export default async function PrivacyPolicyPage() {
           <P>{r(s('passwords', 'p2'))}</P>
           <P>{r(s('passwords', 'p3'))}</P>
           <P>{r(s('passwords', 'p4'))}</P>
+          <P>{r(s('passwords', 'p6'))}</P>
+          <P>{r(s('passwords', 'p7'))}</P>
           <P>{r(s('passwords', 'p5'))}</P>
         </>
       ),

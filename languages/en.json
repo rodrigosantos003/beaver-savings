@@ -38,6 +38,10 @@
     "termsAndConditions": {
       "title": "Terms and Conditions",
       "description": "The terms that apply when you use Beaver Savings, a free personal finance and savings planning tool."
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "description": "Manage the passkeys you use to sign in to Beaver Savings."
     }
   },
   "nav": {
@@ -166,7 +170,10 @@
     "resetFailed": "We couldn't reset your password. The link may have expired.",
     "invalidResetLink": "This reset link is invalid or has expired.",
     "requestNewLink": "Request a new link",
-    "preferredCurrency": "Preferred currency"
+    "preferredCurrency": "Preferred currency",
+    "or": "or",
+    "passkeyLogin": "Sign in with a passkey",
+    "passkeyLoginFailed": "Could not sign in with that passkey. Try again or use your email and password."
   },
   "calculator": {
     "back": "Home",
@@ -291,6 +298,27 @@
     "backHome": "Back to home",
     "failedToFetch": "We couldn't complete your request. Please try again later."
   },
+  "passkeys": {
+    "link": "Passkeys",
+    "title": "Passkeys",
+    "description": "Sign in with your fingerprint, face or device PIN instead of a password.",
+    "yourPasskeys": "Your passkeys",
+    "empty": "You haven't added a passkey yet.",
+    "unnamed": "Passkey",
+    "addedOn": "Added {date}",
+    "nameLabel": "Name (optional)",
+    "namePlaceholder": "e.g. My laptop",
+    "add": "Add a passkey",
+    "adding": "Waiting for your device…",
+    "remove": "Remove",
+    "removing": "Removing…",
+    "addFailed": "We couldn't add the passkey. Please try again.",
+    "alreadyRegistered": "This device already has a passkey for your account.",
+    "removeFailed": "We couldn't remove the passkey. Please try again.",
+    "unsupported": "This browser doesn't support passkeys.",
+    "signInRequired": "Log in to manage your passkeys.",
+    "signIn": "Log in"
+  },
   "dataExport": {
     "link": "Download my data",
     "downloading": "Preparing…",
@@ -305,7 +333,7 @@
   },
   "PrivacyPolicy": {
     "title": "Privacy Policy",
-    "lastUpdated": "Last updated: 12 November 2026",
+    "lastUpdated": "Last updated: 19 November 2026",
     "intro": {
       "p1": "In this Privacy Policy, “Beaver Savings”, “we”, “us” and “our” refer to the personal finance web application developed and operated by <strong>Rodrigo Santos</strong>.",
       "p2": "This Privacy Policy explains how we collect, use, store, and protect personal information when you use Beaver Savings."
@@ -335,6 +363,15 @@
           "i3": "A cryptographic hash of your password"
         },
         "accountP2": "Your password is not stored in plain text.",
+        "passkeyHeading": "Passkey information",
+        "passkeyP1": "Passkeys are optional. If you add a passkey to your account so you can sign in without your password, we store:",
+        "passkeyList": {
+          "i1": "The passkey's public key and credential identifier",
+          "i2": "The name you give the passkey, if any",
+          "i3": "Technical details reported by your device or password manager: whether the passkey works on one device or syncs across several, whether it is backed up, how your browser can reach it (for example, built into the device or a USB or NFC security key), an identifier of the authenticator model, and a counter used to detect cloned passkeys",
+          "i4": "The date the passkey was added"
+        },
+        "passkeyP2": "The private key never leaves your device or password manager, and we never receive it. If you unlock a passkey with your fingerprint, face, or device PIN, that check happens entirely on your device: Beaver Savings does not receive or store any biometric data or your device PIN.",
         "savingsHeading": "Savings information",
         "savingsP1": "When you use Beaver Savings, you may provide financial information such as:",
         "savingsList": {
@@ -394,6 +431,8 @@
         "p2": "Your password is stored as a cryptographic hash rather than as the original password. Beaver Savings does not have access to your password in its original form.",
         "p3": "Better Auth also maintains session information required to authenticate you. This may include your IP address, user-agent information, session token, and session expiration date.",
         "p4": "Session information is used for authentication and security purposes and is associated with your account while your session is active.",
+        "p6": "If you add a passkey, you can sign in with it instead of your password. Passkey sign-in uses the WebAuthn standard: your device signs a one-time security challenge with the private key, and Better Auth checks that signature against the public key stored in our database. Because only a public key is stored, a copy of our database cannot be used to sign in with your passkey.",
+        "p7": "While signed in, you can see the passkeys on your account and remove any of them on the \"Passkeys\" page, linked at the bottom of the page. A removed passkey is deleted from our database immediately and can no longer be used to sign in. Removing a passkey from Beaver Savings does not delete it from your device or password manager; you can do that in your device or password manager settings.",
         "p5": "You should choose a strong, unique password and avoid reusing your Beaver Savings password on other services."
       },
       "exporting": {
@@ -460,14 +499,14 @@
         "p2": "Session information is retained according to the expiration period configured for the applicable session.",
         "p3": "If you do not use your account for 24 months, we delete it together with all associated data. If your email address is verified, we email you at least 30 days before the deletion, and signing in during that period keeps your account.",
         "p4": "You can delete your Beaver Savings account directly through the application.",
-        "p5": "When you delete your account, the account information, authentication information, session information, and savings data associated with your account are permanently deleted from Beaver Savings.",
+        "p5": "When you delete your account, the account information, authentication information (including any passkeys), session information, and savings data associated with your account are permanently deleted from Beaver Savings.",
         "p6": "We do not maintain separate application backups of your data on MongoDB Atlas or Vercel.",
         "p7": "Certain information may nevertheless be retained by our third-party service providers in their own operational logs or systems according to their respective retention policies. Such information is subject to those providers' applicable privacy policies and contractual terms."
       },
       "deletion": {
         "title": "Account deletion",
         "p1": "You can delete your Beaver Savings account directly through the application.",
-        "p2": "Deleting your account permanently deletes the personal information and savings data associated with your account from Beaver Savings, including the account and authentication information stored in our database.",
+        "p2": "Deleting your account permanently deletes the personal information and savings data associated with your account from Beaver Savings, including the account and authentication information (such as passkeys) stored in our database.",
         "p3": "If you are unable to delete your account through the application, you may contact us at: <email></email>",
         "p4": "We may need to verify your identity before processing a deletion request."
       },
@@ -504,7 +543,8 @@
           "i1": "<strong>Session cookie</strong> (<code>better-auth.session_token</code>): keeps you signed in. It is set when you sign in and expires after 7 days unless it is renewed while you use the app.",
           "i2": "<strong>Language cookie</strong> (<code>NEXT_LOCALE</code>): remembers the language you use.",
           "i3": "<strong>Currency cookie</strong> (<code>NEXT_CURRENCY</code>): remembers the currency you choose, for up to 1 year.",
-          "i4": "<strong>Browser local storage</strong> (<code>pwa-install-dismissed-at</code>, <code>pwa-was-installed</code>): remembers whether you dismissed or installed the app, so the install prompt is not shown again. This information stays on your device."
+          "i4": "<strong>Browser local storage</strong> (<code>pwa-install-dismissed-at</code>, <code>pwa-was-installed</code>): remembers whether you dismissed or installed the app, so the install prompt is not shown again. This information stays on your device.",
+          "i5": "<strong>Passkey challenge cookie</strong> (<code>better-auth.better-auth-passkey</code>): set only while you sign in with or add a passkey, to link your device's response to the one-time security challenge we issued. It expires after 5 minutes."
         },
         "p4": "These technologies are used to provide the service rather than for advertising or cross-site behavioural tracking."
       },
@@ -529,9 +569,10 @@
           "i1": "HTTPS encryption for connections to Beaver Savings",
           "i2": "Password hashing through the Better Auth authentication system",
           "i3": "Session-based authentication and security controls",
-          "i4": "Use of managed infrastructure provided by Vercel",
-          "i5": "Use of MongoDB Atlas for database hosting",
-          "i6": "Access controls intended to limit access to application data"
+          "i4": "Optional passkey sign-in, which relies on public-key cryptography so that no reusable secret for it is stored on our servers",
+          "i5": "Use of managed infrastructure provided by Vercel",
+          "i6": "Use of MongoDB Atlas for database hosting",
+          "i7": "Access controls intended to limit access to application data"
         },
         "p3": "However, no internet-based service can guarantee absolute security. You should use a strong and unique password and notify us if you believe your account has been compromised."
       },

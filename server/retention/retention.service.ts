@@ -18,7 +18,13 @@ const MAX_WARNINGS_PER_RUN = 20;
 const MAX_DELETIONS_PER_RUN = 100;
 
 /** Collections holding data linked to a user by `userId` (ObjectId). */
-const USER_DATA_COLLECTIONS = ['sessions', 'accounts', 'dam_entries', 'calculator_snapshots'];
+const USER_DATA_COLLECTIONS = [
+  'sessions',
+  'accounts',
+  'passkeys',
+  'dam_entries',
+  'calculator_snapshots',
+];
 
 type CandidateUser = {
   _id: Types.ObjectId;

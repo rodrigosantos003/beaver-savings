@@ -1,13 +1,14 @@
 // components/auth/CredentialsForm.tsx
 'use client';
 
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
 
 import { Link, useRouter } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
 import type { CurrencyOption } from '@/lib/currencies';
+import { isPasskeyCancelled, supportsPasskeyAutofill, usePasskeySupport } from '@/lib/passkey';
 import { type Currency, DEFAULT_CURRENCY, isCurrency } from '@/shared/currency';
 
 const fieldClass =
@@ -36,6 +37,54 @@ export function CredentialsForm({
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const isSignup = mode === 'signup';
+  const passkeySupported = usePasskeySupport();
+  // Autofill (conditional mediation) only on the full login page: one pending request per page.
+  const passkeyAutofill = !isSignup && !compact;
+
+  useEffect(() => {
+    if (!passkeyAutofill) return;
+
+    let active = true;
+
+    (async () => {
+      if (!(await supportsPasskeyAutofill()) || !active) return;
+
+      // Resolves once the user picks a passkey from the email field's suggestions. Errors
+      // (including the abort when the passkey button starts its own prompt) are ignored.
+      const result = await authClient.signIn.passkey({ autoFill: true });
+
+      if (active && result.data) {
+        router.push('/calculator');
+        router.refresh();
+      }
+    })().catch(() => {});
+
+    return () => {
+      active = false;
+    };
+  }, [passkeyAutofill, router]);
+
+  async function onPasskeySignIn() {
+    setError(null);
+    setPending(true);
+
+    try {
+      const result = await authClient.signIn.passkey();
+
+      if (result.error) {
+        if (!isPasskeyCancelled(result.error)) setError(t('passkeyLoginFailed'));
+        return;
+      }
+
+      router.push('/calculator');
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+      setError(t('failedToFetch'));
+    } finally {
+      setPending(false);
+    }
+  }
 
   async function onSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -100,7 +149,7 @@ export function CredentialsForm({
           className={fieldClass}
           type="email"
           name="email"
-          autoComplete="email"
+          autoComplete={passkeyAutofill ? 'email webauthn' : 'email'}
           required
           value={email}
           onChange={(event) => setEmail(event.target.value)}
@@ -160,6 +209,24 @@ export function CredentialsForm({
       >
         {pending ? t('submitting') : t(isSignup ? 'submitSignup' : 'submitLogin')}
       </button>
+      {!isSignup && passkeySupported ? (
+        <>
+          <div className="flex items-center gap-3 text-xs uppercase tracking-wide text-stone-400">
+            <span className="h-px flex-1 bg-stone-200" />
+            {t('or')}
+            <span className="h-px flex-1 bg-stone-200" />
+          </div>
+          <button
+            type="button"
+            disabled={pending}
+            onClick={onPasskeySignIn}
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-stone-200 bg-white px-4 text-sm font-semibold text-stone-800 transition-colors hover:bg-stone-50 disabled:opacity-60"
+          >
+            <PasskeyIcon />
+            {t('passkeyLogin')}
+          </button>
+        </>
+      ) : null}
       <p className="text-sm text-stone-500">
         {isSignup ? t('haveAccount') : t('needAccount')}{' '}
         <Link
@@ -181,5 +248,25 @@ export function CredentialsForm({
         </Link>
       </p>
     </form>
+  );
+}
+
+export function PasskeyIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="size-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="9" cy="7" r="4" />
+      <path d="M2 21v-1a6 6 0 0 1 9.5-4.9" />
+      <circle cx="17.5" cy="13.5" r="2.5" />
+      <path d="M17.5 16v5l1.5-1.5M17.5 18.5H19" />
+    </svg>
   );
 }

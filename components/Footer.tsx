@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { DeleteAccountLink } from '@/components/account/DeleteAccountLink';
 import { DownloadDataLink } from '@/components/account/DownloadDataLink';
+import { PasskeysLink } from '@/components/account/PasskeysLink';
 import { Link } from '@/i18n/navigation';
 
 const linkClass = 'text-sm font-medium text-stone-500 transition-colors hover:text-stone-900';
@@ -30,6 +31,7 @@ export async function Footer() {
             <Link href="/terms-and-conditions" className={linkClass} prefetch={false}>
               {t('Terms.title')}
             </Link>
+            <PasskeysLink className={linkClass} />
             <DownloadDataLink />
             <DeleteAccountLink />
           </nav>

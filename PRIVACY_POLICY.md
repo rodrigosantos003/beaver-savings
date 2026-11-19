@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Last updated:** November 12, 2026
+**Last updated:** November 19, 2026
 
 Beaver Savings ("Beaver Savings", "we", "us", or "our") is a personal finance
 web application developed and operated by **Rodrigo Santos**.
@@ -33,6 +33,25 @@ When you register for an account, we collect:
 - A cryptographic hash of your password
 
 Your password is not stored in plain text.
+
+### Passkey information
+
+Passkeys are optional. If you add a passkey to your account so you can sign in
+without your password, we store:
+
+- The passkey's public key and credential identifier
+- The name you give the passkey, if any
+- Technical details reported by your device or password manager: whether the
+  passkey works on one device or syncs across several, whether it is backed up,
+  how your browser can reach it (for example, built into the device or a USB or
+  NFC security key), an identifier of the authenticator model, and a counter
+  used to detect cloned passkeys
+- The date the passkey was added
+
+The private key never leaves your device or password manager, and we never
+receive it. If you unlock a passkey with your fingerprint, face, or device PIN,
+that check happens entirely on your device: Beaver Savings does not receive or
+store any biometric data or your device PIN.
 
 ### Savings information
 
@@ -136,6 +155,18 @@ session expiration date.
 
 Session information is used for authentication and security purposes and is
 associated with your account while your session is active.
+
+If you add a passkey, you can sign in with it instead of your password. Passkey
+sign-in uses the WebAuthn standard: your device signs a one-time security
+challenge with the private key, and Better Auth checks that signature against
+the public key stored in our database. Because only a public key is stored, a
+copy of our database cannot be used to sign in with your passkey.
+
+While signed in, you can see the passkeys on your account and remove any of them
+on the "Passkeys" page, linked at the bottom of the page. A removed passkey is
+deleted from our database immediately and can no longer be used to sign in.
+Removing a passkey from Beaver Savings does not delete it from your device or
+password manager; you can do that in your device or password manager settings.
 
 You should choose a strong, unique password and avoid reusing your Beaver
 Savings password on other services.
@@ -299,8 +330,8 @@ days before the deletion, and signing in during that period keeps your account.
 You can delete your Beaver Savings account directly through the application.
 
 When you delete your account, the account information, authentication
-information, session information, and savings data associated with your account
-are permanently deleted from Beaver Savings.
+information (including any passkeys), session information, and savings data
+associated with your account are permanently deleted from Beaver Savings.
 
 We do not maintain separate application backups of your data on MongoDB Atlas or
 Vercel.
@@ -316,7 +347,7 @@ You can delete your Beaver Savings account directly through the application.
 
 Deleting your account permanently deletes the personal information and savings
 data associated with your account from Beaver Savings, including the account and
-authentication information stored in our database.
+authentication information (such as passkeys) stored in our database.
 
 If you are unable to delete your account through the application, you may
 contact us at:
@@ -393,6 +424,9 @@ the service to work or that remember choices you make:
 - **Browser local storage** (`pwa-install-dismissed-at`, `pwa-was-installed`):
   remembers whether you dismissed or installed the app, so the install prompt
   is not shown again. This information stays on your device.
+- **Passkey challenge cookie** (`better-auth.better-auth-passkey`): set only
+  while you sign in with or add a passkey, to link your device's response to the
+  one-time security challenge we issued. It expires after 5 minutes.
 
 These technologies are used to provide the service rather than for advertising
 or cross-site behavioral tracking.
@@ -435,6 +469,8 @@ These measures include, among other things:
 - HTTPS encryption for connections to Beaver Savings
 - Password hashing through the Better Auth authentication system
 - Session-based authentication and security controls
+- Optional passkey sign-in, which relies on public-key cryptography so that no
+  reusable secret for it is stored on our servers
 - Use of managed infrastructure provided by Vercel
 - Use of MongoDB Atlas for database hosting
 - Access controls intended to limit access to application data

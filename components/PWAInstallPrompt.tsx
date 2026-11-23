@@ -4,6 +4,7 @@ import { type ReactNode, useEffect, useState, useSyncExternalStore } from 'react
 
 import { useTranslations } from 'next-intl';
 
+import { usePathname } from '@/i18n/navigation';
 import { isStandalone } from '@/lib/pwa';
 
 interface BeforeInstallPromptEvent extends Event {
@@ -138,6 +139,7 @@ const ghostButton =
 export default function PWAInstallPrompt() {
   const t = useTranslations('PWAInstall');
   const platform = useSyncExternalStore<Platform>(subscribe, getPlatform, () => 'server');
+  const pathname = usePathname();
 
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
   const [ready, setReady] = useState(false);
@@ -200,7 +202,12 @@ export default function PWAInstallPrompt() {
     <div
       role="dialog"
       aria-labelledby="pwa-install-title"
-      className="fixed inset-x-0 bottom-0 z-50 px-4 pb-[max(1rem,env(safe-area-inset-bottom))]"
+      // On the calculator it sits above the floating coach button instead of covering it.
+      className={`fixed inset-x-0 bottom-0 z-50 px-4 ${
+        pathname === '/calculator'
+          ? 'pb-[calc(5rem+env(safe-area-inset-bottom))]'
+          : 'pb-[max(1rem,env(safe-area-inset-bottom))]'
+      }`}
     >
       <div className="mx-auto max-w-md rounded-2xl border border-border bg-surface-raised p-4 shadow-xl shadow-beaver-900/15">
         <div className="flex items-start justify-between gap-3">

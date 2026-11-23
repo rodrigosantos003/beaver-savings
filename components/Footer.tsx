@@ -16,7 +16,13 @@ export async function Footer() {
     <footer className="border-t border-stone-200 bg-white px-[max(1.5rem,env(safe-area-inset-left),env(safe-area-inset-right))] pt-8 pb-[max(2rem,env(safe-area-inset-bottom))] print:hidden">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
         <div className="flex items-center gap-2">
-          <Image src="/beaver-savings.png" alt="Beaver Savings" width={42} height={42} />
+          <Image
+            src="/beaver-savings.png"
+            alt="Beaver Savings"
+            width={42}
+            height={42}
+            draggable={false}
+          />
           <span className="text-sm font-medium text-beaver-900">Beaver Savings</span>
         </div>
 

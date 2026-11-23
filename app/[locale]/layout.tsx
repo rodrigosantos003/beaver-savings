@@ -37,6 +37,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   // Without "cover", iOS reports every env(safe-area-inset-*) as 0.
   viewportFit: 'cover',
+  // Chromium shrinks the page above the keyboard (like a native app) instead of overlaying it.
+  interactiveWidget: 'resizes-content',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
     { media: '(prefers-color-scheme: dark)', color: '#000000' },

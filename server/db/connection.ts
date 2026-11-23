@@ -17,13 +17,15 @@ function createConnection(): Connection {
 
   const conn = mongoose.createConnection(uri, {
     dbName: DB_NAME,
-    maxPoolSize: 3,
+    // One instance serves concurrent pages, auth and API calls, and Better Auth starts ~10 index
+    // builds at once on a cold start; 3 sockets ran out and requests hit the wait-queue timeout.
+    maxPoolSize: 10,
     minPoolSize: 0,
     maxIdleTimeMS: 30_000,
     serverSelectionTimeoutMS: 5_000,
     connectTimeoutMS: 10_000,
     socketTimeoutMS: 30_000,
-    waitQueueTimeoutMS: 5_000,
+    waitQueueTimeoutMS: 10_000,
   });
 
   // Lets Vercel Fluid compute close idle sockets before an instance is suspended.

@@ -50,9 +50,7 @@ export type RetentionRunResult = {
 };
 
 export async function run(now = new Date()): Promise<RetentionRunResult> {
-  // The session lookup below matches on sessions.userId; without an index each lookup is a
-  // collection scan. createIndex is a no-op once the index exists, so this is cheap per run.
-  await getDb().collection('sessions').createIndex({ userId: 1 }, { name: 'userId_1' });
+  await ensureSessionUserIdIndex();
 
   const { warned, warningFailures } = await sendWarnings(now);
   const deleted = await deleteInactive(now);
@@ -69,6 +67,24 @@ async function pruneAuthRateLimits(now: Date) {
     .collection('rateLimits')
     .deleteMany({ lastRequest: { $lt: now.getTime() - AUTH_RATE_LIMIT_MAX_AGE_MS } });
   return deletedCount;
+}
+
+const INDEX_OPTIONS_CONFLICT = 85;
+
+/**
+ * The session lookup in findInactiveSince matches on sessions.userId; without an index each
+ * lookup is a collection scan. Better Auth creates this index too, but only best-effort on
+ * startup, so it may be missing. The name matches Better Auth's so neither side conflicts; an
+ * index on the same key under another name (e.g. a legacy `userId_1`) serves just as well.
+ */
+async function ensureSessionUserIdIndex() {
+  try {
+    await getDb()
+      .collection('sessions')
+      .createIndex({ userId: 1 }, { name: 'sessions_userId_idx' });
+  } catch (error) {
+    if ((error as { code?: unknown }).code !== INDEX_OPTIONS_CONFLICT) throw error;
+  }
 }
 
 /**

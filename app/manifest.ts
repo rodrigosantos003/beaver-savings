@@ -5,8 +5,13 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'Beaver Savings',
     short_name: 'Beaver Savings',
     description: 'Beaver Savings — Save bit by bit',
+    id: '/',
     start_url: '/',
+    scope: '/',
     display: 'standalone',
+    // Lets Chromium open in-scope links (e.g. from verification emails) in the installed app
+    // and reuse its existing window instead of spawning a new one.
+    launch_handler: { client_mode: ['navigate-existing', 'auto'] },
     background_color: '#faf6f1',
     theme_color: '#8b5e34',
     icons: [

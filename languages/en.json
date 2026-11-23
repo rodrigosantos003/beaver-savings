@@ -150,6 +150,7 @@
     "verifyLoading": "Verifying your email…",
     "verifySuccess": "Your email has been verified.",
     "verifyContinue": "Continue",
+    "installedAppHint": "Using Beaver Savings from your home screen? Email links open in the browser, so when you're done here, go back to the app to continue.",
     "verifyError": "This confirmation link is invalid or has expired.",
     "verifyErrorHint": "Log in with your credentials and we'll send you a new confirmation email.",
     "backToLogin": "Back to log in",
@@ -820,6 +821,17 @@
     "iosStepAddToHome": "Scroll down and tap <b>Add to Home Screen</b>. Don't see it? Tap <b>View More</b> or <b>Edit Actions</b> at the bottom.",
     "iosStepConfirm": "Tap <b>Add</b>",
     "iosToolbarHint": "The Share button is in Safari's toolbar, not in this page."
+  },
+  "PWAUpdate": {
+    "message": "A new version of Beaver Savings is available.",
+    "reload": "Reload"
+  },
+  "offline": {
+    "metaTitle": "Offline",
+    "title": "You're offline",
+    "description": "Beaver Savings needs a connection to load your savings plan. This page reloads by itself as soon as you're back online.",
+    "retry": "Try again",
+    "banner": "You're offline. Your latest changes will be saved once you reconnect."
   },
   "notFound": {
     "title": "Page not found",

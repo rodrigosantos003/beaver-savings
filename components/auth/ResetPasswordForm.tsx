@@ -5,11 +5,12 @@ import { SyntheticEvent, useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import { InstalledAppHint } from '@/components/auth/InstalledAppHint';
 import { Link, useRouter } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
 
 const fieldClass =
-  'mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100';
+  'mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-base text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100';
 
 export function ResetPasswordForm() {
   const t = useTranslations('auth');
@@ -69,6 +70,7 @@ export function ResetPasswordForm() {
 
   return (
     <form className="grid gap-4" onSubmit={onSubmit}>
+      <InstalledAppHint />
       <label className="block text-sm font-medium text-stone-700">
         {t('newPassword')}
         <input

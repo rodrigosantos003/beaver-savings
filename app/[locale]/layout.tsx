@@ -7,7 +7,9 @@ import { getMessages, getTranslations } from 'next-intl/server';
 
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import { OfflineBanner } from '@/components/OfflineBanner';
 import PWAInstallPrompt from '@/components/PWAInstallPrompt';
+import { UpdatePrompt } from '@/components/UpdatePrompt';
 import { routing } from '@/i18n/routing';
 import { SITE_URL } from '@/lib/constants';
 import { OG_IMAGE, OG_LOCALES } from '@/lib/seo';
@@ -33,8 +35,8 @@ export function generateStaticParams() {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  // Without "cover", iOS reports every env(safe-area-inset-*) as 0.
+  viewportFit: 'cover',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
     { media: '(prefers-color-scheme: dark)', color: '#000000' },
@@ -101,8 +103,10 @@ export default async function LocaleLayout({ children, params }: Props) {
     >
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <OfflineBanner />
           <Header />
           <PWAInstallPrompt />
+          <UpdatePrompt />
           <main className="flex flex-1 flex-col">{children}</main>
           <Footer />
         </NextIntlClientProvider>

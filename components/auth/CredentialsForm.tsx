@@ -12,7 +12,7 @@ import { isPasskeyCancelled, supportsPasskeyAutofill, usePasskeySupport } from '
 import { type Currency, DEFAULT_CURRENCY, isCurrency } from '@/shared/currency';
 
 const fieldClass =
-  'mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100';
+  'mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-base text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100';
 
 type CredentialsFormProps = {
   mode: 'login' | 'signup';

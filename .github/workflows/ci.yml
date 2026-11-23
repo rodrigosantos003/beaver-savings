@@ -48,4 +48,5 @@ jobs:
 
       - name: Build
         # Lint already ran above; `yarn build` would run it again.
-        run: yarn next build
+        # --webpack: @serwist/next does not support Turbopack, so it would emit no service worker.
+        run: yarn next build --webpack

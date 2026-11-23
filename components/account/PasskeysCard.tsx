@@ -136,7 +136,7 @@ export function PasskeysCard() {
           <label className="block text-sm font-medium text-stone-700">
             {t('nameLabel')}
             <input
-              className="mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100"
+              className="mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-base text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100"
               name="passkeyName"
               autoComplete="off"
               maxLength={MAX_NAME_LENGTH}

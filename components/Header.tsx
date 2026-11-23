@@ -22,7 +22,7 @@ export async function Header() {
     'inline-flex h-9 items-center justify-center whitespace-nowrap rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-secondary-hover';
 
   return (
-    <header className="sticky top-0 z-30 border-b border-stone-200 bg-white/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-30 border-b border-stone-200 bg-white/80 pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)] backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4 sm:gap-3 sm:px-6">
         <Link href="/landing" className="flex min-w-0 items-center gap-2 sm:gap-2.5">
           <Image

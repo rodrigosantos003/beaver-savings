@@ -155,10 +155,13 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   max-width: 100%;
-  overflow: hidden;
-  overflow-y: auto;
   overscroll-behavior-x: none;
-  touch-action: pan-y;
+  touch-action: manipulation;
+}
+
+/* clip (not hidden) so the document stays the only scroll container: keeps the sticky header and iOS tap-status-bar-to-top working. */
+body {
+  overflow-x: clip;
 }
 
 button {

@@ -4,12 +4,12 @@ import { type ReactNode, useEffect, useState, useSyncExternalStore } from 'react
 
 import { useTranslations } from 'next-intl';
 
+import { isStandalone } from '@/lib/pwa';
+
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
-
-type NavigatorWithStandalone = Navigator & { standalone?: boolean };
 
 type Platform = 'ios' | 'ipad' | 'android' | 'desktop' | 'installed' | 'snoozed' | 'server';
 
@@ -58,13 +58,6 @@ function clearWasInstalled() {
   } catch {
     // Storage can be blocked (private mode, disabled site data); nothing to recover.
   }
-}
-
-function isStandalone(): boolean {
-  return (
-    window.matchMedia('(display-mode: standalone)').matches ||
-    (navigator as NavigatorWithStandalone).standalone === true
-  );
 }
 
 function getPlatform(): Platform {

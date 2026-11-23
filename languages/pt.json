@@ -145,11 +145,12 @@
     "loginLink": "Entrar",
     "loginFailed": "Não foi possível entrar. Confirma o email e a palavra-passe.",
     "signupFailed": "Não foi possível criar a conta.",
-    "verifyTitle": "Confirm your account",
-    "verifyDescription": "Estamos a verificar o seu email.",
-    "verifyLoading": "A verificar o teu email email…",
+    "verifyTitle": "Confirma a tua conta",
+    "verifyDescription": "Estamos a verificar o teu email.",
+    "verifyLoading": "A verificar o teu email…",
     "verifySuccess": "Email verificado com sucesso.",
     "verifyContinue": "Continuar",
+    "installedAppHint": "Usa o Beaver Savings a partir do ecrã principal? Os links de email abrem no navegador, por isso, quando terminar aqui, volte à aplicação para continuar.",
     "verifyError": "Este link de confirmação é inválido ou expirou.",
     "verifyErrorHint": "Faça login com as suas credenciais e enviaremos link de confirmação.",
     "backToLogin": "Voltar ao login",
@@ -180,7 +181,7 @@
     "metaDescription": "Calcula a poupança do mês e o plano anual a partir do salário líquido e das despesas.",
     "back": "Início",
     "title": "Calculadora de poupança",
-    "description": "Estima quanto podes pôr de lado a partir do teu líquido — este mês e ao longo do ano.",
+    "description": "Estima quanto podes pôr de lado a partir do teu salário — este mês e ao longo do ano.",
     "income": "Rendimento",
     "subsidiesInTwelfths": "Subsídios em duodécimos (já incluídos no meu líquido)",
     "holidayMonth": "Mês do subsídio de férias",
@@ -831,6 +832,17 @@
     "iosStepAddToHome": "Deslize para baixo e toque em <b>Adicionar ao ecrã principal</b>. Não aparece? Toque em <b>Ver mais</b> ou <b>Editar ações</b> no fundo.",
     "iosStepConfirm": "Toque em <b>Adicionar</b>",
     "iosToolbarHint": "O botão Partilhar está na barra de ferramentas do Safari, não nesta página."
+  },
+  "PWAUpdate": {
+    "message": "Está disponível uma nova versão do Beaver Savings.",
+    "reload": "Recarregar"
+  },
+  "offline": {
+    "metaTitle": "Sem ligação",
+    "title": "Está sem ligação",
+    "description": "O Beaver Savings precisa de ligação à internet para carregar o seu plano de poupança. Esta página recarrega sozinha assim que voltar a estar online.",
+    "retry": "Tentar novamente",
+    "banner": "Está sem ligação. As últimas alterações serão guardadas assim que voltar a estar online."
   },
   "notFound": {
     "title": "Página não encontrada",

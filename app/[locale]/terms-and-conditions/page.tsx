@@ -355,7 +355,7 @@ export default async function TermsPage() {
 
           <div className="mt-14 grid gap-12 lg:grid-cols-[16rem_minmax(0,1fr)]">
             <nav aria-label={t('toc')} className="hidden lg:block">
-              <ol className="sticky top-24 max-h-[calc(100vh-8rem)] list-decimal space-y-2 overflow-y-auto pl-5 pr-2 text-sm text-stone-500 marker:text-stone-400">
+              <ol className="sticky top-24 max-h-[calc(100dvh-8rem)] list-decimal space-y-2 overflow-y-auto pl-5 pr-2 text-sm text-stone-500 marker:text-stone-400">
                 {sections.map((sec) => (
                   <li key={sec.id}>
                     <a href={`#${sec.id}`} className="transition-colors hover:text-secondary">

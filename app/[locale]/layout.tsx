@@ -11,6 +11,7 @@ import { OfflineBanner } from '@/components/OfflineBanner';
 import PWAInstallPrompt from '@/components/PWAInstallPrompt';
 import { UpdatePrompt } from '@/components/UpdatePrompt';
 import { routing } from '@/i18n/routing';
+import { appleStartupImages } from '@/lib/apple-splash';
 import { SITE_URL } from '@/lib/constants';
 import { OG_IMAGE, OG_LOCALES } from '@/lib/seo';
 
@@ -39,10 +40,8 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
   // Chromium shrinks the page above the keyboard (like a native app) instead of overlaying it.
   interactiveWidget: 'resizes-content',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#000000' },
-  ],
+  // The app has no dark theme, so a dark status bar over the light page would look broken.
+  themeColor: '#ffffff',
 };
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
@@ -88,7 +87,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     verification: {
       google: 'DklI2pa9po4FGYTmMgU4V4uFQgremMx-r7yd0IXrFIY',
     },
-    appleWebApp: { capable: true, title: t('siteName'), statusBarStyle: 'default' },
+    appleWebApp: {
+      capable: true,
+      title: t('siteName'),
+      statusBarStyle: 'default',
+      startupImage: appleStartupImages,
+    },
   };
 }
 

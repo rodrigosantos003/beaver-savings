@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import { exportAccountData } from '@/lib/api/account';
 import { authClient } from '@/lib/auth-client';
+import { downloadFile, shareFile } from '@/lib/share-file';
 
 export function DownloadDataLink() {
   const t = useTranslations('dataExport');
@@ -20,13 +21,13 @@ export function DownloadDataLink() {
     setStatus('loading');
     try {
       const data = await exportAccountData();
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `beaver-savings-data-${new Date().toISOString().slice(0, 10)}.json`;
-      link.click();
-      URL.revokeObjectURL(url);
+      const file = new File(
+        [JSON.stringify(data, null, 2)],
+        `beaver-savings-data-${new Date().toISOString().slice(0, 10)}.json`,
+        { type: 'application/json' },
+      );
+
+      if (!(await shareFile(file))) downloadFile(file);
       setStatus('idle');
     } catch (error) {
       console.error(error);

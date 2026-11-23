@@ -151,6 +151,7 @@ export default async function PrivacyPolicyPage() {
           <UL>{items(s('informationWeCollect', 'sessionList'))}</UL>
           <P>{r(s('informationWeCollect', 'sessionP2'))}</P>
           <P>{r(s('informationWeCollect', 'sessionP3'))}</P>
+          <P>{r(s('informationWeCollect', 'sessionP4'))}</P>
         </>
       ),
     },
@@ -437,7 +438,7 @@ export default async function PrivacyPolicyPage() {
 
           <div className="mt-14 grid gap-12 lg:grid-cols-[16rem_minmax(0,1fr)]">
             <nav aria-label={t('toc')} className="hidden lg:block">
-              <ol className="sticky top-24 max-h-[calc(100vh-8rem)] list-decimal space-y-2 overflow-y-auto pl-5 pr-2 text-sm text-stone-500 marker:text-stone-400">
+              <ol className="sticky top-24 max-h-[calc(100dvh-8rem)] list-decimal space-y-2 overflow-y-auto pl-5 pr-2 text-sm text-stone-500 marker:text-stone-400">
                 {sections.map((sec) => (
                   <li key={sec.id}>
                     <a href={`#${sec.id}`} className="transition-colors hover:text-secondary">

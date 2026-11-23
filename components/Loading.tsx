@@ -9,7 +9,7 @@ export function Loading({ message = 'Loading...', fullScreen = false }: LoadingP
       role="status"
       aria-live="polite"
       className={`flex flex-col items-center justify-center gap-3 ${
-        fullScreen ? 'min-h-screen' : 'min-h-40'
+        fullScreen ? 'min-h-svh' : 'min-h-40'
       }`}
     >
       <span

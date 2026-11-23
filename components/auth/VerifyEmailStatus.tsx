@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import { InstalledAppHint } from '@/components/auth/InstalledAppHint';
 import { Link } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
 
@@ -43,6 +44,7 @@ export function VerifyEmailStatus({ token, initialError }: VerifyEmailStatusProp
     return (
       <div className="space-y-4">
         <p className="font-medium text-green-700">{t('verifySuccess')}</p>
+        <InstalledAppHint />
         <Link
           href="/"
           className="inline-flex h-10 w-full items-center justify-center rounded-lg bg-beaver-900 px-4 text-sm font-medium text-white hover:opacity-90"

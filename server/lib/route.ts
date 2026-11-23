@@ -11,7 +11,7 @@ import { type RateLimit, enforceRateLimit } from './rate-limit';
 
 const MAX_BODY_BYTES = 1_000_000;
 
-/** Same default as the old global ThrottlerGuard: 60 requests per minute per route and caller. */
+/** 60 requests per minute per route and caller. */
 const DEFAULT_RATE_LIMIT: RateLimit = { limit: 60 };
 
 type RouteContext<P> = { params: Promise<P> };
@@ -37,8 +37,8 @@ export function route<P = Record<string, never>>(
 ): (req: NextRequest, ctx: RouteContext<P>) => Promise<Response>;
 
 /**
- * Wraps a route handler with what Nest used to do globally: session check (opt out with
- * `auth: false`), rate limiting, error → status mapping and JSON serialisation.
+ * Wraps a route handler with a session check (opt out with `auth: false`), rate limiting,
+ * error → status mapping and JSON serialisation.
  */
 export function route<P>(
   {
@@ -80,7 +80,7 @@ function clientIp(req: NextRequest): string {
 
 function errorResponse(error: unknown): Response {
   if (error instanceof HttpError) {
-    // 404s carry no message, as before (the old NotFoundFilter), so ids/resources aren't echoed.
+    // 404s carry no message, so ids/resources aren't echoed.
     const body =
       error.status === 404
         ? { statusCode: 404 }
@@ -125,7 +125,6 @@ export async function readRawJson(req: NextRequest): Promise<unknown> {
   }
 }
 
-/** Validates the query string against a schema. */
 export function readQuery<T extends z.ZodType>(req: NextRequest, schema: T): z.infer<T> {
   return schema.parse(Object.fromEntries(req.nextUrl.searchParams));
 }

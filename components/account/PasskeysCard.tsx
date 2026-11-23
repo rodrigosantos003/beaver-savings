@@ -4,8 +4,12 @@ import { SyntheticEvent, useState } from 'react';
 
 import { useFormatter, useTranslations } from 'next-intl';
 
-import { PasskeyIcon } from '@/components/auth/CredentialsForm';
-import { Link } from '@/i18n/navigation';
+import {
+  AccountCard,
+  AccountCardSkeleton,
+  AccountMessageCard,
+} from '@/components/account/AccountCard';
+import { PasskeyIcon } from '@/components/auth/PasskeyIcon';
 import { authClient } from '@/lib/auth-client';
 import { isPasskeyCancelled, passkeyErrorCode, usePasskeySupport } from '@/lib/passkey';
 
@@ -67,26 +71,22 @@ export function PasskeysCard() {
   }
 
   if (sessionPending) {
-    return <div className="h-80 animate-pulse rounded-2xl border border-stone-200 bg-white" />;
+    return <AccountCardSkeleton />;
   }
 
   if (!session) {
     return (
-      <Card>
-        <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
-        <p className="mt-3 text-stone-600">{t('signInRequired')}</p>
-        <Link
-          href="/login"
-          className="mt-6 inline-flex h-11 items-center rounded-full bg-secondary px-5 text-sm font-semibold text-white transition-colors hover:bg-secondary-hover"
-        >
-          {t('signIn')}
-        </Link>
-      </Card>
+      <AccountMessageCard
+        title={t('title')}
+        body={t('signInRequired')}
+        href="/login"
+        linkLabel={t('signIn')}
+      />
     );
   }
 
   return (
-    <Card>
+    <AccountCard>
       <div className="flex items-start gap-4">
         <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-beaver-100 text-beaver-700">
           <PasskeyIcon />
@@ -136,7 +136,7 @@ export function PasskeysCard() {
           <label className="block text-sm font-medium text-stone-700">
             {t('nameLabel')}
             <input
-              className="mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100"
+              className="mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-base text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100"
               name="passkeyName"
               autoComplete="off"
               maxLength={MAX_NAME_LENGTH}
@@ -164,12 +164,6 @@ export function PasskeysCard() {
           {error}
         </p>
       ) : null}
-    </Card>
-  );
-}
-
-function Card({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="rounded-2xl border border-stone-200 bg-white p-8 shadow-sm">{children}</div>
+    </AccountCard>
   );
 }

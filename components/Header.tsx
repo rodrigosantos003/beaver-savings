@@ -8,6 +8,7 @@ import { QuickLogin } from '@/components/auth/QuickLogin';
 import { Link } from '@/i18n/navigation';
 import { resolveCurrency } from '@/lib/resolve-currency';
 
+import { BackButton } from './BackButton';
 import { CurrencySwitcher } from './CurrencySwitcher';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileMenu } from './MobileMenu';
@@ -22,20 +23,24 @@ export async function Header() {
     'inline-flex h-9 items-center justify-center whitespace-nowrap rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-secondary-hover';
 
   return (
-    <header className="sticky top-0 z-30 border-b border-stone-200 bg-white/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-30 border-b border-stone-200 bg-white/80 pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)] backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4 sm:gap-3 sm:px-6">
-        <Link href="/landing" className="flex min-w-0 items-center gap-2 sm:gap-2.5">
-          <Image
-            src="/beaver-savings.png"
-            alt="Beaver Savings"
-            width={42}
-            height={42}
-            className="h-9 w-9 shrink-0 sm:h-10.5 sm:w-10.5"
-          />
-          <span className="hidden whitespace-nowrap text-base min-[400px]:inline font-semibold leading-tight tracking-tight text-beaver-900 sm:text-lg">
-            Beaver Savings
-          </span>
-        </Link>
+        <div className="flex min-w-0 items-center gap-1">
+          <BackButton label={t('nav.back')} />
+          <Link href="/landing" className="flex min-w-0 items-center gap-2 sm:gap-2.5">
+            <Image
+              src="/beaver-savings.png"
+              alt="Beaver Savings"
+              width={42}
+              height={42}
+              draggable={false}
+              className="h-9 w-9 shrink-0 sm:h-10.5 sm:w-10.5"
+            />
+            <span className="hidden whitespace-nowrap text-base min-[400px]:inline font-semibold leading-tight tracking-tight text-beaver-900 sm:text-lg">
+              Beaver Savings
+            </span>
+          </Link>
+        </div>
 
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
           <nav className="hidden items-center gap-3 md:flex">

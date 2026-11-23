@@ -136,7 +136,7 @@ export function SavingsDam({
                   onChange={(e) => setWithdrawInput(e.target.value)}
                   aria-invalid={tooLarge}
                   aria-describedby={tooLarge ? 'dam-withdraw-error' : undefined}
-                  className="w-30 rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm"
+                  className="w-30 rounded-lg border border-stone-300 bg-white px-3 py-2 text-base"
                 />
                 <button
                   type="submit"

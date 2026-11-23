@@ -1,9 +1,17 @@
 'use client';
 
-import { type KeyboardEvent, type SyntheticEvent, useEffect, useRef, useState } from 'react';
+import {
+  type CSSProperties,
+  type KeyboardEvent,
+  type SyntheticEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
 
+import { useKeyboardInset } from '@/lib/hooks/useKeyboardInset';
 import type { SavingsInput } from '@/shared/savings/types';
 
 import { HttpError } from '../../lib/api';
@@ -11,6 +19,8 @@ import { saveCalculatorInput } from '../../lib/api/calculator';
 import { type CoachLocale, askCoach, getCoachInsights } from '../../lib/api/coach';
 
 const MAX_QUESTION = 500;
+// Below Tailwind's sm breakpoint, where the panel is a full-screen sheet.
+const PHONE_QUERY = '(max-width: 639.98px)';
 
 type Message = { id: number; role: 'user' | 'coach'; text: string };
 type ErrorKind = 'noPlan' | 'rateLimited' | 'unavailable';
@@ -33,6 +43,7 @@ export function CoachPanel({ input, open, onClose }: Props) {
   const [error, setError] = useState<ErrorKind | null>(null);
   const nextId = useRef(0);
   const listEnd = useRef<HTMLDivElement>(null);
+  const keyboardInset = useKeyboardInset();
 
   useEffect(() => {
     listEnd.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
@@ -46,6 +57,17 @@ export function CoachPanel({ input, open, onClose }: Props) {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
+
+  // On phones the sheet covers the page; stop the page behind it from scrolling.
+  useEffect(() => {
+    if (!open || !window.matchMedia(PHONE_QUERY).matches) return;
+    const root = document.documentElement;
+    const previous = root.style.overflow;
+    root.style.overflow = 'hidden';
+    return () => {
+      root.style.overflow = previous;
+    };
+  }, [open]);
 
   function push(role: Message['role'], text: string) {
     setMessages((prev) => [...prev, { id: nextId.current++, role, text }]);
@@ -97,8 +119,10 @@ export function CoachPanel({ input, open, onClose }: Props) {
       role="dialog"
       aria-modal="false"
       aria-labelledby="coach-title"
-      // Sits just above the floating button; on phones it takes almost the whole screen.
-      className={`fixed right-4 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-40 flex h-[min(36rem,calc(100dvh-7rem))] w-[calc(100vw-2rem)] max-w-sm origin-bottom-right flex-col overflow-hidden rounded-2xl border border-beaver-200 bg-beaver-50 shadow-2xl transition-[opacity,scale,visibility] duration-200 print:hidden ${
+      // Phones: a full-screen sheet. Larger screens: a pop-up just above the floating button.
+      // Both stop at the top of the on-screen keyboard so the question box stays visible.
+      style={{ '--keyboard-inset': `${keyboardInset}px` } as CSSProperties}
+      className={`fixed inset-x-0 top-0 bottom-[var(--keyboard-inset)] z-40 flex origin-bottom flex-col overflow-hidden bg-beaver-50 pt-[env(safe-area-inset-top)] transition-[opacity,scale,visibility] duration-200 sm:inset-x-auto sm:top-auto sm:right-4 sm:bottom-[calc(5rem+env(safe-area-inset-bottom)+var(--keyboard-inset))] sm:h-[min(36rem,calc(100dvh-7rem-var(--keyboard-inset)))] sm:w-[calc(100vw-2rem)] sm:max-w-sm sm:origin-bottom-right sm:rounded-2xl sm:border sm:border-beaver-200 sm:pt-0 sm:shadow-2xl print:hidden ${
         open ? 'visible scale-100 opacity-100' : 'invisible scale-95 opacity-0'
       }`}
     >
@@ -134,7 +158,10 @@ export function CoachPanel({ input, open, onClose }: Props) {
         </button>
       </header>
 
-      <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4" aria-live="polite">
+      <div
+        className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-4"
+        aria-live="polite"
+      >
         {messages.length === 0 ? (
           <div className="grid gap-4">
             <p className="text-sm text-stone-700">{t('intro')}</p>
@@ -194,7 +221,13 @@ export function CoachPanel({ input, open, onClose }: Props) {
         <div ref={listEnd} />
       </div>
 
-      <form onSubmit={submitQuestion} className="border-t border-beaver-200 px-5 py-4">
+      <form
+        onSubmit={submitQuestion}
+        // The home indicator only needs clearing on the phone sheet with the keyboard down.
+        className={`border-t border-beaver-200 px-5 pt-4 sm:pb-4 ${
+          keyboardInset > 0 ? 'pb-4' : 'pb-[max(1rem,env(safe-area-inset-bottom))]'
+        }`}
+      >
         <label htmlFor="coach-question" className="sr-only">
           {t('questionLabel')}
         </label>
@@ -206,8 +239,9 @@ export function CoachPanel({ input, open, onClose }: Props) {
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             onKeyDown={onQuestionKeyDown}
+            enterKeyHint="send"
             placeholder={t('questionPlaceholder')}
-            className="min-w-0 flex-1 resize-none rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm"
+            className="min-w-0 flex-1 resize-none rounded-lg border border-stone-300 bg-white px-3 py-2 text-base"
           />
           <button
             type="submit"
@@ -234,7 +268,10 @@ export function CoachToggle({ open, onToggle }: { open: boolean; onToggle: () =>
       aria-expanded={open}
       aria-controls="coach-panel"
       aria-label={open ? t('close') : undefined}
-      className="fixed right-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-40 flex h-12 items-center gap-2 rounded-full bg-secondary px-4 text-sm font-medium text-white shadow-lg transition-colors hover:bg-secondary-hover print:hidden"
+      // On phones the open sheet has its own close button and would sit under this one.
+      className={`fixed right-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-40 flex h-12 items-center gap-2 rounded-full bg-secondary px-4 text-sm font-medium text-white shadow-lg transition-colors hover:bg-secondary-hover print:hidden ${
+        open ? 'max-sm:hidden' : ''
+      }`}
     >
       {open ? (
         <svg

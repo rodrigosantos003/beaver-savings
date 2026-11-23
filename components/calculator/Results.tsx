@@ -224,7 +224,7 @@ export function Results({
               </p>
             ) : null}
           </div>
-          <div className="overflow-x-auto print:overflow-visible">
+          <div className="relative overflow-x-auto print:overflow-visible">
             <table className="w-full min-w-160 text-left text-sm print:min-w-0 print:table-fixed print:text-xs">
               <thead className="border-y border-stone-200 bg-stone-50 text-stone-500">
                 <tr>

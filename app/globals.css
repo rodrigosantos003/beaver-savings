@@ -155,14 +155,49 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   max-width: 100%;
-  overflow: hidden;
-  overflow-y: auto;
   overscroll-behavior-x: none;
-  touch-action: pan-y;
+  touch-action: manipulation;
+}
+
+/* clip (not hidden) so the document stays the only scroll container: keeps the sticky header and iOS tap-status-bar-to-top working. */
+body {
+  overflow-x: clip;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
 }
 
 button {
   cursor: pointer;
+}
+
+/*
+ * Controls behave like native ones on long-press: no text selection, no iOS link/image callout.
+ * Kept off containers (header, nav, label) because user-select: none on an input's ancestor
+ * stops iOS Safari from typing into it.
+ */
+button,
+img,
+header a,
+footer a,
+nav a {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Replaces the tap highlight with press feedback; touch only, since mice already get hover. */
+@media (pointer: coarse) {
+  button:not(:disabled),
+  a {
+    transition-property: opacity, color, background-color, border-color, scale;
+  }
+
+  button:not(:disabled):active,
+  a:active {
+    opacity: 0.7;
+  }
 }
 
 @page {

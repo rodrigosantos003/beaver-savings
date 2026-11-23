@@ -24,7 +24,7 @@ export default async function NotFound() {
   return (
     <div className="flex min-h-full flex-col bg-white text-stone-900">
       <main className="flex-1">
-        <section className="relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden px-6 py-20">
+        <section className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden px-6 py-20">
           <RiverWaveBackground />
           <div className="relative z-10 mx-auto max-w-3xl text-center">
             <Image

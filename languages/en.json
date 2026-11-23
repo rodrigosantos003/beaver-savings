@@ -52,6 +52,7 @@
     "calculator": "Calculator",
     "signOut": "Sign out",
     "backToHome": "Back to home",
+    "back": "Back",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
@@ -150,6 +151,7 @@
     "verifyLoading": "Verifying your email…",
     "verifySuccess": "Your email has been verified.",
     "verifyContinue": "Continue",
+    "installedAppHint": "Using Beaver Savings from your home screen? Email links open in the browser, so when you're done here, go back to the app to continue.",
     "verifyError": "This confirmation link is invalid or has expired.",
     "verifyErrorHint": "Log in with your credentials and we'll send you a new confirmation email.",
     "backToLogin": "Back to log in",
@@ -209,7 +211,7 @@
     "warning": "Your savings target exceeds the amount left after expenses.",
     "exportPdf": "Export PDF",
     "email": "Send by email",
-    "emailPlaceholder": "name@email.com",
+    "emailTo": "To {email}",
     "send": "Send",
     "sending": "Sending…",
     "sent": "Summary sent.",
@@ -375,11 +377,14 @@
         "savingsHeading": "Savings information",
         "savingsP1": "When you use Beaver Savings, you may provide financial information such as:",
         "savingsList": {
-          "i1": "Monthly income",
-          "i2": "Monthly expenses",
-          "i3": "Total savings amount"
+          "i1": "Your monthly net income",
+          "i2": "Holiday and Christmas subsidies, the months they are paid, and whether they are paid in twelfths",
+          "i3": "Extra income",
+          "i4": "Monthly expenses",
+          "i5": "Your savings goal, as a fixed amount or a percentage of income",
+          "i6": "The deposits you add to your savings dam, with the date of each one"
         },
-        "savingsP2": "This information is associated with your account so that Beaver Savings can provide its savings-related functionality.",
+        "savingsP2": "This information is associated with your account so that Beaver Savings can provide its savings-related functionality. We keep up to your 100 most recent calculator plans, not only the latest one, so that the AI savings coach can summarise your saving habits. Older plans are deleted automatically.",
         "savingsP3": "Beaver Savings does not request or intentionally collect bank account numbers, payment card numbers, bank login credentials, or other banking credentials.",
         "sessionHeading": "Session and security information",
         "sessionP1": "When you authenticate with Beaver Savings, our authentication system creates session information that may include:",
@@ -390,7 +395,8 @@
           "i4": "The session token's expiration date"
         },
         "sessionP2": "This information is used to maintain authenticated sessions, keep your account secure, and allow you to access Beaver Savings without repeatedly signing in.",
-        "sessionP3": "Session tokens are security credentials. You should not share them with other people."
+        "sessionP3": "Session tokens are security credentials. You should not share them with other people.",
+        "sessionP4": "To protect Beaver Savings against abuse, such as repeated sign-in attempts, we count recent requests per IP address, or per account when you are signed in. These counters are stored in our database, are not part of your account profile, and are deleted within two days."
       },
       "howWeUse": {
         "title": "How we use your information",
@@ -407,7 +413,7 @@
           "i8": "Maintain and secure the service",
           "i9": "Detect, prevent, and address technical or security problems",
           "i10": "Generate savings tips and answer your questions through the optional AI savings coach, when you choose to use it",
-          "i11": "Send you service notices about your account, such as a warning before an inactive account is deleted"
+          "i11": "Send you emails needed to run your account, such as email address verification, password reset, and a warning before an inactive account is deleted"
         },
         "p3": "We do not use your personal financial information for advertising or behavioural profiling.",
         "p4": "We do not sell your personal information."
@@ -437,16 +443,16 @@
       },
       "exporting": {
         "title": "Exporting your savings results",
-        "p1": "Beaver Savings provides an export feature that allows you to send your savings results to an email address.",
+        "p1": "While signed in, you can send your savings results to yourself by email.",
         "p2": "When you use this feature:",
         "steps": {
-          "i1": "You provide an email address for the export.",
-          "i2": "Beaver Savings sends the requested results to that address.",
-          "i3": "Beaver Savings does not store the recipient email address as part of your Beaver Savings account data."
+          "i1": "The results are sent only to the email address of your Beaver Savings account. You cannot choose a different recipient.",
+          "i2": "The email contains the monthly summary and annual plan shown in the calculator, and states the address it was sent to.",
+          "i3": "Beaver Savings does not keep a copy of the email."
         },
         "p3": "Email delivery for this feature is handled by <strong>Resend</strong>.",
-        "p4": "The email address you provide for an export is transmitted to Resend as necessary to deliver the email. Resend may process that information according to its own privacy practices and applicable contractual terms.",
-        "p5": "You should only provide an email address that you are authorised to use for this purpose."
+        "p4": "To deliver the email, your account email address and the content of the email are transmitted to Resend. Resend may process that information according to its own privacy practices and applicable contractual terms.",
+        "p5": "You can also save your results as a PDF using your browser's print function. The PDF is created on your device and is not sent to us."
       },
       "aiCoach": {
         "title": "AI savings coach",
@@ -478,8 +484,8 @@
         "mongoP4": "We do not currently configure separate MongoDB Atlas backups for Beaver Savings.",
         "betterAuthP1": "Beaver Savings uses <strong>Better Auth</strong> as its authentication framework.",
         "betterAuthP2": "Better Auth handles authentication and session management within the Beaver Savings application. The resulting authentication and session information is stored in our application database.",
-        "resendP1": "Beaver Savings uses <strong>Resend</strong> to deliver emails associated with the export feature.",
-        "resendP2": "When you request an export, the email address you provide is transmitted to Resend as necessary to send the email. Beaver Savings does not store that export recipient address in your account data.",
+        "resendP1": "Beaver Savings uses <strong>Resend</strong> to send emails: email address verification, password reset, a warning before an inactive account is deleted, and the savings results you choose to email to yourself.",
+        "resendP2": "To send these emails, your name, email address, and the content of the email are transmitted to Resend. Resend may keep delivery records according to its own retention policies.",
         "scalewayP1": "Beaver Savings uses <strong>Scaleway Generative APIs</strong> to power the optional AI savings coach.",
         "scalewayP2": "When you use the coach, the savings information and questions described in the “AI savings coach” section are transmitted to Scaleway to generate a response. Scaleway processes this information in data centres located in the European Union.",
         "closing": "These providers process information as necessary to provide their respective services. Their own privacy policies and contractual terms may also apply.",
@@ -496,7 +502,7 @@
       "retention": {
         "title": "Data retention",
         "p1": "We retain your personal information for as long as your Beaver Savings account remains active and as necessary to provide the service.",
-        "p2": "Session information is retained according to the expiration period configured for the applicable session.",
+        "p2": "Session information is retained according to the expiration period configured for the applicable session. Request counters used to prevent abuse, which may include your IP address, are deleted within two days.",
         "p3": "If you do not use your account for 24 months, we delete it together with all associated data. If your email address is verified, we email you at least 30 days before the deletion, and signing in during that period keeps your account.",
         "p4": "You can delete your Beaver Savings account directly through the application.",
         "p5": "When you delete your account, the account information, authentication information (including any passkeys), session information, and savings data associated with your account are permanently deleted from Beaver Savings.",
@@ -595,7 +601,7 @@
   },
   "Terms": {
     "title": "Terms and Conditions",
-    "lastUpdated": "Last updated: 12 November 2026",
+    "lastUpdated": "Last updated: 19 November 2026",
     "intro": {
       "welcome": "Welcome to Beaver Savings!",
       "p1": "These Terms and Conditions explain how you can use Beaver Savings, a personal finance and savings planning web application operated by <strong>Rodrigo Santos</strong>.",
@@ -618,7 +624,7 @@
           "i1": "Estimating monthly expenses and potential savings.",
           "i2": "Creating annual savings projections.",
           "i3": "Setting savings goals based on a fixed amount or a percentage of income.",
-          "i4": "Exporting savings results as a PDF or sharing them by email.",
+          "i4": "Exporting savings results as a PDF or emailing them to your own account address.",
           "i5": "Getting AI-generated savings tips and answers to your questions from Bucky, our AI savings coach."
         },
         "p3": "We may update, improve, add, or remove features as the service develops."
@@ -706,11 +712,11 @@
       },
       "exporting": {
         "title": "Exporting and Sharing Results",
-        "p1": "Beaver Savings may allow you to download a PDF containing your savings results or send those results to an email address.",
-        "p2": "You are responsible for checking the information before sharing it and ensuring that you are authorised to send it to the intended recipient.",
+        "p1": "Beaver Savings may allow you to download a PDF containing your savings results or send those results by email to the address of your account.",
+        "p2": "You are responsible for checking the information before you save, print, or forward it to anyone else.",
         "p3": "Savings reports may contain personal financial information. Anyone who receives a report may be able to view the information it contains.",
-        "p4": "Please make sure you use the correct recipient address and only share reports with people you trust.",
-        "p5": "We are not responsible for disclosures caused by your decision to share a report with an unintended recipient, except where applicable law provides otherwise or the disclosure results from circumstances for which we are responsible."
+        "p4": "Emailed results are only sent to your own account address. If you share a PDF or forward an email, please make sure you only share it with people you trust.",
+        "p5": "We are not responsible for disclosures caused by your decision to share or forward a report, except where applicable law provides otherwise or the disclosure results from circumstances for which we are responsible."
       },
       "ip": {
         "title": "Intellectual Property",
@@ -816,6 +822,17 @@
     "iosStepAddToHome": "Scroll down and tap <b>Add to Home Screen</b>. Don't see it? Tap <b>View More</b> or <b>Edit Actions</b> at the bottom.",
     "iosStepConfirm": "Tap <b>Add</b>",
     "iosToolbarHint": "The Share button is in Safari's toolbar, not in this page."
+  },
+  "PWAUpdate": {
+    "message": "A new version of Beaver Savings is available.",
+    "reload": "Reload"
+  },
+  "offline": {
+    "metaTitle": "Offline",
+    "title": "You're offline",
+    "description": "Beaver Savings needs a connection to load your savings plan. This page reloads by itself as soon as you're back online.",
+    "retry": "Try again",
+    "banner": "You're offline. Your latest changes will be saved once you reconnect."
   },
   "notFound": {
     "title": "Page not found",

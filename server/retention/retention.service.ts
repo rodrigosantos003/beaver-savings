@@ -35,18 +35,40 @@ type CandidateUser = {
   inactivityWarningSentAt?: Date;
 };
 
+/**
+ * Better Auth's database rate limiter keys rows by IP address and never deletes them, and
+ * `lastRequest` is a millisecond number, so a TTL index can't expire them. Its longest window is
+ * minutes, so anything older than this is no longer needed (stated in the Privacy Policy).
+ */
+const AUTH_RATE_LIMIT_MAX_AGE_MS = DAY_MS;
+
 export type RetentionRunResult = {
   warned: number;
   warningFailures: number;
   deleted: number;
+  rateLimitRowsPruned: number;
 };
 
 export async function run(now = new Date()): Promise<RetentionRunResult> {
+  // The session lookup below matches on sessions.userId; without an index each lookup is a
+  // collection scan. createIndex is a no-op once the index exists, so this is cheap per run.
+  await getDb().collection('sessions').createIndex({ userId: 1 }, { name: 'userId_1' });
+
   const { warned, warningFailures } = await sendWarnings(now);
   const deleted = await deleteInactive(now);
+  const rateLimitRowsPruned = await pruneAuthRateLimits(now);
 
-  console.log(`Retention run: warned=${warned} failed=${warningFailures} deleted=${deleted}`);
-  return { warned, warningFailures, deleted };
+  console.log(
+    `Retention run: warned=${warned} failed=${warningFailures} deleted=${deleted} rateLimitRowsPruned=${rateLimitRowsPruned}`,
+  );
+  return { warned, warningFailures, deleted, rateLimitRowsPruned };
+}
+
+async function pruneAuthRateLimits(now: Date) {
+  const { deletedCount } = await getDb()
+    .collection('rateLimits')
+    .deleteMany({ lastRequest: { $lt: now.getTime() - AUTH_RATE_LIMIT_MAX_AGE_MS } });
+  return deletedCount;
 }
 
 /**
@@ -57,6 +79,16 @@ function findInactiveSince(cutoff: Date, extraMatch: object, limit: number) {
   return getDb()
     .collection('users')
     .aggregate<CandidateUser>([
+      // lastSeenAt is a max over these fields, so it can only be before the cutoff when neither
+      // is on or after it. Filtering here first keeps recently active users out of the session
+      // lookup, which would otherwise run once for every user. `$not` keeps missing fields in,
+      // as $max ignores them.
+      {
+        $match: {
+          createdAt: { $not: { $gte: cutoff } },
+          lastActiveAt: { $not: { $gte: cutoff } },
+        },
+      },
       {
         $lookup: {
           from: 'sessions',

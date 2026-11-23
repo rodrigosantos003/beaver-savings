@@ -57,12 +57,18 @@ store any biometric data or your device PIN.
 
 When you use Beaver Savings, you may provide financial information such as:
 
-- Monthly income
+- Your monthly net income
+- Holiday and Christmas subsidies, the months they are paid, and whether they
+  are paid in twelfths
+- Extra income
 - Monthly expenses
-- Total savings amount
+- Your savings goal, as a fixed amount or a percentage of income
+- The deposits you add to your savings dam, with the date of each one
 
 This information is associated with your account so that Beaver Savings can
-provide its savings-related functionality.
+provide its savings-related functionality. We keep up to your 100 most recent
+calculator plans, not only the latest one, so that the AI savings coach can
+summarize your saving habits. Older plans are deleted automatically.
 
 Beaver Savings does not request or intentionally collect bank account numbers,
 payment card numbers, bank login credentials, or other banking credentials.
@@ -83,6 +89,11 @@ secure, and allow you to access Beaver Savings without repeatedly signing in.
 Session tokens are security credentials. You should not share them with other
 people.
 
+To protect Beaver Savings against abuse, such as repeated sign-in attempts, we
+count recent requests per IP address, or per account when you are signed in.
+These counters are stored in our database, are not part of your account profile,
+and are deleted within two days.
+
 ## 3. How we use your information
 
 We use your personal information only as necessary to operate and provide Beaver
@@ -101,8 +112,9 @@ This includes using your information to:
 - Detect, prevent, and address technical or security problems
 - Generate savings tips and answer your questions through the optional AI
   savings coach, when you choose to use it
-- Send you service notices about your account, such as a warning before an
-  inactive account is deleted
+- Send you emails needed to run your account, such as email address
+  verification, password reset, and a warning before an inactive account is
+  deleted
 
 We do not use your personal financial information for advertising or behavioral
 profiling.
@@ -173,31 +185,31 @@ Savings password on other services.
 
 ## 6. Exporting your savings results
 
-Beaver Savings provides an export feature that allows you to send your savings
-results to an email address.
+While signed in, you can send your savings results to yourself by email.
 
 When you use this feature:
 
-1. You provide an email address for the export.
-2. Beaver Savings sends the requested results to that address.
-3. Beaver Savings does not store the recipient email address as part of your
-   Beaver Savings account data.
+1. The results are sent only to the email address of your Beaver Savings
+   account. You cannot choose a different recipient.
+2. The email contains the monthly summary and annual plan shown in the
+   calculator, and states the address it was sent to.
+3. Beaver Savings does not keep a copy of the email.
 
 Email delivery for this feature is handled by **Resend**.
 
-The email address you provide for an export is transmitted to Resend as
-necessary to deliver the email. Resend may process that information according to
-its own privacy practices and applicable contractual terms.
+To deliver the email, your account email address and the content of the email
+are transmitted to Resend. Resend may process that information according to its
+own privacy practices and applicable contractual terms.
 
-You should only provide an email address that you are authorized to use for this
-purpose.
+You can also save your results as a PDF using your browser's print function. The
+PDF is created on your device and is not sent to us.
 
 ## 7. AI savings coach
 
 Beaver Savings includes an optional AI savings coach, **Bucky**, available to
-signed-in users. Bucky is powered by a large language model run by
-**Scaleway**, a French cloud provider, through its Generative APIs service
-hosted in the European Union.
+signed-in users. Bucky is powered by a large language model run by **Scaleway**,
+a French cloud provider, through its Generative APIs service hosted in the
+European Union.
 
 The coach only runs when you ask it to, for example when you request tips for
 your plan or type a question. Each time, Beaver Savings sends the following
@@ -274,12 +286,13 @@ stored in our application database.
 
 ### Resend
 
-Beaver Savings uses **Resend** to deliver emails associated with the export
-feature.
+Beaver Savings uses **Resend** to send emails: email address verification,
+password reset, a warning before an inactive account is deleted, and the savings
+results you choose to email to yourself.
 
-When you request an export, the email address you provide is transmitted to
-Resend as necessary to send the email. Beaver Savings does not store that export
-recipient address in your account data.
+To send these emails, your name, email address, and the content of the email are
+transmitted to Resend. Resend may keep delivery records according to its own
+retention policies.
 
 ### Scaleway
 
@@ -321,7 +334,8 @@ We retain your personal information for as long as your Beaver Savings account
 remains active and as necessary to provide the service.
 
 Session information is retained according to the expiration period configured
-for the applicable session.
+for the applicable session. Request counters used to prevent abuse, which may
+include your IP address, are deleted within two days.
 
 If you do not use your account for 24 months, we delete it together with all
 associated data. If your email address is verified, we email you at least 30
@@ -422,8 +436,8 @@ the service to work or that remember choices you make:
 - **Currency cookie** (`NEXT_CURRENCY`): remembers the currency you choose, for
   up to 1 year.
 - **Browser local storage** (`pwa-install-dismissed-at`, `pwa-was-installed`):
-  remembers whether you dismissed or installed the app, so the install prompt
-  is not shown again. This information stays on your device.
+  remembers whether you dismissed or installed the app, so the install prompt is
+  not shown again. This information stays on your device.
 - **Passkey challenge cookie** (`better-auth.better-auth-passkey`): set only
   while you sign in with or add a passkey, to link your device's response to the
   one-time security challenge we issued. It expires after 5 minutes.

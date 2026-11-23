@@ -126,7 +126,7 @@ export function Calculator({
       </Results>
 
       {loggedIn ? (
-        <ExportBar input={input} currency={currency} />
+        <ExportBar input={input} monthNames={monthNames} currency={currency} />
       ) : (
         <section className="flex flex-col items-start gap-4 rounded-xl border border-beaver-200 bg-beaver-50 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="grid gap-1">

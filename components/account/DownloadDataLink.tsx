@@ -6,24 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import { exportAccountData } from '@/lib/api/account';
 import { authClient } from '@/lib/auth-client';
-import { isStandalone } from '@/lib/pwa';
-
-/**
- * Installed apps (iOS especially) handle `<a download>` poorly, so hand the file to the native
- * share sheet ("Save to Files", AirDrop, …). Returns false when the caller should download instead.
- */
-async function shareFile(file: File): Promise<boolean> {
-  if (!isStandalone() || !navigator.canShare?.({ files: [file] })) return false;
-
-  try {
-    await navigator.share({ files: [file] });
-    return true;
-  } catch (error) {
-    // AbortError: the user closed the sheet. Anything else (e.g. NotAllowedError once the tap's
-    // activation has expired during the fetch) falls back to a regular download.
-    return error instanceof DOMException && error.name === 'AbortError';
-  }
-}
+import { downloadFile, shareFile } from '@/lib/share-file';
 
 export function DownloadDataLink() {
   const t = useTranslations('dataExport');
@@ -38,22 +21,13 @@ export function DownloadDataLink() {
     setStatus('loading');
     try {
       const data = await exportAccountData();
-      const name = `beaver-savings-data-${new Date().toISOString().slice(0, 10)}.json`;
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const file = new File(
+        [JSON.stringify(data, null, 2)],
+        `beaver-savings-data-${new Date().toISOString().slice(0, 10)}.json`,
+        { type: 'application/json' },
+      );
 
-      if (await shareFile(new File([blob], name, { type: blob.type }))) {
-        setStatus('idle');
-        return;
-      }
-
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = name;
-      link.click();
-      // Revoking right away can cancel the download (Safari, some Firefox versions) because
-      // the browser reads the blob asynchronously after the click; give it time first.
-      setTimeout(() => URL.revokeObjectURL(url), 60_000);
+      if (!(await shareFile(file))) downloadFile(file);
       setStatus('idle');
     } catch (error) {
       console.error(error);

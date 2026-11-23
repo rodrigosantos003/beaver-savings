@@ -93,6 +93,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       statusBarStyle: 'default',
       startupImage: appleStartupImages,
     },
+    // Next only emits the standard "mobile-web-app-capable"; iOS still needs the Apple-prefixed
+    // tag before it uses the apple-touch-startup-image launch screens.
+    other: { 'apple-mobile-web-app-capable': 'yes' },
   };
 }
 

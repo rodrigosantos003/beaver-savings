@@ -6,6 +6,11 @@ export type SavingsMethod = 'percent' | 'fixed';
  * - holidaySubsidyNet / christmasSubsidyNet: líquido recebido no mês do subsídio
  *   (só usados quando subsidiesInTwelfths é false).
  */
+export interface ExpenseItem {
+  name: string;
+  amount: number;
+}
+
 export interface SavingsInput {
   netSalary: number;
   holidaySubsidyNet: number;
@@ -17,6 +22,8 @@ export interface SavingsInput {
   includeSubsidies: boolean;
   includeExtras: boolean;
   monthlyExpenses: number;
+  /** When present, monthlyExpenses is the sum of these amounts. */
+  expenseItems?: ExpenseItem[];
   savingsMethod: SavingsMethod;
   savingsPercent: number;
   savingsAmount: number;

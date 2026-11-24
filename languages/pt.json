@@ -251,7 +251,19 @@
     "netSalary": "Salário líquido",
     "holidaySubsidyNet": "Subsídio de férias (líquido)",
     "christmasSubsidyNet": "Subsídio de Natal (líquido)",
-    "expensesTitle": "Despesas"
+    "expensesTitle": "Despesas",
+    "expensesRegister": "Registar despesas",
+    "expensesEdit": "Editar despesas ({count})",
+    "expensesDialogTitle": "Despesas mensais",
+    "expensesDialogHint": "Adiciona cada uma das tuas despesas mensais. O total passa a ser as tuas despesas mensais. Os nomes das despesas são partilhados com o coach de IA quando o usas, por isso evita detalhes sensíveis, como informações de saúde.",
+    "expenseName": "Despesa",
+    "expenseNamePlaceholder": "ex.: Renda",
+    "expenseAmount": "Valor",
+    "expenseAdd": "Adicionar despesa",
+    "expenseRemove": "Remover despesa",
+    "expensesTotal": "Total",
+    "expensesCancel": "Cancelar",
+    "expensesSave": "Guardar"
   },
   "unlock": {
     "title": "Desbloquear mais funcionalidades",
@@ -342,7 +354,7 @@
       "description": "Como a Beaver Savings recolhe, utiliza, armazena e protege as suas informações pessoais."
     },
     "title": "Política de Privacidade",
-    "lastUpdated": "Última atualização: 19 de novembro de 2026",
+    "lastUpdated": "Última atualização: 24 de novembro de 2026",
     "intro": {
       "p1": "A Beaver Savings («Beaver Savings», «nós» ou «nosso») é uma aplicação web de finanças pessoais desenvolvida e operada por <strong>Rodrigo Santos</strong>.",
       "p2": "Esta Política de Privacidade explica como recolhemos, utilizamos, armazenamos e protegemos as informações pessoais quando utiliza a Beaver Savings."
@@ -387,7 +399,7 @@
           "i1": "O seu rendimento líquido mensal",
           "i2": "Os subsídios de férias e de Natal, os meses em que são pagos e se são pagos em duodécimos",
           "i3": "Rendimentos extra",
-          "i4": "Despesas mensais",
+          "i4": "Despesas mensais e, se as indicar uma a uma, o nome e o valor de cada despesa",
           "i5": "O seu objetivo de poupança, como montante fixo ou percentagem do rendimento",
           "i6": "Os depósitos que adiciona à sua barragem de poupança, com a data de cada um"
         },
@@ -466,7 +478,7 @@
         "p1": "A Beaver Savings inclui um coach de poupanças com IA opcional, o <strong>Bucky</strong>, disponível para utilizadores com sessão iniciada. O Bucky funciona com um modelo de linguagem de grande dimensão executado pela <strong>Scaleway</strong>, um fornecedor de cloud francês, através do seu serviço Generative APIs alojado na União Europeia.",
         "p2": "O coach só é executado quando o pede, por exemplo quando pede dicas para o seu plano ou escreve uma pergunta. Em cada pedido, a Beaver Savings envia à Scaleway as seguintes informações para que o modelo possa gerar uma resposta:",
         "list": {
-          "i1": "O plano de poupança que introduziu na calculadora, como o seu rendimento, subsídios, rendimentos extra, despesas, objetivo de poupança e método de poupança",
+          "i1": "O plano de poupança que introduziu na calculadora, como o seu rendimento, subsídios, rendimentos extra, despesas (incluindo o nome e o valor de cada despesa, se as indicar uma a uma), objetivo de poupança e método de poupança",
           "i2": "Valores calculados a partir desse plano, como o seu mês típico, a poupança anual prevista e a poupança sugerida",
           "i3": "Um resumo dos seus hábitos de poupança com base nos seus planos recentes, como a poupança mediana e as despesas mensais medianas",
           "i4": "O montante total poupado na sua barragem e o número de depósitos",
@@ -474,7 +486,7 @@
           "i6": "O texto de qualquer pergunta que escreva"
         },
         "p3": "Não enviamos à Scaleway o seu nome, endereço de email, palavra-passe ou informações de sessão nos pedidos ao coach.",
-        "p4": "As perguntas que escreve são enviadas à Scaleway tal como as escreveu. Não inclua informações que não sejam necessárias para a sua pergunta, como nomes, contactos, dados bancários ou informações sobre a sua saúde ou outros assuntos sensíveis.",
+        "p4": "As perguntas que escreve e os nomes que dá às suas despesas são enviados à Scaleway tal como os escreveu. Não inclua informações que não sejam necessárias, como nomes, contactos, dados bancários ou informações sobre a sua saúde ou outros assuntos sensíveis.",
         "p5": "A Beaver Savings não armazena as suas perguntas nem as respostas do coach na sua base de dados. Cada resposta é apresentada no seu navegador e perde-se quando fecha o coach ou sai da página.",
         "p6": "A Scaleway trata estas informações enquanto nosso prestador de serviços, apenas para gerar a resposta e dentro da União Europeia. Ao abrigo dos termos da Scaleway para este serviço, as suas informações não são utilizadas para treinar ou melhorar modelos de IA, e o conteúdo dos pedidos e das respostas não é conservado por predefinição. A Scaleway pode recolher dados de utilização anonimizados, como o número de pedidos, para operar o serviço.",
         "p7": "As respostas do coach são geradas automaticamente e não são revistas por uma pessoa. Não produzem efeitos jurídicos nem efeitos igualmente significativos sobre si e não constituem aconselhamento financeiro profissional.",

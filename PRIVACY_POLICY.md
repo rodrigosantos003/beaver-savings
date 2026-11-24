@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Last updated:** November 19, 2026
+**Last updated:** November 24, 2026
 
 Beaver Savings ("Beaver Savings", "we", "us", or "our") is a personal finance
 web application developed and operated by **Rodrigo Santos**.
@@ -61,7 +61,8 @@ When you use Beaver Savings, you may provide financial information such as:
 - Holiday and Christmas subsidies, the months they are paid, and whether they
   are paid in twelfths
 - Extra income
-- Monthly expenses
+- Monthly expenses and, if you list them one by one, the name and amount of each
+  expense
 - Your savings goal, as a fixed amount or a percentage of income
 - The deposits you add to your savings dam, with the date of each one
 
@@ -216,7 +217,8 @@ your plan or type a question. Each time, Beaver Savings sends the following
 information to Scaleway so that the model can generate a response:
 
 - The savings plan you entered in the calculator, such as your income,
-  subsidies, extra income, expenses, savings goal, and savings method
+  subsidies, extra income, expenses (including the name and amount of each
+  expense, if you list them one by one), savings goal, and savings method
 - Figures calculated from that plan, such as your typical month, projected
   annual savings, and suggested savings
 - A summary of your saving habits based on your recent plans, such as median
@@ -228,10 +230,10 @@ information to Scaleway so that the model can generate a response:
 We do not send your name, email address, password, or session information to
 Scaleway as part of coach requests.
 
-Questions you type are sent to Scaleway as written. Please do not include
-information that is not needed for your question, such as names, contact
-details, bank details, or information about your health or other sensitive
-matters.
+Questions you type and the names you give your expenses are sent to Scaleway as
+written. Please do not include information that is not needed, such as names,
+contact details, bank details, or information about your health or other
+sensitive matters.
 
 Beaver Savings does not store your questions or the coach's responses in its
 database. A response is shown in your browser and is lost when you close the

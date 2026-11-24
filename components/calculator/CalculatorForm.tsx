@@ -4,10 +4,13 @@ import { useState } from 'react';
 
 import { useLocale, useTranslations } from 'next-intl';
 
+import { sumExpenses } from '@/shared/savings/expenses';
 import { suggestSavings } from '@/shared/savings/suggestions';
-import type { SavingsInput } from '@/shared/savings/types';
+import type { ExpenseItem, SavingsInput } from '@/shared/savings/types';
 
 import { currencySymbol } from '../../lib/currencies';
+import { ExpensesDialog } from './ExpensesDialog';
+import { decimalDraft, formatDecimal, parseDecimal } from './decimal';
 
 const inputClass =
   'mt-1 w-full rounded-xl border border-stone-200 bg-white px-3 py-2 text-base text-stone-900 outline-none focus:border-beaver-400 focus:ring-2 focus:ring-beaver-100';
@@ -44,6 +47,18 @@ export function CalculatorForm({
     }
 
     update(key, value);
+  }
+
+  const [expensesOpen, setExpensesOpen] = useState(false);
+  const expenseItems = input.expenseItems ?? [];
+
+  function saveExpenses(items: ExpenseItem[]) {
+    setExpensesOpen(false);
+    onChange(
+      items.length > 0
+        ? { ...input, expenseItems: items, monthlyExpenses: sumExpenses(items) }
+        : { ...input, expenseItems: undefined },
+    );
   }
 
   const suggestions = loggedIn ? (suggestionsProp ?? suggestSavings(input)) : undefined;
@@ -127,12 +142,36 @@ export function CalculatorForm({
 
       <fieldset className="grid min-w-0 grid-cols-1 gap-4">
         <legend className="mb-1 text-lg font-semibold text-stone-900">{t('expensesTitle')}</legend>
-        <NumberField
-          label={t('expenses')}
-          value={input.monthlyExpenses}
-          unit={symbol}
-          onChange={(raw) => updateNumber('monthlyExpenses', raw)}
-        />
+        <div className="flex items-end gap-2">
+          <div className="min-w-0 flex-1">
+            {/* Remount when the total changes so the field's text picks up the new sum. */}
+            <NumberField
+              key={expenseItems.length > 0 ? `total-${input.monthlyExpenses}` : 'manual'}
+              label={t('expenses')}
+              value={input.monthlyExpenses}
+              unit={symbol}
+              readOnly={expenseItems.length > 0}
+              onChange={(raw) => updateNumber('monthlyExpenses', raw)}
+            />
+          </div>
+          <button
+            type="button"
+            className="h-[42px] shrink-0 rounded-xl border border-beaver-200 bg-beaver-50 px-4 text-sm font-medium text-beaver-700 transition-colors hover:bg-beaver-100"
+            onClick={() => setExpensesOpen(true)}
+          >
+            {expenseItems.length > 0
+              ? t('expensesEdit', { count: expenseItems.length })
+              : t('expensesRegister')}
+          </button>
+        </div>
+        {expensesOpen ? (
+          <ExpensesDialog
+            items={expenseItems}
+            unit={symbol}
+            onSave={saveExpenses}
+            onClose={() => setExpensesOpen(false)}
+          />
+        ) : null}
       </fieldset>
 
       <fieldset className="grid min-w-0 grid-cols-1 gap-4">
@@ -187,12 +226,14 @@ function NumberField({
   onChange,
   suggestedValue,
   unit,
+  readOnly = false,
 }: {
   label: string;
   value: number;
   onChange: (raw: string) => void;
   suggestedValue?: number;
   unit?: string;
+  readOnly?: boolean;
 }) {
   const t = useTranslations('calculator');
   const [text, setText] = useState(() => formatDecimal(value));
@@ -224,8 +265,9 @@ function NumberField({
 
       <span className="relative mt-1 block">
         <input
-          className={`${inputClass} mt-0! ${unit ? 'pr-9' : ''}`}
+          className={`${inputClass} mt-0! ${unit ? 'pr-9' : ''} ${readOnly ? 'bg-stone-50! text-stone-700' : ''}`}
           type="text"
+          readOnly={readOnly}
           inputMode="decimal"
           autoComplete="off"
           value={text}
@@ -249,33 +291,6 @@ function NumberField({
       </span>
     </label>
   );
-}
-
-function decimalDraft(raw: string): string | null {
-  const text = raw.replaceAll('.', ',');
-  if (!/^\d*,?\d*$/.test(text)) {
-    return null;
-  }
-
-  return text;
-}
-
-function parseDecimal(raw: string): number | null {
-  const text = raw.trim();
-  if (text === '' || text === ',') {
-    return 0;
-  }
-
-  const value = Number(text.replace(',', '.'));
-  if (!Number.isFinite(value)) {
-    return null;
-  }
-
-  return value;
-}
-
-function formatDecimal(value: number): string {
-  return String(value).replace('.', ',');
 }
 
 function MonthField({

@@ -13,6 +13,7 @@ import {
   calculateAnnualPlan,
   calculateTypicalMonth,
 } from '@/shared/savings/calculate';
+import { sanitizeExpenseItems, sumExpenses } from '@/shared/savings/expenses';
 import { suggestSavings } from '@/shared/savings/suggestions';
 import type { SavingsInput } from '@/shared/savings/types';
 
@@ -58,6 +59,12 @@ function mergeSavedInput(saved: SavingsInput | null): SavingsInput {
     if (typeof value === typeof defaultInput[key]) {
       merged[key] = value;
     }
+  }
+
+  const expenseItems = sanitizeExpenseItems(source.expenseItems);
+  if (expenseItems) {
+    merged.expenseItems = expenseItems;
+    merged.monthlyExpenses = sumExpenses(expenseItems);
   }
 
   return merged as unknown as SavingsInput;

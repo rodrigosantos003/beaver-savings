@@ -249,7 +249,19 @@
     "netSalary": "Net salary",
     "holidaySubsidyNet": "Holiday allowance (net)",
     "christmasSubsidyNet": "Christmas allowance (net)",
-    "expensesTitle": "Expenses"
+    "expensesTitle": "Expenses",
+    "expensesRegister": "Register expenses",
+    "expensesEdit": "Edit expenses ({count})",
+    "expensesDialogTitle": "Monthly expenses",
+    "expensesDialogHint": "Add each of your monthly expenses. Their total becomes your monthly expenses. Expense names are shared with the AI coach when you use it, so avoid sensitive details such as health information.",
+    "expenseName": "Expense",
+    "expenseNamePlaceholder": "e.g. Rent",
+    "expenseAmount": "Amount",
+    "expenseAdd": "Add expense",
+    "expenseRemove": "Remove expense",
+    "expensesTotal": "Total",
+    "expensesCancel": "Cancel",
+    "expensesSave": "Save"
   },
   "unlock": {
     "title": "Unlock more features",
@@ -335,7 +347,7 @@
   },
   "PrivacyPolicy": {
     "title": "Privacy Policy",
-    "lastUpdated": "Last updated: 19 November 2026",
+    "lastUpdated": "Last updated: 24 November 2026",
     "intro": {
       "p1": "In this Privacy Policy, “Beaver Savings”, “we”, “us” and “our” refer to the personal finance web application developed and operated by <strong>Rodrigo Santos</strong>.",
       "p2": "This Privacy Policy explains how we collect, use, store, and protect personal information when you use Beaver Savings."
@@ -380,7 +392,7 @@
           "i1": "Your monthly net income",
           "i2": "Holiday and Christmas subsidies, the months they are paid, and whether they are paid in twelfths",
           "i3": "Extra income",
-          "i4": "Monthly expenses",
+          "i4": "Monthly expenses and, if you list them one by one, the name and amount of each expense",
           "i5": "Your savings goal, as a fixed amount or a percentage of income",
           "i6": "The deposits you add to your savings dam, with the date of each one"
         },
@@ -459,7 +471,7 @@
         "p1": "Beaver Savings includes an optional AI savings coach, <strong>Bucky</strong>, available to signed-in users. Bucky is powered by a large language model run by <strong>Scaleway</strong>, a French cloud provider, through its Generative APIs service hosted in the European Union.",
         "p2": "The coach only runs when you ask it to, for example when you request tips for your plan or type a question. Each time, Beaver Savings sends the following information to Scaleway so that the model can generate a response:",
         "list": {
-          "i1": "The savings plan you entered in the calculator, such as your income, subsidies, extra income, expenses, savings goal, and savings method",
+          "i1": "The savings plan you entered in the calculator, such as your income, subsidies, extra income, expenses (including the name and amount of each expense, if you list them one by one), savings goal, and savings method",
           "i2": "Figures calculated from that plan, such as your typical month, projected annual savings, and suggested savings",
           "i3": "A summary of your saving habits based on your recent plans, such as median savings and median monthly expenses",
           "i4": "The total amount saved in your dam and the number of deposits",
@@ -467,7 +479,7 @@
           "i6": "The text of any question you type"
         },
         "p3": "We do not send your name, email address, password, or session information to Scaleway as part of coach requests.",
-        "p4": "Questions you type are sent to Scaleway as written. Please do not include information that is not needed for your question, such as names, contact details, bank details, or information about your health or other sensitive matters.",
+        "p4": "Questions you type and the names you give your expenses are sent to Scaleway as written. Please do not include information that is not needed, such as names, contact details, bank details, or information about your health or other sensitive matters.",
         "p5": "Beaver Savings does not store your questions or the coach's responses in its database. A response is shown in your browser and is lost when you close the coach or leave the page.",
         "p6": "Scaleway processes this information as our service provider, only to generate the response and within the European Union. Under Scaleway's terms for this service, your information is not used to train or improve AI models, and the content of requests and responses is not retained by default. Scaleway may collect anonymised usage data, such as the number of requests, to operate the service.",
         "p7": "Coach responses are generated automatically and are not reviewed by a person. They do not produce legal or similarly significant effects on you, and they are not professional financial advice.",

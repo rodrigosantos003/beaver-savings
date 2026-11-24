@@ -32,7 +32,16 @@ describe('saveCalculatorInputSchema', () => {
     );
   });
 
+  it('accepts itemised expenses', () => {
+    const expenseItems = [{ name: 'Rent', amount: 500 }];
+    expect(saveCalculatorInputSchema.parse({ ...validInput, expenseItems }).expenseItems).toEqual(
+      expenseItems,
+    );
+  });
+
   it.each([
+    ['an expense name that is too long', { expenseItems: [{ name: 'x'.repeat(61), amount: 1 }] }],
+    ['a negative expense item', { expenseItems: [{ name: 'Rent', amount: -1 }] }],
     ['more than 2 decimals', { netSalary: 1.234 }],
     ['negative money', { monthlyExpenses: -1 }],
     ['money above the cap', { extras: 1_000_001 }],
